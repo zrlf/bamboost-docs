@@ -1,0 +1,41 @@
+---
+sidebar_position: 7
+title: Bamboost hello
+---
+
+## Welcome
+
+```python title='basic usage'
+import Manager from bamboost
+
+db = Manager('path-to-db')
+db.df
+```
+
+export const Highlight = ({ children, color }) => (
+  <div
+    className="rounded-md p-3"
+    style={{backgroundColor: color}}
+    onClick={() => {
+      alert(`You clicked the color ${color} with label ${children}`);
+    }}
+  >
+    {children}
+  </div>
+);
+
+<Highlight color="gray">Docusaurus green</Highlight>
+
+This is <Highlight color="#1877F2">Facebook blue</Highlight> !
+
+:::tip
+Hi
+:::
+
+## Installation
+
+To install bamboost:
+
+```bash
+pip install bamboost
+```
