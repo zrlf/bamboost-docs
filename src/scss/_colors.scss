@@ -1,0 +1,25 @@
+// -------
+// Colors
+// -------
+
+// Dark mode
+$primary: #AFBF73;
+$secondary: #9BA4BF;
+$tertiary: #858DA6;
+$accent: #F29F80;
+$base: #191724; 
+$base-lighter: #1f1d2e;
+$text: #e0def4;
+
+$colorsDark: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "tertiary": $tertiary,
+  "accent": $accent,
+  "base": $base,
+  "base-lighter": $base-lighter,
+  "text": $text
+)
+
+
+// Light mode

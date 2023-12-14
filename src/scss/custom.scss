@@ -1,0 +1,62 @@
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+@use 'colors' as *;
+@use 'variables' as *;
+
+@import 'styles';
+
+:root {
+  font-family: 'Poppins', sans-serif;
+  --ifm-color-primary: #40539b;
+  --ifm-color-primary-dark: #3a4b8b;
+  --ifm-color-primary-darker: #364784;
+  --ifm-color-primary-darkest: #2d3a6c;
+  --ifm-color-primary-light: #465bab;
+  --ifm-color-primary-lighter: #4a5fb2;
+  --ifm-color-primary-lightest: #6073bd;
+  --primary: #40539b;
+  --primary-dark: #3a4b8b;
+  --primary-darker: #364784;
+  --primary-darkest: #2d3a6c;
+  --primary-light: #465bab;
+  --primary-lighter: #4a5fb2;
+  --primary-lightest: #6073bd;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  $primary-color-dark: $primary;
+  --ifm-color-primary: #{$primary-color-dark};
+  --ifm-color-primary-dark: #{darken($primary-color-dark, 10%)};
+  --ifm-color-primary-darker: #{darken($primary-color-dark, 20%)};
+  --ifm-color-primary-darkest: #{darken($primary-color-dark, 30%)};
+  --ifm-color-primary-light: #{lighten($primary-color-dark, 10%)};
+  --ifm-color-primary-lighter: #{lighten($primary-color-dark, 20%)};
+  --ifm-color-primary-lightest: #{lighten($primary-color-dark, 30%)};
+  background-color: $base;
+  background-image: linear-gradient(50deg, $base 80%, darken($tertiary, 20%));
+  background-attachment: fixed;
+  color: $text;
+}
+
+
+// Utilities
+.text-center {
+  text-align: center;
+}
+
+@mixin createUtilities($map, $attribute) {
+  @each $key, $val in $map {
+    &-#{$key} {
+      #{$attribute}: #{$val} !important;
+    }
+  }
+}
+
+.bg {
+  @include createUtilities($colorsDark, 'background-color');
+}
+.text {
+  @include createUtilities($colorsDark, 'color');
+}

@@ -1,0 +1,81 @@
+.card {
+  [data-theme='dark'] & {
+    background-color: $base-lighter;
+  }
+}
+
+.navbar {
+  .navbar__item.navbar__link--active {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0.15em;
+      background-color: var(--ifm-color-primary);
+      border-radius: $border-radius;
+    }
+  }
+  .navbar__items {
+    display: flex;
+    gap: 1em;
+  }
+  [data-theme='dark'] & {
+    // background: linear-gradient(45deg, #191724, #6e6a86);
+    background: linear-gradient(to bottom, #191724, #1f1d2e);
+    @media screen and (min-width: 996px) {
+      backdrop-filter: blur(5px);
+      background: linear-gradient(to bottom, #191724, #1f1d2e8f);
+    }
+  }
+}
+
+.navbar-sidebar {
+  [data-theme='dark'] & {
+    background: linear-gradient(to bottom, #191724, #1f1d2e8f);
+    backdrop-filter: blur(5px);
+  }
+}
+
+.footer {
+  [data-theme='dark'] & {
+    background-color: #1f1d2e;
+  }
+}
+
+// BUTTONS
+.btn {
+  $padding: 1rem;
+
+  text-decoration: none;
+  padding: $padding $padding * 2;
+  border-radius: 9999px;
+  transition: all 0.1s ease-in-out;
+  background-color: $text;
+  color: $base;
+
+  &.btn-accent {
+    background-color: $accent;
+    color: $base;
+  }
+  &.btn-primary {
+    background-color: $primary;
+    color: $base;
+  }
+  &.btn-outline {
+    background-color: transparent;
+    border: 2px solid $text;
+    color: $text;
+    [data-theme='light'] & {
+      border: 2px solid grey;
+      color: $base;
+    }
+  }
+  &:hover {
+    text-decoration: none;
+    scale: 1.05;
+  }
+}

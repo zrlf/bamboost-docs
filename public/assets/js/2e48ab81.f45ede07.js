@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[9121],{9320:s=>{s.exports=JSON.parse('{"label":"hola","permalink":"/bamboost-docs/blog/tags/hola","allTagsPath":"/bamboost-docs/blog/tags","count":1,"unlisted":false}')}}]);

@@ -1,0 +1,59 @@
+@use '/src/scss/variables' as *;
+@use '/src/scss/colors' as *;
+
+.sub-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.hero-custom {
+  position: relative;
+  background-image: linear-gradient(to bottom right, lighten($primary, 20%), lighten($accent, 20%));
+  height: 50vh;
+  width: 100vw;
+
+  [data-theme='dark'] & {
+    background-image: none;
+    background-color: transparent;
+    color: $text;
+  }
+
+  .buttons {
+    display: inline-flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-top: 1em;
+  }
+  @media screen and (max-width: 996px) {
+    height: unset;
+  }
+}
+
+/* FOOTER */
+.footer {
+  .footer__bottom {
+    width: 10em;
+    margin: 0 auto;
+  }
+}
+@media screen and (min-width: 996px) {
+  .footer {
+    .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 5vw;
+
+      .footer__links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer__bottom {
+        display: block;
+        width: 10em;
+        margin: 0;
+      }
+    }
+  }
+}
