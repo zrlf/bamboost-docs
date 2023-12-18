@@ -12,9 +12,16 @@ const config: Config = {
       tagName: 'link',
       attributes: {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Poppins',
+        href: 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap',
       },
     },
+    {
+      tagName: 'script',
+      attributes: {
+        src: 'https://kit.fontawesome.com/534692c170.js',
+        crossorigin: 'anonymous',
+      },
+    }
   ],
 
   // Set the production url of your site here
@@ -54,6 +61,17 @@ const config: Config = {
     },
   ],
 
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        highlightSearchTermsOnTargetPage: true,
+        removeDefaultStemmer: false,
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
@@ -82,7 +100,13 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     image: 'img/bamboost_icon.png',
+    docs: {
+      sidebar: {
+        hideable: true,
+      },
+    },
     navbar: {
+      hideOnScroll: false,
       title: 'Bamboost',
       logo: {
         alt: 'My Site Logo',
@@ -94,6 +118,18 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Docs',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'apiSidebar',
+          position: 'left',
+          label: 'API',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'refSidebar',
+          position: 'left',
+          label: 'Reference guide',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
         {
@@ -118,7 +154,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/intro',
+              to: '/docs/documentation/intro',
             },
           ],
         },
@@ -157,7 +193,7 @@ const config: Config = {
     },
     prism: {
       theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      darkTheme: prismThemes.palenight,
     },
   } satisfies Preset.ThemeConfig,
 };

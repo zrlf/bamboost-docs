@@ -17,9 +17,28 @@ $colorsDark: (
   "tertiary": $tertiary,
   "accent": $accent,
   "base": $base,
+  "base-10": #302e3a,
+  "base-20": #474550,
+  "code-background": #292d3eff,
   "base-lighter": $base-lighter,
-  "text": $text
-)
+  "text": $text,
+  "textfix": $text,
+  "text-opaque": rgba($text, 0.3),
+);
 
 
 // Light mode
+$colorsLight: (
+  "primary": #40539b,
+  "secondary": #3a4b8b,
+  "tertiary": #364784,
+  "accent": darken(#F29F80, 30%),
+  "base": #fff,
+  "code-background": #f6f8faff,
+  "base-lighter": #fff,
+  "text": #000000,
+  "textfix": #000000,
+  "text-opaque": rgba(#000, 0.5),
+);
+
+

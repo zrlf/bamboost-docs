@@ -8,9 +8,6 @@ module.exports = {
   },
   theme: {
     extend: {
-      colors: {
-        ...bamboostColors,
-      }
     },
   },
 };

@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "docusaurus build; cp -r build/* public/",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -20,7 +20,8 @@
     "clsx": "^1.2.1",
     "prism-react-renderer": "^2.1.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-markdown": "^9.0.1"
   },
   "devDependencies": {
     "@docusaurus/core": "^3.0.1",
@@ -28,10 +29,11 @@
     "@docusaurus/preset-classic": "^3.0.1",
     "@docusaurus/tsconfig": "^3.0.1",
     "@docusaurus/types": "^3.0.1",
+    "@easyops-cn/docusaurus-search-local": "^0.39.0",
     "autoprefixer": "^10.4.16",
-    "daisyui": "^4.4.2",
     "docusaurus-plugin-sass": "^0.2.5",
     "postcss": "^8.4.31",
+    "react-code-blocks": "^0.1.5",
     "sass": "^1.69.5",
     "tailwindcss": "^3.3.5",
     "typescript": "~5.2.2"

@@ -18,12 +18,15 @@ function HomepageHeader() {
         </Heading>
         <p className="sub-title mb-16">{siteConfig.tagline}</p>
         <div className="buttons">
-          <Link className="btn btn-primary" to="/docs/get-started/installation">
+          <Link className="btn btn-primary" to="/docs/documentation/get-started/installation">
             Get Started
           </Link>
 
-          <Link className="btn btn-outline" to="/docs/intro">
+          <Link className="btn btn-outline" to="/docs/documentation/intro">
             Documentation
+          </Link>
+          <Link className="btn btn-outline" to="/docs/api">
+            API Reference
           </Link>
           <Link className="btn btn-outline" to="/blog">
             Examples

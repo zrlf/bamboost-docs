@@ -1,0 +1,99 @@
+.signature {
+  position: relative;
+  display: block;
+  > div {
+    border-radius: 0 0 6px 6px;
+  }
+
+  &.sourceIsVisible {
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    > div {
+      border-radius: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.sourceButton {
+  position: absolute;
+  border: none;
+  cursor: pointer;
+  right: 10px;
+  bottom: 0;
+  height: 100%;
+  background-color: transparent;
+
+  .icon {
+    font-size: 0.8em;
+    padding-right: 0.5em;
+  }
+}
+
+.methods {
+  margin-left: 0em;
+}
+
+.method {
+  margin-left: 3em;
+}
+
+.parameters {
+  display: flex;
+  position: relative;
+  justify-content: flex-start;
+
+  > ul {
+    width: 80%;
+  }
+
+  .parameter-description {
+    position: relative;
+    margin-left: 1em;
+  }
+}
+
+.method-title {
+  color: var(--textfix);
+  position: relative;
+  background-color: var(--code-background);
+  border-radius: 6px 6px 0 0;
+  margin-top: 50px;
+  margin-bottom: 1px;
+  filter: drop-shadow(0 1px 1px #00000020);
+
+  h2,
+  h3 {
+    margin: 0;
+    padding: 0.5em;
+    padding-left: 0.8em;
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -2em;
+  }
+}
+
+.source-code-div {
+  padding-top: 0;
+  margin-top: 0;
+
+  * {
+    --prism-background-color: transparent !important;
+  }
+  > div {
+    border-radius: 0 0 6px 6px !important;
+    border-top: none;
+  }
+  .prism-code {
+    background-color: transparent !important;
+  }
+}
+
+.hidden {
+  display: none;
+}

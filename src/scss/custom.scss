@@ -8,6 +8,12 @@
 
 :root {
   font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  @each $key, $value in $colorsLight {
+    --#{$key}: #{$value};
+  }
+
   --ifm-color-primary: #40539b;
   --ifm-color-primary-dark: #3a4b8b;
   --ifm-color-primary-darker: #364784;
@@ -24,8 +30,11 @@
   --primary-lightest: #6073bd;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+:root[data-theme='dark'] {
+  @each $key, $value in $colorsDark {
+    --#{$key}: #{$value};
+  }
+
   $primary-color-dark: $primary;
   --ifm-color-primary: #{$primary-color-dark};
   --ifm-color-primary-dark: #{darken($primary-color-dark, 10%)};
@@ -34,12 +43,18 @@
   --ifm-color-primary-light: #{lighten($primary-color-dark, 10%)};
   --ifm-color-primary-lighter: #{lighten($primary-color-dark, 20%)};
   --ifm-color-primary-lightest: #{lighten($primary-color-dark, 30%)};
-  background-color: $base;
-  background-image: linear-gradient(50deg, $base 80%, darken($tertiary, 20%));
-  background-attachment: fixed;
-  color: $text;
-}
 
+  background-color: $base;
+  // background-image: url('@site/static/img/background.png');
+  background-size: cover;
+  background-attachment: fixed;
+  color: var(--text);
+
+  --search-local-modal-background: #{$base};
+  --search-local-hit-background: lighten($base, 10%);
+  --search-local-highlight-color: #{$secondary};
+  --search-local-muted-color: #{$secondary};
+}
 
 // Utilities
 .text-center {
