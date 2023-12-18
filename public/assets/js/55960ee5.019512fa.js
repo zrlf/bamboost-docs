@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[4121],{8070:s=>{s.exports=JSON.parse('[{"label":"getting started","permalink":"/bamboost-docs/docs/tags/getting-started","count":1}]')}}]);
