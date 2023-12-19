@@ -1,9 +1,9 @@
-import jsonData from '@site/static/reference_guide.json';
-import CodeBlock from '@theme/CodeBlock';
-import './styles.scss';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
+import CodeBlock from '@theme/CodeBlock';
+
+import './styles.scss';
 
 type Method = {
   docstring: string;

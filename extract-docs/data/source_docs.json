@@ -749,7 +749,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<mpi4py.MPI.Intracomm object at 0x7f5a10a12130>",
+                    "default": "<mpi4py.MPI.Intracomm object at 0x7f27f0a66130>",
                     "annotation": "<class 'mpi4py.MPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -2516,7 +2516,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f5a10a12130>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f27f0a66130>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -3285,7 +3285,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f5a10a12130>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f27f0a66130>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               }
@@ -3989,7 +3989,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f5a10a12130>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f27f0a66130>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               }

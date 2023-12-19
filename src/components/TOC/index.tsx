@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
-import './styles.scss';
+import styles from './styles.module.scss';
 
 const getNestedHeadings = (headingElements) => {
   const nestedHeadings = [];
@@ -36,9 +36,9 @@ const useHeadingsData = () => {
 };
 
 const Headings = ({ headings, activeId }) => (
-  <ul className='custom-toc'>
+  <ul className={styles.customToc}>
     {headings.map((heading) => (
-      <li key={heading.id} className={heading.id === activeId ? 'active' : ''}>
+      <li key={heading.id} className={heading.id === activeId ? styles.active : ''}>
         {' '}
         <a
           href={`#${heading.id}`}
@@ -53,7 +53,7 @@ const Headings = ({ headings, activeId }) => (
         {heading.items.length > 0 && (
           <ul>
             {heading.items.map((child) => (
-              <li key={child.id} className={child.id === activeId ? 'active' : ''}>
+              <li key={child.id} className={child.id === activeId ? styles.active : ''}>
                 {' '}
                 <a
                   href={`#${child.id}`}

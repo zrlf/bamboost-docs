@@ -1,5 +1,5 @@
 ---
-title: common
+title: utilities
 hide_table_of_contents: true
 ---
 
@@ -8,10 +8,6 @@ import { TableOfContents } from '@site/src/components/TOC';
 
 import sourceDoc from '@site/extract-docs/data/source_docs.json';
 
-<RenderModule data={sourceDoc} moduleFullName="bamboost.common" />
-
-import DocCardList from '@theme/DocCardList';
-
-<DocCardList />
+<RenderModule data={sourceDoc} moduleFullName="bamboost.common.utilities" />
 
 <TableOfContents />
