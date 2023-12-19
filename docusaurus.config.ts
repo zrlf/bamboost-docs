@@ -102,7 +102,7 @@ const config: Config = {
     image: 'img/bamboost_icon.png',
     docs: {
       sidebar: {
-        hideable: true,
+        hideable: false,
       },
     },
     navbar: {
@@ -121,13 +121,7 @@ const config: Config = {
         },
         {
           type: 'docSidebar',
-          sidebarId: 'apiSidebar',
-          position: 'left',
-          label: 'API',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'refSidebar',
+          sidebarId: 'autoDocsSidebar',
           position: 'left',
           label: 'Reference guide',
         },

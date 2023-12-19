@@ -25,11 +25,11 @@ function HomepageHeader() {
           <Link className="btn btn-outline" to="/docs/documentation/intro">
             Documentation
           </Link>
-          <Link className="btn btn-outline" to="/docs/api">
-            API Reference
+          <Link className="btn btn-outline" to="/docs/autoDocs/manager">
+            Reference Guide
           </Link>
           <Link className="btn btn-outline" to="/blog">
-            Examples
+            Updates
           </Link>
         </div>
       </div>

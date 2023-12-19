@@ -45,7 +45,7 @@
   --ifm-color-primary-lightest: #{lighten($primary-color-dark, 30%)};
 
   background-color: $base;
-  // background-image: url('@site/static/img/background.png');
+  background-image: url('@site/static/img/background.png');
   background-size: cover;
   background-attachment: fixed;
   color: var(--text);
