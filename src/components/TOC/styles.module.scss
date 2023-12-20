@@ -32,20 +32,20 @@
 
   a {
     text-decoration: none;
-    font-family: 'Source Code Pro', monospace;
-    font-weight: 400;
-    color: var(--textfix);
-    background-color: var(--code-background);
-    padding: 0 .3rem;
-    border-radius: 3px;
+    color: var(--text);
+    background-color: var(--ifm-code-background);
+    font-family: var(--ifm-font-family-monospace);
+    font-size: var(--ifm-code-font-size);
+    padding: var(--ifm-code-padding-vertical) var(--ifm-code-padding-horizontal);
+    border-radius: var(--ifm-code-border-radius);
     &:hover {
-      color: var(--base-00);
+      color: var(--base);
       background-color: var(--primary);
     }
   }
 
   li.active > a {
-    color: var(--base-00);
-    background-color: var(--ifm-color-primary);
+    color: var(--base);
+    background-color: var(--primary);
   }
 }

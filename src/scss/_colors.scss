@@ -7,9 +7,10 @@ $primary: #AFBF73;
 $secondary: #9BA4BF;
 $tertiary: #858DA6;
 $accent: #F29F80;
-$base: #191724; 
-$base-lighter: #1f1d2e;
-$text: #e0def4;
+// $base: #191724; 
+$base: #1f1d2e;
+$base-lighter: lighten($base, 3%);
+$text: lighten(#AFBF73, 30%);
 
 $colorsDark: (
   "primary": $primary,
