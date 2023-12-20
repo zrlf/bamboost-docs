@@ -94,11 +94,14 @@ def document_class(cls: pdoc.doc.Class) -> dict:
         "methods": {},
         "variables": {},
         "inherits_from": {
-            i[0]: [
-                (j.type, j.name)
-                for j in cls.inherited_members[i]
-                if not j.name.startswith("_") or j.name in INCLUDE_METHODS
-            ]
+            i[1]: {
+                "module": i[0],
+                "members": [
+                    (j.type, j.name)
+                    for j in cls.inherited_members[i]
+                    if not j.name.startswith("_") or j.name in INCLUDE_METHODS
+                ],
+            }
             for i in cls.inherited_members
             if i[0] != "builtins"
         },

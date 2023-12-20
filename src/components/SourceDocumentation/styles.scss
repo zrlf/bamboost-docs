@@ -32,11 +32,11 @@
 }
 
 .methods {
-  margin-left: 0em;
+  margin-left: 3em;
 }
 
 .method {
-  margin-left: 3em;
+  margin-left: 0em;
 }
 
 .parameters {
@@ -61,7 +61,6 @@
   position: relative;
   background-color: var(--code-background);
   border-radius: 6px 6px 0 0;
-  margin-top: 50px;
   margin-bottom: 1px;
   filter: drop-shadow(0 1px 1px #00000020);
 

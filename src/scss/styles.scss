@@ -26,8 +26,9 @@
     display: flex;
     gap: 0.5em;
   }
+
   [data-theme='dark'] & {
-    background: linear-gradient(to bottom, #191724, #1f1d2e);
+    background-image: linear-gradient(to bottom, #191724, #1f1d2e);
     background-color: var(--base);
     @media screen and (width > 996px) {
       backdrop-filter: blur(5px);

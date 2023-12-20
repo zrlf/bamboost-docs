@@ -3,8 +3,14 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import CodeBlock from '@theme/CodeBlock';
 
+import { InstanceVariables, Parameter, ParameterList, ReturnStatement } from './RenderParts';
+
 import './styles.scss';
 import styles from './styles.module.scss';
+import { classFromString, moduleFromString } from './SubData';
+
+const path = require('path-browserify');
+const basePath = '/docs/autoDocs';
 
 type Method = {
   docstring: string;
@@ -33,12 +39,17 @@ type Class = {
   name: string;
   docstring: string;
   constructor: Method;
-  methods: {};
-  variables: {};
+  methods: { key: Method };
+  variables: { key: {} };
   inherits_from: {};
 };
 
-const RenderMethod = (method: { name: string; obj: Method; isNotMethod?: boolean, className?: string }) => {
+const RenderMethod = (method: {
+  name: string;
+  obj: Method;
+  isNotMethod?: boolean;
+  className?: string;
+}) => {
   const name = method.name;
   let displayName = name;
   switch (name) {
@@ -104,28 +115,10 @@ const RenderMethod = (method: { name: string; obj: Method; isNotMethod?: boolean
           <p>{obj.docstring}</p>
 
           {/* RENDER ARGUMENTS */}
-          <div className="parameters">
-            <b>Parameters:</b>
-            <ul>
-              {Object.entries(obj.arguments).map(([arg, content], index) => {
-                return (
-                  <li key={`args_${index}`}>
-                    <b>{arg}</b> : <i>{content.annotation}</i>
-                    <p className="parameter-description">{content.description}</p>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          <ParameterList parameters={obj.arguments} />
 
           {/* RENDER RETURNS */}
-          <div className="parameters">
-            <b>Returns:</b>
-            <ul>
-              <i>{obj.returns.annotation}</i>
-              <p className="parameter-description">{obj.returns.description}</p>
-            </ul>
-          </div>
+          <ReturnStatement returns={obj.returns} />
         </>
       )}
     </div>
@@ -213,18 +206,21 @@ const Constructor = ({ cls }: { cls: Class }) => {
   );
 };
 
-const InheritedFrom = ({ cls }) => {
-  const allInheritedClasses = Object.entries(cls['inherits_from']);
+const InheritedFrom = ({ cls }: { cls: Class }) => {
+  const allInheritedClasses = Object.entries(cls.inherits_from);
   const inheritedMethods = allInheritedClasses.map(
-    ([parent, values]: [string, string[]], index) => ({
-      name: parent,
-      link: `/docs/autoDocs/${parent.split('.').slice(1).join('/')}`,
-      inheritedMember: values.map((value) => ({
-        type: value[0],
-        name: value[1],
-        link: `/docs/autoDocs/${parent.split('.').slice(1).join('/')}#${value[1]}`,
-      })),
-    })
+    ([parentClass, { module, members }]: [string, { module: string; members: [] }]) => {
+      const modulePath = path.join(basePath, module.split('.').slice(1).join('/'));
+      return {
+        name: [module, parentClass].join('.'),
+        link: modulePath,
+        inheritedMember: members.map((arr) => ({
+          type: arr[0],
+          name: arr[1],
+          link: `${modulePath}#${arr[1]}`,
+        })),
+      };
+    }
   );
 
   return (
@@ -235,7 +231,7 @@ const InheritedFrom = ({ cls }) => {
           <div className="inherited-members-grid">
             {parent.inheritedMember.map((member, index) => (
               <Link className="grid-item" key={`inherited_${index}`} to={member.link}>
-                {member.name}
+                <code>{member.name}</code>
               </Link>
             ))}
           </div>
@@ -250,34 +246,24 @@ export const RenderClass = ({
   classFullName,
   directCls,
 }: {
-  data: JSON;
+  data: any;
   classFullName: string;
-  directCls: JSON;
+  directCls: Class;
 }) => {
-  const getSubDataFromFullName = (fullName: string) => {
-    const split = fullName.split('.');
-    let subData = data;
-    for (let i = 1; i < split.length - 1; i++) {
-      subData = subData['submodules'][split[i]];
-    }
-    subData = subData['classes'][split[split.length - 1]];
-    return subData;
-  };
-
-  let cls = {};
+  let cls: Class;
   if (directCls) {
     cls = directCls;
   } else {
-    cls = getSubDataFromFullName(classFullName);
+    cls = classFromString(classFullName, data);
   }
-  const methods = cls['methods'];
+  const methods = cls.methods;
 
   return (
     <div>
-      <p>{cls['docstring']}</p>
+      <p>{cls.docstring}</p>
       <Constructor cls={cls} />
 
-      {Object.keys(cls['inherits_from']).length > 0 && (
+      {Object.keys(cls.inherits_from).length > 0 && (
         <div>
           <b>Inherits from:</b>
           <ul>
@@ -287,42 +273,22 @@ export const RenderClass = ({
       )}
 
       {/* Render Class Variables */}
-      <div className="parameters">
-        <b>Variables:</b>
-        <ul>
-          {Object.keys(cls['variables']).map((variable, index) => {
-            return (
-              <li key={`variable_${index}`}>
-                <b>{variable}</b> : <i>{cls['variables'][variable]['annotation']}</i>
-                <p className="parameter-description">{cls['variables'][variable]['description']}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <InstanceVariables variables={cls.variables} />
 
       {/* Render Methods */}
       <div className="methods">
-        {Object.keys(methods).map((key) => RenderMethod({ name: key, obj: methods[key], className: cls['name'] }))}
+        {Object.keys(methods).map((key) =>
+          RenderMethod({ name: key, obj: methods[key], className: cls.name })
+        )}
       </div>
     </div>
   );
 };
 
 export const RenderModule = ({ data, moduleFullName }: { data: JSON; moduleFullName: string }) => {
-  const getSubDataFromFullName = (fullName: string, data: JSON) => {
-    const split = fullName.split('.');
-    let subData = data;
-    for (let i = 1; i < split.length - 1; i++) {
-      subData = subData['submodules'][split[i]];
-    }
-    subData = subData['submodules'][split[split.length - 1]];
-    return subData;
-  };
-
-  const module = getSubDataFromFullName(moduleFullName, data);
-  const functions = module['functions'];
-  const docstring = module['docstring'];
+  const moduleToRender = moduleFromString(moduleFullName, data);
+  const functions = moduleToRender['functions'];
+  const docstring = moduleToRender['docstring'];
 
   return (
     <div>

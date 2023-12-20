@@ -77,24 +77,48 @@
               },
               "variables": {},
               "inherits_from": {
-                "bamboost.common.hdf_pointer": [
-                  [
-                    "function",
-                    "new_pointer"
-                  ],
-                  [
-                    "variable",
-                    "path_to_data"
-                  ],
-                  [
-                    "variable",
-                    "obj"
-                  ],
-                  [
-                    "variable",
-                    "attrs"
+                "Group": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "__iter__"
+                    ],
+                    [
+                      "function",
+                      "keys"
+                    ],
+                    [
+                      "function",
+                      "groups"
+                    ],
+                    [
+                      "function",
+                      "datasets"
+                    ]
                   ]
-                ]
+                },
+                "BasePointer": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "new_pointer"
+                    ],
+                    [
+                      "variable",
+                      "path_to_data"
+                    ],
+                    [
+                      "variable",
+                      "obj"
+                    ],
+                    [
+                      "variable",
+                      "attrs"
+                    ]
+                  ]
+                }
               },
               "constructor": {
                 "signature": "(\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str = '/Mesh/0',\n    _default_mesh: str = 'mesh',\n    **kwargs\n)",
@@ -175,28 +199,52 @@
                 }
               },
               "inherits_from": {
-                "bamboost.common.hdf_pointer": [
-                  [
-                    "function",
-                    "new_pointer"
-                  ],
-                  [
-                    "variable",
-                    "path_to_data"
-                  ],
-                  [
-                    "variable",
-                    "obj"
-                  ],
-                  [
-                    "function",
-                    "__getitem__"
-                  ],
-                  [
-                    "variable",
-                    "attrs"
+                "Group": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "__iter__"
+                    ],
+                    [
+                      "function",
+                      "keys"
+                    ],
+                    [
+                      "function",
+                      "groups"
+                    ],
+                    [
+                      "function",
+                      "datasets"
+                    ]
                   ]
-                ]
+                },
+                "BasePointer": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "new_pointer"
+                    ],
+                    [
+                      "variable",
+                      "path_to_data"
+                    ],
+                    [
+                      "variable",
+                      "obj"
+                    ],
+                    [
+                      "function",
+                      "__getitem__"
+                    ],
+                    [
+                      "variable",
+                      "attrs"
+                    ]
+                  ]
+                }
               },
               "constructor": {
                 "signature": "(\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
@@ -305,24 +353,44 @@
                 }
               },
               "inherits_from": {
-                "bamboost.common.hdf_pointer": [
-                  [
-                    "function",
-                    "new_pointer"
-                  ],
-                  [
-                    "variable",
-                    "path_to_data"
-                  ],
-                  [
-                    "variable",
-                    "obj"
-                  ],
-                  [
-                    "variable",
-                    "attrs"
+                "Group": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "keys"
+                    ],
+                    [
+                      "function",
+                      "groups"
+                    ],
+                    [
+                      "function",
+                      "datasets"
+                    ]
                   ]
-                ]
+                },
+                "BasePointer": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "new_pointer"
+                    ],
+                    [
+                      "variable",
+                      "path_to_data"
+                    ],
+                    [
+                      "variable",
+                      "obj"
+                    ],
+                    [
+                      "variable",
+                      "attrs"
+                    ]
+                  ]
+                }
               },
               "constructor": {
                 "signature": "(\n    file_handler: bamboost.common.file_handler.FileHandler,\n    meshes: bamboost.accessors.meshes.MeshGroup,\n    path_to_data: str = '/data',\n    **kwargs\n)",
@@ -512,24 +580,48 @@
                 }
               },
               "inherits_from": {
-                "bamboost.common.hdf_pointer": [
-                  [
-                    "function",
-                    "new_pointer"
-                  ],
-                  [
-                    "variable",
-                    "path_to_data"
-                  ],
-                  [
-                    "variable",
-                    "obj"
-                  ],
-                  [
-                    "variable",
-                    "attrs"
+                "Group": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "__iter__"
+                    ],
+                    [
+                      "function",
+                      "keys"
+                    ],
+                    [
+                      "function",
+                      "groups"
+                    ],
+                    [
+                      "function",
+                      "datasets"
+                    ]
                   ]
-                ]
+                },
+                "BasePointer": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "new_pointer"
+                    ],
+                    [
+                      "variable",
+                      "path_to_data"
+                    ],
+                    [
+                      "variable",
+                      "obj"
+                    ],
+                    [
+                      "variable",
+                      "attrs"
+                    ]
+                  ]
+                }
               },
               "constructor": {
                 "signature": "(\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str,\n    meshes: bamboost.accessors.meshes.MeshGroup\n)",
@@ -749,7 +841,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<mpi4py.MPI.Intracomm object at 0x7faec3c42250>",
+                    "default": "<mpi4py.MPI.Intracomm object at 0x7f1736d76130>",
                     "annotation": "<class 'mpi4py.MPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -1441,28 +1533,31 @@
               },
               "variables": {},
               "inherits_from": {
-                "bamboost.common.hdf_pointer": [
-                  [
-                    "function",
-                    "new_pointer"
-                  ],
-                  [
-                    "variable",
-                    "path_to_data"
-                  ],
-                  [
-                    "variable",
-                    "obj"
-                  ],
-                  [
-                    "function",
-                    "__getitem__"
-                  ],
-                  [
-                    "variable",
-                    "attrs"
+                "BasePointer": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "new_pointer"
+                    ],
+                    [
+                      "variable",
+                      "path_to_data"
+                    ],
+                    [
+                      "variable",
+                      "obj"
+                    ],
+                    [
+                      "function",
+                      "__getitem__"
+                    ],
+                    [
+                      "variable",
+                      "attrs"
+                    ]
                   ]
-                ]
+                }
               },
               "constructor": {
                 "signature": "(\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
@@ -1664,24 +1759,48 @@
               },
               "variables": {},
               "inherits_from": {
-                "bamboost.common.hdf_pointer": [
-                  [
-                    "function",
-                    "new_pointer"
-                  ],
-                  [
-                    "variable",
-                    "path_to_data"
-                  ],
-                  [
-                    "variable",
-                    "obj"
-                  ],
-                  [
-                    "variable",
-                    "attrs"
+                "Group": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "__iter__"
+                    ],
+                    [
+                      "function",
+                      "keys"
+                    ],
+                    [
+                      "function",
+                      "groups"
+                    ],
+                    [
+                      "function",
+                      "datasets"
+                    ]
                   ]
-                ]
+                },
+                "BasePointer": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "new_pointer"
+                    ],
+                    [
+                      "variable",
+                      "path_to_data"
+                    ],
+                    [
+                      "variable",
+                      "obj"
+                    ],
+                    [
+                      "variable",
+                      "attrs"
+                    ]
+                  ]
+                }
               },
               "constructor": {
                 "signature": "(\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
@@ -1761,20 +1880,23 @@
                 }
               },
               "inherits_from": {
-                "bamboost.common.hdf_pointer": [
-                  [
-                    "function",
-                    "new_pointer"
-                  ],
-                  [
-                    "variable",
-                    "path_to_data"
-                  ],
-                  [
-                    "variable",
-                    "obj"
+                "BasePointer": {
+                  "module": "bamboost.common.hdf_pointer",
+                  "members": [
+                    [
+                      "function",
+                      "new_pointer"
+                    ],
+                    [
+                      "variable",
+                      "path_to_data"
+                    ],
+                    [
+                      "variable",
+                      "obj"
+                    ]
                   ]
-                ]
+                }
               },
               "constructor": {
                 "signature": "(\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
@@ -2401,7 +2523,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7faec3c42250>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f1736d76130>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -3170,7 +3292,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7faec3c42250>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f1736d76130>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               }
@@ -3281,24 +3403,65 @@
           },
           "variables": {},
           "inherits_from": {
-            "bamboost.common.hdf_pointer": [
-              [
-                "function",
-                "new_pointer"
-              ],
-              [
-                "variable",
-                "path_to_data"
-              ],
-              [
-                "variable",
-                "obj"
-              ],
-              [
-                "variable",
-                "attrs"
+            "MutableGroup": {
+              "module": "bamboost.common.hdf_pointer",
+              "members": [
+                [
+                  "function",
+                  "update_attrs"
+                ],
+                [
+                  "function",
+                  "add_dataset"
+                ],
+                [
+                  "function",
+                  "require_group"
+                ]
               ]
-            ]
+            },
+            "Group": {
+              "module": "bamboost.common.hdf_pointer",
+              "members": [
+                [
+                  "function",
+                  "__iter__"
+                ],
+                [
+                  "function",
+                  "keys"
+                ],
+                [
+                  "function",
+                  "groups"
+                ],
+                [
+                  "function",
+                  "datasets"
+                ]
+              ]
+            },
+            "BasePointer": {
+              "module": "bamboost.common.hdf_pointer",
+              "members": [
+                [
+                  "function",
+                  "new_pointer"
+                ],
+                [
+                  "variable",
+                  "path_to_data"
+                ],
+                [
+                  "variable",
+                  "obj"
+                ],
+                [
+                  "variable",
+                  "attrs"
+                ]
+              ]
+            }
           },
           "constructor": {
             "signature": "(file_handler: bamboost.common.file_handler.FileHandler)",
@@ -3728,132 +3891,135 @@
             }
           },
           "inherits_from": {
-            "bamboost.simulation": [
-              [
-                "variable",
-                "uid"
-              ],
-              [
-                "variable",
-                "path_database"
-              ],
-              [
-                "variable",
-                "path"
-              ],
-              [
-                "variable",
-                "h5file"
-              ],
-              [
-                "variable",
-                "xdmffile"
-              ],
-              [
-                "variable",
-                "meshes"
-              ],
-              [
-                "variable",
-                "data"
-              ],
-              [
-                "variable",
-                "userdata"
-              ],
-              [
-                "variable",
-                "links"
-              ],
-              [
-                "function",
-                "fromUID"
-              ],
-              [
-                "function",
-                "__getitem__"
-              ],
-              [
-                "variable",
-                "parameters"
-              ],
-              [
-                "variable",
-                "metadata"
-              ],
-              [
-                "function",
-                "show_files"
-              ],
-              [
-                "function",
-                "open_in_file_explorer"
-              ],
-              [
-                "function",
-                "get_full_uid"
-              ],
-              [
-                "function",
-                "change_status"
-              ],
-              [
-                "function",
-                "update_metadata"
-              ],
-              [
-                "function",
-                "update_parameters"
-              ],
-              [
-                "function",
-                "create_xdmf_file"
-              ],
-              [
-                "function",
-                "create_batch_script"
-              ],
-              [
-                "function",
-                "submit"
-              ],
-              [
-                "function",
-                "change_note"
-              ],
-              [
-                "function",
-                "open"
-              ],
-              [
-                "variable",
-                "mesh"
-              ],
-              [
-                "function",
-                "get_mesh"
-              ],
-              [
-                "variable",
-                "globals"
-              ],
-              [
-                "variable",
-                "data_info"
-              ],
-              [
-                "variable",
-                "git"
-              ],
-              [
-                "function",
-                "get_data_interpolator"
-              ],
-              [
-                "function",
-                "show_h5tree"
+            "Simulation": {
+              "module": "bamboost.simulation",
+              "members": [
+                [
+                  "variable",
+                  "uid"
+                ],
+                [
+                  "variable",
+                  "path_database"
+                ],
+                [
+                  "variable",
+                  "path"
+                ],
+                [
+                  "variable",
+                  "h5file"
+                ],
+                [
+                  "variable",
+                  "xdmffile"
+                ],
+                [
+                  "variable",
+                  "meshes"
+                ],
+                [
+                  "variable",
+                  "data"
+                ],
+                [
+                  "variable",
+                  "userdata"
+                ],
+                [
+                  "variable",
+                  "links"
+                ],
+                [
+                  "function",
+                  "fromUID"
+                ],
+                [
+                  "function",
+                  "__getitem__"
+                ],
+                [
+                  "variable",
+                  "parameters"
+                ],
+                [
+                  "variable",
+                  "metadata"
+                ],
+                [
+                  "function",
+                  "show_files"
+                ],
+                [
+                  "function",
+                  "open_in_file_explorer"
+                ],
+                [
+                  "function",
+                  "get_full_uid"
+                ],
+                [
+                  "function",
+                  "change_status"
+                ],
+                [
+                  "function",
+                  "update_metadata"
+                ],
+                [
+                  "function",
+                  "update_parameters"
+                ],
+                [
+                  "function",
+                  "create_xdmf_file"
+                ],
+                [
+                  "function",
+                  "create_batch_script"
+                ],
+                [
+                  "function",
+                  "submit"
+                ],
+                [
+                  "function",
+                  "change_note"
+                ],
+                [
+                  "function",
+                  "open"
+                ],
+                [
+                  "variable",
+                  "mesh"
+                ],
+                [
+                  "function",
+                  "get_mesh"
+                ],
+                [
+                  "variable",
+                  "globals"
+                ],
+                [
+                  "variable",
+                  "data_info"
+                ],
+                [
+                  "variable",
+                  "git"
+                ],
+                [
+                  "function",
+                  "get_data_interpolator"
+                ],
+                [
+                  "function",
+                  "show_h5tree"
+                ]
               ]
-            ]
+            }
           },
           "constructor": {
             "signature": "(\n    uid: str,\n    path: str,\n    comm: mpi4py.MPI.Comm = <mpi4py.MPI.Intracomm object>\n)",
@@ -3874,7 +4040,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7faec3c42250>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f1736d76130>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               }
