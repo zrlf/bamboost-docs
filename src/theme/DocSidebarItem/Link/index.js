@@ -47,7 +47,7 @@ export default function DocSidebarItemLink({
       </Link>
 
       {/* Insert TOC manually here */}
-      {isAutoDoc && (isActive && <RenderTOC />)}
+      {isAutoDoc && isActive && <RenderTOC />}
     </li>
   );
 }

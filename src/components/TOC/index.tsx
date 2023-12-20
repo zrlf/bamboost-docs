@@ -112,7 +112,6 @@ const useIntersectionObserver = (setActiveId) => {
   }, [setActiveId]);
 };
 
-
 export const TableOfContents = () => {
   const [activeId, setActiveId] = useState();
   const { nestedHeadings } = useHeadingsData();
@@ -121,7 +120,7 @@ export const TableOfContents = () => {
   useIntersectionObserver(setActiveId);
 
   useEffect(() => {
-    const toc = document.querySelector('.table-of-contents')
+    const toc = document.querySelector('.table-of-contents');
     if (toc && !root) {
       setRoot(createRoot(toc));
     }
@@ -134,9 +133,7 @@ export const TableOfContents = () => {
     }
   }, [nestedHeadings, activeId]);
 
-  return (
-    null
-  );
+  return null;
 };
 
 export const RenderTOC = () => {

@@ -29,8 +29,34 @@ type Method = {
   };
 };
 
-const RenderMethod = (method: { name: string; obj: Method; isNotMethod: boolean }) => {
+type Class = {
+  name: string;
+  docstring: string;
+  constructor: Method;
+  methods: {};
+  variables: {};
+  inherits_from: {};
+};
+
+const RenderMethod = (method: { name: string; obj: Method; isNotMethod?: boolean, className?: string }) => {
   const name = method.name;
+  let displayName = name;
+  switch (name) {
+    case '__getitem__':
+      displayName = `${method.className}[key]`;
+      break;
+    case '__setitem__':
+      displayName = `${method.className}[key] = ...`;
+      break;
+    case '__len__':
+      displayName = `len(${method.className})`;
+      break;
+    case '__iter__':
+      displayName = `iter(${method.className})`;
+      break;
+    default:
+      break;
+  }
   const obj = method.obj;
   const [sourceIsVisible, setSourceIsVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
@@ -51,11 +77,11 @@ const RenderMethod = (method: { name: string; obj: Method; isNotMethod: boolean 
         </div>
         {method.isNotMethod ? (
           <h2 className={styles.functionTitle} id={name} style={{ display: 'inline-block' }}>
-            <span>{name}</span>
+            <span>{displayName}</span>
           </h2>
         ) : (
           <h3 className={styles.functionTitle} id={name} style={{ display: 'inline-block' }}>
-            <span>{name}</span>
+            <span>{displayName}</span>
           </h3>
         )}
         <SourceCodeButton
@@ -146,15 +172,6 @@ const SourceCodeButton = ({ sourceIsVisible, setSourceIsVisible }) => {
   );
 };
 
-type Class = {
-  name: string;
-  docstring: string;
-  constructor: Method;
-  methods: {};
-  variables: {};
-  inherits_from: {};
-};
-
 const Constructor = ({ cls }: { cls: Class }) => {
   const name = cls.name;
   const source_code = cls.constructor.source.code;
@@ -182,6 +199,7 @@ const Constructor = ({ cls }: { cls: Class }) => {
         <b>Parameters:</b>
         <ul>
           {Object.entries(args).map(([arg, content], index) => {
+            if (arg === 'self') return null;
             return (
               <li key={`args_${index}`}>
                 <b>{arg}</b> : <i>{content.annotation}</i>
@@ -285,14 +303,14 @@ export const RenderClass = ({
 
       {/* Render Methods */}
       <div className="methods">
-        {Object.keys(methods).map((key) => RenderMethod({ name: key, obj: methods[key] }))}
+        {Object.keys(methods).map((key) => RenderMethod({ name: key, obj: methods[key], className: cls['name'] }))}
       </div>
     </div>
   );
 };
 
 export const RenderModule = ({ data, moduleFullName }: { data: JSON; moduleFullName: string }) => {
-  const getSubDataFromFullName = (fullName: string) => {
+  const getSubDataFromFullName = (fullName: string, data: JSON) => {
     const split = fullName.split('.');
     let subData = data;
     for (let i = 1; i < split.length - 1; i++) {
@@ -302,8 +320,7 @@ export const RenderModule = ({ data, moduleFullName }: { data: JSON; moduleFullN
     return subData;
   };
 
-  const module = getSubDataFromFullName(moduleFullName);
-  const classes = module['classes'];
+  const module = getSubDataFromFullName(moduleFullName, data);
   const functions = module['functions'];
   const docstring = module['docstring'];
 
@@ -313,7 +330,7 @@ export const RenderModule = ({ data, moduleFullName }: { data: JSON; moduleFullN
 
       {/* Render Functions */}
       <div className="functions">
-        {Object.entries(functions).map(([name, obj], index) => (
+        {Object.entries(functions).map(([name, obj]: [string, Method], index) => (
           <div key={`function_${index}`}>
             <RenderMethod name={name} obj={obj} isNotMethod={true} />
           </div>

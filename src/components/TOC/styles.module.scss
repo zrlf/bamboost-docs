@@ -39,13 +39,13 @@
     padding: 0 .3rem;
     border-radius: 3px;
     &:hover {
-      color: var(--base);
+      color: var(--base-00);
       background-color: var(--primary);
     }
   }
 
   li.active > a {
-    color: var(--base);
+    color: var(--base-00);
     background-color: var(--ifm-color-primary);
   }
 }
