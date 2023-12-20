@@ -1,8 +1,11 @@
+import { parseAnnotation, parseString } from './ParseString';
+
 export const Parameter = ({ name, arg }) => {
+  const annotation = arg.annotation || 'Any';
   return (
     <>
-      <b>{name}</b> : <i>{arg.annotation}</i>
-      <p className="parameter-description">{arg.description}</p>
+      <b>{name}</b> : <code>{annotation}</code>
+      <p className="parameter-description">{parseString(arg.description)}</p>
     </>
   );
 };
@@ -29,14 +32,19 @@ export const ReturnStatement = ({ returns }) => {
     <div className="parameters">
       <b>Returns:</b>
       <ul>
-        <i>{returns.annotation}</i>
-        <p className="parameter-description">{returns.description}</p>
+        <code>{parseAnnotation(returns.annotation)}</code>
+        <p className="parameter-description">{parseString(returns.description)}</p>
       </ul>
     </div>
   );
 };
 
-export const InstanceVariables = ({ variables }) => {
+type Variable = {
+  annotation: string;
+  description: string;
+};
+
+export const InstanceVariables = ({ variables }: { variables: {[key: string]: Variable} }) => {
   return (
     <div className="parameters">
       <b>Variables:</b>
@@ -44,8 +52,8 @@ export const InstanceVariables = ({ variables }) => {
         {Object.keys(variables).map((name, index) => {
           return (
             <li key={`variable_${index}`}>
-              <b>{name}</b> : <i>{variables[name]['annotation']}</i>
-              <p className="parameter-description">{variables[name]['description']}</p>
+              <b>{name}</b> : <code>{parseAnnotation(variables[name].annotation)}</code>
+              <p className="parameter-description">{variables[name].description}</p>
             </li>
           );
         })}

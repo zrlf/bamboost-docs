@@ -47,6 +47,7 @@
   background-size: cover;
   background-attachment: fixed;
   color: var(--text);
+  scroll-behavior: smooth;
 
   --ifm-menu-color: var(--text);
   --ifm-navbar-link-color: var(--text);

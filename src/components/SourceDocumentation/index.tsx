@@ -8,9 +8,10 @@ import { InstanceVariables, Parameter, ParameterList, ReturnStatement } from './
 import './styles.scss';
 import styles from './styles.module.scss';
 import { classFromString, moduleFromString } from './SubData';
+import { parseAnnotation } from './ParseString';
 
 const path = require('path-browserify');
-const basePath = '/docs/autoDocs';
+export const basePath = '/docs/autoDocs';
 
 type Method = {
   docstring: string;
@@ -165,22 +166,15 @@ const SourceCodeButton = ({ sourceIsVisible, setSourceIsVisible }) => {
   );
 };
 
-const Constructor = ({ cls }: { cls: Class }) => {
+const Constructor = ({ cls, sourceIsVisible }: { cls: Class; sourceIsVisible: boolean }) => {
   const name = cls.name;
   const source_code = cls.constructor.source.code;
   const starting_line_number = cls.constructor.source.lines[0];
   const signature = cls.constructor.signature;
   const args = cls.constructor.arguments;
-  const [sourceIsVisible, setSourceIsVisible] = useState(false);
 
   return (
     <>
-      <div style={{ position: 'relative' }}>
-        <SourceCodeButton
-          sourceIsVisible={sourceIsVisible}
-          setSourceIsVisible={setSourceIsVisible}
-        />
-      </div>
       <Signature name={name} signature={signature} sourceIsVisible={sourceIsVisible} />
       <SourceCode
         source_code={source_code}
@@ -195,7 +189,7 @@ const Constructor = ({ cls }: { cls: Class }) => {
             if (arg === 'self') return null;
             return (
               <li key={`args_${index}`}>
-                <b>{arg}</b> : <i>{content.annotation}</i>
+                <b>{arg}</b> : <code>{parseAnnotation(content.annotation)}</code>
                 <p className="parameter-description">{content.description}</p>
               </li>
             );
@@ -257,11 +251,18 @@ export const RenderClass = ({
     cls = classFromString(classFullName, data);
   }
   const methods = cls.methods;
+  const [sourceIsVisible, setSourceIsVisible] = useState(false);
 
   return (
     <div>
+      {/* <div className="classDocstring"> */}
+      {/*   <SourceCodeButton */}
+      {/*     sourceIsVisible={sourceIsVisible} */}
+      {/*     setSourceIsVisible={setSourceIsVisible} */}
+      {/*   /> */}
+      {/* </div> */}
       <p>{cls.docstring}</p>
-      <Constructor cls={cls} />
+      <Constructor cls={cls} sourceIsVisible={sourceIsVisible} />
 
       {Object.keys(cls.inherits_from).length > 0 && (
         <div>
