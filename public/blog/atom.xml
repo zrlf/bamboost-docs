@@ -6,7 +6,7 @@
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zrlf.gitlab.io/bamboost-docs/blog"/>
     <subtitle>Bamboost Blog</subtitle>
-    <icon>https://zrlf.gitlab.io/bamboost-docs/img/favicon.ico</icon>
+    <icon>https://zrlf.gitlab.io/bamboost-docs/img/bamboost_icon.png</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
         <id>https://zrlf.gitlab.io/bamboost-docs/blog/welcome</id>
