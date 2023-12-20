@@ -34,10 +34,12 @@
 
     // background-image: url('@site/static/img/background.png');
 
-    --search-local-modal-background: #{$base};
+    --search-local-modal-background: var(--base);
     --search-local-hit-background: lighten($base, 10%);
     --search-local-highlight-color: #{$secondary};
     --search-local-muted-color: #{$secondary};
+    --ifm-navbar-search-input-background-color: var(--base-lighter);
+    --ifm-navbar-search-input-color: var(--text);
   }
 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
