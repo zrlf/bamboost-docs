@@ -1,19 +1,51 @@
+.customTocDiv {
+  position: relative;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+
+  ul {
+    padding-left: 1em;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  > ul:last-of-type {
+    margin-bottom: -1.5rem;
+  }
+  li {
+    list-style: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: var(--textfix);
+    opacity: 0.5;
+    height: 100%;
+    width: 1px;
+  }
+}
+
 .customToc {
   padding-left: 0;
+
   a {
     text-decoration: none;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 400;
     color: var(--textfix);
+    background-color: var(--code-background);
+    padding: 0 .3rem;
+    border-radius: 3px;
     &:hover {
-      color: var(--accent);
-    }
-  }
-  ul {
-    > li > a {
-      // font-weight: 300;
+      color: var(--base);
+      background-color: var(--primary);
     }
   }
 
   li.active > a {
-    color: var(--accent);
+    color: var(--base);
+    background-color: var(--ifm-color-primary);
   }
 }

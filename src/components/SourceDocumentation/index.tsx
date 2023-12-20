@@ -4,6 +4,7 @@ import Link from '@docusaurus/Link';
 import CodeBlock from '@theme/CodeBlock';
 
 import './styles.scss';
+import styles from './styles.module.scss';
 
 type Method = {
   docstring: string;
@@ -48,9 +49,15 @@ const RenderMethod = (method: { name: string; obj: Method; isNotMethod: boolean 
               ))}
           </>
         </div>
-        <h3 id={name} style={{ display: 'inline-block' }}>
-          <span>{name}</span>
-        </h3>
+        {method.isNotMethod ? (
+          <h2 className={styles.functionTitle} id={name} style={{ display: 'inline-block' }}>
+            <span>{name}</span>
+          </h2>
+        ) : (
+          <h3 className={styles.functionTitle} id={name} style={{ display: 'inline-block' }}>
+            <span>{name}</span>
+          </h3>
+        )}
         <SourceCodeButton
           sourceIsVisible={sourceIsVisible}
           setSourceIsVisible={setSourceIsVisible}
@@ -139,11 +146,21 @@ const SourceCodeButton = ({ sourceIsVisible, setSourceIsVisible }) => {
   );
 };
 
-const Constructor = ({ cls }) => {
-  const source_code = cls['constructor']['source']['code'];
-  const starting_line_number = cls['constructor']['source']['lines'][0];
-  const signature = cls['constructor']['signature'];
-  const name = cls['name'];
+type Class = {
+  name: string;
+  docstring: string;
+  constructor: Method;
+  methods: {};
+  variables: {};
+  inherits_from: {};
+};
+
+const Constructor = ({ cls }: { cls: Class }) => {
+  const name = cls.name;
+  const source_code = cls.constructor.source.code;
+  const starting_line_number = cls.constructor.source.lines[0];
+  const signature = cls.constructor.signature;
+  const args = cls.constructor.arguments;
   const [sourceIsVisible, setSourceIsVisible] = useState(false);
 
   return (
@@ -160,6 +177,20 @@ const Constructor = ({ cls }) => {
         starting_line_number={starting_line_number}
         sourceIsVisible={sourceIsVisible}
       />
+      {/* RENDER ARGUMENTS */}
+      <div className="parameters">
+        <b>Parameters:</b>
+        <ul>
+          {Object.entries(args).map(([arg, content], index) => {
+            return (
+              <li key={`args_${index}`}>
+                <b>{arg}</b> : <i>{content.annotation}</i>
+                <p className="parameter-description">{content.description}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </>
   );
 };
@@ -177,7 +208,6 @@ const InheritedFrom = ({ cls }) => {
       })),
     })
   );
-  console.log(inheritedMethods[0].link);
 
   return (
     <>

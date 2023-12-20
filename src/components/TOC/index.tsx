@@ -138,3 +138,16 @@ export const TableOfContents = () => {
     null
   );
 };
+
+export const RenderTOC = () => {
+  const [activeId, setActiveId] = useState();
+  const { nestedHeadings } = useHeadingsData();
+
+  useIntersectionObserver(setActiveId);
+
+  return (
+    <div className={styles.customTocDiv}>
+      <Headings headings={nestedHeadings} activeId={activeId} />
+    </div>
+  );
+};

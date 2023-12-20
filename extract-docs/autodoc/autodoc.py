@@ -144,7 +144,11 @@ def document_module(module: pdoc.doc.Module) -> dict:
         "name": module.fullname,
         "docstring": parse_docstring(module.docstring)["description"].strip(),
         "classes": {cls.name: document_class(cls) for cls in module.classes},
-        "functions": {func.name: document_method(func) for func in module.functions},
+        "functions": {
+            func.name: document_method(func)
+            for func in module.functions
+            if not func.name.startswith("_")
+        },
         "submodules": {
             sub_module.name: document_module(sub_module)
             for sub_module in module.submodules

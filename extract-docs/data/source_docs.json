@@ -749,7 +749,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<mpi4py.MPI.Intracomm object at 0x7f27f0a66130>",
+                    "default": "<mpi4py.MPI.Intracomm object at 0x7f33fdffe130>",
                     "annotation": "<class 'mpi4py.MPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -1834,31 +1834,6 @@
             "isClassMethod": false
           }
         },
-        "_write_index_dict": {
-          "docstring": "Write the database index. ",
-          "signature": "(index: dict) -> None",
-          "returns": {
-            "annotation": "None",
-            "description": null
-          },
-          "arguments": {
-            "index": {
-              "default": null,
-              "annotation": "<class 'dict'>",
-              "description": null
-            }
-          },
-          "source": {
-            "code": "def _write_index_dict(index: dict) -> None:\n    \"\"\"Write the database index.\"\"\"\n    with open(DATABASE_INDEX, \"w+\") as file:\n        file.write(json.dumps(index, indent=4))\n",
-            "lines": [
-              53,
-              56
-            ]
-          },
-          "props": {
-            "isClassMethod": false
-          }
-        },
         "get_known_paths": {
           "docstring": "None ",
           "signature": "() -> list",
@@ -1872,66 +1847,6 @@
             "lines": [
               59,
               61
-            ]
-          },
-          "props": {
-            "isClassMethod": false
-          }
-        },
-        "_find_posix": {
-          "docstring": "Find function using system `find` on linux. ",
-          "signature": "(uid, root_dir) -> list",
-          "returns": {
-            "annotation": "<class 'list'>",
-            "description": null
-          },
-          "arguments": {
-            "uid": {
-              "default": null,
-              "annotation": null,
-              "description": null
-            },
-            "root_dir": {
-              "default": null,
-              "annotation": null,
-              "description": null
-            }
-          },
-          "source": {
-            "code": "def _find_posix(uid, root_dir) -> list:\n    \"\"\"Find function using system `find` on linux.\"\"\"\n    completed_process = subprocess.run(\n        [\"find\", root_dir, \"-iname\", uid2(uid), \"-not\", \"-path\", \"*/\\.git/*\"],\n        capture_output=True,\n    )\n    paths_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n    return paths_found\n",
-            "lines": [
-              64,
-              71
-            ]
-          },
-          "props": {
-            "isClassMethod": false
-          }
-        },
-        "_find_python": {
-          "docstring": "Some find function for Windows or other if `find` is not working. TODO: to be implemented",
-          "signature": "(uid, root_dir) -> list",
-          "returns": {
-            "annotation": "<class 'list'>",
-            "description": null
-          },
-          "arguments": {
-            "uid": {
-              "default": null,
-              "annotation": null,
-              "description": null
-            },
-            "root_dir": {
-              "default": null,
-              "annotation": null,
-              "description": null
-            }
-          },
-          "source": {
-            "code": "def _find_python(uid, root_dir) -> list:\n    \"\"\"Some find function for Windows or other if `find` is not working.\n\n    TODO: to be implemented\n    \"\"\"\n    pass\n",
-            "lines": [
-              74,
-              79
             ]
           },
           "props": {
@@ -1982,36 +1897,6 @@
             "lines": [
               86,
               91
-            ]
-          },
-          "props": {
-            "isClassMethod": false
-          }
-        },
-        "_check_path": {
-          "docstring": "Check if path is going to the correct database ",
-          "signature": "(uid: str, path: str) -> bool",
-          "returns": {
-            "annotation": "<class 'bool'>",
-            "description": null
-          },
-          "arguments": {
-            "uid": {
-              "default": null,
-              "annotation": "<class 'str'>",
-              "description": null
-            },
-            "path": {
-              "default": null,
-              "annotation": "<class 'str'>",
-              "description": null
-            }
-          },
-          "source": {
-            "code": "def _check_path(uid: str, path: str) -> bool:\n    \"\"\"Check if path is going to the correct database\"\"\"\n    if not os.path.exists(path):\n        return False\n    if f\"{PREFIX}{uid}\" in os.listdir(path):\n        return True\n    return False\n",
-            "lines": [
-              94,
-              100
             ]
           },
           "props": {
@@ -2516,7 +2401,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f27f0a66130>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f33fdffe130>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -3285,7 +3170,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f27f0a66130>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f33fdffe130>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               }
@@ -3989,7 +3874,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f27f0a66130>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f33fdffe130>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               }
