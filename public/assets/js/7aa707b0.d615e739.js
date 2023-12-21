@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[2398],{6445:(s,e,t)=>{t.r(e),t.d(e,{default:()=>n});t(7294);var c=t(9788),i=t(5893);function n(){return(0,i.jsx)(c.Z,{title:"Test",description:"test page setup",children:(0,i.jsx)("div",{className:"",children:(0,i.jsx)("p",{children:"This is just some test content"})})})}}}]);
