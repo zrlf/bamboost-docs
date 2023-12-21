@@ -14,7 +14,7 @@ pages:
   script:
   - npm install
   - npm run build
-  - mv ./build ../public
+  - mv ./build ./public
   artifacts:
     paths:
     - public
