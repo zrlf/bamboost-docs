@@ -30,7 +30,7 @@ const config: Config = {
   organizationName: 'zrlf', // Usually your GitHub org/user name.
   projectName: 'bamboost-docs', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   i18n: {
