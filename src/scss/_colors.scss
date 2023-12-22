@@ -10,7 +10,8 @@ $accent: #F29F80;
 // $base: #191724; 
 $base: #1f1d2e;
 $base-lighter: lighten($base, 3%);
-$text: lighten(#AFBF73, 30%);
+$base-content: lighten($base, 10%);
+$text: lighten(#AFBF73, 25%);
 
 $colorsDark: (
   "primary": $primary,
@@ -23,6 +24,7 @@ $colorsDark: (
   "base-20": #474550,
   "code-background": #292d3eff,
   "base-lighter": $base-lighter,
+  "base-content": $base-content,
   "text": $text,
   "textfix": $text,
   "text-opaque": rgba($text, 0.3),
@@ -39,6 +41,7 @@ $colorsLight: (
   "base-00": #fff,
   "code-background": #f6f8faff,
   "base-lighter": #fff,
+  "base-content": #ddd,
   "text": #000000,
   "textfix": #000000,
   "text-opaque": rgba(#000, 0.5),

@@ -41,7 +41,7 @@ type Class = {
   docstring: string;
   constructor: Method;
   methods: { key: Method };
-  variables: { key: {} };
+  variables: { [key: string]: { annotation: string; description: string } };
   inherits_from: {};
 };
 
@@ -255,12 +255,6 @@ export const RenderClass = ({
 
   return (
     <div>
-      {/* <div className="classDocstring"> */}
-      {/*   <SourceCodeButton */}
-      {/*     sourceIsVisible={sourceIsVisible} */}
-      {/*     setSourceIsVisible={setSourceIsVisible} */}
-      {/*   /> */}
-      {/* </div> */}
       <p>{cls.docstring}</p>
       <Constructor cls={cls} sourceIsVisible={sourceIsVisible} />
 
@@ -278,9 +272,9 @@ export const RenderClass = ({
 
       {/* Render Methods */}
       <div className="methods">
-        {Object.keys(methods).map((key) =>
-          RenderMethod({ name: key, obj: methods[key], className: cls.name })
-        )}
+        {Object.keys(methods).map((key) => (
+          <RenderMethod {...{ name: key, obj: methods[key], className: cls.name }} />
+        ))}
       </div>
     </div>
   );

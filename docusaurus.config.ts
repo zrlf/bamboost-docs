@@ -21,7 +21,7 @@ const config: Config = {
         src: 'https://kit.fontawesome.com/534692c170.js',
         crossorigin: 'anonymous',
       },
-    }
+    },
   ],
 
   url: 'https://zrlf.gitlab.io',
@@ -39,7 +39,16 @@ const config: Config = {
   },
 
   plugins: [
-    'docusaurus-plugin-sass'
+    'docusaurus-plugin-sass',
+    [
+      './plugins/blog-plugin',
+      {
+        showReadingTime: true,
+        id: 'news',
+        routeBasePath: 'news',
+        path: './blog',
+      },
+    ],
   ],
 
   themes: [
@@ -61,13 +70,11 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://gitlab.com/zrlf/bamboost-docs/-/edit/master/',
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl:
-          //   "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-        },
+        // blog: {
+        //   showReadingTime: true,
+        //   //   "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+        // },
+        blog: false,
         theme: {
           customCss: './src/scss/custom.scss',
         },
@@ -103,7 +110,7 @@ const config: Config = {
           position: 'left',
           label: 'Reference guide',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
+        { to: '/news', label: 'News', position: 'left' },
         {
           href: 'https://gitlab.com/cmbm-ethz/bamboost',
           label: 'GitLab',

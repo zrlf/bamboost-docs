@@ -17,6 +17,8 @@
     --ifm-color-primary-light: #{lighten(map.get($colorsLight, 'primary'), 10%)};
     --ifm-color-primary-lighter: #{lighten(map.get($colorsLight, 'primary'), 20%)};
     --ifm-color-primary-lightest: #{lighten(map.get($colorsLight, 'primary'), 30%)};
+
+    --ifm-code-background: var(--base-content);
   }
 
   &[data-theme='dark'] {

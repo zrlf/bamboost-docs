@@ -8,14 +8,17 @@ import Heading from '@theme/Heading';
 import styles from './index.module.css';
 import './index.scss';
 import { useEffect, useState } from 'react';
+import { useLocation } from '@docusaurus/router';
 
 const LightBulb = require('@site/static/img/welcome-background.svg').default;
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
-      <div className="hero-container">
-    <header className={clsx('hero hero-custom text-gray-800 flex flex-col justify-center min-h-fit')}>
+    <div className="hero-container">
+      <div className="hero-background"></div>
+      <header
+        className={clsx('hero hero-custom text-gray-800 flex flex-col justify-center min-h-fit')}>
         <div className="container">
           <Heading as="h1" className="hero__title mb-10">
             {siteConfig.title}
@@ -37,14 +40,15 @@ function HomepageHeader() {
             </Link>
           </div>
         </div>
-    </header>
-      </div>
+      </header>
+    </div>
   );
 }
 
-export default function Home(): JSX.Element {
+export default function Home({homePageBlogMetadata, recentPosts}): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   const [scrollPosition, setScrollPosition] = useState(0);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,32 +56,34 @@ export default function Home(): JSX.Element {
       setScrollPosition(position);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    const navbar = document.querySelector('.navbar') as HTMLElement | null;
-    navbar.classList.add('navbar-transparent');
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      navbar.classList.remove('navbar-transparent');
     };
   }, []);
 
   const opacity = Math.min(1, scrollPosition / 200);
   useEffect(() => {
-    const navbar = document.querySelector('.navbar-transparent') as HTMLElement | null;
+    
+    const navbar = document.querySelector('.navbar') as HTMLElement | null;
+    if (navbar===null) return;
     const darkMode = document.scrollingElement?.dataset.theme === 'dark';
+    navbar.style.boxShadow = 'none';
     if (darkMode) {
       navbar.style.backgroundColor = `rgba(31, 29, 46, ${opacity})`;
+      navbar.style.backgroundImage = 'none';
     } else {
       navbar.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
     }
   }, [scrollPosition]);
-
 
   return (
     <Layout
       title={`Welcome to ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
-      <main>{/* <HomepageFeatures /> */}</main>
+      <main>
+        {/* <BlogPeak {...{homePageBlogMetadata, recentPosts}} /> */}
+      </main>
     </Layout>
   );
 }
