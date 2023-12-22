@@ -50,7 +50,7 @@ async function blogPluginExtended(...pluginArgs) {
 
       actions.addRoute({
         // Add route for the home page
-        path: '/bamboost-docs/',
+        path: '/',
         exact: true,
 
         // The component to use for the "Home" page route
