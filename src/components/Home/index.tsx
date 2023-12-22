@@ -25,7 +25,7 @@ function HomepageHeader() {
             Get Started
           </Link>
 
-          <Link className="btn btn-outline" to="/docs/documentation/intro">
+          <Link className="btn btn-outline" to="/docs/documentation/get-started">
             Documentation
           </Link>
           <Link className="btn btn-outline" to="/docs/autoDocs/manager">
@@ -42,7 +42,6 @@ function HomepageHeader() {
 
 function RecentBlogPostCard({ recentPost }) {
   const { Preview, metadata } = recentPost;
-  console.log(metadata.frontMatter.slug);
   return (
     <article className={styles.blogPost}>
       <Link to={`news/${metadata.frontMatter.slug}`}>
@@ -72,7 +71,6 @@ const BlogBlock = ({ homePageBlogMetadata, recentPosts }) => {
 
 export default function Home({ homePageBlogMetadata, recentPosts }) {
   const { siteConfig } = useDocusaurusContext();
-  console.log({ homePageBlogMetadata, recentPosts });
   return (
     <div className={styles.page}>
       <Layout

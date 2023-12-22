@@ -24,8 +24,9 @@ const config: Config = {
     },
   ],
 
-  url: 'https://zrlf.gitlab.io',
-  baseUrl: '/bamboost-docs/',
+  // url: 'https://zrlf.gitlab.io',
+  url: 'https://bamboost.ch',
+  baseUrl: '/',
 
   organizationName: 'zrlf', // Usually your GitHub org/user name.
   projectName: 'bamboost-docs', // Usually your repo name.
@@ -47,6 +48,7 @@ const config: Config = {
         id: 'news',
         routeBasePath: 'news',
         path: './blog',
+        
       },
     ],
   ],
@@ -69,6 +71,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://gitlab.com/zrlf/bamboost-docs/-/edit/master/',
+          showLastUpdateTime: true,
         },
         // blog: {
         //   showReadingTime: true,
