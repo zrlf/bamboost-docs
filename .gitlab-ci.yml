@@ -3,7 +3,6 @@ image: node:latest
 cache:
   paths:
     - node_modules/
-    - public/
     - .cache/
 
 stages:
