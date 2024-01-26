@@ -3,7 +3,7 @@ import os
 import bamboost
 from autodoc import AutoDoc
 
-site_path = "/home/florez/work/code/bamboost-docs"
+site_path = "../"
 doc_path = os.path.join(site_path, "docs/autoDocs")
 source_doc_json_file = "extract-docs/data/source_docs.json"
 source_doc_json_file_abspath = os.path.join(site_path, source_doc_json_file)
