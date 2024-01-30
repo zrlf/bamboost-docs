@@ -166,34 +166,11 @@ const config: Config = {
       darkTheme: prismThemes.palenight,
     },
     algolia: {
-      // The application ID provided by Algolia
       appId: 'WBL605N93C',
-
-      // Public API key: it is safe to commit it
       // apiKey: 'a236581fafb855e2cf6009d3f8d30649',
-      apiKey: '60dc79e4d7f5c7367d170d7e536eeb23',
-
+      // apiKey: '60dc79e4d7f5c7367d170d7e536eeb23',
+      apiKey: 'fa5397e8ad748a2b192a381ff5889e75',
       indexName: 'bamboost',
-
-      // Optional: see doc section below
-      contextualSearch: true,
-
-      // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
-      // externalUrlRegex: 'bamboost.ch',
-
-      // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs
-      // replaceSearchResultPathname: {
-      //   from: '/docs/', // or as RegExp: /\/docs\//
-      //   to: '/',
-      // },
-
-      // Optional: Algolia search parameters
-      searchParameters: {},
-
-      // Optional: path for search page that enabled by default (`false` to disable it)
-      // searchPagePath: 'search',
-
-      //... other Algolia params
     },
   } satisfies Preset.ThemeConfig,
 };
