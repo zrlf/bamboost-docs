@@ -170,7 +170,8 @@ const config: Config = {
       appId: 'WBL605N93C',
 
       // Public API key: it is safe to commit it
-      apiKey: 'a236581fafb855e2cf6009d3f8d30649',
+      // apiKey: 'a236581fafb855e2cf6009d3f8d30649',
+      apiKey: '60dc79e4d7f5c7367d170d7e536eeb23',
 
       indexName: 'bamboost',
 
