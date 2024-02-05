@@ -18,7 +18,7 @@
       width: 100%;
       height: 100%;
       background-color: var(--ifm-color-primary);
-      border-radius: 6px;
+      border-radius: 9999px;
       box-shadow: 0 0 70px color-mix(in srgb, var(--primary), transparent 30%);
     }
   }
@@ -84,28 +84,28 @@
   border-radius: 9999px;
   transition: all 0.1s ease-in-out;
   background-color: $text;
-  color: $base;
+  color: var(--base);
+
+  @media screen and (width < 996px) {
+    padding: $padding * 1.5 $padding * 3;
+  }
 
   &.btn-accent {
     background-color: $accent;
     color: $base;
   }
   &.btn-primary {
-    background-color: $primary;
-    color: $base;
+    background-color: var(--primary);
+    color: var(--base);
   }
   &.btn-secondary {
-    background-color: $secondary;
-    color: $base;
+    background-color: var(--secondary);
+    color: var(--base);
   }
   &.btn-outline {
     background-color: transparent;
-    border: 2px solid $text;
-    color: $text;
-    [data-theme='light'] & {
-      border: 2px solid grey;
-      color: $base;
-    }
+    border: 2px solid var(--text);
+    color: var(--text);
   }
   &:hover {
     text-decoration: none;

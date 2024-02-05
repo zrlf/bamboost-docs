@@ -5,6 +5,9 @@
 @import 'styles';
 
 :root {
+
+  font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+
   &[data-theme='light'] {
     @each $key, $value in $colorsLight {
       --#{$key}: #{$value};
@@ -44,7 +47,6 @@
     --ifm-navbar-search-input-color: var(--text);
   }
 
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--base);
   background-size: cover;
   background-attachment: fixed;

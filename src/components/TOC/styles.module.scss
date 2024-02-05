@@ -36,7 +36,8 @@
     background-color: var(--ifm-code-background);
     font-family: var(--ifm-font-family-monospace);
     font-size: var(--ifm-code-font-size);
-    padding: var(--ifm-code-padding-vertical) var(--ifm-code-padding-horizontal);
+    // padding: var(--ifm-code-padding-vertical) var(--ifm-code-padding-horizontal);
+    padding: .2em .7em;
     border-radius: var(--ifm-code-border-radius);
     &:hover {
       color: var(--base);
@@ -47,5 +48,6 @@
   li.active > a {
     color: var(--base);
     background-color: var(--primary);
+    padding: .2em .7em;
   }
 }

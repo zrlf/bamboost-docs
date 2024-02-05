@@ -167,10 +167,11 @@ const config: Config = {
     },
     algolia: {
       appId: 'WBL605N93C',
-      // apiKey: 'a236581fafb855e2cf6009d3f8d30649',
-      // apiKey: '60dc79e4d7f5c7367d170d7e536eeb23',
-      apiKey: 'fa5397e8ad748a2b192a381ff5889e75',
       indexName: 'bamboost',
+      apiKey: 'a236581fafb855e2cf6009d3f8d30649',
+      contextualSearch: false,
+      // apiKey: '60dc79e4d7f5c7367d170d7e536eeb23',
+      // apiKey: 'fa5397e8ad748a2b192a381ff5889e75',
     },
   } satisfies Preset.ThemeConfig,
 };

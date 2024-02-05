@@ -30,7 +30,6 @@
     "@docusaurus/preset-classic": "^3.0.1",
     "@docusaurus/tsconfig": "^3.0.1",
     "@docusaurus/types": "^3.0.1",
-    "@easyops-cn/docusaurus-search-local": "^0.39.0",
     "@types/node": "^20.10.5",
     "autoprefixer": "^10.4.16",
     "docusaurus-plugin-sass": "^0.2.5",
