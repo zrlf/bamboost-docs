@@ -9,7 +9,7 @@ from bamboost import Manager
 db = Manager('path/to/database')
 ```
 
-Create a new entry in the database:
+Initialize a new entry in the database based on parameters (does not contain data yet):
 ```python
 new_entry = db.create_simulation(
     parameters: dict = {...},
@@ -29,4 +29,16 @@ db['simulation_1']  # Returns a Simulation object
 Or leverage pandas to query the database:
 ```python
 db.df[(db.df['param_1'] == 1.0) && (db.df['param_2'] > 2.0)]
+```
+
+Write data to the database:
+```python
+params = {...}
+writer = db.create_simulation(parameters=params)
+
+with writer:
+	writer.add_field('field_data_1', array)
+        writer.add_field('field_data_2', array)
+        writer.add_global_field('kinetic_energy', some_number)
+
 ```

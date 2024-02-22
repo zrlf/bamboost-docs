@@ -2,6 +2,18 @@
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
+### for cool guys
+
+same as yarn but with npm
+
+```
+$ npm install
+```
+
+```
+$ npm start
+```
+
 ### Installation
 
 ```
