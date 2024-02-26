@@ -841,7 +841,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<mpi4py.MPI.Intracomm object at 0x7f5274bfcfd0>",
+                    "default": "<mpi4py.MPI.Intracomm object at 0x7f9c1ba3cfd0>",
                     "annotation": "<class 'mpi4py.MPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -2538,7 +2538,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f5274bfcfd0>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f9c1ba3cfd0>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -2716,8 +2716,8 @@
               "source": {
                 "code": "    @classmethod\n    def fromUID(cls, full_uid: str) -> Self:\n        \"\"\"Return the `Simulation` with given UID.\n\n        Args:\n            full_uid: the full id (Database uid : simulation uid)\n        \"\"\"\n        db_uid, sim_uid = full_uid.split(\":\")\n        db_path = index.get_path(db_uid)\n        return cls(sim_uid, db_path)\n",
                 "lines": [
-                  116,
-                  125
+                  118,
+                  127
                 ]
               },
               "props": {
@@ -2746,8 +2746,8 @@
               "source": {
                 "code": "    @with_file_open()\n    def __getitem__(self, key) -> hdf_pointer.BasePointer:\n        \"\"\"Direct access to HDF5 file.\n\n        Returns:\n            :class:`~bamboost.common.file_handler.BasePointer`\n        \"\"\"\n        return hdf_pointer.BasePointer.new_pointer(self._file, key)\n",
                 "lines": [
-                  127,
-                  134
+                  129,
+                  136
                 ]
               },
               "props": {
@@ -2776,8 +2776,8 @@
               "source": {
                 "code": "    def files(self, filename: str) -> str:\n        \"\"\"Get the path to the file.\n\n        Args:\n            filename: name of the file\n        \"\"\"\n        return os.path.join(self.path, filename)\n",
                 "lines": [
-                  214,
-                  220
+                  216,
+                  222
                 ]
               },
               "props": {
@@ -2821,8 +2821,8 @@
               "source": {
                 "code": "    def show_files(\n        self, level=-1, limit_to_directories=False, length_limit=1000, printit=True\n    ) -> str:\n        \"\"\"Show the file tree of the simulation directory.\n\n        Args:\n            level: how deep to print the tree\n            limit_to_directories: only print directories\n            length_limit: cutoff\n        \"\"\"\n        tree_string = utilities.tree(\n            self.path, level, limit_to_directories, length_limit\n        )\n        if printit:\n            print(tree_string)\n        else:\n            return tree_string\n",
                 "lines": [
-                  222,
-                  238
+                  224,
+                  240
                 ]
               },
               "props": {
@@ -2846,8 +2846,8 @@
               "source": {
                 "code": "    def open_in_file_explorer(self) -> None:\n        \"\"\"Open the simulation directory. Uses `xdg-open` on linux systems.\"\"\"\n        if os.name == \"nt\":  # should work on Windows\n            os.startfile(self.path)\n        else:\n            subprocess.run([\"xdg-open\", self.path])\n",
                 "lines": [
-                  240,
-                  245
+                  242,
+                  247
                 ]
               },
               "props": {
@@ -2871,8 +2871,8 @@
               "source": {
                 "code": "    def get_full_uid(self) -> str:\n        \"\"\"Returns the full uid of the simulation (including the one of the database)\"\"\"\n        database_uid = index.get_uid_from_path(self.path_database)\n        return f\"{database_uid}:{self.uid}\"\n",
                 "lines": [
-                  247,
-                  250
+                  249,
+                  252
                 ]
               },
               "props": {
@@ -2901,8 +2901,8 @@
               "source": {
                 "code": "    def change_status(self, status: str) -> None:\n        \"\"\"Change status of simulation.\n\n        Args:\n            status (str): new status\n        \"\"\"\n        if self._prank == 0:\n            self._file.open(\"a\")\n            self._file.attrs[\"status\"] = status\n            self._file.close()\n",
                 "lines": [
-                  252,
-                  261
+                  254,
+                  263
                 ]
               },
               "props": {
@@ -2931,8 +2931,8 @@
               "source": {
                 "code": "    def update_metadata(self, update_dict: dict) -> None:\n        \"\"\"Update the metadata attributes.\n\n        Args:\n            update_dict: dictionary to push\n        \"\"\"\n        with self._file(\"a\") as file:\n            file.attrs.update(update_dict)\n",
                 "lines": [
-                  263,
-                  270
+                  265,
+                  272
                 ]
               },
               "props": {
@@ -2961,8 +2961,8 @@
               "source": {
                 "code": "    def update_parameters(self, update_dict: dict) -> None:\n        \"\"\"Update the parameters dictionary.\n\n        Args:\n            update_dict: dictionary to push\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\") as file:\n                file[\"parameters\"].attrs.update(utilities.flatten_dict(update_dict))\n",
                 "lines": [
-                  272,
-                  280
+                  274,
+                  282
                 ]
               },
               "props": {
@@ -2996,8 +2996,8 @@
               "source": {
                 "code": "    def create_xdmf_file(self, fields: list = None, nb_steps: int = None) -> None:\n        \"\"\"Create the xdmf file to read in paraview.\n\n        Args:\n            fields (list[str]): fields for which to write timeseries information,\n                if not specified, all fields in data are written.\n            nb_steps (int): number of steps the simulation has\n        \"\"\"\n\n        if self._prank == 0:\n            with self._file(\"r\") as f:\n                if not fields:\n                    fields = list(f[\"data\"].keys())\n\n                if not nb_steps:\n                    grp_name = list(f[\"data\"].keys())[0]\n                    nb_steps = list(f[f\"data/{grp_name}\"].keys())\n                    nb_steps = max(\n                        [int(step) for step in nb_steps if not step.startswith(\"__\")]\n                    )\n\n            xdmf_writer = XDMFWriter(self.xdmffile, self.h5file)\n            xdmf_writer.write_points_cells(\n                f\"{self._mesh_location}/{self._default_mesh}/geometry\",\n                f\"{self._mesh_location}/{self._default_mesh}/topology\",\n            )\n\n            xdmf_writer.add_timeseries(nb_steps + 1, fields)\n            xdmf_writer.write_file()\n",
                 "lines": [
-                  282,
-                  310
+                  284,
+                  312
                 ]
               },
               "props": {
@@ -3061,8 +3061,8 @@
               "source": {
                 "code": "    def create_batch_script(\n        self,\n        commands: list = None,\n        nnodes=1,\n        ntasks=4,\n        ncpus=1,\n        time=\"04:00:00\",\n        mem_per_cpu=2048,\n        tmp=8000,\n        euler=True,\n    ) -> None:\n        \"\"\"Create a batch job and put it into the folder.\n\n        Args:\n            commands: A list of strings being the user defined commands to run\n            nnodes: nb of nodes (default=1)\n            ntasks: nb of tasks (default=4)\n            ncpus: nb of cpus per task (default=1)\n            time: requested time (default=4 hours)\n            mem_per_cpu: memory (default=2048)\n            tmp: temporary storage, set None to exclude option (default=8000)\n            euler: If false, a local bash script will be written\n        \"\"\"\n        job = Job()\n        if not commands:\n            if hasattr(self, \"executable\"):\n                if \".py\" in self.executable:\n                    command = (\n                        f\"{{MPI}} python3 {os.path.join(self.path, self.executable)} \"\n                        f\"--path {self.path_database} --uid {self.uid}\"\n                    )\n                    commands = [command]\n            else:\n                raise AttributeError(\n                    \"\"\"Either you must specify an executable or have it \n                                     copied before with `copy_executable`!\"\"\"\n                )\n\n        if euler:\n            job.create_sbatch_script(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                nnodes=nnodes,\n                ntasks=ntasks,\n                ncpus=ncpus,\n                time=time,\n                mem_per_cpu=mem_per_cpu,\n                tmp=tmp,\n            )\n        else:\n            job.create_bash_script_local(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                ntasks=ntasks,\n            )\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": False})\n",
                 "lines": [
-                  312,
-                  370
+                  314,
+                  372
                 ]
               },
               "props": {
@@ -3086,8 +3086,8 @@
               "source": {
                 "code": "    def submit(self) -> None:\n        \"\"\"Submit the job for this simulation.\"\"\"\n        if f\"sbatch_{self.uid}.sh\" in os.listdir(self.path):\n            batch_script = os.path.abspath(\n                os.path.join(self.path, f\"sbatch_{self.uid}.sh\")\n            )\n            subprocess.Popen([\"sbatch\", f\"{batch_script}\"])\n        if f\"{self.uid}.sh\" in os.listdir(self.path):\n            bash_script = os.path.abspath(os.path.join(self.path, f\"{self.uid}.sh\"))\n            subprocess.Popen([\"bash\", f\"{bash_script}\"])\n\n        print(f\"Simulation {self.uid} submitted!\")\n\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": True})\n",
                 "lines": [
-                  372,
-                  386
+                  374,
+                  388
                 ]
               },
               "props": {
@@ -3116,8 +3116,8 @@
               "source": {
                 "code": "    @with_file_open(\"a\")\n    def change_note(self, note) -> None:\n        self._file.attrs[\"notes\"] = note\n",
                 "lines": [
-                  388,
-                  390
+                  390,
+                  392
                 ]
               },
               "props": {
@@ -3156,8 +3156,8 @@
               "source": {
                 "code": "    def open(self, mode: str = \"r\", driver=None, comm=None) -> FileHandler:\n        \"\"\"Use this as a context manager in a `with` statement.\n        Purpose: keeping the file open to directly access/edit something in the\n        HDF5 file of this simulation.\n\n        Args:\n            mode (`str`): file mode (see h5py docs)\n            driver (`str`): file driver (see h5py docs)\n            comm (`str`): mpi communicator\n        \"\"\"\n        return self._file(mode, driver, comm)\n",
                 "lines": [
-                  395,
-                  405
+                  397,
+                  407
                 ]
               },
               "props": {
@@ -3186,8 +3186,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\")\n    def get_mesh(self, mesh_name: str = None) -> Tuple[np.ndarray, np.ndarray]:\n        \"\"\"Return coordinates and connectivity. Currently returns numpy arrays.\n\n        Args:\n            mesh_name (`str`): optional, name of mesh to read (default = mesh)\n        Returns:\n            Tuple of np.arrays (coordinates, connectivity)\n        \"\"\"\n        if mesh_name is None:\n            mesh_name = self._default_mesh\n\n        mesh = self.meshes[mesh_name]\n        return mesh.coordinates, mesh.connectivity\n",
                 "lines": [
-                  416,
-                  429
+                  418,
+                  431
                 ]
               },
               "props": {
@@ -3221,8 +3221,8 @@
               "source": {
                 "code": "    def get_data_interpolator(self, field: str, step: int):\n        \"\"\"Get Linear interpolator for data field at step. Uses the linked mesh.\n\n        Args:\n            name (`str`): name of the data field\n            step (`int`): step\n        Returns:\n            :class:`scipy.interpolate.LinearNDInterpolator`\n        \"\"\"\n        from scipy.interpolate import LinearNDInterpolator\n\n        return LinearNDInterpolator(\n            self.data[field].mesh.coordinates, self.data[field].at_step(step)\n        )\n",
                 "lines": [
-                  480,
-                  493
+                  470,
+                  483
                 ]
               },
               "props": {
@@ -3246,8 +3246,8 @@
               "source": {
                 "code": "    @with_file_open()\n    def show_h5tree(self) -> None:\n        \"\"\"Print the tree inside the h5 file.\"\"\"\n        # print('\\U00002B57 ' + os.path.basename(self.h5file))\n        print(\"\\U0001F43C \" + os.path.basename(self.h5file))\n        utilities.h5_tree(self._file.file_object)\n",
                 "lines": [
-                  495,
-                  500
+                  485,
+                  490
                 ]
               },
               "props": {
@@ -3284,6 +3284,10 @@
               "annotation": ": bamboost.accessors.fielddata.DataGroup",
               "description": null
             },
+            "globals": {
+              "annotation": ": bamboost.accessors.globals.GlobalGroup",
+              "description": null
+            },
             "userdata": {
               "annotation": ": bamboost.common.hdf_pointer.MutableGroup",
               "description": null
@@ -3303,10 +3307,6 @@
             "mesh": {
               "annotation": ": Tuple[numpy.ndarray, numpy.ndarray]",
               "description": "Return coordinates and connectivity of default mesh. "
-            },
-            "globals": {
-              "annotation": ": pandas.core.frame.DataFrame",
-              "description": "Return global data. "
             },
             "data_info": {
               "annotation": ": 'pd.Dataframe'",
@@ -3337,16 +3337,16 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f5274bfcfd0>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f9c1ba3cfd0>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               }
             },
             "source": {
-              "code": "    def __init__(self, uid: str, path: str, comm: MPI.Comm = MPI.COMM_WORLD):\n        self.uid: str = uid\n        self.path_database: str = os.path.abspath(path)\n        self.path: str = os.path.abspath(os.path.join(path, uid))\n        self.h5file: str = os.path.join(self.path, f\"{self.uid}.h5\")\n        self.xdmffile: str = os.path.join(self.path, f\"{self.uid}.xdmf\")\n        os.makedirs(self.path, exist_ok=True)\n\n        # MPI information\n        self._comm = comm\n        self._psize = self._comm.size\n        self._prank = self._comm.rank\n        self._ranks = np.array([i for i in range(self._psize)])\n\n        self._file = FileHandler(self.h5file)\n\n        # Initialize groups to meshes, data and userdata. Create groups.\n        self.meshes: MeshGroup = MeshGroup(self._file)\n        self.data: DataGroup = DataGroup(self._file, self.meshes)\n        self.userdata: hdf_pointer.MutableGroup = hdf_pointer.MutableGroup(\n            self._file, \"/userdata\"\n        )\n        self.links: Links = Links(self._file)\n",
+              "code": "    def __init__(self, uid: str, path: str, comm: MPI.Comm = MPI.COMM_WORLD):\n        self.uid: str = uid\n        self.path_database: str = os.path.abspath(path)\n        self.path: str = os.path.abspath(os.path.join(path, uid))\n        self.h5file: str = os.path.join(self.path, f\"{self.uid}.h5\")\n        self.xdmffile: str = os.path.join(self.path, f\"{self.uid}.xdmf\")\n        os.makedirs(self.path, exist_ok=True)\n\n        # MPI information\n        self._comm = comm\n        self._psize = self._comm.size\n        self._prank = self._comm.rank\n        self._ranks = np.array([i for i in range(self._psize)])\n\n        self._file = FileHandler(self.h5file)\n\n        # Initialize groups to meshes, data and userdata. Create groups.\n        self.meshes: MeshGroup = MeshGroup(self._file)\n        self.data: DataGroup = DataGroup(self._file, self.meshes)\n        self.globals: GlobalGroup = GlobalGroup(self._file, '/globals')\n        self.userdata: hdf_pointer.MutableGroup = hdf_pointer.MutableGroup(\n            self._file, \"/userdata\"\n        )\n        self.links: Links = Links(self._file)\n",
               "lines": [
-                92,
-                114
+                93,
+                116
               ]
             }
           }
@@ -3377,8 +3377,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\", driver=\"mpio\")\n    def __getitem__(self, key) -> Simulation:\n        \"\"\"Returns the linked simulation object.\"\"\"\n        return Simulation.fromUID(self.obj.attrs[key])\n",
                 "lines": [
-                  49,
-                  52
+                  50,
+                  53
                 ]
               },
               "props": {
@@ -3412,8 +3412,8 @@
               "source": {
                 "code": "    def __setitem__(self, key, newvalue):\n        \"\"\"Creates the link.\"\"\"\n        return self.update_attrs({key: newvalue})\n",
                 "lines": [
-                  54,
-                  56
+                  55,
+                  57
                 ]
               },
               "props": {
@@ -3437,8 +3437,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\")\n    def all_links(self) -> dict:\n        return dict(self.obj.attrs)\n",
                 "lines": [
-                  75,
-                  77
+                  76,
+                  78
                 ]
               },
               "props": {
@@ -3525,8 +3525,8 @@
             "source": {
               "code": "    def __init__(self, file_handler: FileHandler) -> None:\n        super().__init__(file_handler, path_to_data=\"links\")\n",
               "lines": [
-                43,
-                44
+                44,
+                45
               ]
             }
           }
@@ -3541,7 +3541,7 @@
       "classes": {
         "SimulationWriter": {
           "name": "SimulationWriter",
-          "docstring": "The SimulationWriter is the writer object for a single simulation. It inherits all reading methods from :class:`Simulation`.",
+          "docstring": "The SimulationWriter is the writer object for a single simulation. It inherits all reading methods from :class:`Simulation`.  This class can be used as a context manager. When entering the context, the status of the simulation is changed to \"Started\". When an exception is raised inside the context, the status is changed to \"Failed [Exception]\".",
           "methods": {
             "initialize": {
               "docstring": "Create a new file for this simlation. This deletes an existing h5 file of the simulation and creates an empty new one",
@@ -3560,8 +3560,8 @@
               "source": {
                 "code": "    def initialize(self) -> SimulationWriter:\n        \"\"\"Create a new file for this simlation.\n        This deletes an existing h5 file of the simulation and creates an empty new one\n        \"\"\"\n        self.step = 0\n        self.add_metadata()\n        self.change_status(\"Initiated\")\n\n        return self\n",
                 "lines": [
-                  57,
-                  65
+                  59,
+                  67
                 ]
               },
               "props": {
@@ -3585,8 +3585,8 @@
               "source": {
                 "code": "    def add_metadata(self) -> None:\n        \"\"\"Add metadata to h5 file.\"\"\"\n        nb_proc = self._comm.Get_size()\n        if self._prank == 0:\n            with self._file(\"a\"):\n                self._file.attrs[\"time_stamp\"] = str(\n                    datetime.datetime.now().replace(microsecond=0)\n                )\n                self._file.attrs[\"id\"] = self.uid\n                self._file.attrs[\"processors\"] = nb_proc\n                self._file.attrs[\"notes\"] = self._file.attrs.get(\"notes\", \"\")\n",
                 "lines": [
-                  67,
-                  77
+                  69,
+                  79
                 ]
               },
               "props": {
@@ -3615,8 +3615,8 @@
               "source": {
                 "code": "    def add_parameters(self, parameters: dict) -> None:\n        \"\"\"Add parameters to simulation.\n\n        Args:\n            parameters: Dictionary with parameters.\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\"):\n                # flatten parameters\n                parameters = flatten_dict(parameters)\n\n                if \"parameters\" in self._file.keys():\n                    del self._file[\"parameters\"]\n                grp = self._file.create_group(\"/parameters\")\n                for key, val in parameters.items():\n                    if isinstance(val, np.ndarray):\n                        grp.create_dataset(key, data=val)\n                    elif val is not None:\n                        grp.attrs[key] = val\n                    else:\n                        pass\n",
                 "lines": [
-                  79,
-                  99
+                  81,
+                  101
                 ]
               },
               "props": {
@@ -3655,8 +3655,8 @@
               "source": {
                 "code": "    def add_mesh(\n        self, coordinates: np.ndarray, connectivity: np.ndarray, mesh_name: str = None\n    ) -> None:\n        \"\"\"Add the mesh to file. Currently only 2d meshes.\n\n        Args:\n            coordinates: Coordinates as array (nb_nodes, dim)\n            connectivity: Connectivity matrix (nb_cells, nb nodes per cell)\n            mesh_name: name for mesh (default = `mesh`)\n        \"\"\"\n        if mesh_name is None:\n            mesh_name = self._default_mesh\n        # self._mesh_location = 'Mesh/0/mesh/'\n        mesh_location = f\"{self._mesh_location}/{mesh_name}/\"\n\n        nb_nodes_local = coordinates.shape[0]\n        nb_cells_local = connectivity.shape[0]\n\n        # gather total mesh\n        nb_nodes_p = np.array(self._comm.allgather(nb_nodes_local))\n        nb_cells_p = np.array(self._comm.allgather(nb_cells_local))\n        nb_nodes, nb_cells = np.sum(nb_nodes_p), np.sum(nb_cells_p)\n\n        # shape of datasets\n        coord_shape = (\n            (nb_nodes, coordinates.shape[1]) if coordinates.ndim > 1 else (nb_nodes,)\n        )\n        conn_shape = (\n            (nb_cells, connectivity.shape[1]) if connectivity.ndim > 1 else (nb_cells,)\n        )\n\n        # global indices nodes\n        idx_start = np.sum(nb_nodes_p[self._ranks < self._prank])\n        idx_end = idx_start + nb_nodes_local\n\n        # global indices cells\n        idx_start_cells = np.sum(nb_cells_p[self._ranks < self._prank])\n        idx_end_cells = idx_start_cells + nb_cells_local\n        connectivity = connectivity + idx_start\n\n        with self._file(\"a\", driver=\"mpio\", comm=self._comm) as f:\n            if mesh_location in self._file.file_object:\n                del self._file.file_object[mesh_location]\n            grp = f.require_group(mesh_location)\n            coord = grp.require_dataset(\"geometry\", shape=coord_shape, dtype=\"f\")\n            conn = grp.require_dataset(\"topology\", shape=conn_shape, dtype=\"i\")\n\n            coord[idx_start:idx_end] = coordinates\n            conn[idx_start_cells:idx_end_cells] = connectivity\n",
                 "lines": [
-                  101,
-                  149
+                  103,
+                  151
                 ]
               },
               "props": {
@@ -3705,8 +3705,8 @@
               "source": {
                 "code": "    def add_field(\n        self, name: str, vector: np.array, time: float = None, mesh: str = None, dtype: str = None\n    ) -> None:\n        \"\"\"Add a dataset to the file. The data is stored at `data/`.\n\n        Args:\n            name: Name for the dataset\n            vector: Dataset\n            time: Optional. time\n            mesh: Optional. Linked mesh for this data\n            dtype: Optional. Numpy style datatype, see h5py documentation, defaults to the dtype of\n        \"\"\"\n        if mesh is None:\n            mesh = self._default_mesh\n\n        # Get dimension of vector\n        if vector.ndim <= 1:\n            vector = vector.reshape((-1, 1))\n        dim = vector.shape[1]\n\n        if time is None:\n            time = self.step\n\n        length_local = vector.shape[0]\n        length_p = np.array(self._comm.allgather(length_local))\n        length = np.sum(length_p)\n\n        # global indices\n        idx_start = np.sum(length_p[self._ranks < self._prank])\n        idx_end = idx_start + length_local\n\n        # open file\n        with self._file(\"a\", driver=\"mpio\", comm=self._comm) as f:\n            data = f.require_group(\n                \"data\"\n            )  # Require group data to store all point data in\n            grp = data.require_group(name)\n            vec = grp.require_dataset(str(self.step), shape=(length, dim), dtype=dtype if dtype else vector.dtype)\n            vec[idx_start:idx_end, :] = vector\n\n        if self._prank == 0:\n            with self._file(\"a\"):\n                vec = self._file[\"data\"][name][str(self.step)]\n                vec.attrs[\"t\"] = time  # add time as attribute to dataset\n                vec.attrs[\"mesh\"] = mesh  # add link to mesh as attribute\n",
                 "lines": [
-                  151,
-                  195
+                  153,
+                  197
                 ]
               },
               "props": {
@@ -3745,8 +3745,8 @@
               "source": {
                 "code": "    def add_global_field(self, name: str, value: Union[float, int], dtype: str = None) -> None:\n        \"\"\"Add a gobal field. These are stored at `globals/` as an array in a\n        single dataset.\n\n        Args:\n            name: Name for the data\n            value: Data\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"globals\")\n                if name not in grp.keys():\n                    vec = grp.create_dataset(\n                        name, shape=(1,), dtype=dtype if dtype else np.array(value).dtype, chunks=True, maxshape=(None,)\n                    )\n                    vec[0] = value\n                else:\n                    vec = grp[name]\n                    vec.resize((self.step + 1,))\n                    vec[-1] = value\n",
                 "lines": [
-                  197,
-                  216
+                  199,
+                  218
                 ]
               },
               "props": {
@@ -3780,8 +3780,8 @@
               "source": {
                 "code": "    @deprecated(\"Use `copy_file` instead.\")\n    def add_additional(self, name: str, file: str) -> None:\n        \"\"\"Add an additional file stored elsewhere or in database directory.\n\n        Args:\n            name: Name of data\n            file: filename of file\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"additionals\")\n                grp.attrs.update({name: file})\n",
                 "lines": [
-                  218,
-                  229
+                  220,
+                  231
                 ]
               },
               "props": {
@@ -3805,8 +3805,8 @@
               "source": {
                 "code": "    def finish_step(self) -> None:\n        \"\"\"Finish step. Adds 1 to the step counter.\"\"\"\n        self.step += 1\n",
                 "lines": [
-                  231,
-                  233
+                  233,
+                  235
                 ]
               },
               "props": {
@@ -3835,8 +3835,8 @@
               "source": {
                 "code": "    def finish_sim(self, status: str = \"Finished\") -> None:\n        if self._prank == 0:\n            self.change_status(status)\n",
                 "lines": [
-                  235,
-                  237
+                  237,
+                  239
                 ]
               },
               "props": {
@@ -3865,8 +3865,8 @@
               "source": {
                 "code": "    def register_git_attributes(self, repo_path: str = \"./\") -> None:\n        \"\"\"Register git information for given repo.\n\n        Args:\n            repo_path (`str`): path to git repository\n        \"\"\"\n        if self._prank == 0:\n            repo_path = os.path.abspath(repo_path)\n            # store current working directory\n            cwd = os.getcwd()\n\n            # switch directory to git repo\n            os.chdir(repo_path)\n            git_string = GitStateGetter().create_git_string()\n\n            # switch working directory back\n            os.chdir(cwd)\n\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"git\")\n                repo_name = os.path.split(repo_path)[1]\n                log.info(f\"Adding repo {repo_name}\")\n                if repo_name in grp.keys():\n                    del grp[repo_name]\n                grp.create_dataset(repo_name, data=git_string)\n",
                 "lines": [
-                  239,
-                  263
+                  241,
+                  265
                 ]
               },
               "props": {
@@ -3895,8 +3895,8 @@
               "source": {
                 "code": "    def copy_executable(self, script_path: str) -> None:\n        \"\"\"WILL BE REMOVED. USE COPY_FILE.\n        Copy an executable to directory for reproducability.\n\n        Args:\n            script_path: path to script\n        \"\"\"\n        shutil.copy(script_path, self.path)\n        self.executable = os.path.split(script_path)[1]\n",
                 "lines": [
-                  265,
-                  273
+                  267,
+                  275
                 ]
               },
               "props": {
@@ -3930,8 +3930,8 @@
               "source": {
                 "code": "    def copy_file(self, source: Union[str, list], destination: str = \"\") -> None:\n        \"\"\"Copy a file to the datafolder.\n\n        Args:\n            source: path to file, or list of files\n            destination: destination (will create intermediatory directories)\n        \"\"\"\n        if self._prank != 0:\n            return\n\n        if isinstance(source, list):\n            for item in source:\n                self.copy_file(item, destination)\n            return\n\n        destination = os.path.join(self.path, destination)\n\n        if os.path.isdir(source):\n            shutil.copytree(\n                source,\n                os.path.join(destination, os.path.basename(source)),\n                dirs_exist_ok=True,\n            )\n        elif os.path.isfile(source):\n            os.makedirs(destination, exist_ok=True)\n            shutil.copy(source, destination)\n        else:\n            raise FileNotFoundError\n",
                 "lines": [
-                  275,
-                  302
+                  277,
+                  304
                 ]
               },
               "props": {
@@ -3976,6 +3976,10 @@
                 [
                   "variable",
                   "data"
+                ],
+                [
+                  "variable",
+                  "globals"
                 ],
                 [
                   "variable",
@@ -4059,10 +4063,6 @@
                 ],
                 [
                   "variable",
-                  "globals"
-                ],
-                [
-                  "variable",
                   "data_info"
                 ],
                 [
@@ -4099,7 +4099,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f5274bfcfd0>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7f9c1ba3cfd0>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               }
@@ -4107,8 +4107,8 @@
             "source": {
               "code": "    def __init__(self, uid: str, path: str, comm: MPI.Comm = MPI.COMM_WORLD):\n        super().__init__(uid, path, comm)\n        self.step: int = 0\n",
               "lines": [
-                41,
-                43
+                45,
+                47
               ]
             }
           }
