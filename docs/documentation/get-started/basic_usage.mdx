@@ -3,42 +3,69 @@ sidebar_position: 2
 title: Basic usage
 ---
 
-Create, view or edit an existing database:
+
+#### Create, view or edit an existing database:
 ```python
 from bamboost import Manager
 db = Manager('path/to/database')
+
+# autocompletion for existing databases
+db = Manager.fromUID['...']
+db = Mamager.fromName['...']
 ```
 
-Initialize a new entry in the database based on parameters (does not contain data yet):
+#### Run a simulation based on input parameters:
 ```python
-new_entry = db.create_simulation(
-    parameters: dict = {...},
-)
+params = {'param_1':10, 'param_2':20}
+
+def simulation(params):
+    # compute output from input parameters
+    # x_array, y_array: arrays
+    # x_mean: scalar
+    return x_array, y_array, x_mean
 ```
 
-Display the content in the database:
+#### Write data in the database:
 ```python
-db.df  # Returns a pandas DataFrame
-```
-
-Select a specific entry:
-```python
-db['simulation_1']  # Returns a Simulation object
-```
-
-Or leverage pandas to query the database:
-```python
-db.df[(db.df['param_1'] == 1.0) && (db.df['param_2'] > 2.0)]
-```
-
-Write data to the database:
-```python
-params = {...}
 writer = db.create_simulation(parameters=params)
 
 with writer:
-	writer.add_field('field_data_1', array)
-        writer.add_field('field_data_2', array)
-        writer.add_global_field('kinetic_energy', some_number)
+    writer.add_field('x_array', x)
+    writer.add_field('y_array', y)
+    writer.add_global_field('x_mean', x_mean)
+```
 
+<details>
+<summary>Note on 1D arrays</summary>
+
+By convention, arrays stored with ```add_field()``` are 2D s.t. the first index corresponds to a simulation node and the second index corresponds to the value at that node.
+Thus, 1D arrays are automatically converted to 2D arrays when calling ```add_field()```. The ```flatten()``` method can be called when retriveing the data to return to 1D arrays.
+
+
+</details>
+
+#### Access data in the database from simulation id:
+```python
+db.df # display the database to see sim ids
+sim = db['bbfa110d'] # extract simulation from id
+sim = db.sim('bbfa110d') # alternative
+
+sim.data['x_array'][0] # extract array data from simulation
+sim.globals['x_mean'][0] # extract scalar data from simulation
+```
+
+
+#### Access data in the database from parameters:
+```python
+selection = ( (db.df['a'] == 10) & (db.df['param_2'] > 5) ) # conditions on parameters
+sim = db.sims(select=selection)[0] # get simulation
+sim.data['x_array'][0] # get data
+```
+
+#### Navigate in the database (hdf5 groups analog):
+```python
+sim['/'] # root
+sim['/parameters/'] # parameters group
+sim['/data/'] # data group
+sim['/data/x_array/'] # x_array group
 ```
