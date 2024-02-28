@@ -1,8 +1,11 @@
 """
 Extract source documentation from bamboost package and store it in a JSON file.
 
-Classes: AutoDoc
-Functions: parse_docstring, document_method, document_instance_variable, 
+Classes: 
+    AutoDoc
+
+Functions: 
+    parse_docstring, document_method, document_instance_variable, 
     document_class, document_module
 """
 
@@ -10,17 +13,30 @@ from __future__ import annotations
 
 import inspect
 import json
+import re
 from types import ModuleType
 
 import pdoc
 from docstring_parser import parse
 
-INCLUDE_METHODS = {"__getitem__", "__setitem__", "__len__", "__iter__"}
+INCLUDE_METHODS = {
+    "__getitem__",
+    "__setitem__",
+    "__len__",
+    "__iter__",
+}
 
 
 def parse_docstring(docstring: str):
     """Parse docstring and return description, arguments and return."""
     doc = parse(docstring)
+
+    # split examples on empty lines
+    examples_str = (
+        doc.examples[0].description if doc.examples and doc.examples[0] else None
+    )
+    examples = re.split(r"\n\s*\n", examples_str.strip()) if examples_str else []
+
     return {
         "description": f"{doc.short_description} {doc.long_description if doc.long_description else ''}".replace(
             "\n", " "
@@ -29,6 +45,7 @@ def parse_docstring(docstring: str):
             param.arg_name.split()[0]: param.description for param in doc.params
         },
         "return": doc.returns.description if doc.returns else None,
+        "examples": examples,
     }
 
 
@@ -42,19 +59,21 @@ def document_method(method: pdoc.doc.Function, is_classmethod=False) -> dict:
         "signature": signature.__str__(),
         "returns": {
             "annotation": str(signature.return_annotation),
-            "description": docstring["return"].replace("\n", " ")
-            if docstring["return"]
-            else None,
+            "description": (
+                docstring["return"].replace("\n", " ") if docstring["return"] else None
+            ),
         },
         "arguments": {
             key: {
                 "default": str(val.default) if val.default != inspect._empty else None,
-                "annotation": str(val.annotation)
-                if val.annotation != inspect._empty
-                else None,
-                "description": docstring["arguments"].get(key).replace("\n", " ")
-                if key in docstring["arguments"]
-                else None,
+                "annotation": (
+                    str(val.annotation) if val.annotation != inspect._empty else None
+                ),
+                "description": (
+                    docstring["arguments"].get(key).replace("\n", " ")
+                    if key in docstring["arguments"]
+                    else None
+                ),
             }
             for key, val in signature.parameters.items()
         },
@@ -65,6 +84,7 @@ def document_method(method: pdoc.doc.Function, is_classmethod=False) -> dict:
         "props": {
             "isClassMethod": is_classmethod,
         },
+        "examples": docstring["examples"],
     }
 
     return method_data
@@ -74,11 +94,11 @@ def document_instance_variable(variable: pdoc.doc.Variable) -> dict:
     """Document instance variable and return dictionary with documentation."""
     return {
         "annotation": variable.annotation_str,
-        "description": parse_docstring(variable.docstring)["description"].replace(
-            "\n", " "
-        )
-        if variable.docstring
-        else None,
+        "description": (
+            parse_docstring(variable.docstring)["description"].replace("\n", " ")
+            if variable.docstring
+            else None
+        ),
     }
 
 
@@ -105,6 +125,7 @@ def document_class(cls: pdoc.doc.Class) -> dict:
             for i in cls.inherited_members
             if i[0] != "builtins"
         },
+        "examples": class_docstring["examples"],
     }
 
     # Constructor
@@ -117,9 +138,11 @@ def document_class(cls: pdoc.doc.Class) -> dict:
                 "annotation": (
                     str(val.annotation) if val.annotation != inspect._empty else None
                 ),
-                "description": class_docstring["arguments"].get(key).replace("\n", " ")
-                if key in class_docstring["arguments"]
-                else None,
+                "description": (
+                    class_docstring["arguments"].get(key).replace("\n", " ")
+                    if key in class_docstring["arguments"]
+                    else None
+                ),
             }
             for key, val in constructor.signature.parameters.items()
         },

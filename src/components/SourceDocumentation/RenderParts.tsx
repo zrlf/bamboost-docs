@@ -1,4 +1,6 @@
+import CodeBlock from '@theme/CodeBlock';
 import { parseAnnotation, parseString } from './ParseString';
+import styles from './styles.module.scss';
 
 export const Parameter = ({ name, arg }) => {
   const annotation = arg.annotation || 'Any';
@@ -44,7 +46,7 @@ type Variable = {
   description: string;
 };
 
-export const InstanceVariables = ({ variables }: { variables: {[key: string]: Variable} }) => {
+export const InstanceVariables = ({ variables }: { variables: { [key: string]: Variable } }) => {
   return (
     <div className="parameters">
       <b>Variables:</b>
@@ -58,6 +60,24 @@ export const InstanceVariables = ({ variables }: { variables: {[key: string]: Va
           );
         })}
       </ul>
+    </div>
+  );
+};
+
+export const Examples = ({ examples }) => {
+  return (
+    <div className={styles.examples}>
+      <b>Examples:</b>
+
+      <div>
+        {examples.map((example, index) => {
+          return (
+            <CodeBlock className={styles.example} language="py" key={`example_${index}`}>
+              {example}
+            </CodeBlock>
+          );
+        })}
+      </div>
     </div>
   );
 };

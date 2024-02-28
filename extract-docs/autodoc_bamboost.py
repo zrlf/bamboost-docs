@@ -1,4 +1,10 @@
-import os
+"""
+This script is used to generate markdown files for each module and submodules
+of the bamboost package. The markdown files are used to render the API documentation
+on the website. It is specific to the TOC components of this website as it uses
+`RenderModule` and `RenderClass` components to render the documentation.
+"""
+import os; os.environ["BAMBOOST_NO_MPI"] = "1"
 
 import bamboost
 from autodoc import AutoDoc
@@ -35,6 +41,9 @@ import DocCardList from '@theme/DocCardList';
 
 
 def create_md_for_module(module: dict, index: int = 0) -> None:
+    """
+    Create markdown files for each module and submodules.
+    """
     submodules = module["submodules"]
 
     basename = module["name"].split(".")[-1]
@@ -52,6 +61,7 @@ def create_md_for_module(module: dict, index: int = 0) -> None:
         filename = f"index.md"
         card_links = doc_card_links
 
+    # Create full path (doc_path/module_path/filename)
     module_path = os.path.join(doc_path, module_path)
     os.makedirs(module_path, exist_ok=True)
     f = open(os.path.join(module_path, filename), "w")
@@ -63,10 +73,10 @@ def create_md_for_module(module: dict, index: int = 0) -> None:
     )
     f.write(card_links)
 
-    for cls, obj in module["classes"].items():
-        f.write(f"\n## {cls}\n")
+    for class_name, _ in module["classes"].items():
+        f.write(f"\n## {class_name}\n")
         f.write(
-            f'\n<RenderClass data={{sourceDoc}} classFullName="{module["name"]}.{cls}" />\n'
+            f'\n<RenderClass data={{sourceDoc}} classFullName="{module["name"]}.{class_name}" />\n'
         )
 
     f.write("\n<TableOfContents />\n")

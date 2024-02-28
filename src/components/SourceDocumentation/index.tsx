@@ -3,7 +3,13 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import CodeBlock from '@theme/CodeBlock';
 
-import { InstanceVariables, Parameter, ParameterList, ReturnStatement } from './RenderParts';
+import {
+  Examples,
+  InstanceVariables,
+  Parameter,
+  ParameterList,
+  ReturnStatement,
+} from './RenderParts';
 
 import './styles.scss';
 import styles from './styles.module.scss';
@@ -34,6 +40,7 @@ type Method = {
   props: {
     isClassMethod?: boolean;
   };
+  examples: string[];
 };
 
 type Class = {
@@ -43,6 +50,7 @@ type Class = {
   methods: { key: Method };
   variables: { [key: string]: { annotation: string; description: string } };
   inherits_from: {};
+  examples: string[];
 };
 
 const RenderMethod = (method: {
@@ -120,6 +128,9 @@ const RenderMethod = (method: {
 
           {/* RENDER RETURNS */}
           <ReturnStatement returns={obj.returns} />
+
+          {/* RENDER EXAMPLES */}
+          {obj.examples.length > 0 && <Examples examples={obj.examples} />}
         </>
       )}
     </div>
@@ -269,6 +280,9 @@ export const RenderClass = ({
 
       {/* Render Class Variables */}
       <InstanceVariables variables={cls.variables} />
+
+      {/* Render Examples */}
+      {cls.examples.length > 0 && <Examples examples={cls.examples} />}
 
       {/* Render Methods */}
       <div className="methods">
