@@ -5,7 +5,6 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import AuthorHeader from '@theme/BlogPostItem/Header/Author';
-import ReactMarkdown from 'react-markdown';
 import CodeBlock from '@theme/CodeBlock';
 import Admonition from '@theme/Admonition';
 
@@ -16,11 +15,12 @@ import { useLocation } from '@docusaurus/router';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(null);
   const handleWindowSizeChange = () => {
     setWidth(window.innerWidth);
   };
   useEffect(() => {
+    setWidth(window.innerWidth);
     window.addEventListener('resize', handleWindowSizeChange);
     return () => {
       window.removeEventListener('resize', handleWindowSizeChange);
