@@ -9,6 +9,7 @@
 
 .blogContainer {
   padding: 3rem;
+
   @media screen and (max-width: 996px) {
     padding: 1rem;
   }
@@ -28,11 +29,9 @@
   .blogPost {
     width: min(100%, clamp(400px, 45%, 100%));
     // background-color: var(--base-content);
-    background-image: linear-gradient(
-      to bottom left,
-      var(--base-content),
-      color-mix(in srgb, var(--base-content), transparent 50%)
-    );
+    background-image: linear-gradient(to bottom left,
+        var(--base-content),
+        color-mix(in srgb, var(--base-content), transparent 50%));
     padding: 1rem;
     border-radius: 6px;
     flex-shrink: 0;
@@ -47,5 +46,78 @@
   text-align: center;
   gap: 1em;
   margin-top: 1em;
-  
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(var(--slide-distance, -100%));
+  }
+}
+
+.testimonialContainer {
+  overflow: hidden;
+  margin-bottom: 4em;
+}
+
+.testimonials {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+
+  @media screen and (min-width: 996px) {
+    gap: 3em;
+  }
+
+  align-items: center;
+  animation: slide 30s linear infinite;
+
+  .testimonial {
+    position: relative;
+    display: inline-block;
+    align-items: center;
+    background: radial-gradient(ellipse at 50% 50%,
+        color-mix(in srgb, var(--text) 8%, transparent),
+        transparent 70%);
+    // filter: drop-shadow(0 0 0.5rem var(--primary));
+    padding: 1em;
+    border-radius: 6px;
+    text-align: center;
+    max-width: min(100%, clamp(400px, 45%, 100%));
+    flex-shrink: 0;
+
+    .author {
+      font-weight: bold;
+    }
+
+    @media screen and (min-width: 996px) {
+
+      &::before,
+      &::after {
+        position: absolute;
+        font-size: 4em;
+        top: 50%;
+        transform: translateY(-50%) scaleX(0.6);
+        z-index: -1;
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      &::before {
+        content: '';
+        // content: '<';
+        left: -20px;
+      }
+
+      &::after {
+        content: '';
+        // content: '>';
+        right: -20px;
+      }
+    }
+  }
 }
