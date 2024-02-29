@@ -212,6 +212,18 @@ const Testimonials = () => {
     {
       author: "Jan van Dokkum",
       quote: "I strive to have only a single simulation. Thus, I have no need for such a tool.👨🏽‍🚒"
+    },
+    {
+      author: "Luca Michel",
+      quote: "simulations without bamboost are like a bike without gears. It also work but you’ll suffer more."
+    },
+    {
+      author: "Ioannis Koureas",
+      quote: "..."
+    },
+    {
+      author: "Ale",
+      quote: "I complain all the time. But also on bamboost."
     }
   ]);
 
