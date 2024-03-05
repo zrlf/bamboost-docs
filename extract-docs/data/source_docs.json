@@ -711,8 +711,8 @@
                   "source": {
                     "code": "    @capture_key_error\n    def __getitem__(self, key) -> Any:\n        return self.file_object[key]\n",
                     "lines": [
-                      127,
-                      129
+                      128,
+                      130
                     ]
                   },
                   "props": {
@@ -752,8 +752,8 @@
                   "source": {
                     "code": "    def open(self, mode: str = \"r\", driver=None, comm=None):\n        if self._lock == 0:\n            log.debug(f\"[{id(self)}] Open {self.file_name}\")\n            self.file_object = open_h5file(self.file_name, mode, driver, comm)\n\n        if FILE_MODE_HIRARCHY[self.file_object.mode] < FILE_MODE_HIRARCHY[mode]:\n            self.change_file_mode(mode, driver, comm)\n\n        log.debug(f\"[{id(self)}] Lock stack {self._lock}\")\n        self._lock += 1\n        return self.file_object\n",
                     "lines": [
-                      149,
-                      159
+                      150,
+                      160
                     ]
                   },
                   "props": {
@@ -778,8 +778,8 @@
                   "source": {
                     "code": "    def close(self):\n        self._lock -= 1\n        if self._lock == 0:\n            log.debug(f\"[{id(self)}] Close {self.file_name}\")\n            self.file_object.close()\n        log.debug(f\"[{id(self)}] Lock stack {self._lock}\")\n",
                     "lines": [
-                      161,
-                      166
+                      162,
+                      167
                     ]
                   },
                   "props": {
@@ -819,8 +819,8 @@
                   "source": {
                     "code": "    def change_file_mode(self, mode: str, driver=None, comm=None):\n        log.info(\n            f\"Forced closing and reopening to change file mode [{self.file_name}].\"\n        )\n        self.file_object.close()\n        self.file_object = open_h5file(self.file_name, mode, driver, comm)\n",
                     "lines": [
-                      168,
-                      173
+                      169,
+                      174
                     ]
                   },
                   "props": {
@@ -846,7 +846,7 @@
               "inherits_from": {},
               "examples": [],
               "constructor": {
-                "signature": "(\n    file_name: str,\n    _comm: mpi4py.MPI.Comm = <mpi4py.MPI.Intracomm object>\n)",
+                "signature": "(\n    file_name: str,\n    _comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -859,16 +859,16 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<mpi4py.MPI.Intracomm object at 0x7978f6297de0>",
-                    "annotation": "<class 'mpi4py.MPI.Comm'>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f3aa20f6550>",
+                    "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   }
                 },
                 "source": {
                   "code": "    def __init__(self, file_name: str, _comm: MPI.Comm = MPI.COMM_WORLD) -> None:\n        self.file_object: h5py.File = None\n        self.file_name = file_name\n        self.simulation_uid = os.path.basename(file_name)\n        self._lock = 0\n        self._mode = \"r\"\n        self._driver = None\n        self._comm = _comm\n",
                   "lines": [
-                    109,
-                    116
+                    110,
+                    117
                   ]
                 }
               }
@@ -905,10 +905,10 @@
                 }
               },
               "source": {
-                "code": "def open_h5file(file: str, mode, driver=None, comm=None):\n    \"\"\"Open h5 file. Waiting if file is not available.\n\n    Args:\n        file (str): File to open\n        mode (str): 'r', 'a', 'w', ...\n        driver (str): driver for h5.File\n        comm: MPI communicator\n    \"\"\"\n    while True:\n        try:\n            if driver == \"mpio\" and HAS_MPIO and MPI_ACTIVE:\n                return h5py.File(file, mode, driver=driver, comm=comm)\n            else:\n                return h5py.File(file, mode)\n\n        except OSError:\n            log.warning(f\"File {file} not accessible, waiting\")\n            time.sleep(.1)\n",
+                "code": "def open_h5file(file: str, mode, driver=None, comm=None):\n    \"\"\"Open h5 file. Waiting if file is not available.\n\n    Args:\n        file (str): File to open\n        mode (str): 'r', 'a', 'w', ...\n        driver (str): driver for h5.File\n        comm: MPI communicator\n    \"\"\"\n    while True:\n        try:\n            if driver == \"mpio\" and HAS_MPIO and MPI_ACTIVE:\n                return h5py.File(file, mode, driver=driver, comm=comm)\n            else:\n                return h5py.File(file, mode)\n\n        except OSError:\n            log.warning(f\"File {file} not accessible, waiting\")\n            time.sleep(0.1)\n",
                 "lines": [
-                  38,
-                  56
+                  39,
+                  57
                 ]
               },
               "props": {
@@ -943,8 +943,8 @@
               "source": {
                 "code": "def with_file_open(mode: str = \"r\", driver=None, comm=None):\n    \"\"\"Open the file (`self._file`) before function\n    Close the file after the function call\n\n    Works on classes containing the member `_file` of type :class:`~bamboost.common.file_handler.FileHandler`\n    \"\"\"\n\n    def decorator(method):\n        @wraps(method)\n        def wrapper(self, *args, **kwargs):\n            with self._file(mode, driver, comm):\n                return method(self, *args, **kwargs)\n\n        return wrapper\n\n    return decorator\n",
                 "lines": [
-                  59,
-                  74
+                  60,
+                  75
                 ]
               },
               "props": {
@@ -969,8 +969,8 @@
               "source": {
                 "code": "def capture_key_error(method):\n    @wraps(method)\n    def inner(self, *args, **kwargs):\n        try:\n            return method(self, *args, **kwargs)\n        except KeyError as e:\n            raise KeyError(\n                f'[uid: {self.simulation_uid.split(\".\")[0]}] content not in file: {self.file_name}'\n            ) from e\n\n    return inner\n",
                 "lines": [
-                  77,
-                  87
+                  78,
+                  88
                 ]
               },
               "props": {
@@ -2591,7 +2591,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": "(\n    path: str = None,\n    comm: mpi4py.MPI.Comm = <mpi4py.MPI.Intracomm object>,\n    uid: str = None,\n    create_if_not_exist: bool = True\n)",
+            "signature": "(\n    path: str = None,\n    comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>,\n    uid: str = None,\n    create_if_not_exist: bool = True\n)",
             "arguments": {
               "self": {
                 "default": null,
@@ -2604,8 +2604,8 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7978f6297de0>",
-                "annotation": "<class 'mpi4py.MPI.Comm'>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f3aa20f6550>",
+                "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator"
               },
               "uid": {
@@ -3407,7 +3407,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": "(\n    uid: str,\n    path: str,\n    comm: mpi4py.MPI.Comm = <mpi4py.MPI.Intracomm object>\n)",
+            "signature": "(\n    uid: str,\n    path: str,\n    comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>\n)",
             "arguments": {
               "self": {
                 "default": null,
@@ -3425,13 +3425,13 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7978f6297de0>",
-                "annotation": "<class 'mpi4py.MPI.Comm'>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f3aa20f6550>",
+                "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               }
             },
             "source": {
-              "code": "    def __init__(self, uid: str, path: str, comm: MPI.Comm = MPI.COMM_WORLD):\n        self.uid: str = uid\n        self.path_database: str = os.path.abspath(path)\n        self.path: str = os.path.abspath(os.path.join(path, uid))\n        self.h5file: str = os.path.join(self.path, f\"{self.uid}.h5\")\n        self.xdmffile: str = os.path.join(self.path, f\"{self.uid}.xdmf\")\n        os.makedirs(self.path, exist_ok=True)\n\n        # MPI information\n        self._comm = comm\n        self._psize = self._comm.size\n        self._prank = self._comm.rank\n        self._ranks = np.array([i for i in range(self._psize)])\n\n        self._file = FileHandler(self.h5file)\n\n        # Initialize groups to meshes, data and userdata. Create groups.\n        self.meshes: MeshGroup = MeshGroup(self._file)\n        self.data: DataGroup = DataGroup(self._file, self.meshes)\n        self.globals: GlobalGroup = GlobalGroup(self._file, '/globals')\n        self.userdata: hdf_pointer.MutableGroup = hdf_pointer.MutableGroup(\n            self._file, \"/userdata\"\n        )\n        self.links: Links = Links(self._file)\n",
+              "code": "    def __init__(self, uid: str, path: str, comm: MPI.Comm = MPI.COMM_WORLD):\n        self.uid: str = uid\n        self.path_database: str = os.path.abspath(path)\n        self.path: str = os.path.abspath(os.path.join(path, uid))\n        self.h5file: str = os.path.join(self.path, f\"{self.uid}.h5\")\n        self.xdmffile: str = os.path.join(self.path, f\"{self.uid}.xdmf\")\n        os.makedirs(self.path, exist_ok=True)\n\n        # MPI information\n        self._comm = comm\n        self._psize = self._comm.size\n        self._prank = self._comm.rank\n        self._ranks = np.array([i for i in range(self._psize)])\n\n        self._file = FileHandler(self.h5file)\n\n        # Initialize groups to meshes, data and userdata. Create groups.\n        self.meshes: MeshGroup = MeshGroup(self._file)\n        self.data: DataGroup = DataGroup(self._file, self.meshes)\n        self.globals: GlobalGroup = GlobalGroup(self._file, \"/globals\")\n        self.userdata: hdf_pointer.MutableGroup = hdf_pointer.MutableGroup(\n            self._file, \"/userdata\"\n        )\n        self.links: Links = Links(self._file)\n",
               "lines": [
                 93,
                 116
@@ -3799,10 +3799,10 @@
                 }
               },
               "source": {
-                "code": "    def add_field(\n        self, name: str, vector: np.array, time: float = None, mesh: str = None, dtype: str = None\n    ) -> None:\n        \"\"\"Add a dataset to the file. The data is stored at `data/`.\n\n        Args:\n            name: Name for the dataset\n            vector: Dataset\n            time: Optional. time\n            mesh: Optional. Linked mesh for this data\n            dtype: Optional. Numpy style datatype, see h5py documentation, defaults to the dtype of\n        \"\"\"\n        if mesh is None:\n            mesh = self._default_mesh\n\n        # Get dimension of vector\n        if vector.ndim <= 1:\n            vector = vector.reshape((-1, 1))\n        dim = vector.shape[1]\n\n        if time is None:\n            time = self.step\n\n        length_local = vector.shape[0]\n        length_p = np.array(self._comm.allgather(length_local))\n        length = np.sum(length_p)\n\n        # global indices\n        idx_start = np.sum(length_p[self._ranks < self._prank])\n        idx_end = idx_start + length_local\n\n        # open file\n        with self._file(\"a\", driver=\"mpio\", comm=self._comm) as f:\n            data = f.require_group(\n                \"data\"\n            )  # Require group data to store all point data in\n            grp = data.require_group(name)\n            vec = grp.require_dataset(str(self.step), shape=(length, dim), dtype=dtype if dtype else vector.dtype)\n            vec[idx_start:idx_end, :] = vector\n\n        if self._prank == 0:\n            with self._file(\"a\"):\n                vec = self._file[\"data\"][name][str(self.step)]\n                vec.attrs[\"t\"] = time  # add time as attribute to dataset\n                vec.attrs[\"mesh\"] = mesh  # add link to mesh as attribute\n",
+                "code": "    def add_field(\n        self,\n        name: str,\n        vector: np.array,\n        time: float = None,\n        mesh: str = None,\n        dtype: str = None,\n    ) -> None:\n        \"\"\"Add a dataset to the file. The data is stored at `data/`.\n\n        Args:\n            name: Name for the dataset\n            vector: Dataset\n            time: Optional. time\n            mesh: Optional. Linked mesh for this data\n            dtype: Optional. Numpy style datatype, see h5py documentation, defaults to the dtype of\n        \"\"\"\n        if mesh is None:\n            mesh = self._default_mesh\n\n        # Get dimension of vector\n        if vector.ndim <= 1:\n            vector = vector.reshape((-1, 1))\n        dim = vector.shape[1]\n\n        if time is None:\n            time = self.step\n\n        length_local = vector.shape[0]\n        length_p = np.array(self._comm.allgather(length_local))\n        length = np.sum(length_p)\n\n        # global indices\n        idx_start = np.sum(length_p[self._ranks < self._prank])\n        idx_end = idx_start + length_local\n\n        # open file\n        with self._file(\"a\", driver=\"mpio\", comm=self._comm) as f:\n            data = f.require_group(\n                \"data\"\n            )  # Require group data to store all point data in\n            grp = data.require_group(name)\n            vec = grp.require_dataset(\n                str(self.step),\n                shape=(length, dim),\n                dtype=dtype if dtype else vector.dtype,\n            )\n            vec[idx_start:idx_end, :] = vector\n\n        if self._prank == 0:\n            with self._file(\"a\"):\n                vec = self._file[\"data\"][name][str(self.step)]\n                vec.attrs[\"t\"] = time  # add time as attribute to dataset\n                vec.attrs[\"mesh\"] = mesh  # add link to mesh as attribute\n",
                 "lines": [
                   153,
-                  197
+                  206
                 ]
               },
               "props": {
@@ -3840,10 +3840,10 @@
                 }
               },
               "source": {
-                "code": "    def add_global_field(self, name: str, value: Union[float, int], dtype: str = None) -> None:\n        \"\"\"Add a gobal field. These are stored at `globals/` as an array in a\n        single dataset.\n\n        Args:\n            name: Name for the data\n            value: Data\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"globals\")\n                if name not in grp.keys():\n                    vec = grp.create_dataset(\n                        name, shape=(1,), dtype=dtype if dtype else np.array(value).dtype, chunks=True, maxshape=(None,)\n                    )\n                    vec[0] = value\n                else:\n                    vec = grp[name]\n                    vec.resize((self.step + 1,))\n                    vec[-1] = value\n",
+                "code": "    def add_global_field(\n        self, name: str, value: Union[float, int], dtype: str = None\n    ) -> None:\n        \"\"\"Add a gobal field. These are stored at `globals/` as an array in a\n        single dataset.\n\n        Args:\n            name: Name for the data\n            value: Data\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"globals\")\n                if name not in grp.keys():\n                    vec = grp.create_dataset(\n                        name,\n                        shape=(1,),\n                        dtype=dtype if dtype else np.array(value).dtype,\n                        chunks=True,\n                        maxshape=(None,),\n                    )\n                    vec[0] = value\n                else:\n                    vec = grp[name]\n                    vec.resize((self.step + 1,))\n                    vec[-1] = value\n",
                 "lines": [
-                  199,
-                  218
+                  208,
+                  233
                 ]
               },
               "props": {
@@ -3878,8 +3878,8 @@
               "source": {
                 "code": "    @deprecated(\"Use `copy_file` instead.\")\n    def add_additional(self, name: str, file: str) -> None:\n        \"\"\"Add an additional file stored elsewhere or in database directory.\n\n        Args:\n            name: Name of data\n            file: filename of file\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"additionals\")\n                grp.attrs.update({name: file})\n",
                 "lines": [
-                  220,
-                  231
+                  235,
+                  246
                 ]
               },
               "props": {
@@ -3904,8 +3904,8 @@
               "source": {
                 "code": "    def finish_step(self) -> None:\n        \"\"\"Finish step. Adds 1 to the step counter.\"\"\"\n        self.step += 1\n",
                 "lines": [
-                  233,
-                  235
+                  248,
+                  250
                 ]
               },
               "props": {
@@ -3935,8 +3935,8 @@
               "source": {
                 "code": "    def finish_sim(self, status: str = \"Finished\") -> None:\n        if self._prank == 0:\n            self.change_status(status)\n",
                 "lines": [
-                  237,
-                  239
+                  252,
+                  254
                 ]
               },
               "props": {
@@ -3966,8 +3966,8 @@
               "source": {
                 "code": "    def register_git_attributes(self, repo_path: str = \"./\") -> None:\n        \"\"\"Register git information for given repo.\n\n        Args:\n            repo_path (`str`): path to git repository\n        \"\"\"\n        if self._prank == 0:\n            repo_path = os.path.abspath(repo_path)\n            # store current working directory\n            cwd = os.getcwd()\n\n            # switch directory to git repo\n            os.chdir(repo_path)\n            git_string = GitStateGetter().create_git_string()\n\n            # switch working directory back\n            os.chdir(cwd)\n\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"git\")\n                repo_name = os.path.split(repo_path)[1]\n                log.info(f\"Adding repo {repo_name}\")\n                if repo_name in grp.keys():\n                    del grp[repo_name]\n                grp.create_dataset(repo_name, data=git_string)\n",
                 "lines": [
-                  241,
-                  265
+                  256,
+                  280
                 ]
               },
               "props": {
@@ -3997,8 +3997,8 @@
               "source": {
                 "code": "    def copy_executable(self, script_path: str) -> None:\n        \"\"\"WILL BE REMOVED. USE COPY_FILE.\n        Copy an executable to directory for reproducability.\n\n        Args:\n            script_path: path to script\n        \"\"\"\n        shutil.copy(script_path, self.path)\n        self.executable = os.path.split(script_path)[1]\n",
                 "lines": [
-                  267,
-                  275
+                  282,
+                  290
                 ]
               },
               "props": {
@@ -4033,8 +4033,8 @@
               "source": {
                 "code": "    def copy_file(self, source: Union[str, list], destination: str = \"\") -> None:\n        \"\"\"Copy a file to the datafolder.\n\n        Args:\n            source: path to file, or list of files\n            destination: destination (will create intermediatory directories)\n        \"\"\"\n        if self._prank != 0:\n            return\n\n        if isinstance(source, list):\n            for item in source:\n                self.copy_file(item, destination)\n            return\n\n        destination = os.path.join(self.path, destination)\n\n        if os.path.isdir(source):\n            shutil.copytree(\n                source,\n                os.path.join(destination, os.path.basename(source)),\n                dirs_exist_ok=True,\n            )\n        elif os.path.isfile(source):\n            os.makedirs(destination, exist_ok=True)\n            shutil.copy(source, destination)\n        else:\n            raise FileNotFoundError\n",
                 "lines": [
-                  277,
-                  304
+                  292,
+                  319
                 ]
               },
               "props": {
@@ -4186,7 +4186,7 @@
           },
           "examples": [],
           "constructor": {
-            "signature": "(\n    uid: str,\n    path: str,\n    comm: mpi4py.MPI.Comm = <mpi4py.MPI.Intracomm object>\n)",
+            "signature": "(\n    uid: str,\n    path: str,\n    comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>\n)",
             "arguments": {
               "self": {
                 "default": null,
@@ -4204,8 +4204,8 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7978f6297de0>",
-                "annotation": "<class 'mpi4py.MPI.Comm'>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f3aa20f6550>",
+                "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               }
             },
