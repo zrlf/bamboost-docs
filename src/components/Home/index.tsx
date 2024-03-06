@@ -210,8 +210,8 @@ const Testimonials = () => {
       quote: "I don't know what I would do without bamboost. I use it everyday.",
     },
     {
-      author: "Jan van Dokkum",
-      quote: "I strive to have only a single simulation. Thus, I have no need for such a tool.👨🏽‍🚒"
+      author: "Anonymus",
+      quote: "Doesn't work.",
     },
     {
       author: "Luca Michel",
