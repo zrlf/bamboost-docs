@@ -218,8 +218,8 @@ const Testimonials = () => {
       quote: "simulations without bamboost are like a bike without gears. It also work but you’ll suffer more."
     },
     {
-      author: "Ioannis Koureas",
-      quote: "..."
+      author: "Mohit Pundir",
+      quote: "It's like having your own butler for data management."
     },
     {
       author: "Ale",
