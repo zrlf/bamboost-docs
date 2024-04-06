@@ -180,7 +180,7 @@ const SourceCodeButton = ({ sourceIsVisible, setSourceIsVisible }) => {
 const Constructor = ({ cls, sourceIsVisible }: { cls: Class; sourceIsVisible: boolean }) => {
   const name = cls.name;
   const source_code = cls.constructor.source.code;
-  const starting_line_number = cls.constructor.source.lines[0];
+  const starting_line_number = cls.constructor.source.lines?.[0] || 0;
   const signature = cls.constructor.signature;
   const args = cls.constructor.arguments;
 

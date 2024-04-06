@@ -1,6 +1,6 @@
 .customTocDiv {
   position: relative;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 0.5rem;
   margin-left: 1rem;
   margin-bottom: 1rem;
@@ -33,9 +33,10 @@
   a {
     text-decoration: none;
     color: var(--text);
-    background-color: var(--ifm-code-background);
-    font-family: var(--ifm-font-family-monospace);
-    font-size: var(--ifm-code-font-size);
+    font-weight: 200;
+    // background-color: var(--ifm-code-background);
+    // font-family: var(--ifm-font-family-monospace);
+    // font-size: var(--ifm-code-font-size);
     // padding: var(--ifm-code-padding-vertical) var(--ifm-code-padding-horizontal);
     padding: .2em .7em;
     border-radius: var(--ifm-code-border-radius);

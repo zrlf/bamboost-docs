@@ -11,7 +11,6 @@ import Admonition from '@theme/Admonition';
 import styles from './index.module.scss';
 import '@site/src/pages/index.scss';
 import { useEffect, useState } from 'react';
-import { useLocation } from '@docusaurus/router';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -53,28 +52,19 @@ function HomepageHeader() {
   ];
 
   return (
-    <header className={clsx('hero hero-custom')}>
+    <header className={clsx(styles.hero)}>
       <div className="container">
-        <Heading as="h1" className="hero__title mb-10">
-          {siteConfig.title}
+        <Heading as="h1" className={styles.title}>
+          {/* {siteConfig.title} */}
+          Make your data easy.
         </Heading>
-        <p className="sub-title mb-16">{siteConfig.tagline}</p>
-        <div className={clsx(!isMobile && styles.buttons)}>
-          {isMobile ? (
-            <ul>
-              {items.map((item, index) => (
-                <li key={index}>
-                  <Link to={item.location}>{item.text}</Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            items.map((item, index) => (
-              <Link key={index} className={item.className} to={item.location}>
-                {item.text}
-              </Link>
-            ))
-          )}
+        <p className="">{siteConfig.tagline}</p>
+        <div className={clsx(styles.buttons)}>
+          {items.map((item, index) => (
+            <Link key={index} className={item.className} to={item.location}>
+              {item.text}
+            </Link>
+          ))}
         </div>
       </div>
     </header>
@@ -112,7 +102,7 @@ const BlogBlock = ({ homePageBlogMetadata, recentPosts }) => {
 
 const Introduction = () => {
   return (
-    <div>
+    <div className={clsx('container', styles.introduction)}>
       <h2>Goal</h2>
       <p>
         Finding the right data in a large amount of scientific data is hard. By using a database, we
@@ -206,25 +196,26 @@ const Testimonials = () => {
       quote: "It's really good. I am satisfied with the service.",
     },
     {
-      author: "Prof. David S. Kammer",
+      author: 'Prof. David S. Kammer',
       quote: "I don't know what I would do without bamboost. I use it everyday.",
     },
     {
-      author: "Anonymus",
+      author: 'Anonymus',
       quote: "Doesn't work.",
     },
     {
-      author: "Luca Michel",
-      quote: "simulations without bamboost are like a bike without gears. It also work but you’ll suffer more."
+      author: 'Luca Michel',
+      quote:
+        'simulations without bamboost are like a bike without gears. It also work but you’ll suffer more.',
     },
     {
-      author: "Mohit Pundir",
-      quote: "It's like having your own butler for data management."
+      author: 'Mohit Pundir',
+      quote: "It's like having your own butler for data management.",
     },
     {
-      author: "Ale",
-      quote: "I complain all the time. But also on bamboost."
-    }
+      author: 'Ale',
+      quote: 'I complain all the time. But also on bamboost.',
+    },
   ]);
 
   const testimonialRef = useRef(null);
@@ -257,6 +248,7 @@ const Testimonials = () => {
 
   return (
     <div className={clsx('container', styles.testimonialContainer)} ref={containerRef}>
+      <h2>You may trust these reviews</h2>
       <div className={styles.testimonials} ref={testimonialRef}>
         {testimonials.map((testimonial, index) => (
           <div key={`first-${index}`} className={styles.testimonial}>
@@ -278,9 +270,7 @@ export default function Home({ homePageBlogMetadata, recentPosts }) {
         description="Documentation site for the bamboost project">
         <HomepageHeader />
         <Testimonials />
-        <div className="container">
-          <Introduction />
-        </div>
+        <Introduction />
         <BlogBlock homePageBlogMetadata={homePageBlogMetadata} recentPosts={recentPosts} />
       </Layout>
     </div>
