@@ -8,6 +8,9 @@ import AuthorHeader from '@theme/BlogPostItem/Header/Author';
 import CodeBlock from '@theme/CodeBlock';
 import Admonition from '@theme/Admonition';
 
+import DatabaseScreenshot from '@site/static/img/database.png';
+import WelcomeScreenshot from '@site/static/img/bamboost-welcome.png';
+
 import styles from './index.module.scss';
 import { useEffect, useState } from 'react';
 
@@ -67,6 +70,14 @@ function HomepageHeader() {
           ))}
         </div>
       </div>
+      <div className={styles.screenshot}>
+        <div className={styles.database}>
+          <img src={DatabaseScreenshot}></img>
+        </div>
+        <div className={styles.welcome}>
+          <img src={WelcomeScreenshot}></img>
+        </div>
+      </div>
     </header>
   );
 }
@@ -102,7 +113,7 @@ const BlogBlock = ({ homePageBlogMetadata, recentPosts }) => {
 
 const Introduction = () => {
   return (
-    <div className={clsx('container', styles.introduction)}>
+    <main className={clsx('container', styles.introduction)}>
       <h2>Goal</h2>
       <p>
         Finding the right data in a large amount of scientific data is hard. By using a database, we
@@ -181,7 +192,7 @@ db = Manager('path/to/database')`}
         nature of the data. For instance, you might have a database for simulations of a parametric
         study or a database for simulations of a specific system with varying initial conditions.
       </p>
-    </div>
+    </main>
   );
 };
 

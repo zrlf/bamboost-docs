@@ -56,6 +56,20 @@
   color: var(--text);
   scroll-behavior: smooth;
 
+  // blur noise overlay
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: url('/static/img/noise-texture.png');
+    background-repeat: repeat;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
   --ifm-menu-color: var(--text);
   --ifm-navbar-link-color: var(--text);
 }
