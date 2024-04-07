@@ -5,7 +5,6 @@
 @import 'styles';
 
 :root {
-
   font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
 
   &[data-theme='light'] {
@@ -64,7 +63,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-image: url('/static/img/noise-texture.png');
+    background-image: url('/static/img/noise-texture.webp');
     background-repeat: repeat;
     opacity: 0.04;
     pointer-events: none;
@@ -90,6 +89,24 @@
 .bg {
   @include createUtilities($colorsDark, 'background-color');
 }
+
 .text {
   @include createUtilities($colorsDark, 'color');
+}
+
+// highlight
+.hl {
+  color: var(--primary);
+  font-weight: bold;
+  padding: 0.1em 0.3em;
+  border-radius: 0.2em;
+}
+
+// Move headings down to account for fixed navbar
+h1,
+h2,
+h3,
+h4,
+h5 {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5em);
 }
