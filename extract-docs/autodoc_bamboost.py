@@ -4,10 +4,39 @@ of the bamboost package. The markdown files are used to render the API documenta
 on the website. It is specific to the TOC components of this website as it uses
 `RenderModule` and `RenderClass` components to render the documentation.
 """
-import os; os.environ["BAMBOOST_NO_MPI"] = "1"
 
+import os
+import sys
+from unittest.mock import MagicMock, Mock
+
+os.environ["BAMBOOST_MPI"] = "0"
 import bamboost
 from autodoc import AutoDoc
+
+
+class AttributeMock(Mock):
+    """
+    Mock class that returns a new mock instance on attribute access,
+    preserving the attribute chain as the name.
+    """
+
+    def __init__(self, name="", *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._name = name
+
+    def __getattr__(self, name):
+        # For each attribute access, return a new mock with the updated name
+        new_name = f"{self._name}.{name}" if self._name else name
+        mock = AttributeMock(name=new_name)
+        setattr(self, name, mock)
+        return mock
+
+    def __repr__(self):
+        return f"<{self._name}>"
+
+
+# Mocking the fenics module
+sys.modules["fenics"] = AttributeMock(name="fenics")
 
 site_path = "../"
 doc_path = os.path.join(site_path, "docs/autoDocs")
