@@ -2,24 +2,39 @@ $maxwidth: 900px;
 
 .page {
   background-color: var(--base);
-  border-radius: 6px;
-  background-size: auto;
+  background-size: contain;
   background-position: top;
   background-repeat: no-repeat;
-  // background-attachment: fixed;
-  background-image: url('/static/img/welcome-background.svg');
+  [data-theme='dark'] & {
+    color: var(--text);
+    background-image: url('/static/img/welcome-background.svg');
+    background-size: contain;
+    background-position: top;
+    background-repeat: no-repeat;
+  }
 
   h1,
   h2 {
-    color: var(--secondary);
+    color: var(--text);
     text-align: left;
-    font-family: 'serif';
+    font-family: 'Noto Serif', 'serif';
     font-size: 2.2em;
+    margin-top: 1.2em;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 2px;
+      background-color: var(--text);
+      margin-top: 0.3em;
+    }
   }
 }
 
 .blogContainer {
-  padding: 3rem;
+  // padding: 3rem;
+  max-width: $maxwidth;
 
   @media screen and (max-width: 996px) {
     padding: 1rem;
@@ -59,24 +74,45 @@ $maxwidth: 900px;
   justify-content: center;
   display: flex;
   flex-direction: column;
-  min-height: 60vh;
+  margin: 100px 0;
+  padding: 20px 0;
   overflow: visible;
 
   .title {
     font-size: 3.5em;
     font-weight: 900;
-    font-family: 'serif';
+    font-family: 'Noto Serif', 'serif';
     text-align: left;
     color: var(--primary);
   }
-}
 
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  text-align: center;
-  gap: 0.6em;
-  margin-top: 1em;
+  .tagline {
+    font-size: 1.3em;
+    font-weight: 300;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    text-align: center;
+    gap: 1em;
+    margin-top: 1em;
+  }
+
+  @media screen and (max-width: 996px) {
+    margin: 100px 0;
+    padding: 0 0;
+
+    .title {
+      font-size: 3em;
+    }
+
+    .tagline {
+      font-size: 1.1em;
+    }
+  }
 }
 
 .introduction {
@@ -160,3 +196,4 @@ $maxwidth: 900px;
     }
   }
 }
+

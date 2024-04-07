@@ -77,14 +77,17 @@
 
 // BUTTONS
 .btn {
-  $padding: 1rem;
+  $padding: 1em;
 
   text-decoration: none;
-  padding: $padding $padding * 2;
-  border-radius: 9999px;
-  transition: all 0.1s ease-in-out;
+  padding: $padding/4 $padding * 2;
+  border-radius: $border-radius;
+  transition: all 0.05s ease-in-out;
   background-color: $text;
   color: var(--base);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   @media screen and (width < 996px) {
     padding: $padding * 1.5 $padding * 3;

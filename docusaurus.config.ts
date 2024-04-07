@@ -50,21 +50,11 @@ const config: Config = {
         id: 'news',
         routeBasePath: 'news',
         path: './blog',
-        
       },
     ],
   ],
 
-  themes: [
-    // [
-    //   require.resolve('@easyops-cn/docusaurus-search-local'),
-    //   {
-    //     hashed: true,
-    //     highlightSearchTermsOnTargetPage: true,
-    //     removeDefaultStemmer: false,
-    //   },
-    // ],
-  ],
+  themes: [],
 
   presets: [
     [
@@ -77,10 +67,6 @@ const config: Config = {
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
         },
-        // blog: {
-        //   showReadingTime: true,
-        //   //   "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-        // },
         blog: false,
         theme: {
           customCss: './src/scss/custom.scss',
@@ -90,11 +76,10 @@ const config: Config = {
   ],
   stylesheets: [
     {
-        href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
-        type: 'text/css',
-        integrity:
-          'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
-        crossorigin: 'anonymous',
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+      type: 'text/css',
+      integrity: 'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+      crossorigin: 'anonymous',
     },
   ],
 
@@ -102,9 +87,9 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/bamboost_icon.png',
     colorMode: {
-        defaultMode: 'dark',
-        disableSwitch: false,
-        respectPrefersColorScheme: false,
+      defaultMode: 'dark',
+      disableSwitch: false,
+      respectPrefersColorScheme: false,
     },
     docs: {
       sidebar: {
@@ -170,8 +155,6 @@ const config: Config = {
       indexName: 'bamboost',
       apiKey: 'a236581fafb855e2cf6009d3f8d30649',
       contextualSearch: false,
-      // apiKey: '60dc79e4d7f5c7367d170d7e536eeb23',
-      // apiKey: 'fa5397e8ad748a2b192a381ff5889e75',
     },
   } satisfies Preset.ThemeConfig,
 };

@@ -48,8 +48,11 @@
   }
 
   background-color: var(--base);
+  background-image: url('/static/img/background.svg');
   background-size: cover;
-  background-attachment: fixed;
+  background-blend-mode: overlay;
+  background-position: top;
+  background-repeat: no-repeat;
   color: var(--text);
   scroll-behavior: smooth;
 

@@ -9,7 +9,6 @@ import CodeBlock from '@theme/CodeBlock';
 import Admonition from '@theme/Admonition';
 
 import styles from './index.module.scss';
-import '@site/src/pages/index.scss';
 import { useEffect, useState } from 'react';
 
 function HomepageHeader() {
@@ -56,9 +55,10 @@ function HomepageHeader() {
       <div className="container">
         <Heading as="h1" className={styles.title}>
           {/* {siteConfig.title} */}
-          Make your data easy.
+          {/* Make your data easy. */}
+          Get a grip on your data.
         </Heading>
-        <p className="">{siteConfig.tagline}</p>
+        <p className={styles.tagline}>{siteConfig.tagline}</p>
         <div className={clsx(styles.buttons)}>
           {items.map((item, index) => (
             <Link key={index} className={item.className} to={item.location}>
@@ -248,7 +248,7 @@ const Testimonials = () => {
 
   return (
     <div className={clsx('container', styles.testimonialContainer)} ref={containerRef}>
-      <h2>You may trust these reviews</h2>
+      <h2>Read what they say</h2>
       <div className={styles.testimonials} ref={testimonialRef}>
         {testimonials.map((testimonial, index) => (
           <div key={`first-${index}`} className={styles.testimonial}>
