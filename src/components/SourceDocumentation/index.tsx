@@ -121,7 +121,9 @@ const RenderMethod = (method: {
       {isExpanded && (
         <>
           {/* RENDER DOCSTRING */}
-          <p>{obj.docstring}</p>
+          {obj.docstring.split('\n\n').map((block, index) => (
+            <p key={`docstring_${name}_${index}`}>{block}</p>
+          ))}
 
           {/* RENDER ARGUMENTS */}
           <ParameterList parameters={obj.arguments} />
@@ -199,7 +201,7 @@ const Constructor = ({ cls, sourceIsVisible }: { cls: Class; sourceIsVisible: bo
           {Object.entries(args).map(([arg, content], index) => {
             if (arg === 'self') return null;
             return (
-              <li key={`args_${index}`}>
+              <li key={`args_${name}_${index}`}>
                 <b>{arg}</b> : <code>{parseAnnotation(content.annotation)}</code>
                 <p className="parameter-description">{content.description}</p>
               </li>

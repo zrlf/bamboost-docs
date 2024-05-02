@@ -38,9 +38,7 @@ def parse_docstring(docstring: str):
     examples = re.split(r"\n\s*\n", examples_str.strip()) if examples_str else []
 
     return {
-        "description": f"{doc.short_description} {doc.long_description if doc.long_description else ''}".replace(
-            "\n", " "
-        ),
+        "description": doc.description if doc.description else '',
         "arguments": {
             param.arg_name.split()[0]: param.description for param in doc.params
         },
