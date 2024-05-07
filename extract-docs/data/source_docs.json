@@ -1,10 +1,10 @@
 {
   "name": "bamboost",
-  "docstring": "None",
+  "docstring": "",
   "classes": {},
   "functions": {
     "set_log_level": {
-      "docstring": "None ",
+      "docstring": "",
       "signature": "(level: int = 30)",
       "returns": {
         "annotation": "<class 'inspect._empty'>",
@@ -33,20 +33,20 @@
   "submodules": {
     "accessors": {
       "name": "bamboost.accessors",
-      "docstring": "None",
+      "docstring": "",
       "classes": {},
       "functions": {},
       "submodules": {
         "meshes": {
           "name": "bamboost.accessors.meshes",
-          "docstring": "None",
+          "docstring": "",
           "classes": {
             "MeshGroup": {
               "name": "MeshGroup",
-              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a :class:`~.file_handler.FileHandler` and the in-file path to the object. The base class represents a generic group in the file",
+              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "__getitem__": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self, key) -> bamboost.accessors.meshes.Mesh",
                   "returns": {
                     "annotation": "<class 'bamboost.accessors.meshes.Mesh'>",
@@ -163,10 +163,10 @@
             },
             "Mesh": {
               "name": "Mesh",
-              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a :class:`~.file_handler.FileHandler` and the in-file path to the object. The base class represents a generic group in the file",
+              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "get_tuple": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self) -> Tuple[numpy.ndarray, numpy.ndarray]",
                   "returns": {
                     "annotation": "typing.Tuple[numpy.ndarray, numpy.ndarray]",
@@ -285,14 +285,14 @@
         },
         "fielddata": {
           "name": "bamboost.accessors.fielddata",
-          "docstring": "None",
+          "docstring": "",
           "classes": {
             "DataGroup": {
               "name": "DataGroup",
-              "docstring": "This pointer points to the data directory. Item accessor returns the individual data fields. `meshes` is passed to here for access of linked meshes.",
+              "docstring": "This pointer points to the data directory. Item accessor returns the\nindividual data fields. `meshes` is passed to here for access of linked\nmeshes.",
               "methods": {
                 "__getitem__": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self, key) -> bamboost.accessors.fielddata.FieldData",
                   "returns": {
                     "annotation": "<class 'bamboost.accessors.fielddata.FieldData'>",
@@ -323,7 +323,7 @@
                   "examples": []
                 },
                 "__iter__": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self) -> bamboost.accessors.fielddata.FieldData",
                   "returns": {
                     "annotation": "<class 'bamboost.accessors.fielddata.FieldData'>",
@@ -440,10 +440,10 @@
             },
             "FieldData": {
               "name": "FieldData",
-              "docstring": "This pointer points to a specific data field. `meshes` is passed to here for access of linked meshes.",
+              "docstring": "This pointer points to a specific data field. `meshes` is passed to here\nfor access of linked meshes.",
               "methods": {
                 "__getitem__": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self, key) -> numpy.ndarray",
                   "returns": {
                     "annotation": "<class 'numpy.ndarray'>",
@@ -474,7 +474,7 @@
                   "examples": []
                 },
                 "__len__": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self) -> int",
                   "returns": {
                     "annotation": "<class 'int'>",
@@ -500,7 +500,7 @@
                   "examples": []
                 },
                 "at_step": {
-                  "docstring": "Direct access to data at step. Does not require the virtual dataset. ",
+                  "docstring": "Direct access to data at step. Does not require the virtual dataset.\n",
                   "signature": "(self, *steps: int) -> numpy.ndarray",
                   "returns": {
                     "annotation": "<class 'numpy.ndarray'>",
@@ -531,7 +531,7 @@
                   "examples": []
                 },
                 "regenerate_virtual_datasets": {
-                  "docstring": "Regenerate virtual dataset. Call this if the data has changed, thus the virtual datasets need to be updated to cover the actual data.",
+                  "docstring": "Regenerate virtual dataset. Call this if the data has changed, thus the\nvirtual datasets need to be updated to cover the actual data.",
                   "signature": "(self) -> None",
                   "returns": {
                     "annotation": "None",
@@ -580,15 +580,15 @@
                 },
                 "coordinates": {
                   "annotation": ": numpy.ndarray",
-                  "description": "Wrapper for mesh.coordinates "
+                  "description": "Wrapper for mesh.coordinates"
                 },
                 "connectivity": {
                   "annotation": ": numpy.ndarray",
-                  "description": "Wrapper for mesh.connectivity "
+                  "description": "Wrapper for mesh.connectivity"
                 },
                 "msh": {
                   "annotation": ": Tuple[numpy.ndarray, numpy.ndarray]",
-                  "description": "Wrapper to get mesh as tuple "
+                  "description": "Wrapper to get mesh as tuple"
                 }
               },
               "inherits_from": {
@@ -677,20 +677,20 @@
     },
     "common": {
       "name": "bamboost.common",
-      "docstring": "None",
+      "docstring": "",
       "classes": {},
       "functions": {},
       "submodules": {
         "file_handler": {
           "name": "bamboost.common.file_handler",
-          "docstring": "None",
+          "docstring": "",
           "classes": {
             "FileHandler": {
               "name": "FileHandler",
-              "docstring": "File handler for an hdf5 file with the purpose of handling opening and closing of the file. We use the concept of composition to include an object of this type in classes which need access to an hdf5 file (such as the hdf5pointer and Simulation.)",
+              "docstring": "File handler for an hdf5 file with the purpose of handling opening and closing\nof the file. We use the concept of composition to include an object of this type\nin classes which need access to an hdf5 file (such as the hdf5pointer and Simulation.)",
               "methods": {
                 "__getitem__": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self, key) -> Any",
                   "returns": {
                     "annotation": "typing.Any",
@@ -721,7 +721,7 @@
                   "examples": []
                 },
                 "open": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self, mode: str = 'r', driver=None, comm=None)",
                   "returns": {
                     "annotation": "<class 'inspect._empty'>",
@@ -762,7 +762,7 @@
                   "examples": []
                 },
                 "close": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self)",
                   "returns": {
                     "annotation": "<class 'inspect._empty'>",
@@ -788,7 +788,7 @@
                   "examples": []
                 },
                 "change_file_mode": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self, mode: str, driver=None, comm=None)",
                   "returns": {
                     "annotation": "<class 'inspect._empty'>",
@@ -859,7 +859,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<mpi4py.MPI.Intracomm object at 0x7f714e420250>",
+                    "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
                     "annotation": "<class 'mpi4py.MPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -876,7 +876,7 @@
           },
           "functions": {
             "open_h5file": {
-              "docstring": "Open h5 file. Waiting if file is not available. ",
+              "docstring": "Open h5 file. Waiting if file is not available.\n",
               "signature": "(file: str, mode, driver=None, comm=None)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -917,7 +917,7 @@
               "examples": []
             },
             "with_file_open": {
-              "docstring": "Open the file (`self._file`) before function Close the file after the function call  Works on classes containing the member `_file` of type :class:`~bamboost.common.file_handler.FileHandler`",
+              "docstring": "Open the file (`self._file`) before function\nClose the file after the function call\n\nWorks on classes containing the member `_file` of type :class:`~bamboost.common.file_handler.FileHandler`",
               "signature": "(mode: str = 'r', driver=None, comm=None)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -953,7 +953,7 @@
               "examples": []
             },
             "capture_key_error": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(method)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -983,14 +983,14 @@
         },
         "job": {
           "name": "bamboost.common.job",
-          "docstring": "None",
+          "docstring": "",
           "classes": {
             "Job": {
               "name": "Job",
-              "docstring": "None ",
+              "docstring": "",
               "methods": {
                 "create_sbatch_script": {
-                  "docstring": "Write sbatch script for new simulation. ",
+                  "docstring": "Write sbatch script for new simulation.",
                   "signature": "(\n    self,\n    commands: list,\n    path: str,\n    uid: str = None,\n    nnodes: int = 1,\n    ntasks: int = 4,\n    ncpus: int = 1,\n    time: str = '04:00:00',\n    mem_per_cpu: int = 2048,\n    tmp: int = 8000\n) -> None",
                   "returns": {
                     "annotation": "None",
@@ -1061,7 +1061,7 @@
                   "examples": []
                 },
                 "create_bash_script_local": {
-                  "docstring": "Write bash script for local execution. ",
+                  "docstring": "Write bash script for local execution.",
                   "signature": "(self, commands: list, path: str, uid: str, ntasks: int = 4)",
                   "returns": {
                     "annotation": "<class 'inspect._empty'>",
@@ -1138,7 +1138,7 @@
           "classes": {},
           "functions": {
             "flatten_dict": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(dictionary, parent_key='', seperator='.')",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -1174,7 +1174,7 @@
               "examples": []
             },
             "unflatten_dict": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(dictionary, seperator='.')",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -1205,7 +1205,7 @@
               "examples": []
             },
             "tree": {
-              "docstring": "Given a directory Path object print a visual tree structure ",
+              "docstring": "Given a directory Path object print a visual tree structure",
               "signature": "(\n    dir_path: pathlib.Path,\n    level: int = -1,\n    limit_to_directories: bool = False,\n    length_limit: int = 1000\n)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -1246,7 +1246,7 @@
               "examples": []
             },
             "h5_tree": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(val, pre='')",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -1277,7 +1277,7 @@
               "examples": []
             },
             "show_differences": {
-              "docstring": "This function takes a pandas DataFrame as input and returns a modified DataFrame that shows only the columns which have differences.",
+              "docstring": "This function takes a pandas DataFrame as input and returns a modified\nDataFrame that shows only the columns which have differences.",
               "signature": "(df: pandas.core.frame.DataFrame) -> pandas.core.frame.DataFrame",
               "returns": {
                 "annotation": "<class 'pandas.core.frame.DataFrame'>",
@@ -1303,7 +1303,7 @@
               "examples": []
             },
             "to_camel_case": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(s: str) -> str",
               "returns": {
                 "annotation": "<class 'str'>",
@@ -1333,14 +1333,14 @@
         },
         "git_utility": {
           "name": "bamboost.common.git_utility",
-          "docstring": "None",
+          "docstring": "",
           "classes": {
             "GitStateGetter": {
               "name": "GitStateGetter",
-              "docstring": "None ",
+              "docstring": "",
               "methods": {
                 "create_git_string": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self) -> str",
                   "returns": {
                     "annotation": "<class 'str'>",
@@ -1393,14 +1393,14 @@
         },
         "hdf_pointer": {
           "name": "bamboost.common.hdf_pointer",
-          "docstring": "None",
+          "docstring": "",
           "classes": {
             "BasePointer": {
               "name": "BasePointer",
-              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a :class:`~.file_handler.FileHandler` and the in-file path to the object. The base class represents a generic group in the file",
+              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "new_pointer": {
-                  "docstring": "Returns a new pointer object. ",
+                  "docstring": "Returns a new pointer object.",
                   "signature": "(\n    cls,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n) -> bamboost.common.hdf_pointer.BasePointer",
                   "returns": {
                     "annotation": "<class 'bamboost.common.hdf_pointer.BasePointer'>",
@@ -1436,7 +1436,7 @@
                   "examples": []
                 },
                 "__getitem__": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self, key)",
                   "returns": {
                     "annotation": "<class 'inspect._empty'>",
@@ -1474,7 +1474,7 @@
                 },
                 "obj": {
                   "annotation": "",
-                  "description": "The object this BasePointer points to. File needs to be open for access. "
+                  "description": "The object this BasePointer points to. File needs to be open for access."
                 },
                 "attrs": {
                   "annotation": "",
@@ -1513,10 +1513,10 @@
             },
             "Group": {
               "name": "Group",
-              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a :class:`~.file_handler.FileHandler` and the in-file path to the object. The base class represents a generic group in the file",
+              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "__iter__": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self)",
                   "returns": {
                     "annotation": "<class 'inspect._empty'>",
@@ -1542,7 +1542,7 @@
                   "examples": []
                 },
                 "keys": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self) -> set",
                   "returns": {
                     "annotation": "<class 'set'>",
@@ -1568,7 +1568,7 @@
                   "examples": []
                 },
                 "groups": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self) -> set",
                   "returns": {
                     "annotation": "<class 'set'>",
@@ -1594,7 +1594,7 @@
                   "examples": []
                 },
                 "datasets": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self) -> set",
                   "returns": {
                     "annotation": "<class 'set'>",
@@ -1679,10 +1679,10 @@
             },
             "MutableGroup": {
               "name": "MutableGroup",
-              "docstring": "Used for the `userdata` group. ",
+              "docstring": "Used for the `userdata` group.",
               "methods": {
                 "__getitem__": {
-                  "docstring": "Used to access datasets (:class:`~bamboost.common.hdf_pointer.Dataset`) or groups inside this group (:class:`~bamboost.common.hdf_pointer.MutableGroup`)",
+                  "docstring": "Used to access datasets (:class:`~bamboost.common.hdf_pointer.Dataset`)\nor groups inside this group (:class:`~bamboost.common.hdf_pointer.MutableGroup`)",
                   "signature": "(self, key) -> Any",
                   "returns": {
                     "annotation": "typing.Any",
@@ -1713,7 +1713,7 @@
                   "examples": []
                 },
                 "__setitem__": {
-                  "docstring": "Used to set an attribute. Will be written as an attribute to the group.",
+                  "docstring": "Used to set an attribute.\nWill be written as an attribute to the group.",
                   "signature": "(self, key, newvalue)",
                   "returns": {
                     "annotation": "<class 'inspect._empty'>",
@@ -1749,7 +1749,7 @@
                   "examples": []
                 },
                 "update_attrs": {
-                  "docstring": "Update the attributes of the group. ",
+                  "docstring": "Update the attributes of the group.\n",
                   "signature": "(self, attrs: dict) -> None",
                   "returns": {
                     "annotation": "None",
@@ -1780,7 +1780,7 @@
                   "examples": []
                 },
                 "add_dataset": {
-                  "docstring": "Add a dataset to the group. Error is thrown if attempting to overwrite with different shape than before. If same shape, data is overwritten (this is inherited from h5py -> require_dataset)",
+                  "docstring": "Add a dataset to the group. Error is thrown if attempting to overwrite\nwith different shape than before. If same shape, data is overwritten\n(this is inherited from h5py -> require_dataset)",
                   "signature": "(\n    self,\n    name: str,\n    vector: numpy.ndarray,\n    attrs: dict = None,\n    dtype: str = None\n) -> None",
                   "returns": {
                     "annotation": "None",
@@ -1826,7 +1826,7 @@
                   "examples": []
                 },
                 "require_group": {
-                  "docstring": "Add a new group to the current group. If exists, return existing. ",
+                  "docstring": "Add a new group to the current group. If exists, return existing.\n",
                   "signature": "(self, name: str) -> bamboost.common.hdf_pointer.Group",
                   "returns": {
                     "annotation": "<class 'bamboost.common.hdf_pointer.Group'>",
@@ -1933,10 +1933,10 @@
             },
             "Dataset": {
               "name": "Dataset",
-              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a :class:`~.file_handler.FileHandler` and the in-file path to the object. The base class represents a generic group in the file",
+              "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "__getitem__": {
-                  "docstring": "None ",
+                  "docstring": "",
                   "signature": "(self, slice)",
                   "returns": {
                     "annotation": "<class 'inspect._empty'>",
@@ -2035,7 +2035,7 @@
         },
         "mpi": {
           "name": "bamboost.common.mpi",
-          "docstring": "None",
+          "docstring": "",
           "classes": {},
           "functions": {},
           "submodules": {}
@@ -2044,11 +2044,11 @@
     },
     "extensions": {
       "name": "bamboost.extensions",
-      "docstring": "None",
+      "docstring": "",
       "classes": {
         "ExtensionsLazyLoader": {
           "name": "ExtensionsLazyLoader",
-          "docstring": "None ",
+          "docstring": "",
           "methods": {},
           "variables": {
             "FenicsWriter": {
@@ -2076,14 +2076,14 @@
       "submodules": {
         "fenics": {
           "name": "bamboost.extensions.fenics",
-          "docstring": "None",
+          "docstring": "",
           "classes": {
             "FenicsWriter": {
               "name": "FenicsWriter",
-              "docstring": "Helper writer for input from FEniCS directly. ",
+              "docstring": "Helper writer for input from FEniCS directly.\n",
               "methods": {
                 "add_field": {
-                  "docstring": "Add a dataset to the file. The data is stored at `data/`. ",
+                  "docstring": "Add a dataset to the file. The data is stored at `data/`.\n",
                   "signature": "(\n    self,\n    name: str,\n    func: <fenics.Function>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: str = 'Node'\n) -> None",
                   "returns": {
                     "annotation": "None",
@@ -2139,7 +2139,7 @@
                   "examples": []
                 },
                 "add_mesh": {
-                  "docstring": "Add the mesh to file using fe.HDF5File. I can't figure out how to extract the local mesh data in correct order when running in parallel.",
+                  "docstring": "Add the mesh to file using fe.HDF5File. I can't figure out how to\nextract the local mesh data in correct order when running in parallel.",
                   "signature": "(self, mesh: <fenics.Mesh>, mesh_name: str = None) -> None",
                   "returns": {
                     "annotation": "None",
@@ -2360,6 +2360,10 @@
                     [
                       "function",
                       "show_h5tree"
+                    ],
+                    [
+                      "function",
+                      "enter_path"
                     ]
                   ]
                 }
@@ -2384,7 +2388,7 @@
                     "description": "Path to database"
                   },
                   "comm": {
-                    "default": "<mpi4py.MPI.Intracomm object at 0x7f714e420250>",
+                    "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
                     "annotation": "<class 'mpi4py.MPI.Comm'>",
                     "description": "MPI communicator"
                   },
@@ -2409,11 +2413,11 @@
         },
         "slurm": {
           "name": "bamboost.extensions.slurm",
-          "docstring": "None",
+          "docstring": "",
           "classes": {},
           "functions": {
             "install": {
-              "docstring": "Install the slurm extension to the SimulationWriter class. Extends the __exit__ method to add slurm metadata.",
+              "docstring": "Install the slurm extension to the SimulationWriter class. Extends the\n__exit__ method to add slurm metadata.",
               "signature": "()",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -2443,7 +2447,7 @@
       "classes": {},
       "functions": {
         "get_index_dict": {
-          "docstring": "Returns a dictionary of all known databases. ",
+          "docstring": "Returns a dictionary of all known databases.",
           "signature": "() -> dict",
           "returns": {
             "annotation": "<class 'dict'>",
@@ -2463,7 +2467,7 @@
           "examples": []
         },
         "get_known_paths": {
-          "docstring": "None ",
+          "docstring": "",
           "signature": "() -> list",
           "returns": {
             "annotation": "<class 'list'>",
@@ -2483,7 +2487,7 @@
           "examples": []
         },
         "uid2": {
-          "docstring": "None ",
+          "docstring": "",
           "signature": "(uid) -> str",
           "returns": {
             "annotation": "<class 'str'>",
@@ -2509,7 +2513,7 @@
           "examples": []
         },
         "get_uid_from_path": {
-          "docstring": "Returns the UID found in the specified path. ",
+          "docstring": "Returns the UID found in the specified path.",
           "signature": "(path: str) -> str",
           "returns": {
             "annotation": "<class 'str'>",
@@ -2535,7 +2539,7 @@
           "examples": []
         },
         "record_database": {
-          "docstring": "Record a database in `database_index.json` ",
+          "docstring": "Record a database in `database_index.json`\n",
           "signature": "(uid: str, path: str) -> None",
           "returns": {
             "annotation": "None",
@@ -2566,7 +2570,7 @@
           "examples": []
         },
         "get_path": {
-          "docstring": "Find the path of a database specified by its UID. ",
+          "docstring": "Find the path of a database specified by its UID.\n",
           "signature": "(uid: str) -> str",
           "returns": {
             "annotation": "<class 'str'>",
@@ -2592,7 +2596,7 @@
           "examples": []
         },
         "find": {
-          "docstring": "Find the database with UID under given root_dir. ",
+          "docstring": "Find the database with UID under given root_dir.\n",
           "signature": "(uid, root_dir) -> list",
           "returns": {
             "annotation": "<class 'list'>",
@@ -2623,7 +2627,7 @@
           "examples": []
         },
         "clean": {
-          "docstring": "Clean the database index from wrong paths. ",
+          "docstring": "Clean the database index from wrong paths.",
           "signature": "() -> None",
           "returns": {
             "annotation": "None",
@@ -2643,7 +2647,7 @@
           "examples": []
         },
         "create_index": {
-          "docstring": "Create database index from known paths. ",
+          "docstring": "Create database index from known paths.",
           "signature": "() -> None",
           "returns": {
             "annotation": "None",
@@ -2667,14 +2671,14 @@
     },
     "manager": {
       "name": "bamboost.manager",
-      "docstring": "None",
+      "docstring": "",
       "classes": {
         "Manager": {
           "name": "Manager",
-          "docstring": "View of database. ",
+          "docstring": "View of database.\n",
           "methods": {
             "__getitem__": {
-              "docstring": "Returns the simulation in the specified row of the dataframe. ",
+              "docstring": "Returns the simulation in the specified row of the dataframe.\n",
               "signature": "(self, key: Union[str, int]) -> bamboost.simulation.Simulation",
               "returns": {
                 "annotation": "<class 'bamboost.simulation.Simulation'>",
@@ -2705,7 +2709,7 @@
               "examples": []
             },
             "__len__": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(self) -> int",
               "returns": {
                 "annotation": "<class 'int'>",
@@ -2731,7 +2735,7 @@
               "examples": []
             },
             "__iter__": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(self) -> bamboost.simulation.Simulation",
               "returns": {
                 "annotation": "<class 'bamboost.simulation.Simulation'>",
@@ -2757,7 +2761,7 @@
               "examples": []
             },
             "get_view": {
-              "docstring": "View of the database and its parametric space. ",
+              "docstring": "View of the database and its parametric space.\n",
               "signature": "(self, include_linked_sims: bool = False) -> pandas.core.frame.DataFrame",
               "returns": {
                 "annotation": "<class 'pandas.core.frame.DataFrame'>",
@@ -2788,7 +2792,7 @@
               "examples": []
             },
             "sim": {
-              "docstring": "Get an existing simulation with uid. Same as accessing with `db[uid]` directly. ",
+              "docstring": "Get an existing simulation with uid. Same as accessing with `db[uid]` directly.\n",
               "signature": "(\n    self,\n    uid,\n    return_writer: bool = False,\n    writer_type: bamboost.simulation_writer.SimulationWriter = <class 'bamboost.simulation_writer.SimulationWriter'>\n) -> bamboost.simulation.Simulation",
               "returns": {
                 "annotation": "<class 'bamboost.simulation.Simulation'>",
@@ -2829,7 +2833,7 @@
               "examples": []
             },
             "sims": {
-              "docstring": "Get all simulations in a list. Optionally, get all simulations matching the given selection using pandas.",
+              "docstring": "Get all simulations in a list. Optionally, get all simulations matching the\ngiven selection using pandas.",
               "signature": "(\n    self,\n    select: pandas.core.series.Series = None,\n    sort: str = None,\n    reverse: bool = False,\n    exclude: set = None,\n    return_writer: bool = False\n) -> list",
               "returns": {
                 "annotation": "<class 'list'>",
@@ -2882,7 +2886,7 @@
               ]
             },
             "create_simulation": {
-              "docstring": "Get a writer object for a new simulation. This is written for paralell use as it is likely that this may be used in an executable, creating multiple runs for a parametric space, which may be run in paralell.",
+              "docstring": "Get a writer object for a new simulation. This is written for paralell use\nas it is likely that this may be used in an executable, creating multiple runs\nfor a parametric space, which may be run in paralell.",
               "signature": "(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    prefix: str = None\n) -> bamboost.simulation_writer.SimulationWriter",
               "returns": {
                 "annotation": "<class 'bamboost.simulation_writer.SimulationWriter'>",
@@ -2931,7 +2935,7 @@
               ]
             },
             "remove": {
-              "docstring": "CAUTION, DELETING DATA. Remove the data of a simulation. ",
+              "docstring": "CAUTION, DELETING DATA. Remove the data of a simulation.\n",
               "signature": "(self, uid: str) -> None",
               "returns": {
                 "annotation": "None",
@@ -2962,7 +2966,7 @@
               "examples": []
             },
             "global_fields_in_all": {
-              "docstring": "Get a list of all global fields in all simulations. ",
+              "docstring": "Get a list of all global fields in all simulations.\n",
               "signature": "(self) -> list",
               "returns": {
                 "annotation": "<class 'list'>",
@@ -2988,7 +2992,7 @@
               "examples": []
             },
             "get_parameters": {
-              "docstring": "Get the parameters used in this database. ",
+              "docstring": "Get the parameters used in this database.\n",
               "signature": "(self) -> dict",
               "returns": {
                 "annotation": "<class 'dict'>",
@@ -3070,7 +3074,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f714e420250>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -3096,10 +3100,10 @@
         },
         "ManagerFromUID": {
           "name": "ManagerFromUID",
-          "docstring": "Get a database by its UID. This is used for autocompletion in ipython. ",
+          "docstring": "Get a database by its UID. This is used for autocompletion in ipython.",
           "methods": {
             "__getitem__": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(self, key) -> bamboost.manager.Manager",
               "returns": {
                 "annotation": "<class 'bamboost.manager.Manager'>",
@@ -3158,10 +3162,10 @@
         },
         "ManagerFromName": {
           "name": "ManagerFromName",
-          "docstring": "Get a database by its path/name. This is used for autocompletion in ipython. ",
+          "docstring": "Get a database by its path/name. This is used for autocompletion in ipython.",
           "methods": {
             "__getitem__": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(self, key) -> bamboost.manager.Manager",
               "returns": {
                 "annotation": "<class 'bamboost.manager.Manager'>",
@@ -3224,14 +3228,14 @@
     },
     "simulation": {
       "name": "bamboost.simulation",
-      "docstring": "None",
+      "docstring": "",
       "classes": {
         "Simulation": {
           "name": "Simulation",
-          "docstring": "A single dataset/simulation. Used to write to it, read from it or append. ",
+          "docstring": "A single dataset/simulation. Used to write to it, read from it or append.\n",
           "methods": {
             "fromUID": {
-              "docstring": "Return the `Simulation` with given UID. ",
+              "docstring": "Return the `Simulation` with given UID.\n",
               "signature": "(cls, full_uid: str) -> typing_extensions.Self",
               "returns": {
                 "annotation": "typing_extensions.Self",
@@ -3252,8 +3256,8 @@
               "source": {
                 "code": "    @classmethod\n    def fromUID(cls, full_uid: str) -> Self:\n        \"\"\"Return the `Simulation` with given UID.\n\n        Args:\n            full_uid: the full id (Database uid : simulation uid)\n        \"\"\"\n        db_uid, sim_uid = full_uid.split(\":\")\n        db_path = index.get_path(db_uid)\n        return cls(sim_uid, db_path)\n",
                 "lines": [
-                  128,
-                  137
+                  129,
+                  138
                 ]
               },
               "props": {
@@ -3262,7 +3266,7 @@
               "examples": []
             },
             "__getitem__": {
-              "docstring": "Direct access to HDF5 file. ",
+              "docstring": "Direct access to HDF5 file.\n",
               "signature": "(self, key) -> bamboost.common.hdf_pointer.BasePointer",
               "returns": {
                 "annotation": "<class 'bamboost.common.hdf_pointer.BasePointer'>",
@@ -3283,8 +3287,8 @@
               "source": {
                 "code": "    @with_file_open()\n    def __getitem__(self, key) -> hdf_pointer.BasePointer:\n        \"\"\"Direct access to HDF5 file.\n\n        Returns:\n            :class:`~bamboost.common.file_handler.BasePointer`\n        \"\"\"\n        return hdf_pointer.BasePointer.new_pointer(self._file, key)\n",
                 "lines": [
-                  139,
-                  146
+                  140,
+                  147
                 ]
               },
               "props": {
@@ -3293,7 +3297,7 @@
               "examples": []
             },
             "files": {
-              "docstring": "Get the path to the file. ",
+              "docstring": "Get the path to the file.\n",
               "signature": "(self, filename: str) -> str",
               "returns": {
                 "annotation": "<class 'str'>",
@@ -3314,8 +3318,8 @@
               "source": {
                 "code": "    def files(self, filename: str) -> str:\n        \"\"\"Get the path to the file.\n\n        Args:\n            filename: name of the file\n        \"\"\"\n        return os.path.join(self.path, filename)\n",
                 "lines": [
-                  226,
-                  232
+                  227,
+                  233
                 ]
               },
               "props": {
@@ -3324,7 +3328,7 @@
               "examples": []
             },
             "show_files": {
-              "docstring": "Show the file tree of the simulation directory. ",
+              "docstring": "Show the file tree of the simulation directory.\n",
               "signature": "(\n    self,\n    level=-1,\n    limit_to_directories=False,\n    length_limit=1000,\n    printit=True\n) -> str",
               "returns": {
                 "annotation": "<class 'str'>",
@@ -3360,8 +3364,8 @@
               "source": {
                 "code": "    def show_files(\n        self, level=-1, limit_to_directories=False, length_limit=1000, printit=True\n    ) -> str:\n        \"\"\"Show the file tree of the simulation directory.\n\n        Args:\n            level: how deep to print the tree\n            limit_to_directories: only print directories\n            length_limit: cutoff\n        \"\"\"\n        tree_string = utilities.tree(\n            self.path, level, limit_to_directories, length_limit\n        )\n        if printit:\n            print(tree_string)\n        else:\n            return tree_string\n",
                 "lines": [
-                  234,
-                  250
+                  235,
+                  251
                 ]
               },
               "props": {
@@ -3370,7 +3374,7 @@
               "examples": []
             },
             "open_in_file_explorer": {
-              "docstring": "Open the simulation directory. Uses `xdg-open` on linux systems. ",
+              "docstring": "Open the simulation directory. Uses `xdg-open` on linux systems.",
               "signature": "(self) -> None",
               "returns": {
                 "annotation": "None",
@@ -3386,8 +3390,8 @@
               "source": {
                 "code": "    def open_in_file_explorer(self) -> None:\n        \"\"\"Open the simulation directory. Uses `xdg-open` on linux systems.\"\"\"\n        if os.name == \"nt\":  # should work on Windows\n            os.startfile(self.path)\n        else:\n            subprocess.run([\"xdg-open\", self.path])\n",
                 "lines": [
-                  252,
-                  257
+                  253,
+                  258
                 ]
               },
               "props": {
@@ -3396,7 +3400,7 @@
               "examples": []
             },
             "open_in_paraview": {
-              "docstring": "Open the xdmf file in paraview. ",
+              "docstring": "Open the xdmf file in paraview.",
               "signature": "(self) -> None",
               "returns": {
                 "annotation": "None",
@@ -3412,8 +3416,8 @@
               "source": {
                 "code": "    def open_in_paraview(self) -> None:\n        \"\"\"Open the xdmf file in paraview.\"\"\"\n        subprocess.Popen([\"paraview\", self.xdmffile])\n",
                 "lines": [
-                  259,
-                  261
+                  260,
+                  262
                 ]
               },
               "props": {
@@ -3422,7 +3426,7 @@
               "examples": []
             },
             "get_full_uid": {
-              "docstring": "Returns the full uid of the simulation (including the one of the database) ",
+              "docstring": "Returns the full uid of the simulation (including the one of the database)",
               "signature": "(self) -> str",
               "returns": {
                 "annotation": "<class 'str'>",
@@ -3438,8 +3442,8 @@
               "source": {
                 "code": "    def get_full_uid(self) -> str:\n        \"\"\"Returns the full uid of the simulation (including the one of the database)\"\"\"\n        database_uid = index.get_uid_from_path(self.path_database)\n        return f\"{database_uid}:{self.uid}\"\n",
                 "lines": [
-                  263,
-                  266
+                  264,
+                  267
                 ]
               },
               "props": {
@@ -3448,7 +3452,7 @@
               "examples": []
             },
             "change_status": {
-              "docstring": "Change status of simulation. ",
+              "docstring": "Change status of simulation.\n",
               "signature": "(self, status: str) -> None",
               "returns": {
                 "annotation": "None",
@@ -3469,8 +3473,8 @@
               "source": {
                 "code": "    def change_status(self, status: str) -> None:\n        \"\"\"Change status of simulation.\n\n        Args:\n            status (str): new status\n        \"\"\"\n        if self._prank == 0:\n            self._file.open(\"a\")\n            self._file.attrs[\"status\"] = status\n            self._file.close()\n",
                 "lines": [
-                  268,
-                  277
+                  269,
+                  278
                 ]
               },
               "props": {
@@ -3479,7 +3483,7 @@
               "examples": []
             },
             "update_metadata": {
-              "docstring": "Update the metadata attributes. ",
+              "docstring": "Update the metadata attributes.\n",
               "signature": "(self, update_dict: dict) -> None",
               "returns": {
                 "annotation": "None",
@@ -3500,8 +3504,8 @@
               "source": {
                 "code": "    def update_metadata(self, update_dict: dict) -> None:\n        \"\"\"Update the metadata attributes.\n\n        Args:\n            update_dict: dictionary to push\n        \"\"\"\n        with self._file(\"a\") as file:\n            file.attrs.update(update_dict)\n",
                 "lines": [
-                  279,
-                  286
+                  280,
+                  287
                 ]
               },
               "props": {
@@ -3510,7 +3514,7 @@
               "examples": []
             },
             "update_parameters": {
-              "docstring": "Update the parameters dictionary. ",
+              "docstring": "Update the parameters dictionary.\n",
               "signature": "(self, update_dict: dict) -> None",
               "returns": {
                 "annotation": "None",
@@ -3531,8 +3535,8 @@
               "source": {
                 "code": "    def update_parameters(self, update_dict: dict) -> None:\n        \"\"\"Update the parameters dictionary.\n\n        Args:\n            update_dict: dictionary to push\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\") as file:\n                file[\"parameters\"].attrs.update(utilities.flatten_dict(update_dict))\n",
                 "lines": [
-                  288,
-                  296
+                  289,
+                  297
                 ]
               },
               "props": {
@@ -3541,7 +3545,7 @@
               "examples": []
             },
             "create_xdmf_file": {
-              "docstring": "Create the xdmf file to read in paraview. ",
+              "docstring": "Create the xdmf file to read in paraview.\n",
               "signature": "(self, fields: list = None, nb_steps: int = None) -> None",
               "returns": {
                 "annotation": "None",
@@ -3567,8 +3571,8 @@
               "source": {
                 "code": "    def create_xdmf_file(self, fields: list = None, nb_steps: int = None) -> None:\n        \"\"\"Create the xdmf file to read in paraview.\n\n        Args:\n            fields (list[str]): fields for which to write timeseries information,\n                if not specified, all fields in data are written.\n            nb_steps (int): number of steps the simulation has\n        \"\"\"\n\n        if self._prank == 0:\n            with self._file(\"r\") as f:\n                if 'data' not in f.keys():\n                    fields, nb_steps = [], 0\n                if fields is None:\n                    fields = list(f[\"data\"].keys())\n\n                if nb_steps is None:\n                    grp_name = list(f[\"data\"].keys())[0]\n                    nb_steps = list(f[f\"data/{grp_name}\"].keys())\n                    nb_steps = max(\n                        [int(step) for step in nb_steps if not step.startswith(\"__\")]\n                    )\n\n                # temporary fix to load coordinates/geometry\n                coords_name = (\n                    \"geometry\"\n                    if \"geometry\"\n                    in f[f\"{self._mesh_location}/{self._default_mesh}\"].keys()\n                    else \"coordinates\"\n                )\n\n            xdmf_writer = XDMFWriter(self.xdmffile, self.h5file)\n            xdmf_writer.write_points_cells(\n                f\"{self._mesh_location}/{self._default_mesh}/{coords_name}\",\n                f\"{self._mesh_location}/{self._default_mesh}/topology\",\n            )\n\n            if fields:\n                xdmf_writer.add_timeseries(nb_steps + 1, fields)\n            xdmf_writer.write_file()\n",
                 "lines": [
-                  298,
-                  337
+                  299,
+                  338
                 ]
               },
               "props": {
@@ -3577,7 +3581,7 @@
               "examples": []
             },
             "create_batch_script": {
-              "docstring": "Create a batch job and put it into the folder. ",
+              "docstring": "Create a batch job and put it into the folder.\n",
               "signature": "(\n    self,\n    commands: list = None,\n    nnodes=1,\n    ntasks=4,\n    ncpus=1,\n    time='04:00:00',\n    mem_per_cpu=2048,\n    tmp=None,\n    euler=True\n) -> None",
               "returns": {
                 "annotation": "None",
@@ -3633,8 +3637,8 @@
               "source": {
                 "code": "    def create_batch_script(\n        self,\n        commands: list = None,\n        nnodes=1,\n        ntasks=4,\n        ncpus=1,\n        time=\"04:00:00\",\n        mem_per_cpu=2048,\n        tmp=None,\n        euler=True,\n    ) -> None:\n        \"\"\"Create a batch job and put it into the folder.\n\n        Args:\n            commands: A list of strings being the user defined commands to run\n            nnodes: nb of nodes (default=1)\n            ntasks: nb of tasks (default=4)\n            ncpus: nb of cpus per task (default=1)\n            time: requested time (default=4 hours)\n            mem_per_cpu: memory (default=2048)\n            tmp: temporary storage, set None to exclude option (default=8000)\n            euler: If false, a local bash script will be written\n        \"\"\"\n        job = Job()\n        if not commands:\n            if hasattr(self, \"executable\"):\n                if \".py\" in self.executable:\n                    command = (\n                        f\"{{MPI}} python3 {os.path.join(self.path, self.executable)} \"\n                        f\"--path {self.path_database} --uid {self.uid}\"\n                    )\n                    commands = [command]\n            else:\n                raise AttributeError(\n                    \"\"\"Either you must specify an executable or have it \n                                     copied before with `copy_executable`!\"\"\"\n                )\n\n        if euler:\n            job.create_sbatch_script(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                nnodes=nnodes,\n                ntasks=ntasks,\n                ncpus=ncpus,\n                time=time,\n                mem_per_cpu=mem_per_cpu,\n                tmp=tmp,\n            )\n        else:\n            job.create_bash_script_local(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                ntasks=ntasks,\n            )\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": False})\n",
                 "lines": [
-                  339,
-                  397
+                  340,
+                  398
                 ]
               },
               "props": {
@@ -3643,7 +3647,7 @@
               "examples": []
             },
             "submit": {
-              "docstring": "Submit the job for this simulation. ",
+              "docstring": "Submit the job for this simulation.",
               "signature": "(self) -> None",
               "returns": {
                 "annotation": "None",
@@ -3657,10 +3661,10 @@
                 }
               },
               "source": {
-                "code": "    def submit(self) -> None:\n        \"\"\"Submit the job for this simulation.\"\"\"\n        if f\"sbatch_{self.uid}.sh\" in os.listdir(self.path):\n            batch_script = os.path.abspath(\n                os.path.join(self.path, f\"sbatch_{self.uid}.sh\")\n            )\n            subprocess.Popen([\"sbatch\", f\"{batch_script}\"])\n        if f\"{self.uid}.sh\" in os.listdir(self.path):\n            bash_script = os.path.abspath(os.path.join(self.path, f\"{self.uid}.sh\"))\n            subprocess.Popen([\"bash\", f\"{bash_script}\"])\n\n        print(f\"Simulation {self.uid} submitted!\")\n\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": True})\n",
+                "code": "    def submit(self) -> None:\n        \"\"\"Submit the job for this simulation.\"\"\"\n        if f\"sbatch_{self.uid}.sh\" in os.listdir(self.path):\n            batch_script = os.path.abspath(\n                os.path.join(self.path, f\"sbatch_{self.uid}.sh\")\n            )\n            env = os.environ.copy()\n            _ = env.pop(\"BAMBOOST_NO_MPI\", None)\n            subprocess.run([\"sbatch\", f\"{batch_script}\"], env=env)\n        elif f\"{self.uid}.sh\" in os.listdir(self.path):\n            bash_script = os.path.abspath(os.path.join(self.path, f\"{self.uid}.sh\"))\n            env = os.environ.copy()\n            _ = env.pop(\"BAMBOOST_NO_MPI\", None)\n            subprocess.run([\"bash\", f\"{bash_script}\"], env=env)\n        else:\n            raise FileNotFoundError(\n                f\"Could not find a batch script for simulation {self.uid}.\"\n            )\n\n        log.info(f\"Simulation {self.uid} submitted!\")\n\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": True})\n",
                 "lines": [
-                  399,
-                  413
+                  400,
+                  422
                 ]
               },
               "props": {
@@ -3669,7 +3673,7 @@
               "examples": []
             },
             "change_note": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(self, note) -> None",
               "returns": {
                 "annotation": "None",
@@ -3690,8 +3694,8 @@
               "source": {
                 "code": "    @with_file_open(\"a\")\n    def change_note(self, note) -> None:\n        self._file.attrs[\"notes\"] = note\n",
                 "lines": [
-                  415,
-                  417
+                  424,
+                  426
                 ]
               },
               "props": {
@@ -3700,7 +3704,7 @@
               "examples": []
             },
             "open": {
-              "docstring": "Use this as a context manager in a `with` statement. Purpose: keeping the file open to directly access/edit something in the HDF5 file of this simulation.",
+              "docstring": "Use this as a context manager in a `with` statement.\nPurpose: keeping the file open to directly access/edit something in the\nHDF5 file of this simulation.",
               "signature": "(\n    self,\n    mode: str = 'r',\n    driver=None,\n    comm=None\n) -> bamboost.common.file_handler.FileHandler",
               "returns": {
                 "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
@@ -3731,8 +3735,8 @@
               "source": {
                 "code": "    def open(self, mode: str = \"r\", driver=None, comm=None) -> FileHandler:\n        \"\"\"Use this as a context manager in a `with` statement.\n        Purpose: keeping the file open to directly access/edit something in the\n        HDF5 file of this simulation.\n\n        Args:\n            mode (`str`): file mode (see h5py docs)\n            driver (`str`): file driver (see h5py docs)\n            comm (`str`): mpi communicator\n        \"\"\"\n        return self._file(mode, driver, comm)\n",
                 "lines": [
-                  422,
-                  432
+                  431,
+                  441
                 ]
               },
               "props": {
@@ -3741,7 +3745,7 @@
               "examples": []
             },
             "get_mesh": {
-              "docstring": "Return coordinates and connectivity. Currently returns numpy arrays. ",
+              "docstring": "Return coordinates and connectivity. Currently returns numpy arrays.\n",
               "signature": "(self, mesh_name: str = None) -> Tuple[numpy.ndarray, numpy.ndarray]",
               "returns": {
                 "annotation": "typing.Tuple[numpy.ndarray, numpy.ndarray]",
@@ -3762,8 +3766,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\")\n    def get_mesh(self, mesh_name: str = None) -> Tuple[np.ndarray, np.ndarray]:\n        \"\"\"Return coordinates and connectivity. Currently returns numpy arrays.\n\n        Args:\n            mesh_name (`str`): optional, name of mesh to read (default = mesh)\n        Returns:\n            Tuple of np.arrays (coordinates, connectivity)\n        \"\"\"\n        if mesh_name is None:\n            mesh_name = self._default_mesh\n\n        mesh = self.meshes[mesh_name]\n        return mesh.coordinates, mesh.connectivity\n",
                 "lines": [
-                  443,
-                  456
+                  452,
+                  465
                 ]
               },
               "props": {
@@ -3772,7 +3776,7 @@
               "examples": []
             },
             "get_data_interpolator": {
-              "docstring": "Get Linear interpolator for data field at step. Uses the linked mesh. ",
+              "docstring": "Get Linear interpolator for data field at step. Uses the linked mesh.\n",
               "signature": "(self, field: str, step: int)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -3798,8 +3802,8 @@
               "source": {
                 "code": "    def get_data_interpolator(self, field: str, step: int):\n        \"\"\"Get Linear interpolator for data field at step. Uses the linked mesh.\n\n        Args:\n            name (`str`): name of the data field\n            step (`int`): step\n        Returns:\n            :class:`scipy.interpolate.LinearNDInterpolator`\n        \"\"\"\n        from scipy.interpolate import LinearNDInterpolator\n\n        return LinearNDInterpolator(\n            self.data[field].mesh.coordinates, self.data[field].at_step(step)\n        )\n",
                 "lines": [
-                  495,
-                  508
+                  504,
+                  517
                 ]
               },
               "props": {
@@ -3808,7 +3812,7 @@
               "examples": []
             },
             "show_h5tree": {
-              "docstring": "Print the tree inside the h5 file. ",
+              "docstring": "Print the tree inside the h5 file.",
               "signature": "(self) -> None",
               "returns": {
                 "annotation": "None",
@@ -3824,8 +3828,34 @@
               "source": {
                 "code": "    @with_file_open()\n    def show_h5tree(self) -> None:\n        \"\"\"Print the tree inside the h5 file.\"\"\"\n        # print('\\U00002B57 ' + os.path.basename(self.h5file))\n        print(\"\\U0001F43C \" + os.path.basename(self.h5file))\n        utilities.h5_tree(self._file.file_object)\n",
                 "lines": [
-                  510,
-                  515
+                  519,
+                  524
+                ]
+              },
+              "props": {
+                "isClassMethod": false
+              },
+              "examples": []
+            },
+            "enter_path": {
+              "docstring": "A context manager for changing the working directory to this simulations' path.\n\n>>> with sim.working_directory():\n>>>     ...",
+              "signature": "(self)",
+              "returns": {
+                "annotation": "<class 'inspect._empty'>",
+                "description": null
+              },
+              "arguments": {
+                "self": {
+                  "default": null,
+                  "annotation": null,
+                  "description": null
+                }
+              },
+              "source": {
+                "code": "    @contextmanager\n    def enter_path(self):\n        \"\"\"A context manager for changing the working directory to this simulations' path.\n\n        >>> with sim.working_directory():\n        >>>     ...\n        \"\"\"\n\n        current_dir = os.getcwd()\n        try:\n            os.chdir(self.path)\n            yield\n        finally:\n            os.chdir(current_dir)\n",
+                "lines": [
+                  526,
+                  539
                 ]
               },
               "props": {
@@ -3917,7 +3947,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f714e420250>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               },
@@ -3930,18 +3960,18 @@
             "source": {
               "code": "    def __init__(\n        self,\n        uid: str,\n        path: str,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n        create_if_not_exists: bool = False,\n    ):\n        self.uid: str = uid\n        self.path_database: str = os.path.abspath(path)\n        self.path: str = os.path.abspath(os.path.join(path, uid))\n        self.h5file: str = os.path.join(self.path, f\"{self.uid}.h5\")\n        self.xdmffile: str = os.path.join(self.path, f\"{self.uid}.xdmf\")\n\n        if not os.path.exists(self.h5file) and not create_if_not_exists:\n            raise FileNotFoundError(f\"Simulation {self.uid} does not exist in {self.path}.\")\n\n        os.makedirs(self.path, exist_ok=True)\n\n        # MPI information\n        self._comm = comm\n        self._psize = self._comm.size\n        self._prank = self._comm.rank\n        self._ranks = np.array([i for i in range(self._psize)])\n\n        self._file = FileHandler(self.h5file)\n\n        # Initialize groups to meshes, data and userdata. Create groups.\n        self.meshes: MeshGroup = MeshGroup(self._file)\n        self.data: DataGroup = DataGroup(self._file, self.meshes)\n        self.globals: GlobalGroup = GlobalGroup(self._file, \"/globals\")\n        self.userdata: hdf_pointer.MutableGroup = hdf_pointer.MutableGroup(\n            self._file, \"/userdata\"\n        )\n        self.links: Links = Links(self._file)\n",
               "lines": [
-                93,
-                126
+                94,
+                127
               ]
             }
           }
         },
         "Links": {
           "name": "Links",
-          "docstring": "Link group. Used to create and access links. I don't know how to distribute this to its own file in the accessors directory, due to circular imports.",
+          "docstring": "Link group. Used to create and access links.\n\nI don't know how to distribute this to its own file in the accessors\ndirectory, due to circular imports.",
           "methods": {
             "__getitem__": {
-              "docstring": "Returns the linked simulation object. ",
+              "docstring": "Returns the linked simulation object.",
               "signature": "(self, key) -> bamboost.simulation.Simulation",
               "returns": {
                 "annotation": "<class 'bamboost.simulation.Simulation'>",
@@ -3962,8 +3992,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\", driver=\"mpio\")\n    def __getitem__(self, key) -> Simulation:\n        \"\"\"Returns the linked simulation object.\"\"\"\n        return Simulation.fromUID(self.obj.attrs[key])\n",
                 "lines": [
-                  50,
-                  53
+                  51,
+                  54
                 ]
               },
               "props": {
@@ -3972,7 +4002,7 @@
               "examples": []
             },
             "__setitem__": {
-              "docstring": "Creates the link. ",
+              "docstring": "Creates the link.",
               "signature": "(self, key, newvalue)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -3998,8 +4028,8 @@
               "source": {
                 "code": "    def __setitem__(self, key, newvalue):\n        \"\"\"Creates the link.\"\"\"\n        return self.update_attrs({key: newvalue})\n",
                 "lines": [
-                  55,
-                  57
+                  56,
+                  58
                 ]
               },
               "props": {
@@ -4008,7 +4038,7 @@
               "examples": []
             },
             "all_links": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(self) -> dict",
               "returns": {
                 "annotation": "<class 'dict'>",
@@ -4024,8 +4054,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\")\n    def all_links(self) -> dict:\n        return dict(self.obj.attrs)\n",
                 "lines": [
-                  76,
-                  78
+                  77,
+                  79
                 ]
               },
               "props": {
@@ -4114,8 +4144,8 @@
             "source": {
               "code": "    def __init__(self, file_handler: FileHandler) -> None:\n        super().__init__(file_handler, path_to_data=\"links\")\n",
               "lines": [
-                44,
-                45
+                45,
+                46
               ]
             }
           }
@@ -4126,14 +4156,14 @@
     },
     "simulation_writer": {
       "name": "bamboost.simulation_writer",
-      "docstring": "None",
+      "docstring": "",
       "classes": {
         "SimulationWriter": {
           "name": "SimulationWriter",
-          "docstring": "The SimulationWriter is the writer object for a single simulation. It inherits all reading methods from :class:`Simulation`.  This class can be used as a context manager. When entering the context, the status of the simulation is changed to \"Started\". When an exception is raised inside the context, the status is changed to \"Failed [Exception]\".",
+          "docstring": "The SimulationWriter is the writer object for a single simulation. It inherits\nall reading methods from :class:`Simulation`.\n\nThis class can be used as a context manager. When entering the context, the status\nof the simulation is changed to \"Started\". When an exception is raised inside the\ncontext, the status is changed to \"Failed [Exception]\".",
           "methods": {
             "initialize": {
-              "docstring": "Create a new file for this simlation. This deletes an existing h5 file of the simulation and creates an empty new one",
+              "docstring": "Create a new file for this simlation.\nThis deletes an existing h5 file of the simulation and creates an empty new one",
               "signature": "(self) -> bamboost.simulation_writer.SimulationWriter",
               "returns": {
                 "annotation": "<class 'bamboost.simulation_writer.SimulationWriter'>",
@@ -4159,7 +4189,7 @@
               "examples": []
             },
             "add_metadata": {
-              "docstring": "Add metadata to h5 file. ",
+              "docstring": "Add metadata to h5 file.",
               "signature": "(self) -> None",
               "returns": {
                 "annotation": "None",
@@ -4185,7 +4215,7 @@
               "examples": []
             },
             "add_parameters": {
-              "docstring": "Add parameters to simulation. ",
+              "docstring": "Add parameters to simulation.\n",
               "signature": "(self, parameters: dict) -> None",
               "returns": {
                 "annotation": "None",
@@ -4216,7 +4246,7 @@
               "examples": []
             },
             "add_mesh": {
-              "docstring": "Add the mesh to file. Currently only 2d meshes. ",
+              "docstring": "Add the mesh to file. Currently only 2d meshes.\n",
               "signature": "(\n    self,\n    coordinates: numpy.ndarray,\n    connectivity: numpy.ndarray,\n    mesh_name: str = None\n) -> None",
               "returns": {
                 "annotation": "None",
@@ -4257,7 +4287,7 @@
               "examples": []
             },
             "add_field": {
-              "docstring": "Add a dataset to the file. The data is stored at `data/`. ",
+              "docstring": "Add a dataset to the file. The data is stored at `data/`.\n",
               "signature": "(\n    self,\n    name: str,\n    vector: <built-in function array>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: str = 'Node'\n) -> None",
               "returns": {
                 "annotation": "None",
@@ -4313,7 +4343,7 @@
               "examples": []
             },
             "add_global_field": {
-              "docstring": "Add a gobal field. These are stored at `globals/` as an array in a single dataset.",
+              "docstring": "Add a gobal field. These are stored at `globals/` as an array in a\nsingle dataset.",
               "signature": "(self, name: str, value: Union[float, int], dtype: str = None) -> None",
               "returns": {
                 "annotation": "None",
@@ -4354,7 +4384,7 @@
               "examples": []
             },
             "add_additional": {
-              "docstring": "Add an additional file stored elsewhere or in database directory. ",
+              "docstring": "Add an additional file stored elsewhere or in database directory.\n",
               "signature": "(self, name: str, file: str) -> None",
               "returns": {
                 "annotation": "None",
@@ -4390,7 +4420,7 @@
               "examples": []
             },
             "finish_step": {
-              "docstring": "Finish step. Adds 1 to the step counter. ",
+              "docstring": "Finish step. Adds 1 to the step counter.",
               "signature": "(self) -> None",
               "returns": {
                 "annotation": "None",
@@ -4416,7 +4446,7 @@
               "examples": []
             },
             "finish_sim": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(self, status: str = 'Finished') -> None",
               "returns": {
                 "annotation": "None",
@@ -4447,7 +4477,7 @@
               "examples": []
             },
             "register_git_attributes": {
-              "docstring": "Register git information for given repo. ",
+              "docstring": "Register git information for given repo.\n",
               "signature": "(self, repo_path: str = './') -> None",
               "returns": {
                 "annotation": "None",
@@ -4478,7 +4508,7 @@
               "examples": []
             },
             "copy_executable": {
-              "docstring": "WILL BE REMOVED. USE COPY_FILE. Copy an executable to directory for reproducability.",
+              "docstring": "WILL BE REMOVED. USE COPY_FILE.\nCopy an executable to directory for reproducability.",
               "signature": "(self, script_path: str) -> None",
               "returns": {
                 "annotation": "None",
@@ -4509,7 +4539,7 @@
               "examples": []
             },
             "copy_file": {
-              "docstring": "Copy a file to the datafolder. ",
+              "docstring": "Copy a file to the datafolder.\n",
               "signature": "(self, source: Union[str, list], destination: str = '') -> None",
               "returns": {
                 "annotation": "None",
@@ -4686,6 +4716,10 @@
                 [
                   "function",
                   "show_h5tree"
+                ],
+                [
+                  "function",
+                  "enter_path"
                 ]
               ]
             }
@@ -4710,7 +4744,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7f714e420250>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               },
@@ -4735,14 +4769,14 @@
     },
     "xdmf": {
       "name": "bamboost.xdmf",
-      "docstring": "None",
+      "docstring": "",
       "classes": {
         "XDMFWriter": {
           "name": "XDMFWriter",
-          "docstring": "Write xdmf file for a subset of the stored data in the H5 file. ",
+          "docstring": "Write xdmf file for a subset of the stored data in the H5 file.\n",
           "methods": {
             "write_file": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(self)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -4768,7 +4802,7 @@
               "examples": []
             },
             "write_points_cells": {
-              "docstring": "Write the mesh to the xdmf file. ",
+              "docstring": "Write the mesh to the xdmf file.\n",
               "signature": "(self, points_location: str, cells_location: str)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -4804,7 +4838,7 @@
               "examples": []
             },
             "add_timeseries": {
-              "docstring": "None ",
+              "docstring": "",
               "signature": "(self, steps: int, fields: list)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -4840,7 +4874,7 @@
               "examples": []
             },
             "write_step": {
-              "docstring": "Write the data array for time t. ",
+              "docstring": "Write the data array for time t.\n",
               "signature": "(\n    self,\n    collection: xml.etree.ElementTree.Element,\n    fields: list,\n    step: int\n)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
@@ -4881,7 +4915,7 @@
               "examples": []
             },
             "write_attribute": {
-              "docstring": "Write an attribute/field. ",
+              "docstring": "Write an attribute/field.",
               "signature": "(\n    self,\n    grid: xml.etree.ElementTree.Element,\n    field_name: str,\n    name: str,\n    step: int\n) -> None",
               "returns": {
                 "annotation": "None",
