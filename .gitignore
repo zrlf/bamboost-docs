@@ -24,3 +24,4 @@ yarn-error.log*
 tmp
 
 process.yml
+package-lock.json
