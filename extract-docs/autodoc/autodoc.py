@@ -38,6 +38,7 @@ def parse_docstring(docstring: str):
     examples = re.split(r"\n\s*\n", examples_str.strip()) if examples_str else []
 
     return {
+        "short_description": doc.short_description if doc.short_description else '',
         "description": doc.description if doc.description else '',
         "arguments": {
             param.arg_name.split()[0]: param.description for param in doc.params
@@ -108,6 +109,7 @@ def document_class(cls: pdoc.doc.Class) -> dict:
 
     result = {
         "name": cls.name,
+        "short_description": class_docstring["short_description"],
         "docstring": class_docstring["description"],
         "methods": {},
         "variables": {},
