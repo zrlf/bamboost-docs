@@ -79,11 +79,12 @@
   }
 }
 
+.codeHeader {
+  color: var(--love);
+}
+
 table {
-  padding-left: 0;
-
   tbody {
-
     tr,
     td {
       border-color: var(--base-20);

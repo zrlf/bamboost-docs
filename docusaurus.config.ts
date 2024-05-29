@@ -147,7 +147,7 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} CMBM group.`,
     },
     prism: {
-      theme: prismThemes.palenight,
+      theme: prismThemes.github,
       darkTheme: prismThemes.palenight,
     },
     algolia: {

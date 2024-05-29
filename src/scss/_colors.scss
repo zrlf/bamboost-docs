@@ -6,7 +6,8 @@
 $primary: #AFBF73;
 $secondary: #9BA4BF;
 $tertiary: #858DA6;
-$accent: #F29F80;
+// $accent: #F29F80;
+$accent: #eb6f92;
 // $base: #191724; 
 $base: #1f1d2e;
 $base-lighter: lighten($base, 3%);
@@ -30,6 +31,7 @@ $colorsDark: (
   "text-05": rgba($text, 0.5),
   "text-07": rgba($text, 0.7),
   "text-opaque": rgba($text, 0.3),
+  "love": #eb6f92,
 );
 
 
@@ -47,10 +49,11 @@ $colorsLight: (
   "base-lighter": #fff,
   "base-content": #ddd,
   "text": #000000,
-  "text-05": rgba($text, 0.5),
-  "text-07": rgba($text, 0.7),
+  "text-05": rgba(#000, 0.5),
+  "text-07": rgba(#000, 0.7),
   "textfix": #000000,
   "text-opaque": rgba(#000, 0.5),
+  "love": #eb6f92,
 );
 
 

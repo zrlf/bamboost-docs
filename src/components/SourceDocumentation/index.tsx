@@ -80,6 +80,9 @@ const RenderMethod = (method: {
   //   default:
   //     break;
   // }
+  if (method.isNotMethod) {
+    displayName = `${method.parentClassName}.${name}`;
+  }
   const obj = method.obj;
   const [sourceIsVisible, setSourceIsVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
@@ -88,28 +91,26 @@ const RenderMethod = (method: {
     <div className={clsx(!method.isNotMethod && 'method')}>
       {/* RENDER METHOD NAME */}
       <div className="method-title">
-        <div onClick={() => setIsExpanded(!isExpanded)}>
-          <>
-            {!method.isNotMethod &&
-              (obj.props.isClassMethod ? (
-                <i className="fa-solid fa-c icon"></i>
-              ) : (
-                <i className="fa-solid fa-m icon"></i>
-              ))}
-          </>
-        </div>
+        {/* <div onClick={() => setIsExpanded(!isExpanded)}> */}
+        {/*   <> */}
+        {/*     {!method.isNotMethod && */}
+        {/*       (obj.props.isClassMethod ? ( */}
+        {/*         <i className="fa-solid fa-c icon"></i> */}
+        {/*       ) : ( */}
+        {/*         <i className="fa-solid fa-m icon"></i> */}
+        {/*       ))} */}
+        {/*   </> */}
+        {/* </div> */}
         {method.isNotMethod ? (
           <h2
-            className={styles.functionTitle}
-            id={`${method.parentClassName || ''}_${name}`}
-            style={{ display: 'inline-block' }}>
-            <span>{displayName}</span>
+            className={clsx(styles.functionTitle, 'header-hidden')}
+            id={`${method.parentClassName || ''}_${name}`}>
+            <span>
+              {method.parentClassName}.{method.name}
+            </span>
           </h2>
         ) : (
-          <h3
-            className={styles.functionTitle}
-            id={`${method.parentClassName || ''}_${name}`}
-            style={{ display: 'inline-block' }}>
+          <h3 id={`${method.parentClassName || ''}_${name}`} className="header-hidden">
             <span>{displayName}</span>
           </h3>
         )}
@@ -118,7 +119,71 @@ const RenderMethod = (method: {
           setSourceIsVisible={setSourceIsVisible}
         />
       </div>
-      <Signature name={name} signature={obj['signature']} sourceIsVisible={sourceIsVisible} />
+      <Signature2
+        name={displayName}
+        signature={obj['signature']}
+        sourceIsVisible={sourceIsVisible}
+      />
+
+      {/* RENDER SOURCE CODE */}
+      <SourceCode
+        source_code={obj.source.code}
+        starting_line_number={obj.source.lines[0]}
+        sourceIsVisible={sourceIsVisible}
+      />
+
+      {isExpanded && (
+        <>
+          {/* RENDER DOCSTRING */}
+          {obj.docstring.split('\n\n').map((block, index) => (
+            <p key={`docstring_${name}_${index}`}>{block}</p>
+          ))}
+
+          {/* RENDER ARGUMENTS */}
+          <ParameterList parameters={obj.arguments} />
+
+          {/* RENDER RETURNS */}
+          <ReturnStatement returns={obj.returns} />
+
+          {/* RENDER EXAMPLES */}
+          {obj.examples.length > 0 && <Examples examples={obj.examples} />}
+        </>
+      )}
+    </div>
+  );
+};
+
+const RenderFunction = (method: { name: string; obj: Method; parentClassName?: string }) => {
+  const name = method.name;
+  const obj = method.obj;
+  const [sourceIsVisible, setSourceIsVisible] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      {/* RENDER METHOD NAME */}
+      <SourceCodeButton
+        sourceIsVisible={sourceIsVisible}
+        setSourceIsVisible={setSourceIsVisible}
+        style={{ height: 'fit-content', top: 0, right: 0, position: 'absolute', width: '10em', zIndex: 1}}
+      />
+      <div
+        className="spacing-header"
+        style={{
+          fontFamily: 'Fira Code',
+          fontWeight: 'normal',
+          position: 'relative',
+        }}>
+        <span className={styles.codeHeader}>
+          {method.parentClassName || ''}.
+          <h2 id={name.toLowerCase()} style={{ display: 'inline', fontSize: '1em' }}>
+            {name}
+          </h2>
+          <CodeBlock language="py" className={styles.codeInline}>
+            {obj.signature}
+          </CodeBlock>
+        </span>
+      </div>
 
       {/* RENDER SOURCE CODE */}
       <SourceCode
@@ -153,6 +218,17 @@ const Signature = ({ name, signature, sourceIsVisible }) => {
     <div className={clsx('signature', sourceIsVisible && 'sourceIsVisible')}>
       <CodeBlock language="py">
         {name} {signature}
+      </CodeBlock>
+    </div>
+  );
+};
+
+const Signature2 = ({ name, signature, sourceIsVisible }) => {
+  return (
+    <div className={clsx('signature2', sourceIsVisible && 'sourceIsVisible')}>
+      <CodeBlock language="py">
+        {name}
+        {signature}
       </CodeBlock>
     </div>
   );
@@ -279,8 +355,8 @@ export const RenderClass = ({
           fontWeight: 'normal',
           position: 'relative',
         }}>
-        class{' '}
-        <span style={{ color: 'var(--secondary)' }}>
+        <b>class</b>{' '}
+        <span className={styles.codeHeader}>
           {classPath}.
           <h2 id={classBaseName.toLowerCase()} style={{ display: 'inline', fontSize: '1em' }}>
             {classBaseName}
@@ -432,7 +508,7 @@ export const RenderModule = ({ data, moduleFullName }: { data: JSON; moduleFullN
       <div className="functions">
         {Object.entries(functions).map(([name, obj]: [string, Method], index) => (
           <div key={`function_${index}`}>
-            <RenderMethod name={name} obj={obj} isNotMethod={true} />
+            <RenderFunction name={name} obj={obj} parentClassName={moduleToRender['name']} />
           </div>
         ))}
       </div>

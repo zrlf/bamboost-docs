@@ -17,6 +17,13 @@
   }
 }
 
+.signature2 {
+  & > * > * > * > * {
+    padding: .3em 1em;
+    margin: 0;
+  }
+}
+
 .sourceButton {
   position: absolute;
   display: flex;
@@ -51,7 +58,8 @@
 }
 
 .methods {
-  margin-left: 3em;
+  // margin-left: 3em;
+  margin-left: 0;
 }
 
 .method {
@@ -81,15 +89,16 @@
   background-color: var(--code-background);
   border-radius: 6px 6px 0 0;
   margin-bottom: 1px;
+  margin-top: 2em;
   filter: drop-shadow(0 1px 1px #00000020);
 
-  h2,
-  h3 {
-    margin: 0;
-    padding: 0.5em;
-    padding-left: 0.8em;
-    scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5em);
-  }
+  // h2,
+  // h3 {
+  //   margin: 0;
+  //   padding: 0.5em;
+  //   padding-left: 0.8em;
+  //   scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5em);
+  // }
 
   .icon {
     position: absolute;
@@ -142,4 +151,9 @@
 .spacing-header {
   margin-top: 1.4em;
   margin-bottom: 0.5em;
+}
+
+.header-hidden {
+  opacity: 0;
+  height: 0;
 }
