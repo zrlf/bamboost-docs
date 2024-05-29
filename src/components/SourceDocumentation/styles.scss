@@ -1,7 +1,8 @@
 .signature {
   position: relative;
   display: block;
-  > div {
+
+  >div {
     border-radius: 0 0 6px 6px;
   }
 
@@ -9,7 +10,7 @@
     margin-bottom: 0;
     padding-bottom: 0;
 
-    > div {
+    >div {
       border-radius: 0;
       margin-bottom: 0;
     }
@@ -18,14 +19,32 @@
 
 .sourceButton {
   position: absolute;
-  border: none;
-  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
   right: 10px;
-  bottom: 0;
+  top: 0;
   height: 100%;
-  background-color: transparent;
 
-  .icon {
+  button {
+    border: none;
+    color: var(--text-07);
+    background-color: transparent;
+    padding: 0.3em;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: 1px solid transparent;
+
+    &:hover {
+      background-color: #ffffff08;
+      border: 1px solid var(--base-20);
+      color: var(--text);
+      transition: all 0.2s;
+    }
+  }
+
+  .icon-source {
     font-size: 0.8em;
     padding-right: 0.5em;
   }
@@ -45,7 +64,7 @@
     position: relative;
     justify-content: flex-start;
 
-    > ul {
+    >ul {
       width: 80%;
     }
   }
@@ -87,10 +106,12 @@
   * {
     --prism-background-color: transparent !important;
   }
-  > div {
+
+  >div {
     border-radius: 0 0 6px 6px !important;
     border-top: none;
   }
+
   .prism-code {
     background-color: transparent !important;
   }
@@ -107,9 +128,11 @@
 
   .grid-item {
     color: var(--textfix);
+
     &::after {
       content: ', ';
     }
+
     &:last-child::after {
       content: '';
     }

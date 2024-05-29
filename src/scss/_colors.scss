@@ -27,6 +27,8 @@ $colorsDark: (
   "base-content": $base-content,
   "text": $text,
   "textfix": $text,
+  "text-05": rgba($text, 0.5),
+  "text-07": rgba($text, 0.7),
   "text-opaque": rgba($text, 0.3),
 );
 
@@ -45,6 +47,8 @@ $colorsLight: (
   "base-lighter": #fff,
   "base-content": #ddd,
   "text": #000000,
+  "text-05": rgba($text, 0.5),
+  "text-07": rgba($text, 0.7),
   "textfix": #000000,
   "text-opaque": rgba(#000, 0.5),
 );

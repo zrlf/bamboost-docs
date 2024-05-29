@@ -97,7 +97,7 @@ const config: Config = {
       },
     },
     navbar: {
-      hideOnScroll: false,
+      hideOnScroll: true,
       title: 'Bamboost',
       logo: {
         alt: 'My Site Logo',
@@ -147,7 +147,7 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} CMBM group.`,
     },
     prism: {
-      theme: prismThemes.github,
+      theme: prismThemes.palenight,
       darkTheme: prismThemes.palenight,
     },
     algolia: {

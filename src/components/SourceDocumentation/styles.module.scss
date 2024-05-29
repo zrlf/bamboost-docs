@@ -69,13 +69,26 @@
   font-family: var(--ifm-font-family-monospace);
 }
 
+.codeInline {
+  background-color: transparent;
+  display: inline;
+
+  * {
+    padding: 0;
+    background-color: transparent !important;
+  }
+}
+
 table {
   padding-left: 0;
 
   tbody {
-    tr, td {
+
+    tr,
+    td {
       border-color: var(--base-20);
       padding: 0.5em;
+
       &:nth-child(even) {
         background-color: transparent;
       }
@@ -96,4 +109,8 @@ table {
     font-weight: bold;
     padding: 0.2em 0.7em;
   }
+}
+
+.classContainer {
+  margin-left: 2em;
 }

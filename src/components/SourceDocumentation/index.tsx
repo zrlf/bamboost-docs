@@ -2,6 +2,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import CodeBlock from '@theme/CodeBlock';
+import { Prism } from 'prism-react-renderer';
 
 import {
   Examples,
@@ -15,6 +16,7 @@ import './styles.scss';
 import styles from './styles.module.scss';
 import { classFromString, moduleFromString } from './SubData';
 import { parseAnnotation } from './ParseString';
+import CodeBlockJSX from '@site/src/theme/CodeBlock/Content/Element';
 
 const path = require('path-browserify');
 export const basePath = '/docs/autoDocs';
@@ -58,26 +60,26 @@ const RenderMethod = (method: {
   name: string;
   obj: Method;
   isNotMethod?: boolean;
-  className?: string;
+  parentClassName?: string;
 }) => {
   const name = method.name;
   let displayName = name;
-  switch (name) {
-    case '__getitem__':
-      displayName = `${method.className}[key]`;
-      break;
-    case '__setitem__':
-      displayName = `${method.className}[key] = ...`;
-      break;
-    case '__len__':
-      displayName = `len(${method.className})`;
-      break;
-    case '__iter__':
-      displayName = `iter(${method.className})`;
-      break;
-    default:
-      break;
-  }
+  // switch (name) {
+  //   case '__getitem__':
+  //     displayName = `${method.className}[key]`;
+  //     break;
+  //   case '__setitem__':
+  //     displayName = `${method.className}[key] = ...`;
+  //     break;
+  //   case '__len__':
+  //     displayName = `len(${method.className})`;
+  //     break;
+  //   case '__iter__':
+  //     displayName = `iter(${method.className})`;
+  //     break;
+  //   default:
+  //     break;
+  // }
   const obj = method.obj;
   const [sourceIsVisible, setSourceIsVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
@@ -97,11 +99,17 @@ const RenderMethod = (method: {
           </>
         </div>
         {method.isNotMethod ? (
-          <h2 className={styles.functionTitle} id={`${name}`} style={{ display: 'inline-block' }}>
+          <h2
+            className={styles.functionTitle}
+            id={`${method.parentClassName || ''}_${name}`}
+            style={{ display: 'inline-block' }}>
             <span>{displayName}</span>
           </h2>
         ) : (
-          <h3 className={styles.functionTitle} id={name} style={{ display: 'inline-block' }}>
+          <h3
+            className={styles.functionTitle}
+            id={`${method.parentClassName || ''}_${name}`}
+            style={{ display: 'inline-block' }}>
             <span>{displayName}</span>
           </h3>
         )}
@@ -166,20 +174,19 @@ const SourceCode = ({ source_code, starting_line_number, sourceIsVisible }) => {
 
 const SourceCodeButton = ({ sourceIsVisible, setSourceIsVisible, ...props }) => {
   return (
-    <button
-      className="sourceButton"
-      onClick={() => setSourceIsVisible((prev: boolean) => !prev)}
-      {...props}>
-      {sourceIsVisible ? (
-        <>
-          <i className="fa-solid fa-chevron-down icon"></i> source code
-        </>
-      ) : (
-        <>
-          <i className="fa-solid fa-chevron-right icon"></i> source code
-        </>
-      )}
-    </button>
+    <div className="sourceButton">
+      <button onClick={() => setSourceIsVisible((prev: boolean) => !prev)} {...props}>
+        {sourceIsVisible ? (
+          <div>
+            <i className="fa-solid fa-chevron-down icon-source"></i> source code
+          </div>
+        ) : (
+          <div>
+            <i className="fa-solid fa-chevron-right icon-source"></i> source code
+          </div>
+        )}
+      </button>
+    </div>
   );
 };
 
@@ -259,68 +266,102 @@ export const RenderClass = ({
   const classBaseName = classFullName.split('.').slice(-1)[0];
   const classPath = classFullName.split('.').slice(0, -1).join('.');
 
+  console.log(cls.constructor.arguments);
+
   return (
     <div {...props}>
       {/* RENDER CLASS NAME */}
-      <div id={cls.name} className="spacing-header" style={{ fontFamily: 'Fira Code', fontWeight: 'normal' }}>
-        class <span style={{color:'var(--accent)'}}>{classPath}.<h2 id={classBaseName.toLowerCase()} style={{ display:'inline' }}>{classBaseName}</h2></span>
-      </div>
-      <div className="method-title">
-        <b
-          className={styles.functionTitle}
-          id={`${cls.name}_constructor`}
-          style={{ display: 'inline-block', padding: '0.5em', paddingLeft: '0.8em' }}>
-          <i>class</i> {cls.name}
-        </b>
+      <div
+        id={cls.name}
+        className="spacing-header"
+        style={{
+          fontFamily: 'Fira Code',
+          fontWeight: 'normal',
+          position: 'relative',
+        }}>
+        class{' '}
+        <span style={{ color: 'var(--secondary)' }}>
+          {classPath}.
+          <h2 id={classBaseName.toLowerCase()} style={{ display: 'inline', fontSize: '1em' }}>
+            {classBaseName}
+          </h2>
+          <CodeBlock language="py" className={styles.codeInline}>
+            {cls.constructor.signature}
+          </CodeBlock>
+        </span>
         <SourceCodeButton
           sourceIsVisible={sourceIsVisible}
           setSourceIsVisible={setSourceIsVisible}
+          style={{ position: 'absolute', top: '0', width: '10em', right: '0' }}
         />
       </div>
-      <Constructor cls={cls} sourceIsVisible={sourceIsVisible} />
+      <SourceCode
+        source_code={cls.constructor.source.code}
+        starting_line_number={cls.constructor.source.lines?.[0] || 0}
+        sourceIsVisible={sourceIsVisible}
+      />
 
-      {/* Split string at \n and create paragraphs */}
-      {cls.docstring.split('\n\n').map((block, index) => (
-        <p key={`docstring_${cls.name}_${index}`}>{block}</p>
-      ))}
+      {/* <Constructor cls={cls} sourceIsVisible={sourceIsVisible} /> */}
+      {/* <div className="method-title"> */}
+      {/*   <b */}
+      {/*     className={styles.functionTitle} */}
+      {/*     id={`${cls.name}_constructor`} */}
+      {/*     style={{ display: 'inline-block', padding: '0.5em', paddingLeft: '0.8em' }}> */}
+      {/*     <i>class</i> {cls.name} */}
+      {/*   </b> */}
+      {/*   <SourceCodeButton */}
+      {/*     sourceIsVisible={sourceIsVisible} */}
+      {/*     setSourceIsVisible={setSourceIsVisible} */}
+      {/*   /> */}
+      {/* </div> */}
 
-      {/* RENDER ARGUMENTS */}
-      <div className="parameters">
-        <b>Parameters:</b>
-        <ul>
-          {Object.entries(cls.constructor.arguments).map(([arg, content], index) => {
-            if (arg === 'self') return null;
-            return (
-              <li key={`args_${cls.name}_${index}`}>
-                <b>{arg}</b> : <code>{parseAnnotation(content.annotation)}</code>
-                <p className="parameter-description">{content.description}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-
-      {/* Render Examples */}
-      {cls.examples.length > 0 && <Examples examples={cls.examples} />}
-
-      {/* Render Inherited Classes */}
-      {Object.keys(cls.inherits_from).length > 0 && (
-        <div>
-          <b>Inherits from:</b>
-          <ul>
-            <InheritedFrom cls={cls} />
-          </ul>
-        </div>
-      )}
-
-      {/* Render Class Variables */}
-      <InstanceVariables variables={cls.variables} />
-
-      {/* Render Methods */}
-      <div className="methods">
-        {Object.keys(methods).map((key) => (
-          <RenderMethod {...{ name: key, obj: methods[key], className: cls.name }} />
+      <div className={styles.classContainer}>
+        {/* RENDER DOCSTRING */}
+        {/* Split string at \n and create paragraphs */}
+        {cls.docstring.split('\n\n').map((block, index) => (
+          <p key={`docstring_${cls.name}_${index}`}>{block}</p>
         ))}
+
+        {/* RENDER ARGUMENTS */}
+        {cls.constructor.arguments.length > 0 && (
+          <div className="parameters">
+            <b>Parameters:</b>
+            <ul>
+              {Object.entries(cls.constructor.arguments).map(([arg, content], index) => {
+                if (arg === 'self') return null;
+                return (
+                  <li key={`args_${cls.name}_${index}`}>
+                    <b>{arg}</b> : <code>{parseAnnotation(content.annotation)}</code>
+                    <p className="parameter-description">{content.description}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+
+        {/* Render Examples */}
+        {cls.examples.length > 0 && <Examples examples={cls.examples} />}
+
+        {/* Render Inherited Classes */}
+        {Object.keys(cls.inherits_from).length > 0 && (
+          <div>
+            <b>Inherits from:</b>
+            <ul>
+              <InheritedFrom cls={cls} />
+            </ul>
+          </div>
+        )}
+
+        {/* Render Class Variables */}
+        {cls.variables.length > 0 && <InstanceVariables variables={cls.variables} />}
+
+        {/* Render Methods */}
+        <div className="methods">
+          {Object.keys(methods).map((key) => (
+            <RenderMethod {...{ name: key, obj: methods[key], parentClassName: cls.name }} />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -344,7 +385,9 @@ export const RenderModule = ({ data, moduleFullName }: { data: JSON; moduleFullN
           {Object.entries(classes).map(([name, cls]: [string, Class], index) => (
             <tr key={`${moduleToRender['name']}_classes_${index}`}>
               <td>
-                <Link to={`#${name.toLowerCase()}`} className={styles.codeLink}>{name}</Link>
+                <Link to={`#${name.toLowerCase()}`} className={styles.codeLink}>
+                  {name}
+                </Link>
               </td>
               <td>{cls.docstring.split('\n\n')[0]}</td>
             </tr>
@@ -359,7 +402,9 @@ export const RenderModule = ({ data, moduleFullName }: { data: JSON; moduleFullN
           {Object.entries(functions).map(([name, method]: [string, Method], index) => (
             <tr key={`${moduleToRender['name']}_functions_${index}`}>
               <td>
-                <Link to={`#${name.toLowerCase()}`} className={styles.codeLink}>{name}</Link>
+                <Link to={`#${name.toLowerCase()}`} className={styles.codeLink}>
+                  {name}
+                </Link>
               </td>
               <td>{method.docstring.split('\n\n')[0]}</td>
             </tr>

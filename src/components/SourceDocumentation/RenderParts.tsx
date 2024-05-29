@@ -48,7 +48,7 @@ type Variable = {
 export const InstanceVariables = ({ variables }: { variables: { [key: string]: Variable } }) => {
   return (
     <div className="parameters">
-      <b>Variables:</b>
+      <b>Attributes:</b>
       <ul>
         {Object.keys(variables).map((name, index) => {
           return (
