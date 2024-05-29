@@ -1,6 +1,6 @@
 ---
-title: simulation
-hide_table_of_contents: true
+title: bamboost.simulation
+hide_table_of_contents: false
 ---
 
 import { RenderClass, RenderModule } from '@site/src/components/SourceDocumentation'
@@ -9,13 +9,5 @@ import { TableOfContents } from '@site/src/components/TOC';
 import sourceDoc from '@site/extract-docs/data/source_docs.json';
 
 <RenderModule data={sourceDoc} moduleFullName="bamboost.simulation" />
-
-## Simulation
-
-<RenderClass data={sourceDoc} classFullName="bamboost.simulation.Simulation" />
-
-## Links
-
-<RenderClass data={sourceDoc} classFullName="bamboost.simulation.Links" />
 
 <TableOfContents />

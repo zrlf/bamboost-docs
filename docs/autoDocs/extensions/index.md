@@ -1,6 +1,6 @@
 ---
-title: extensions
-hide_table_of_contents: true
+title: bamboost.extensions
+hide_table_of_contents: false
 ---
 
 import { RenderClass, RenderModule } from '@site/src/components/SourceDocumentation'
@@ -13,9 +13,5 @@ import sourceDoc from '@site/extract-docs/data/source_docs.json';
 import DocCardList from '@theme/DocCardList';
 
 <DocCardList />
-
-## ExtensionsLazyLoader
-
-<RenderClass data={sourceDoc} classFullName="bamboost.extensions.ExtensionsLazyLoader" />
 
 <TableOfContents />

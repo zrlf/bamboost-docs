@@ -43,6 +43,7 @@
           "classes": {
             "MeshGroup": {
               "name": "MeshGroup",
+              "short_description": "Pointer to a location in an hdf5 file. The constructor takes a",
               "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "__getitem__": {
@@ -163,6 +164,7 @@
             },
             "Mesh": {
               "name": "Mesh",
+              "short_description": "Pointer to a location in an hdf5 file. The constructor takes a",
               "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "get_tuple": {
@@ -289,6 +291,7 @@
           "classes": {
             "DataGroup": {
               "name": "DataGroup",
+              "short_description": "This pointer points to the data directory. Item accessor returns the",
               "docstring": "This pointer points to the data directory. Item accessor returns the\nindividual data fields. `meshes` is passed to here for access of linked\nmeshes.",
               "methods": {
                 "__getitem__": {
@@ -440,6 +443,7 @@
             },
             "FieldData": {
               "name": "FieldData",
+              "short_description": "This pointer points to a specific data field. `meshes` is passed to here",
               "docstring": "This pointer points to a specific data field. `meshes` is passed to here\nfor access of linked meshes.",
               "methods": {
                 "__getitem__": {
@@ -687,6 +691,7 @@
           "classes": {
             "FileHandler": {
               "name": "FileHandler",
+              "short_description": "File handler for an hdf5 file with the purpose of handling opening and closing",
               "docstring": "File handler for an hdf5 file with the purpose of handling opening and closing\nof the file. We use the concept of composition to include an object of this type\nin classes which need access to an hdf5 file (such as the hdf5pointer and Simulation.)",
               "methods": {
                 "__getitem__": {
@@ -859,7 +864,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
+                    "default": "<mpi4py.MPI.Intracomm object at 0x7d24bb7dd410>",
                     "annotation": "<class 'mpi4py.MPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -987,6 +992,7 @@
           "classes": {
             "Job": {
               "name": "Job",
+              "short_description": "",
               "docstring": "",
               "methods": {
                 "create_sbatch_script": {
@@ -1337,6 +1343,7 @@
           "classes": {
             "GitStateGetter": {
               "name": "GitStateGetter",
+              "short_description": "",
               "docstring": "",
               "methods": {
                 "create_git_string": {
@@ -1397,6 +1404,7 @@
           "classes": {
             "BasePointer": {
               "name": "BasePointer",
+              "short_description": "Pointer to a location in an hdf5 file. The constructor takes a",
               "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "new_pointer": {
@@ -1513,6 +1521,7 @@
             },
             "Group": {
               "name": "Group",
+              "short_description": "Pointer to a location in an hdf5 file. The constructor takes a",
               "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "__iter__": {
@@ -1679,6 +1688,7 @@
             },
             "MutableGroup": {
               "name": "MutableGroup",
+              "short_description": "Used for the `userdata` group.",
               "docstring": "Used for the `userdata` group.",
               "methods": {
                 "__getitem__": {
@@ -1933,6 +1943,7 @@
             },
             "Dataset": {
               "name": "Dataset",
+              "short_description": "Pointer to a location in an hdf5 file. The constructor takes a",
               "docstring": "Pointer to a location in an hdf5 file. The constructor takes a\n:class:`~.file_handler.FileHandler` and the in-file path to the object.\nThe base class represents a generic group in the file",
               "methods": {
                 "__getitem__": {
@@ -2048,6 +2059,7 @@
       "classes": {
         "ExtensionsLazyLoader": {
           "name": "ExtensionsLazyLoader",
+          "short_description": "",
           "docstring": "",
           "methods": {},
           "variables": {
@@ -2080,6 +2092,7 @@
           "classes": {
             "FenicsWriter": {
               "name": "FenicsWriter",
+              "short_description": "Helper writer for input from FEniCS directly.",
               "docstring": "Helper writer for input from FEniCS directly.\n",
               "methods": {
                 "add_field": {
@@ -2388,7 +2401,7 @@
                     "description": "Path to database"
                   },
                   "comm": {
-                    "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
+                    "default": "<mpi4py.MPI.Intracomm object at 0x7d24bb7dd410>",
                     "annotation": "<class 'mpi4py.MPI.Comm'>",
                     "description": "MPI communicator"
                   },
@@ -2675,6 +2688,7 @@
       "classes": {
         "Manager": {
           "name": "Manager",
+          "short_description": "View of database.",
           "docstring": "View of database.\n",
           "methods": {
             "__getitem__": {
@@ -3074,7 +3088,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7d24bb7dd410>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -3100,6 +3114,7 @@
         },
         "ManagerFromUID": {
           "name": "ManagerFromUID",
+          "short_description": "Get a database by its UID. This is used for autocompletion in ipython.",
           "docstring": "Get a database by its UID. This is used for autocompletion in ipython.",
           "methods": {
             "__getitem__": {
@@ -3162,6 +3177,7 @@
         },
         "ManagerFromName": {
           "name": "ManagerFromName",
+          "short_description": "Get a database by its path/name. This is used for autocompletion in ipython.",
           "docstring": "Get a database by its path/name. This is used for autocompletion in ipython.",
           "methods": {
             "__getitem__": {
@@ -3232,13 +3248,14 @@
       "classes": {
         "Simulation": {
           "name": "Simulation",
+          "short_description": "A single dataset/simulation. Used to write to it, read from it or append.",
           "docstring": "A single dataset/simulation. Used to write to it, read from it or append.\n",
           "methods": {
             "fromUID": {
               "docstring": "Return the `Simulation` with given UID.\n",
-              "signature": "(cls, full_uid: str) -> typing_extensions.Self",
+              "signature": "(cls, full_uid: str) -> Self",
               "returns": {
-                "annotation": "typing_extensions.Self",
+                "annotation": "typing.Self",
                 "description": null
               },
               "arguments": {
@@ -3947,7 +3964,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7d24bb7dd410>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               },
@@ -3968,6 +3985,7 @@
         },
         "Links": {
           "name": "Links",
+          "short_description": "Link group. Used to create and access links.",
           "docstring": "Link group. Used to create and access links.\n\nI don't know how to distribute this to its own file in the accessors\ndirectory, due to circular imports.",
           "methods": {
             "__getitem__": {
@@ -4160,6 +4178,7 @@
       "classes": {
         "SimulationWriter": {
           "name": "SimulationWriter",
+          "short_description": "The SimulationWriter is the writer object for a single simulation. It inherits",
           "docstring": "The SimulationWriter is the writer object for a single simulation. It inherits\nall reading methods from :class:`Simulation`.\n\nThis class can be used as a context manager. When entering the context, the status\nof the simulation is changed to \"Started\". When an exception is raised inside the\ncontext, the status is changed to \"Failed [Exception]\".",
           "methods": {
             "initialize": {
@@ -4744,7 +4763,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<mpi4py.MPI.Intracomm object at 0x7d9c09e14250>",
+                "default": "<mpi4py.MPI.Intracomm object at 0x7d24bb7dd410>",
                 "annotation": "<class 'mpi4py.MPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               },
@@ -4773,6 +4792,7 @@
       "classes": {
         "XDMFWriter": {
           "name": "XDMFWriter",
+          "short_description": "Write xdmf file for a subset of the stored data in the H5 file.",
           "docstring": "Write xdmf file for a subset of the stored data in the H5 file.\n",
           "methods": {
             "write_file": {

@@ -1,6 +1,6 @@
 ---
-title: index
-hide_table_of_contents: true
+title: bamboost.index
+hide_table_of_contents: false
 ---
 
 import { RenderClass, RenderModule } from '@site/src/components/SourceDocumentation'

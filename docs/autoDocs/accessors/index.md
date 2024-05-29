@@ -1,6 +1,6 @@
 ---
-title: accessors
-hide_table_of_contents: true
+title: bamboost.accessors
+hide_table_of_contents: false
 ---
 
 import { RenderClass, RenderModule } from '@site/src/components/SourceDocumentation'

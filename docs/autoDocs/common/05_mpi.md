@@ -1,6 +1,6 @@
 ---
-title: mpi
-hide_table_of_contents: true
+title: bamboost.common.mpi
+hide_table_of_contents: false
 ---
 
 import { RenderClass, RenderModule } from '@site/src/components/SourceDocumentation'
