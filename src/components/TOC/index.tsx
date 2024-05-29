@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 import styles from './styles.module.scss';
+import { TOC } from '@theme/TOC';
 
 const getNestedHeadings = (headingElements) => {
   const nestedHeadings = [];
@@ -36,24 +37,35 @@ const useHeadingsData = () => {
 };
 
 const Headings = ({ headings, activeId }) => (
-  <ul className={styles.customToc}>
-    {headings.map((heading) => (
-      <li key={heading.id} className={heading.id === activeId ? styles.active : ''}>
-        {' '}
-        <a href={`#${heading.id}`}>{heading.title}</a>
-        {heading.items.length > 0 && (
-          <ul>
-            {heading.items.map((child) => (
-              <li key={child.id} className={child.id === activeId ? styles.active : ''}>
-                {' '}
-                <a href={`#${child.id}`}>{child.title}</a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </li>
-    ))}
-  </ul>
+  <div>
+    <ul
+      style={{
+        fontSize: 'var(--font-small)',
+        textTransform: 'uppercase',
+        color: 'var(--text-opaque)',
+        margin: '0',
+      }}>
+      On this page
+    </ul>
+    <ul className={styles.customToc}>
+      {headings.map((heading) => (
+        <li key={heading.id} className={heading.id === activeId ? styles.active : ''}>
+          {' '}
+          <a href={`#${heading.id}`}>{heading.title}</a>
+          {heading.items.length > 0 && (
+            <ul>
+              {heading.items.map((child) => (
+                <li key={child.id} className={child.id === activeId ? styles.active : ''}>
+                  {' '}
+                  <a href={`#${child.id}`}>{child.title}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
 );
 
 const useIntersectionObserver = (setActiveId) => {
@@ -103,8 +115,25 @@ export const TableOfContents = () => {
 
   useEffect(() => {
     const toc = document.querySelector('.table-of-contents');
-    if (toc && !root) {
+    if (toc && !root) {  // toc already exists
       setRoot(createRoot(toc));
+    } else if (!toc) {  // toc does not exist, create it and inject it into the DOM
+      const container = document.querySelector('.container .row');
+      const newToc = document.createElement('div');
+      newToc.classList.add('col', 'col--3');
+
+      const innerDiv = document.createElement('div');
+      innerDiv.classList.add(
+        'table-of-contents',
+        'thin-scrollbar',
+        styles.tableOfContents,
+        styles.docItemContainer,
+        'table-of-contents__left-border'
+      );
+      newToc.appendChild(innerDiv);
+
+      container.appendChild(newToc);
+      setRoot(createRoot(innerDiv));
     }
     if (toc && root) {
       setTimeout(() => {

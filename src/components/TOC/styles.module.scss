@@ -28,27 +28,44 @@
 }
 
 .customToc {
-  padding-left: 0;
+
+  li {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  ul > li {
+    margin-left: 1em;
+  }
 
   a {
     text-decoration: none;
     color: var(--text);
-    font-weight: 200;
-    // background-color: var(--ifm-code-background);
-    // font-family: var(--ifm-font-family-monospace);
-    // font-size: var(--ifm-code-font-size);
-    // padding: var(--ifm-code-padding-vertical) var(--ifm-code-padding-horizontal);
-    padding: .2em .7em;
     border-radius: var(--ifm-code-border-radius);
     &:hover {
-      color: var(--base);
-      background-color: var(--primary);
+      color: var(--primary);
     }
   }
 
   li.active > a {
-    color: var(--base);
-    background-color: var(--primary);
-    padding: .2em .7em;
+    color: var(--primary);
+    font-weight: bold;
+  }
+}
+
+.tableOfContents {
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow-y: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+}
+
+@media (max-width: 996px) {
+  .tableOfContents {
+    display: none;
+  }
+
+  .docItemContainer {
+    padding: 0 0.3rem;
   }
 }

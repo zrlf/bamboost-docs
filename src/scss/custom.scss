@@ -3,9 +3,32 @@
 @use 'sass:map';
 
 @import 'styles';
+// montserrat, roboto
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+// Firaode
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
-  font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+  // font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+
+  // These are adapted from https://systemfontstack.com/
+  --font-stack: 'Roboto', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  --font-stack--monospace: 'SFMono-Regular', Menlo, Consolas, Monaco, Liberation Mono,
+    Lucida Console, monospace;
+  --font-stack--headings: var(--font-stack);
+
+  --font-normal: 100%;
+  --font-small: 87.5%;
+  --font-small-2: 81.25%;
+  --font-small-3: 75%;
+  --font-small-4: 62.5%;
+
+
+  font-family: var(--font-stack);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  --ifm-font-family-monospace: 'Fira Code', monospace;
 
   &[data-theme='light'] {
     @each $key, $value in $colorsLight {
@@ -47,7 +70,7 @@
   }
 
   background-color: var(--base);
-  background-image: url('/static/img/background.svg');
+  // background-image: url('/static/img/background.svg');
   background-size: cover;
   background-blend-mode: overlay;
   background-position: top;
@@ -98,7 +121,7 @@
 .hl {
   color: var(--primary);
   font-weight: bold;
-  padding: 0.1em 0.3em;
+  padding: 0.1em 0.0em;
   border-radius: 0.2em;
 }
 
@@ -109,4 +132,11 @@ h3,
 h4,
 h5 {
   scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5em);
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.01em;
 }
+
+// h1 {
+//   margin-top: 1em;
+//   margin-bottom: 0.5em;
+// }

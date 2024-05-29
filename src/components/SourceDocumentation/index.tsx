@@ -45,6 +45,7 @@ type Method = {
 
 type Class = {
   name: string;
+  short_description: string;
   docstring: string;
   constructor: Method;
   methods: { key: Method };
@@ -96,7 +97,7 @@ const RenderMethod = (method: {
           </>
         </div>
         {method.isNotMethod ? (
-          <h2 className={styles.functionTitle} id={name} style={{ display: 'inline-block' }}>
+          <h2 className={styles.functionTitle} id={`${name}`} style={{ display: 'inline-block' }}>
             <span>{displayName}</span>
           </h2>
         ) : (
@@ -163,9 +164,12 @@ const SourceCode = ({ source_code, starting_line_number, sourceIsVisible }) => {
   );
 };
 
-const SourceCodeButton = ({ sourceIsVisible, setSourceIsVisible }) => {
+const SourceCodeButton = ({ sourceIsVisible, setSourceIsVisible, ...props }) => {
   return (
-    <button className="sourceButton" onClick={() => setSourceIsVisible((prev: boolean) => !prev)}>
+    <button
+      className="sourceButton"
+      onClick={() => setSourceIsVisible((prev: boolean) => !prev)}
+      {...props}>
       {sourceIsVisible ? (
         <>
           <i className="fa-solid fa-chevron-down icon"></i> source code
@@ -194,21 +198,6 @@ const Constructor = ({ cls, sourceIsVisible }: { cls: Class; sourceIsVisible: bo
         starting_line_number={starting_line_number}
         sourceIsVisible={sourceIsVisible}
       />
-      {/* RENDER ARGUMENTS */}
-      <div className="parameters">
-        <b>Parameters:</b>
-        <ul>
-          {Object.entries(args).map(([arg, content], index) => {
-            if (arg === 'self') return null;
-            return (
-              <li key={`args_${name}_${index}`}>
-                <b>{arg}</b> : <code>{parseAnnotation(content.annotation)}</code>
-                <p className="parameter-description">{content.description}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
     </>
   );
 };
@@ -252,6 +241,7 @@ export const RenderClass = ({
   data,
   classFullName,
   directCls,
+  ...props
 }: {
   data: any;
   classFullName: string;
@@ -266,11 +256,54 @@ export const RenderClass = ({
   const methods = cls.methods;
   const [sourceIsVisible, setSourceIsVisible] = useState(false);
 
+  const classBaseName = classFullName.split('.').slice(-1)[0];
+  const classPath = classFullName.split('.').slice(0, -1).join('.');
+
   return (
-    <div>
-      <p>{cls.docstring}</p>
+    <div {...props}>
+      {/* RENDER CLASS NAME */}
+      <div id={cls.name} className="spacing-header" style={{ fontFamily: 'Fira Code', fontWeight: 'normal' }}>
+        class <span style={{color:'var(--accent)'}}>{classPath}.<h2 id={classBaseName.toLowerCase()} style={{ display:'inline' }}>{classBaseName}</h2></span>
+      </div>
+      <div className="method-title">
+        <b
+          className={styles.functionTitle}
+          id={`${cls.name}_constructor`}
+          style={{ display: 'inline-block', padding: '0.5em', paddingLeft: '0.8em' }}>
+          <i>class</i> {cls.name}
+        </b>
+        <SourceCodeButton
+          sourceIsVisible={sourceIsVisible}
+          setSourceIsVisible={setSourceIsVisible}
+        />
+      </div>
       <Constructor cls={cls} sourceIsVisible={sourceIsVisible} />
 
+      {/* Split string at \n and create paragraphs */}
+      {cls.docstring.split('\n\n').map((block, index) => (
+        <p key={`docstring_${cls.name}_${index}`}>{block}</p>
+      ))}
+
+      {/* RENDER ARGUMENTS */}
+      <div className="parameters">
+        <b>Parameters:</b>
+        <ul>
+          {Object.entries(cls.constructor.arguments).map(([arg, content], index) => {
+            if (arg === 'self') return null;
+            return (
+              <li key={`args_${cls.name}_${index}`}>
+                <b>{arg}</b> : <code>{parseAnnotation(content.annotation)}</code>
+                <p className="parameter-description">{content.description}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      {/* Render Examples */}
+      {cls.examples.length > 0 && <Examples examples={cls.examples} />}
+
+      {/* Render Inherited Classes */}
       {Object.keys(cls.inherits_from).length > 0 && (
         <div>
           <b>Inherits from:</b>
@@ -282,9 +315,6 @@ export const RenderClass = ({
 
       {/* Render Class Variables */}
       <InstanceVariables variables={cls.variables} />
-
-      {/* Render Examples */}
-      {cls.examples.length > 0 && <Examples examples={cls.examples} />}
 
       {/* Render Methods */}
       <div className="methods">
@@ -300,10 +330,58 @@ export const RenderModule = ({ data, moduleFullName }: { data: JSON; moduleFullN
   const moduleToRender = moduleFromString(moduleFullName, data);
   const functions = moduleToRender['functions'];
   const docstring = moduleToRender['docstring'];
+  const classes = moduleToRender['classes'];
 
   return (
     <div>
+      {/* <div className={clsx('table-of-contents', styles.tableOfContents, 'thin-scrollbar')} /> */}
       {docstring != 'None' && <p>{docstring}</p>}
+
+      {/* Render Classes TOC */}
+      <h1 className="spacing-header">Classes</h1>
+      <table>
+        <tbody>
+          {Object.entries(classes).map(([name, cls]: [string, Class], index) => (
+            <tr key={`${moduleToRender['name']}_classes_${index}`}>
+              <td>
+                <Link to={`#${name.toLowerCase()}`} className={styles.codeLink}>{name}</Link>
+              </td>
+              <td>{cls.docstring.split('\n\n')[0]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Render Functions TOC */}
+      <h1 className="spacing-header">Functions</h1>
+      <table>
+        <tbody>
+          {Object.entries(functions).map(([name, method]: [string, Method], index) => (
+            <tr key={`${moduleToRender['name']}_functions_${index}`}>
+              <td>
+                <Link to={`#${name.toLowerCase()}`} className={styles.codeLink}>{name}</Link>
+              </td>
+              <td>{method.docstring.split('\n\n')[0]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h1 className="spacing-header">Module Contents</h1>
+
+      {/* Render Classes */}
+      <div className="classes">
+        {Object.entries(classes).map(([name, cls]: [string, Class], index) => (
+          <>
+            <RenderClass
+              data={data}
+              classFullName={`${moduleFullName}.${name}`}
+              directCls={cls}
+              key={`class_${index}`}
+            />
+          </>
+        ))}
+      </div>
 
       {/* Render Functions */}
       <div className="functions">

@@ -1,7 +1,7 @@
 .functionTitle {
   font-size: 1.2em;
   font-family:
-    'Poppins',
+    'Roboto',
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
@@ -19,7 +19,7 @@
   margin-left: 0em;
   margin-bottom: 1em;
   border-radius: 6px;
-  filter: drop-shadow(0 1px 1px #00000020);
+  // filter: drop-shadow(0 1px 1px #00000020);
 
   >div {
     @media screen and (min-width: 996px) {
@@ -36,11 +36,64 @@
     margin-top: 0.5em;
     border-radius: 6px;
     padding: 1em;
+    // box-shadow: 0px 0px 10px 0px #00000020;
 
     * {
-      background-color: transparent !important;
-      padding: 0;
+      // background-color: transparent !important;
+      // padding: 0;
       box-shadow: none;
     }
+  }
+}
+
+.tableOfContents {
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow-y: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+}
+
+@media (max-width: 996px) {
+  .tableOfContents {
+    display: none;
+  }
+
+  .docItemContainer {
+    padding: 0 0.3rem;
+  }
+}
+
+.codeLink {
+  padding: 0.2em 0.7em;
+  border-radius: var(--ifm-code-border-radius);
+  font-family: var(--ifm-font-family-monospace);
+}
+
+table {
+  padding-left: 0;
+
+  tbody {
+    tr, td {
+      border-color: var(--base-20);
+      padding: 0.5em;
+      &:nth-child(even) {
+        background-color: transparent;
+      }
+    }
+  }
+
+  a {
+    padding: 0.2em 0.7em;
+    border-radius: var(--ifm-code-border-radius);
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
+  li.active>a {
+    color: var(--primary);
+    font-weight: bold;
+    padding: 0.2em 0.7em;
   }
 }

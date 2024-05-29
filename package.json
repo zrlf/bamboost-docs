@@ -29,6 +29,7 @@
     "@docusaurus/preset-classic": "^3.2.1",
     "@docusaurus/tsconfig": "^3.2.1",
     "@docusaurus/types": "^3.0.1",
+    "@fontsource/montserrat": "^5.0.18",
     "@types/node": "^20.12.5",
     "autoprefixer": "^10.4.19",
     "docusaurus-plugin-sass": "^0.2.5",

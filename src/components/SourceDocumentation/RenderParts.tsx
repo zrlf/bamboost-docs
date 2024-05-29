@@ -3,10 +3,9 @@ import { parseAnnotation, parseString } from './ParseString';
 import styles from './styles.module.scss';
 
 export const Parameter = ({ name, arg }) => {
-  const annotation = arg.annotation || 'Any';
   return (
     <>
-      <b>{name}</b> : <code>{annotation}</code>
+      <b>{name}</b> : <code>{parseAnnotation(arg.annotation || 'Any')}</code>
       <p className="parameter-description">{parseString(arg.description)}</p>
     </>
   );
