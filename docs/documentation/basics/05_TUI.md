@@ -3,7 +3,14 @@
 ## Configuration
 
 The TUI can be configured using the configuration file at
-`~/.config/bamboost/tui.toml`.
+`~/.config/bamboost/tui.toml`. This is mainly to customize the keybindings.
+
+The TUI has different *views* (pages). Currently, only the keybindings in the
+database view are customizable. You can view the keymaps in the TUI by pressing
+`?`. 
+Edit the `[keybinds.database]` table in the config file to your liking. The
+functions are named (also seeable in the TUI). You can simply assign a new key
+to a function.
 
 ```yaml title='Example configuration file'
 theme = "default"  # or "highlight"
@@ -42,3 +49,26 @@ myjobs = { key = ["o", "m"], func = "show_job" }
 cancel-job = { key = "C", func = "cancel_slurm_job" }
 dummy = { key = ["m", "m"], func = "dummy_function" }
 ```
+### Custom functions
+
+You can extend the application with your own custom functions.
+1. Include the file in which you define your function(s) in the `custom_files`
+   list of the `[keybinds]` table.
+2. Add a keymap in the table `[keybinds.database]` by giving your functionality
+   a name and assigning to it a dictionary with an entry *key* and *func*, which
+   needs to be the exact function name of a function defined in one of the
+   custom files.
+3. The custom function must take two arguments: `size` & `key`. You can ignore
+   these if you don't need them. `size` is the size of the widget on which the
+   keypress is recorded. `key` is the key that was pressed.
+
+:::note
+To interact with the table itself, e.g. to get the simulation in focus, there is
+a minimal API available.
+```python title='bamboostcli API'
+from bamboostcli import api
+sim = api.get_entry_in_focus()
+database_widget = api.Database()
+database_widget.container.footer.set_text("new footer text")
+```
+:::
