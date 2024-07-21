@@ -2,7 +2,7 @@
 title: Installation troubleshooting
 ---
 
-import './styles.scss';
+import '../styles.scss';
 
 The requirements for the bamboost library are: `h5py`, `mpi4py`, `numpy`, `pandas`.
 

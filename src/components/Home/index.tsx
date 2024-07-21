@@ -32,12 +32,12 @@ function HomepageHeader() {
   const items = [
     {
       className: 'btn btn-primary',
-      location: '/docs/documentation/get-started/installation',
+      location: '/docs/documentation/basics/getting_started',
       text: '🚀 Get Started',
     },
     {
       className: 'btn btn-outline',
-      location: '/docs/documentation/get-started',
+      location: '/docs/documentation/basics',
       text: '📖 Documentation',
     },
     {

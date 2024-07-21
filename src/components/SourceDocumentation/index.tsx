@@ -399,7 +399,7 @@ export const RenderClass = ({
         ))}
 
         {/* RENDER ARGUMENTS */}
-        {cls.constructor.arguments.length > 0 && (
+        {Object.keys(cls.constructor.arguments).length > 0 && (
           <div className="parameters">
             <b>Parameters:</b>
             <ul>
@@ -430,7 +430,7 @@ export const RenderClass = ({
         )}
 
         {/* Render Class Variables */}
-        {cls.variables.length > 0 && <InstanceVariables variables={cls.variables} />}
+        {Object.keys(cls.variables).length > 0 && <InstanceVariables variables={cls.variables} />}
 
         {/* Render Methods */}
         <div className="methods">

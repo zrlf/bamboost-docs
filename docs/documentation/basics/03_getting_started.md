@@ -1,7 +1,7 @@
-# Basics
+# Getting started
 
 In bamboost, databases are created implicitly if they do not exist yet.
-To get started, create your first database by creating a `Manager` instance. The
+To get started, create your first database by creating a [Manager](Manager) instance. The
 first argument is its path. Consider giving all your database paths a specific
 prefix ($e.g.$ out) to easily ignore them in version control like git.
 
@@ -39,7 +39,8 @@ databases and it's content. However, this serves more as a cache system to speed
 up operations. If a requested database is not in the sqlite database, the file
 system is searched. To tell bamboost where your data may be, edit the list of
 known paths in the config file at `~/.config/bamboost/config.toml`. As long as
-your data is in these directories, it will be found.
+your data is in these directories, it will be found. Learn more about
+[Configuration](Configuration).
 
 ```toml
 [index]
@@ -93,9 +94,63 @@ In general, the creation of this entry should be decoupled from the actual
 computation. As thus, the bamboost framework serves as input and output file
 at the same time! More on simulation management later.
 
+## Display the database
+
+Bamboost uses pandas under the hood for certain functionalities. Now that we
+have something in the database, let's display a pandas dataframe of it:
+
+```python
+db.df
+```
+
+<div>
+<table>
+ <thead>
+   <tr style={{textAlign: "right"}}>
+     <th></th>
+     <th>id</th>
+     <th>notes</th>
+     <th>status</th>
+     <th>time_stamp</th>
+     <th>boat.E</th>
+     <th>boat.nu</th>
+     <th>material_model</th>
+     <th>penalty_constant</th>
+     <th>processors</th>
+     <th>wall.E</th>
+     <th>wall.nu</th>
+   </tr>
+ </thead>
+ <tbody>
+   <tr>
+     <th>0</th>
+     <td>e25559b8</td>
+     <td></td>
+     <td>Initiated</td>
+     <td>2024-07-21 17:52:43</td>
+     <td>1</td>
+     <td>0.3</td>
+     <td>Linear elastic</td>
+     <td>100</td>
+     <td>1</td>
+     <td>20</td>
+     <td>0.2</td>
+   </tr>
+ </tbody>
+</table>
+</div>
+
+:::info
+This is a good point to introduce the bamboost TUI. It does not come bundled
+with the main package of bamboost but must be installed from
+[Gitlab](https://gitlab.com/zrlf/bamboost-tui).
+
+In the TUI, you can review all your databases in a single place. [Check out the page for the TUI](/docs/documentation/guides/TUI)
+:::
+
 ## Writing data
 
-The bamboost `SimulationWriter` is used to write data during your simulation (or as part of a
+The bamboost [SimulationWriter](/docs/autoDocs/simulation_writer#simulationwriter) is used to write data during your simulation (or as part of a
 postprocessing step after). You can get a SimulationWriter object in one of the
 following ways:
 
@@ -126,5 +181,81 @@ forces.
 
 ### Meshes
 
-You can add one or multiple meshes. In the case of no mesh name argument, this
-refers to the default mesh named *mesh*.
+You can add one or multiple meshes. In the case you don't provide any mesh name
+argument, this refers to the default mesh named _mesh_.
+
+```python title='Add a mesh'
+coords = np.array([...])
+connectivity = np.array([...])
+sim.add_mesh(coords, connectivity)
+```
+
+### Field data
+
+Field data is written to `data/<name>/<step>`. Only the `name` and `vector`
+arguments are required. The default for `center` is "Node" which corresponds to
+nodal data. If you have cell data, use `center="Cell"`.
+
+```python title='Add field data'
+sim.add_field(
+    name='name_of_field',
+    vector=np.array([...]),
+    time=None,  # a timestamp for this field
+    mesh=None,  # mesh this belongs to (see above about meshes)
+    dtype=None,  # a data type (default is dtype of the vector)
+    center='Node',  # or 'Cell'
+)
+```
+
+:::warning
+The current step is an internal counter. Calling `add_field` does not increase
+the step counter. This means that you can call `add_field` for all your fields
+consequentally. To finish the current step and go to the next one call
+
+```python
+sim.finish_step()
+```
+
+To go to a specific step, set the step variable explicitly:
+
+```python
+sim.step = 73
+```
+
+:::
+
+### Global data
+
+Global data is written to `globals/<name>`. You can provide either a scalar
+value or a numpy array. If you write an array, its shape must be consistent for
+all steps.
+
+```python title='Add global data'
+sim.add_global_field(
+    name='name_of_global_data',
+    value=np.array([...]) | float | int,
+    dtype=None, # optional
+)
+```
+
+### Userdata
+
+If the previous two options do not meet your need, bamboost provides a third
+_category_ of data. This part is stored at `/userdata/`. You can organize this
+part of the file yourself. `sim.userdata` is an object of type
+[MutableGroup](/docs/autoDocs/common/hdf_pointer#mutablegroup).
+
+```python title='Adding a subgroup'
+new_group = sim.userdata.require_group(name)
+```
+
+```python title='Adding an array or a single value'
+new_group['some_data'] = np.array([...])
+new_group['total_energy'] = 100.384
+new_gropu['model_type'] = "Dummy"
+```
+
+For a thourough guide on what you can do with userdata, have a look at
+[MutableGroup](/docs/autoDocs/common/hdf_pointer#mutablegroup).
+
+## Reading data

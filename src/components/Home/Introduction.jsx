@@ -132,7 +132,7 @@ return (
   </p>
 
   <div className="goto">
-    <Link className="btn btn-outline" to="docs/documentation/get-started/basic_usage">
+    <Link className="btn btn-outline" to="docs/documentation/basics/getting_started">
     Basic usage
     </Link>
   </div>
