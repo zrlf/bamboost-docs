@@ -259,3 +259,18 @@ For a thourough guide on what you can do with userdata, have a look at
 [MutableGroup](/docs/autoDocs/common/hdf_pointer#mutablegroup).
 
 ## Reading data
+
+The main reason for using bamboost is the easy access to your data. Here are a
+few ways to get a specific Simulation.
+
+- Load a database and select an entry by either its name or by a selection of
+  parameters.
+  ```python
+  db = Manager.fromUID[...]
+  sim = db['name1']
+  sims = db.sims(db.df['param1'] == 2)
+  ```
+- Load the simulation directly from its full ID:
+  ```python
+  sim = Simulation.fromUID('<full-id>')
+  ```
