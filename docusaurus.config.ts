@@ -138,8 +138,29 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/documentation/basics',
+              label: 'Getting Started',
+              to: '/docs/documentation/basics/getting_started',
+            },
+            {
+              label: 'Installation',
+              to: '/docs/documentation/basics/installation',
+            },
+            {
+              label: 'TUI',
+              to: '/docs/documentation/basics/TUI',
+            },
+          ],
+        },
+        {
+          title: 'Reference guide',
+          items: [
+            {
+              label: 'Manager',
+              to: '/docs/autoDocs/manager',
+            },
+            {
+              label: 'Simulation',
+              to: '/docs/autoDocs/simulation',
             },
           ],
         },
