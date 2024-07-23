@@ -1,13 +1,27 @@
+import TOCInline from '@theme/TOCInline';
+import ReactPlayer from 'react-player/lazy'
+
 # Terminal user interface
+
+<TOCInline toc={toc}/>
+
+## Introduction
+
+You can use the terminal user interface (TUI) to explore all your databases and
+its simulations.
+
+<div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+    <ReactPlayer playing controls url='/videos/tui-showcase.webm' type="video/webm" />
+</div>
 
 ## Configuration
 
 The TUI can be configured using the configuration file at
 `~/.config/bamboost/tui.toml`. This is mainly to customize the keybindings.
 
-The TUI has different *views* (pages). Currently, only the keybindings in the
+The TUI has different _views_ (pages). Currently, only the keybindings in the
 database view are customizable. You can view the keymaps in the TUI by pressing
-`?`. 
+`?`.
 Edit the `[keybinds.database]` table in the config file to your liking. The
 functions are named (also seeable in the TUI). You can simply assign a new key
 to a function.
@@ -49,13 +63,15 @@ myjobs = { key = ["o", "m"], func = "show_job" }
 cancel-job = { key = "C", func = "cancel_slurm_job" }
 dummy = { key = ["m", "m"], func = "dummy_function" }
 ```
+
 ### Custom functions
 
 You can extend the application with your own custom functions.
+
 1. Include the file in which you define your function(s) in the `custom_files`
    list of the `[keybinds]` table.
 2. Add a keymap in the table `[keybinds.database]` by giving your functionality
-   a name and assigning to it a dictionary with an entry *key* and *func*, which
+   a name and assigning to it a dictionary with an entry _key_ and _func_, which
    needs to be the exact function name of a function defined in one of the
    custom files.
 3. The custom function must take two arguments: `size` & `key`. You can ignore
@@ -65,10 +81,12 @@ You can extend the application with your own custom functions.
 :::note
 To interact with the table itself, e.g. to get the simulation in focus, there is
 a minimal API available.
+
 ```python title='bamboostcli API'
 from bamboostcli import api
 sim = api.get_entry_in_focus()
 database_widget = api.Database()
 database_widget.container.footer.set_text("new footer text")
 ```
+
 :::
