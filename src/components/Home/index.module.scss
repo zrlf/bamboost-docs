@@ -86,7 +86,7 @@ $padding: 3em;
   .title {
     font-size: 3.5em;
     font-weight: 900;
-    // font-family: 'Noto Serif', 'serif';
+    /* font-family: 'Noto Serif', 'serif'; */
     text-align: left;
     color: var(--primary);
   }
@@ -103,7 +103,7 @@ $padding: 3em;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     text-align: center;
     gap: 1em;
-    margin-top: 1em;
+    margin-top: 3em;
     margin-bottom: 1em;
   }
 
@@ -216,27 +216,31 @@ $padding: 3em;
 .screenshot {
   position: relative;
   height: 400px;
+  margin-top: 2em;
   opacity: 0.8;
 
   .database {
     position: absolute;
-    top: 20%;
+    top: 10%;
     left: 0;
-    width: 90%;
+    width: 80%;
+    bottom: 0;
+    aspect-ratio: 1.8;
     border-radius: 20px;
     overflow: hidden;
-    padding: 0;
-    margin: 0;
-    border: 1px solid var(--text);
+    border: 2px solid var(--text);
+    margin: 0 15px;
   }
 
   .welcome {
     position: absolute;
-    top: 10%;
     right: 0;
-    left: 50%;
+    top: 3%;
+    aspect-ratio: 1;
+    margin: 0 15px;
+    left: 46%;
     border-radius: 20px;
     overflow: hidden;
-    border: 1px solid var(--text);
+    border: 2px solid var(--text);
   }
 }

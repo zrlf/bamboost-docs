@@ -90,7 +90,7 @@
   justify-content: center;
 
   @media screen and (width < 996px) {
-    padding: $padding * 1.5 $padding * 3;
+    padding: $padding;
   }
 
   &.btn-accent {
