@@ -3,25 +3,51 @@
   "docstring": "",
   "classes": {},
   "functions": {
-    "set_log_level": {
+    "add_stream_handler": {
       "docstring": "",
-      "signature": "(level: int = 30)",
+      "signature": "(logger: logging.Logger) -> None",
       "returns": {
-        "annotation": "<class 'inspect._empty'>",
+        "annotation": "None",
         "description": null
       },
       "arguments": {
-        "level": {
-          "default": "30",
-          "annotation": "<class 'int'>",
+        "logger": {
+          "default": null,
+          "annotation": "<class 'logging.Logger'>",
           "description": null
         }
       },
       "source": {
-        "code": "def set_log_level(level: int = 30):\n    for handler in logging.root.handlers[:]:\n        logging.root.removeHandler(handler)\n    logging.basicConfig(level=os.environ.get(\"LOGLEVEL\", level))\n",
+        "code": "def add_stream_handler(logger: logging.Logger) -> None:\n    stream_handler = logging.StreamHandler()\n    formatter = logging.Formatter(\n        \"[%(asctime)s] %(name)s: %(levelname)s - %(message)s\",\n        style=\"%\",\n        datefmt=\"%Y-%m-%d %H:%M:%S\",\n    )\n    stream_handler.setFormatter(formatter)\n    logger.addHandler(stream_handler)\n",
         "lines": [
-          16,
-          19
+          10,
+          18
+        ]
+      },
+      "props": {
+        "isClassMethod": false
+      },
+      "examples": []
+    },
+    "set_log_level": {
+      "docstring": "",
+      "signature": "(level: Literal['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']) -> None",
+      "returns": {
+        "annotation": "None",
+        "description": null
+      },
+      "arguments": {
+        "level": {
+          "default": null,
+          "annotation": "typing.Literal['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']",
+          "description": null
+        }
+      },
+      "source": {
+        "code": "def set_log_level(\n    level: Literal[\"DEBUG\", \"INFO\", \"WARNING\", \"ERROR\", \"CRITICAL\"],\n) -> None:\n    BAMBOOST_LOGGER.setLevel(level)\n",
+        "lines": [
+          25,
+          28
         ]
       },
       "props": {
@@ -812,8 +838,8 @@
                   "source": {
                     "code": "    @capture_key_error\n    def __getitem__(self, key) -> Any:\n        return self.file_object[key]\n",
                     "lines": [
-                      133,
-                      135
+                      139,
+                      141
                     ]
                   },
                   "props": {
@@ -851,10 +877,10 @@
                     }
                   },
                   "source": {
-                    "code": "    def open(self, mode: str = \"r\", driver=None, comm=None):\n        if self._lock == 0:\n            log.debug(f\"[{id(self)}] Open {self.file_name}\")\n            self.file_object = open_h5file(self.file_name, mode, driver, comm)\n\n        if FILE_MODE_HIRARCHY[self.file_object.mode] < FILE_MODE_HIRARCHY[mode]:\n            self.change_file_mode(mode, driver, comm)\n\n        log.debug(f\"[{id(self)}] Lock stack {self._lock}\")\n        self._lock += 1\n        return self.file_object\n",
+                    "code": "    def open(self, mode: str = \"r\", driver=None, comm=None):\n        if self._lock <= 0:\n            log.debug(f\"[{id(self)}] Open {self.file_name}\")\n            self.file_object = open_h5file(self.file_name, mode, driver, comm)\n\n        if FILE_MODE_HIRARCHY[self.file_object.mode] < FILE_MODE_HIRARCHY[mode]:\n            self.change_file_mode(mode, driver, comm)\n\n        log.debug(f\"[{id(self)}] Lock stack {self._lock}\")\n        self._lock += 1\n        return self.file_object\n",
                     "lines": [
-                      155,
-                      165
+                      161,
+                      171
                     ]
                   },
                   "props": {
@@ -879,8 +905,8 @@
                   "source": {
                     "code": "    def close(self):\n        self._lock -= 1\n        if self._lock == 0:\n            log.debug(f\"[{id(self)}] Close {self.file_name}\")\n            self.file_object.close()\n        log.debug(f\"[{id(self)}] Lock stack {self._lock}\")\n",
                     "lines": [
-                      167,
-                      172
+                      173,
+                      178
                     ]
                   },
                   "props": {
@@ -920,8 +946,8 @@
                   "source": {
                     "code": "    def change_file_mode(self, mode: str, driver=None, comm=None):\n        log.info(\n            f\"Forced closing and reopening to change file mode [{self.file_name}].\"\n        )\n        self.file_object.close()\n        self.file_object = open_h5file(self.file_name, mode, driver, comm)\n",
                     "lines": [
-                      174,
-                      179
+                      180,
+                      185
                     ]
                   },
                   "props": {
@@ -960,16 +986,16 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f74a4fb52b0>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ac854bb8730>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   }
                 },
                 "source": {
-                  "code": "    def __init__(self, file_name: str, _comm: mpi.MPI.Comm = mpi.MPI.COMM_WORLD) -> None:\n        self.file_object: h5py.File = None\n        self.file_name = file_name\n        self.simulation_uid = os.path.basename(file_name)\n        self._lock = 0\n        self._mode = \"r\"\n        self._driver = None\n        self._comm = _comm\n",
+                  "code": "    def __init__(\n        self, file_name: str, _comm: mpi.MPI.Comm = mpi.MPI.COMM_WORLD\n    ) -> None:\n        self.file_object: h5py.File = None\n        self.file_name = file_name\n        self.simulation_uid = os.path.basename(file_name)\n        self._lock = 0\n        self._mode = \"r\"\n        self._driver = None\n        self._comm = _comm\n",
                   "lines": [
-                    115,
-                    122
+                    119,
+                    128
                   ]
                 }
               }
@@ -978,7 +1004,7 @@
           "functions": {
             "open_h5file": {
               "docstring": "Open h5 file. Waiting if file is not available.\n",
-              "signature": "(file: str, mode, driver=None, comm=None)",
+              "signature": "(\n    file: str,\n    mode: \"Literal['mpio'] | Type[None]\",\n    driver: 'bool | Type[None]' = None,\n    comm=None\n)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
                 "description": null
@@ -991,12 +1017,12 @@
                 },
                 "mode": {
                   "default": null,
-                  "annotation": null,
+                  "annotation": "Literal['mpio'] | Type[None]",
                   "description": "'r', 'a', 'w', ..."
                 },
                 "driver": {
                   "default": "None",
-                  "annotation": null,
+                  "annotation": "bool | Type[None]",
                   "description": "driver for h5.File"
                 },
                 "comm": {
@@ -1006,10 +1032,10 @@
                 }
               },
               "source": {
-                "code": "def open_h5file(file: str, mode, driver=None, comm=None):\n    \"\"\"Open h5 file. Waiting if file is not available.\n\n    Args:\n        file (str): File to open\n        mode (str): 'r', 'a', 'w', ...\n        driver (str): driver for h5.File\n        comm: MPI communicator\n    \"\"\"\n    while True:\n        try:\n            if driver == \"mpio\" and MPI_ACTIVE and mpi.MPI_ON:\n                return h5py.File(file, mode, driver=driver, comm=comm)\n            else:\n                return h5py.File(file, mode)\n\n        except OSError:\n            log.warning(f\"File {file} not accessible, waiting\")\n            time.sleep(0.1)\n",
+                "code": "def open_h5file(\n    file: str,\n    mode: Literal[\"mpio\"] | Type[None],\n    driver: bool | Type[None] = None,\n    comm=None,\n):\n    \"\"\"Open h5 file. Waiting if file is not available.\n\n    Args:\n        file (str): File to open\n        mode (str): 'r', 'a', 'w', ...\n        driver (str): driver for h5.File\n        comm: MPI communicator\n    \"\"\"\n    while True:\n        try:\n            if driver == \"mpio\" and MPI_ACTIVE and mpi.MPI_ON:\n                return h5py.File(file, mode, driver=driver, comm=comm)\n            else:\n                return h5py.File(file, mode)\n\n        except BlockingIOError:\n            log.warning(f\"file locked --> {file}\")\n            time.sleep(0.2)\n",
                 "lines": [
                   44,
-                  62
+                  67
                 ]
               },
               "props": {
@@ -1044,8 +1070,8 @@
               "source": {
                 "code": "def with_file_open(mode: str = \"r\", driver=None, comm=None):\n    \"\"\"Open the file (`self._file`) before function\n    Close the file after the function call\n\n    Works on classes containing the member `_file` of type :class:`~bamboost.common.file_handler.FileHandler`\n    \"\"\"\n\n    def decorator(method):\n        @wraps(method)\n        def wrapper(self, *args, **kwargs):\n            with self._file(mode, driver, comm):\n                return method(self, *args, **kwargs)\n\n        return wrapper\n\n    return decorator\n",
                 "lines": [
-                  65,
-                  80
+                  70,
+                  85
                 ]
               },
               "props": {
@@ -1068,10 +1094,10 @@
                 }
               },
               "source": {
-                "code": "def capture_key_error(method):\n    @wraps(method)\n    def inner(self, *args, **kwargs):\n        try:\n            return method(self, *args, **kwargs)\n        except KeyError as e:\n            raise KeyError(\n                f'[uid: {self.simulation_uid.split(\".\")[0]}] content not in file: {self.file_name}'\n            ) from e\n\n    return inner\n",
+                "code": "def capture_key_error(method):\n    @wraps(method)\n    def inner(self, *args, **kwargs):\n        try:\n            return method(self, *args, **kwargs)\n        except KeyError as e:\n            e.add_note(f\"[file: {self.file_name}]\")\n            raise e\n\n    return inner\n",
                 "lines": [
-                  83,
-                  93
+                  88,
+                  97
                 ]
               },
               "props": {
@@ -1092,8 +1118,8 @@
               "docstring": "",
               "methods": {
                 "create_sbatch_script": {
-                  "docstring": "Write sbatch script for new simulation.",
-                  "signature": "(\n    self,\n    commands: list,\n    path: str,\n    uid: str = None,\n    db_id: str = None,\n    nnodes: int = 1,\n    ntasks: int = 4,\n    ncpus: int = 1,\n    time: str = '04:00:00',\n    mem_per_cpu: int = 2048,\n    tmp: int = 8000\n) -> None",
+                  "docstring": "Write sbatch script for new simulation.\n\nThe following environment variables are written to the script:\n    - DATABASE_DIR: Path to the database directory.\n    - SIMULATION_DIR: Path to the simulation directory.\n    - SIMULATION_ID: Full id of the simulation.",
+                  "signature": "(\n    self,\n    commands: list,\n    path: str,\n    uid: str = None,\n    db_id: str = None,\n    nnodes: int = 1,\n    ntasks: int = 4,\n    ncpus: int = 1,\n    time: str = '04:00:00',\n    mem_per_cpu: int = 2048,\n    tmp: int = None,\n    sbatch_kwargs: list = None\n) -> None",
                   "returns": {
                     "annotation": "None",
                     "description": null
@@ -1107,59 +1133,64 @@
                     "commands": {
                       "default": null,
                       "annotation": "<class 'list'>",
-                      "description": null
+                      "description": "List of commands to be executed."
                     },
                     "path": {
                       "default": null,
                       "annotation": "<class 'str'>",
-                      "description": null
+                      "description": "Path to the database directory."
                     },
                     "uid": {
                       "default": "None",
                       "annotation": "<class 'str'>",
-                      "description": null
+                      "description": "Unique identifier of the simulation."
                     },
                     "db_id": {
                       "default": "None",
                       "annotation": "<class 'str'>",
-                      "description": null
+                      "description": "Database ID. Defaults to None."
                     },
                     "nnodes": {
                       "default": "1",
                       "annotation": "<class 'int'>",
-                      "description": null
+                      "description": "Number of nodes. Defaults to 1."
                     },
                     "ntasks": {
                       "default": "4",
                       "annotation": "<class 'int'>",
-                      "description": null
+                      "description": "Number of tasks. Defaults to 4."
                     },
                     "ncpus": {
                       "default": "1",
                       "annotation": "<class 'int'>",
-                      "description": null
+                      "description": "Number of cpus. Defaults to 1."
                     },
                     "time": {
                       "default": "04:00:00",
                       "annotation": "<class 'str'>",
-                      "description": null
+                      "description": "Time limit. Defaults to \"04:00:00\"."
                     },
                     "mem_per_cpu": {
                       "default": "2048",
                       "annotation": "<class 'int'>",
-                      "description": null
+                      "description": "Memory per cpu. Defaults to 2048."
                     },
                     "tmp": {
-                      "default": "8000",
+                      "default": "None",
                       "annotation": "<class 'int'>",
-                      "description": null
+                      "description": "Temporary space."
+                    },
+                    "sbatch_kwargs": {
+                      "default": "None",
+                      "annotation": "<class 'list'>",
+                      "description": "Additional sbatch arguments. allow to provide additional sbatch arguments. in the format [\"--mail=BEGIN,END,FAIL\", ...]."
                     }
                   },
                   "source": {
-                    "code": "    def create_sbatch_script(\n        self,\n        commands: list,\n        path: str,\n        uid: str = None,\n        db_id: str = None,\n        nnodes: int = 1,\n        ntasks: int = 4,\n        ncpus: int = 1,\n        time: str = \"04:00:00\",\n        mem_per_cpu: int = 2048,\n        tmp: int = 8000,\n    ) -> None:\n        \"\"\"Write sbatch script for new simulation.\"\"\"\n        nb_tasks_per_node = int(ntasks / nnodes)\n\n        # define how mpirun is called\n        mpicommand = \"\"\n        if ntasks > 1:\n            mpicommand = \"mpirun \"\n\n        script = f\"#!/bin/bash\\n\\n\"\n\n        # sbatch commands\n        script += f\"#SBATCH --ntasks={ntasks}\\n\"\n        if ntasks > 1:\n            script += f\"#SBATCH --nodes={nnodes}\\n\"\n            script += f\"#SBATCH --cpus-per-task={ncpus}\\n\"\n            script += f\"#SBATCH --ntasks-per-node={nb_tasks_per_node}\\n\"\n        script += f\"#SBATCH --time={time}\\n\"\n        script += f\"#SBATCH --job-name={uid}\\n\"\n        script += f\"#SBATCH --mem-per-cpu={mem_per_cpu}\\n\"\n        if tmp:\n            script += f\"#SBATCH --tmp={tmp}\\n\"\n        script += f\"#SBATCH --output={os.path.join(path, uid)}/{uid}.out\\n\"\n\n        # add SCRIPT_DIR as environment variable\n        script += f\"\"\"path=$(sqlite3 {paths['DATABASE_FILE']} \"SELECT path FROM dbindex WHERE id='{db_id}'\")\\n\"\"\"\n        script += f\"SCRIPT_DIR=$path/{uid}\\n\\n\"\n\n        # user defined commands\n        script += \"\\n\"\n        for cmd in commands:\n            script += cmd.format(MPI=mpicommand) + \"\\n\"\n\n        # write to submission file\n        with open(\n            os.path.join(os.path.join(path, uid), f\"sbatch_{uid}.sh\"), \"w\"\n        ) as file:\n            file.write(script)\n",
+                    "code": "    def create_sbatch_script(\n        self,\n        commands: list,\n        path: str,\n        uid: str = None,\n        db_id: str = None,\n        nnodes: int = 1,\n        ntasks: int = 4,\n        ncpus: int = 1,\n        time: str = \"04:00:00\",\n        mem_per_cpu: int = 2048,\n        tmp: int = None,\n        sbatch_kwargs: list = None,\n    ) -> None:\n        \"\"\"Write sbatch script for new simulation.\n\n        The following environment variables are written to the script:\n            - DATABASE_DIR: Path to the database directory.\n            - SIMULATION_DIR: Path to the simulation directory.\n            - SIMULATION_ID: Full id of the simulation.\n\n        Args:\n            commands (list): List of commands to be executed.\n            path (str): Path to the database directory.\n            uid (str): Unique identifier of the simulation.\n            db_id (str): Database ID. Defaults to None.\n            nnodes (int): Number of nodes. Defaults to 1.\n            ntasks (int): Number of tasks. Defaults to 4.\n            ncpus (int): Number of cpus. Defaults to 1.\n            time (str): Time limit. Defaults to \"04:00:00\".\n            mem_per_cpu (int): Memory per cpu. Defaults to 2048.\n            tmp (int): Temporary space.\n            sbatch_kwargs (list): Additional sbatch arguments. allow to provide\n                additional sbatch arguments. in the format [\"--mail=BEGIN,END,FAIL\", ...].\n        \"\"\"\n        nb_tasks_per_node = int(ntasks / nnodes)\n\n        # define how mpirun is called\n        mpicommand = \"\"\n        if ntasks > 1:\n            mpicommand = \"mpirun \"\n\n        script = \"#!/bin/bash\\n\\n\"\n\n        # sbatch commands\n        script += f\"#SBATCH --ntasks={ntasks}\\n\"\n        if ntasks > 1:\n            script += f\"#SBATCH --nodes={nnodes}\\n\"\n            script += f\"#SBATCH --cpus-per-task={ncpus}\\n\"\n            script += f\"#SBATCH --ntasks-per-node={nb_tasks_per_node}\\n\"\n        script += f\"#SBATCH --time={time}\\n\"\n        script += f\"#SBATCH --job-name={db_id}:{uid}\\n\"\n        script += f\"#SBATCH --mem-per-cpu={mem_per_cpu}\\n\"\n        if tmp:\n            script += f\"#SBATCH --tmp={tmp}\\n\"\n        script += f\"#SBATCH --output={os.path.join(path, uid)}/{uid}.out\\n\"\n\n        if sbatch_kwargs is not None:\n            for s in sbatch_kwargs:\n                script += f\"#SBATCH {s}\\n\"\n\n        # add paths as environment variables\n        script += self._set_environment_variables(db_id, uid)\n        # backwards compatibility: add SCRIPT_DIR as environment variable\n        script += \"SCRIPT_DIR=$SIMULATION_DIR\\n\\n\"\n\n        # user defined commands\n        script += \"\\n\"\n        for cmd in commands:\n            script += cmd.format(MPI=mpicommand) + \"\\n\"\n\n        # write to submission file\n        with open(\n            os.path.join(os.path.join(path, uid), f\"sbatch_{uid}.sh\"), \"w\"\n        ) as file:\n            file.write(script)\n",
                     "lines": [
                       32,
-                      81
+                      107
                     ]
                   },
                   "props": {
@@ -1209,8 +1240,8 @@
                   "source": {
                     "code": "    def create_bash_script_local(\n        self, commands: list, path: str, uid: str, db_id: str = None, ntasks: int = 4\n    ) -> None:\n        \"\"\"Write bash script for local execution.\n\n        The following environment variables are written to the script:\n            - DATABASE_DIR: Path to the database directory.\n            - SIMULATION_DIR: Path to the simulation directory.\n            - SIMULATION_ID: Full id of the simulation.\n\n        Args:\n            commands (list): List of commands to be executed.\n            path (str): Path to the database directory.\n            uid (str): Unique identifier of the simulation.\n            db_id (str): Database ID. Defaults to None.\n            ntasks (int): Number of tasks. Defaults to 4.\n        \"\"\"\n\n        # define how mpirun is called\n        mpicommand = \"\"\n        if ntasks > 1:\n            mpicommand = f\"mpirun -n {ntasks}\"\n\n        script = f\"#!/bin/bash\\n\\n\"\n\n        # add paths as environment variables\n        script += self._set_environment_variables(db_id, uid)\n\n        # user defined commands\n        for cmd in commands:\n            script += cmd.format(MPI=mpicommand) + \"\\n\"\n\n        with open(os.path.join(os.path.join(path, uid), f\"{uid}.sh\"), \"w\") as file:\n            file.write(script)\n",
                     "lines": [
-                      83,
-                      116
+                      109,
+                      142
                     ]
                   },
                   "props": {
@@ -1853,10 +1884,10 @@
                     }
                   },
                   "source": {
-                    "code": "    def __setitem__(self, key, newvalue):\n        \"\"\"Used to set an attribute.\n        Will be written as an attribute to the group.\n        \"\"\"\n        if isinstance(newvalue, (int, float, bytes, str)):\n            self.update_attrs({key: newvalue})\n        elif isinstance(newvalue, (list, np.ndarray, tuple)):\n            self.add_dataset(key, np.array(newvalue))\n        else:\n            raise TypeError(\"New value has unsupported type.\")\n",
+                    "code": "    def __setitem__(self, key, newvalue):\n        \"\"\"Used to set an attribute.\n        Will be written as an attribute to the group.\n        \"\"\"\n        if isinstance(newvalue, str) or not isinstance(newvalue, Iterable):\n            self.update_attrs({key: newvalue})\n        else:\n            self.add_dataset(key, np.array(newvalue))\n",
                     "lines": [
                       197,
-                      206
+                      204
                     ]
                   },
                   "props": {
@@ -1886,8 +1917,8 @@
                   "source": {
                     "code": "    @with_file_open(\"a\")\n    def update_attrs(self, attrs: dict) -> None:\n        \"\"\"Update the attributes of the group.\n\n        Args:\n            attrs: the dictionary to write as attributes\n        \"\"\"\n        self.obj.attrs.update(attrs)\n",
                     "lines": [
-                      216,
-                      223
+                      214,
+                      221
                     ]
                   },
                   "props": {
@@ -1932,8 +1963,8 @@
                   "source": {
                     "code": "    def add_dataset(\n        self, name: str, vector: np.ndarray, attrs: dict = None, dtype: str = None\n    ) -> None:\n        \"\"\"Add a dataset to the group. Error is thrown if attempting to overwrite\n        with different shape than before. If same shape, data is overwritten\n        (this is inherited from h5py -> require_dataset)\n\n        Args:\n            name: Name for the dataset\n            vector: Data to write (max 2d)\n            attrs: Optional. Attributes of dataset.\n            dtype: Optional. dtype of dataset. If not specified, uses dtype of inpyt array\n        \"\"\"\n        if attrs is None:\n            attrs = {}\n        length_local = vector.shape[0]\n        length_p = np.array(self._file._comm.allgather(length_local))\n        length = np.sum(length_p)\n        dim = vector.shape[1:]\n        vec_shape = length, *dim\n\n        ranks = np.array([i for i in range(self._file._comm.size)])\n        idx_start = np.sum(length_p[ranks < self._file._comm.rank])\n        idx_end = idx_start + length_local\n\n        with self._file(\"a\", driver=\"mpio\"):\n            dataset = self.obj.require_dataset(\n                name, shape=vec_shape, dtype=dtype if dtype else vector.dtype\n            )\n            dataset[idx_start:idx_end] = vector\n            for key, item in attrs.items():\n                dataset.attrs[key] = item\n\n        log.info(f\"Written {name} as userdata to {self._file.file_name}...\")\n",
                     "lines": [
-                      225,
-                      258
+                      223,
+                      256
                     ]
                   },
                   "props": {
@@ -1963,8 +1994,8 @@
                   "source": {
                     "code": "    def require_group(self, name: str) -> MutableGroup:\n        \"\"\"Add a new group to the current group. If exists, return existing.\n\n        Returns:\n            :class:`~bamboost.hdf_pointer.Group`\n        \"\"\"\n        return MutableGroup(self._file, f\"{self.path_to_data}/{name}\")\n",
                     "lines": [
-                      260,
-                      266
+                      258,
+                      264
                     ]
                   },
                   "props": {
@@ -2074,8 +2105,8 @@
                   "source": {
                     "code": "    @with_file_open(\"r\")\n    def __getitem__(self, slice):\n        return self.obj[slice]\n",
                     "lines": [
-                      273,
-                      275
+                      271,
+                      273
                     ]
                   },
                   "props": {
@@ -2140,8 +2171,8 @@
                 "source": {
                   "code": "    def __init__(self, file_handler: FileHandler, path_to_data: str) -> None:\n        super().__init__(file_handler, path_to_data)\n",
                   "lines": [
-                    270,
-                    271
+                    268,
+                    269
                   ]
                 }
               }
@@ -2531,7 +2562,7 @@
                     "description": "Path to database"
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f74a4fb52b0>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ac854bb8730>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   },
@@ -2565,9 +2596,9 @@
               "methods": {
                 "list": {
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> <classmethod object at 0x7f74a4f908e0>",
+                  "signature": "(cls) -> <classmethod object at 0x7ac854b92ca0>",
                   "returns": {
-                    "annotation": "<classmethod object at 0x7f74a4f908e0>",
+                    "annotation": "<classmethod object at 0x7ac854b92ca0>",
                     "description": null
                   },
                   "arguments": {
@@ -2898,8 +2929,8 @@
                   "source": {
                     "code": "    def get_view(self, include_linked_sims: bool = False) -> pd.DataFrame:\n        df = super().get_view(include_linked_sims)\n        df.insert(1, \"cached\", False)\n        for id in os.listdir(self.path):\n            if id in df[\"id\"].values:\n                df.loc[df[\"id\"] == id, \"cached\"] = True\n\n        opts = config.get(\"options\", {})\n        if \"sort_table_key\" in opts:\n            df.sort_values(\n                opts.get(\"sort_table_key\", \"id\"),\n                ascending=opts.get(\"sort_table_order\", \"asc\") == \"asc\",\n                inplace=True,\n            )\n        return df\n",
                     "lines": [
-                      275,
-                      289
+                      274,
+                      288
                     ]
                   },
                   "props": {
@@ -2936,8 +2967,8 @@
                   "source": {
                     "code": "    def sim(self, uid, return_writer: bool = False):\n        \"\"\"Return simulation object.\n\n        Args:\n            - uid (str): the unique id of the sim to be transferred.\n            - return_writer (bool): Flag to indicate whether to return a writer\n              object. Default is False.\n\n        This method checks if the data for the given uid is already in the\n        local cache. If not, it transfers the data from a remote location using\n        rsync. The method then calls the superclass method to perform further\n        operations on the transferred data.\n        \"\"\"\n        # Check if data is already in cache\n        if os.path.exists(f\"{self.path}/{uid}\"):\n            log.info(f\"Data for {uid} already in cache\")\n            return RemoteSimulation(uid, self)\n\n        # Transfer data using rsync\n        log.info(f\"Data not in cache. Transferring data for {uid} from {self.remote}\")\n        self.rsync(uid)\n\n        return RemoteSimulation(uid, self)\n",
                     "lines": [
-                      291,
-                      313
+                      290,
+                      312
                     ]
                   },
                   "props": {
@@ -2967,8 +2998,8 @@
                   "source": {
                     "code": "    def rsync(self, uid: str) -> None:\n        \"\"\"Transfer data using rsync.\"\"\"\n        subprocess.call(\n            [\n                \"rsync\",\n                \"-r\",\n                f\"{self.remote.remote_name}:{self.remote_path_db}/{uid}\",\n                f\"{self.path}\",\n            ],\n            stdout=subprocess.PIPE,\n        )\n        log.info(f\"Data for {uid} synced with {self.path}\")\n",
                     "lines": [
-                      315,
-                      326
+                      314,
+                      325
                     ]
                   },
                   "props": {
@@ -3086,7 +3117,7 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f74a4fb52b0>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ac854bb8730>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   }
@@ -3094,8 +3125,8 @@
                 "source": {
                   "code": "    def __init__(\n        self,\n        id: str,\n        remote: Remote,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n    ) -> None:\n        \"\"\"\n        params\n        skip_update: if True, does not lookup the new database on the remote:\n        \"\"\"\n        self.UID = id\n        self.remote = remote\n        self.comm = comm\n        self.path = os.path.join(self.remote.local_path, self.UID)\n        log.info(f\"Creating cache directory at {self.path}\")\n        os.makedirs(self.path, exist_ok=True)\n\n        self.remote_path_db = self._index.get_path(self.UID)\n\n        # check if path exists\n        if not os.path.isdir(self.path):\n            os.makedirs(self.path)\n\n        # Write the database ID file if it does not exist\n        if not os.path.exists(f\"{self.path}/.BAMBOOST-{self.UID}\"):\n            with open(f\"{self.path}/.BAMBOOST-{self.UID}\", \"w\") as f:\n                f.write(self.UID)\n\n        self.UID = id\n        self._index.insert_local_path(self.UID, self.path)\n\n        # Update the SQL table for the database\n        with self._index.open():\n            self._table.create_database_table()\n",
                   "lines": [
-                    217,
-                    250
+                    216,
+                    249
                   ]
                 }
               }
@@ -3122,8 +3153,8 @@
                   "source": {
                     "code": "    def sync(self) -> RemoteSimulation:\n        \"\"\"Sync the simulation data with the remote server.\"\"\"\n        self.manager.rsync(self.uid)\n        return self\n",
                     "lines": [
-                      334,
-                      337
+                      333,
+                      336
                     ]
                   },
                   "props": {
@@ -3148,8 +3179,8 @@
                   "source": {
                     "code": "    def get_full_uid(self) -> str:\n        return f\"ssh://{self.manager.remote.remote_name}/{self.manager.UID}:{self.uid}\"\n",
                     "lines": [
-                      339,
-                      340
+                      338,
+                      339
                     ]
                   },
                   "props": {
@@ -3334,8 +3365,8 @@
                 "source": {
                   "code": "    def __init__(self, uid: str, manager: RemoteManager) -> None:\n        super().__init__(uid, manager.path, _db_id=manager.UID)\n        self.manager = manager\n",
                   "lines": [
-                    330,
-                    332
+                    329,
+                    331
                   ]
                 }
               }
@@ -3405,8 +3436,8 @@
               "source": {
                 "code": "    def __getitem__(self, _):\n        return self\n",
                 "lines": [
-                  76,
-                  77
+                  78,
+                  79
                 ]
               },
               "props": {
@@ -3454,8 +3485,8 @@
               "source": {
                 "code": "    @classmethod\n    def ThreadSafe(cls, *, _file: str = None) -> IndexAPI:\n        instance = super().__new__(cls)\n        instance.__init__(_file=_file)\n        return instance\n",
                 "lines": [
-                  117,
-                  121
+                  119,
+                  123
                 ]
               },
               "props": {
@@ -3485,8 +3516,8 @@
               "source": {
                 "code": "    def __getitem__(self, id: str) -> DatabaseTable:\n        return DatabaseTable(id, _index=self)\n",
                 "lines": [
-                  129,
-                  130
+                  131,
+                  132
                 ]
               },
               "props": {
@@ -3511,8 +3542,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def create_index_table(self) -> None:\n        \"\"\"Create the index table if it does not exist.\"\"\"\n        self._cursor.execute(\n            \"\"\"CREATE TABLE IF NOT EXISTS dbindex (id TEXT PRIMARY KEY, path TEXT)\"\"\"\n        )\n",
                 "lines": [
-                  135,
-                  140
+                  137,
+                  142
                 ]
               },
               "props": {
@@ -3542,8 +3573,8 @@
               "source": {
                 "code": "    def get_database_table(self, id: str) -> DatabaseTable:\n        \"\"\"Get the table of a database.\n\n        Args:\n            - id (str): ID of the database\n        \"\"\"\n        return DatabaseTable(id, _index=self)\n",
                 "lines": [
-                  142,
-                  148
+                  144,
+                  150
                 ]
               },
               "props": {
@@ -3578,8 +3609,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def read_table(self, *args, **kwargs) -> pd.DataFrame:\n        \"\"\"Read the index table.\n\n        Returns:\n            pd.DataFrame: index table\n        \"\"\"\n        return pd.read_sql_query(\"SELECT * FROM dbindex\", self._conn, *args, **kwargs)\n",
                 "lines": [
-                  150,
-                  157
+                  152,
+                  159
                 ]
               },
               "props": {
@@ -3619,8 +3650,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def fetch(self, query: str, *args, **kwargs) -> pd.DataFrame:\n        \"\"\"Query the index table.\n\n        Args:\n            query (str): query string\n        \"\"\"\n        self._cursor.execute(query, *args, **kwargs)\n        return self._cursor.fetchall()\n",
                 "lines": [
-                  159,
-                  167
+                  161,
+                  169
                 ]
               },
               "props": {
@@ -3650,8 +3681,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def get_path(self, id: str) -> str:\n        \"\"\"Get the path of a database from its ID.\n\n        Args:\n            id (str): ID of the database\n\n        Returns:\n            str: path of the database\n        \"\"\"\n        self._cursor.execute(\"SELECT path FROM dbindex WHERE id=?\", (id,))\n        path_db = self._cursor.fetchone()\n        if path_db and _check_path(id, path_db[0]):\n            return path_db[0]\n\n        # if path is wrong, try to find it\n        for root_dir in get_known_paths():\n            res = find(id, root_dir)\n            if res:\n                path = os.path.dirname(res[0])\n                self.insert_path(id, path)\n                return path\n\n        # last resort, check home\n        res = find(id, paths[\"HOME\"])\n        if res:\n            path = os.path.dirname(res[0])\n            self.insert_path(id, path)\n            return path\n\n        raise FileNotFoundError(f\"Database {id} not found on system.\")\n",
                 "lines": [
-                  169,
-                  199
+                  171,
+                  201
                 ]
               },
               "props": {
@@ -3686,8 +3717,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def insert_path(self, id: str, path: str) -> None:\n        \"\"\"Insert a database path into the index.\n\n        Args:\n            id (str): ID of the database\n            path (str): path of the database\n        \"\"\"\n        path = os.path.abspath(path)\n        self._cursor.execute(\"INSERT OR REPLACE INTO dbindex VALUES (?, ?)\", (id, path))\n",
                 "lines": [
-                  201,
-                  210
+                  203,
+                  212
                 ]
               },
               "props": {
@@ -3717,8 +3748,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def get_id(self, path: str) -> str:\n        \"\"\"Get the ID of a database from its path.\n\n        Args:\n            path (str): path of the database\n\n        Returns:\n            str: ID of the database\n\n        Raises:\n            DatabaseNotFoundError: if the database is not found in the index\n        \"\"\"\n        path = os.path.abspath(path)\n        self._cursor.execute(\"SELECT id FROM dbindex WHERE path=?\", (path,))\n        fetched = self._cursor.fetchone()\n        if fetched is None:\n            raise DatabaseNotFoundError(f\"Database at {path} not found in index.\")\n        return fetched[0]\n",
                 "lines": [
-                  212,
-                  230
+                  214,
+                  232
                 ]
               },
               "props": {
@@ -3743,8 +3774,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def scan_known_paths(self) -> dict:\n        \"\"\"Scan known paths for databases and update the index.\"\"\"\n        for path in get_known_paths():\n            completed_process = subprocess.run(\n                [\"find\", path, \"-iname\", f\"{PREFIX}*\", \"-not\", \"-path\", \"*/\\.git/*\"],\n                capture_output=True,\n            )\n            databases_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n            for database in databases_found:\n                name = os.path.basename(database)\n                id = name.split(\"-\")[1]\n                self.insert_path(id, os.path.dirname(database))\n",
                 "lines": [
-                  232,
-                  244
+                  234,
+                  246
                 ]
               },
               "props": {
@@ -3774,8 +3805,8 @@
               "source": {
                 "code": "    def commit_once(self, func) -> Callable:\n        \"\"\"Decorator to bundle changes to a single commit.\n\n        Example:\n            >>> @Index.commit_once\n            >>> def create_a_bunch_of_simulations():\n            >>>     for i in range(1000):\n            >>>         db.create_simulation(parameters={...})\n            >>>\n            >>> create_a_bunch_of_simulations()\n        \"\"\"\n\n        def wrapper(*args, **kwargs):\n            with self.open(ensure_commit=True):\n                return func(*args, **kwargs)\n\n        return wrapper\n",
                 "lines": [
-                  246,
-                  262
+                  248,
+                  264
                 ]
               },
               "props": {
@@ -3807,8 +3838,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def clean(self, purge: bool = False) -> IndexAPI:\n        \"\"\"Clean the index from wrong paths.\n\n        Args:\n            purge (bool, optional): Also deletes the table of unmatching uid/path pairs. Defaults to False.\n        \"\"\"\n        index = self._cursor.execute(\"SELECT id, path FROM dbindex\").fetchall()\n        for id, path in index:\n            if not _check_path(id, path):\n                self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n\n        if purge:\n            # all tables starting with db_ are tables of databases\n            all_tables = self._cursor.execute(\n                \"SELECT name FROM sqlite_master WHERE type='table'\"\n            ).fetchall()\n            id_list_tables = {\n                i[0].split(\"_\")[1] for i in all_tables if i[0].startswith(\"db_\")\n            }\n            id_list = self._cursor.execute(\"SELECT id FROM dbindex\").fetchall()\n\n            for id in id_list_tables:\n                if id not in id_list:\n                    self._cursor.execute(f\"DROP TABLE db_{id}\")\n                    self._cursor.execute(f\"DROP TABLE db_{id}_t\")\n\n        return self\n",
                 "lines": [
-                  264,
-                  291
+                  266,
+                  293
                 ]
               },
               "props": {
@@ -3838,8 +3869,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def drop_path(self, id: str) -> None:\n        \"\"\"Drop a path from the index.\n\n        Args:\n            id (str): ID of the database\n        \"\"\"\n        self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n",
                 "lines": [
-                  293,
-                  300
+                  295,
+                  302
                 ]
               },
               "props": {
@@ -3874,8 +3905,8 @@
               "source": {
                 "code": "    def check_path(self, id: str, path: str) -> bool:\n        \"\"\"Check if path is going to the correct database.\"\"\"\n        return _check_path(id, path)\n",
                 "lines": [
-                  302,
-                  304
+                  304,
+                  306
                 ]
               },
               "props": {
@@ -3930,8 +3961,8 @@
             "source": {
               "code": "    def __init__(self, *, _file: str = None):\n        if hasattr(self, \"_initialized\"):\n            return\n        _file = _file or paths[\"DATABASE_FILE\"]\n        super().__init__(file=_file)\n        self.create_index_table()\n        self.clean()\n        self._initialized = True\n",
               "lines": [
-                108,
-                115
+                110,
+                117
               ]
             }
           }
@@ -3958,8 +3989,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def read_table(self) -> pd.DataFrame:\n        \"\"\"Read the table of the database.\n\n        Returns:\n            pd.DataFrame: table of the database\n        \"\"\"\n        df = pd.read_sql_query(f\"SELECT * FROM {self.tablename_db}\", self._conn)\n        # drop \"hidden\" columns which start with _\n        df = df.loc[:, ~df.columns.str.startswith(\"_\")]\n        df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return df\n",
                 "lines": [
-                  352,
-                  363
+                  354,
+                  365
                 ]
               },
               "props": {
@@ -3989,8 +4020,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def read_entry(self, entry_id: str) -> pd.Series:\n        \"\"\"Read an entry from the database.\n\n        Args:\n            entry_id (str): ID of the entry\n\n        Returns:\n            pd.Series: entry from the database\n        \"\"\"\n        self._cursor.execute(\n            f\"SELECT * FROM {self.tablename_db} WHERE id=?\", (entry_id,)\n        )\n        series = pd.Series(*self._cursor.fetchall())\n        series.index = [description[0] for description in self._cursor.description]\n        series.rename(index=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return series\n",
                 "lines": [
-                  365,
-                  381
+                  367,
+                  383
                 ]
               },
               "props": {
@@ -4020,8 +4051,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def read_column(self, *columns: str) -> pd.DataFrame:\n        \"\"\"Read columns from the database.\n\n        Args:\n            *columns (list): columns to read\n\n        Returns:\n            pd.DataFrame: columns from the database\n        \"\"\"\n        self._cursor.execute(f\"SELECT {', '.join(columns)} FROM {self.tablename_db}\")\n        df = pd.DataFrame.from_records(self._cursor.fetchall(), columns=columns)\n        df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return df\n",
                 "lines": [
-                  383,
-                  396
+                  385,
+                  398
                 ]
               },
               "props": {
@@ -4046,8 +4077,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def drop_table(self) -> None:\n        \"\"\"Drop the table of the database.\"\"\"\n        self._cursor.execute(f\"DROP TABLE {self.tablename_db}\")\n        self._cursor.execute(f\"DROP TABLE {self.tablename_update_times}\")\n",
                 "lines": [
-                  398,
-                  402
+                  400,
+                  404
                 ]
               },
               "props": {
@@ -4072,8 +4103,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def create_database_table(self) -> None:\n        \"\"\"Create a table for a database.\"\"\"\n        self._cursor.execute(\n            f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_db} \n                (id TEXT PRIMARY KEY NOT NULL, time_stamp DATETIME, notes TEXT, processors INTEGER)\n            \"\"\"\n        )\n        self._cursor.execute(\n            f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_update_times} (id TEXT PRIMARY KEY,\n                update_time DATETIME)\n            \"\"\"\n        )\n",
                 "lines": [
-                  404,
-                  416
+                  406,
+                  418
                 ]
               },
               "props": {
@@ -4108,8 +4139,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def update_entry(self, entry_id: str, data: dict) -> None:\n        \"\"\"Update an entry in the database.\n\n        Args:\n            entry_id (str): ID of the entry\n            data (dict): data to update\n        \"\"\"\n        # return if data is empty\n        if not data:\n            return\n\n        # get columns of table\n        self._cursor.execute(f\"PRAGMA table_info({self.tablename_db})\")\n        cols = self._cursor.fetchall()\n\n        # replace dots in keys\n        for key in list(data.keys()):\n            new_key = key.replace(\".\", DOT_REPLACEMENT)\n            new_key = _remove_illegal_column_characters(new_key)\n            if new_key != key:\n                data[new_key] = data.pop(key)\n\n        # check if columns exist\n        for key, val in data.items():\n            # key = key.replace(\".\", DOT_REPLACEMENT)\n            # key = _remove_illegal_column_characters(key)\n            if any(key == column[1] for column in cols):\n                continue\n            dtype = sql.get_sqlite_column_type(val)\n            self._cursor.execute(\n                f\"ALTER TABLE {self.tablename_db} ADD COLUMN [{key}] {dtype}\"\n            )\n\n        # insert data into table\n        data.pop(\"id\", None)\n\n        keys = \", \".join([f\"[{key}]\" for key in data.keys()])\n        values = \", \".join([f\":{key}\" for key in data.keys()])\n        updates = \", \".join([f\"[{key}] = excluded.[{key}]\" for key in data.keys()])\n\n        query = f\"\"\"\n        INSERT INTO {self.tablename_db} (id, {keys})\n        VALUES (:id, {values})\n        ON CONFLICT(id) DO UPDATE SET\n        {updates}\n        \"\"\"\n        data[\"id\"] = entry_id\n        self._cursor.execute(query, data)\n\n        # update update time\n        self._cursor.execute(\n            f\"INSERT OR REPLACE INTO {self.tablename_update_times} VALUES (?, ?)\",\n            (entry_id, time()),\n        )\n",
                 "lines": [
-                  418,
-                  472
+                  420,
+                  474
                 ]
               },
               "props": {
@@ -4134,8 +4165,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def sync(self) -> None:\n        \"\"\"Sync the table with the file system.\"\"\"\n        all_ids_fs = set(\n            [\n                i\n                for i in os.listdir(self.path)\n                if os.path.isdir(os.path.join(self.path, i))\n            ]\n        )\n\n        self._cursor.execute(\n            f\"SELECT id, update_time FROM {self.tablename_update_times}\"\n        )\n\n        for id, last_up_time in self._cursor.fetchall():\n            # remove entries that do not exist on the file system\n            if id not in all_ids_fs:\n                self._cursor.execute(\n                    f\"DELETE FROM {self.tablename_db} WHERE id=?\", (id,)\n                )\n                self._cursor.execute(\n                    f\"DELETE FROM {self.tablename_update_times} WHERE id=?\", (id,)\n                )\n                continue\n\n            # update entries that have been modified\n            all_ids_fs.remove(id)\n            if self.entry(id).mtime > last_up_time:\n                self.update_entry(id, self.entry(id).get_all_metadata())\n\n        # add new entries\n        for id in all_ids_fs:\n            self.update_entry(id, self.entry(id).get_all_metadata())\n",
                 "lines": [
-                  474,
-                  507
+                  476,
+                  509
                 ]
               },
               "props": {
@@ -4165,8 +4196,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def entry(self, entry_id: str) -> Entry:\n        \"\"\"Get the Entry object of an entry.\n        Multiton pattern. One Entry per entry.\n        \"\"\"\n        if entry_id not in self._entries:\n            self._entries[entry_id] = Entry(entry_id, self.path)\n        return self._entries[entry_id]\n",
                 "lines": [
-                  509,
-                  516
+                  511,
+                  518
                 ]
               },
               "props": {
@@ -4217,8 +4248,8 @@
             "source": {
               "code": "    def __init__(self, id: str, *, _index: IndexAPI = None):\n        if hasattr(self, \"_initialized\"):\n            return\n\n        self.id = id\n        self._entries = {}\n        self._initialized = True\n        self._index = _index if _index is not None else IndexAPI()\n        self.path = self._index.get_path(self.id)\n        self.tablename_db = f\"db_{self.id}\"\n        self.tablename_update_times = f\"db_{self.id}_t\"\n        self.create_database_table()\n",
               "lines": [
-                323,
-                334
+                325,
+                336
               ]
             }
           }
@@ -4245,8 +4276,8 @@
               "source": {
                 "code": "    def get_all_metadata(self) -> dict:\n        \"\"\"Get all metadata of the entry.\"\"\"\n        return {**self.metadata, **self.parameters}\n",
                 "lines": [
-                  550,
-                  552
+                  552,
+                  554
                 ]
               },
               "props": {
@@ -4305,8 +4336,8 @@
             "source": {
               "code": "    def __init__(self, id: str, path: str) -> None:\n        self.id = id\n        self.path = path\n        self.h5file = os.path.join(self.path, self.id, f\"{self.id}.h5\")\n",
               "lines": [
-                525,
-                528
+                527,
+                530
               ]
             }
           }
@@ -4335,8 +4366,8 @@
           "source": {
             "code": "def find(uid, root_dir) -> list:\n    \"\"\"Find the database with UID under given root_dir.\n\n    Args:\n        uid: UID to search for\n        root_dir: root directory for search\n    \"\"\"\n    if os.name == \"posix\":\n        paths = _find_posix(uid, root_dir)\n    else:\n        paths = _find_python(uid, root_dir)\n    if len(paths) > 1:\n        log.warning(f\"Multiple paths found for UID {uid}:\\n{paths}\")\n    return paths\n",
             "lines": [
-              565,
-              578
+              567,
+              580
             ]
           },
           "props": {
@@ -4361,8 +4392,8 @@
           "source": {
             "code": "def get_uid_from_path(path: str) -> str:\n    \"\"\"Returns the UID found in the specified path.\"\"\"\n    for file in os.listdir(path):\n        if file.startswith(\".BAMBOOST\"):\n            return file.split(\"-\")[1]\n    raise FileNotFoundError(\"No UID file found at specified path.\")\n",
             "lines": [
-              581,
-              586
+              583,
+              588
             ]
           },
           "props": {
@@ -4381,8 +4412,8 @@
           "source": {
             "code": "def get_known_paths() -> list:\n    return config[\"index\"].get(\"paths\", [])\n",
             "lines": [
-              589,
-              590
+              591,
+              592
             ]
           },
           "props": {
@@ -4424,8 +4455,8 @@
               "source": {
                 "code": "    def __getitem__(self, key: Union[str, int]) -> Simulation:\n        \"\"\"Returns the simulation in the specified row of the dataframe.\n\n        Args:\n            key: The simulation identifier (`str`) or the row index (`int`).\n        Returns:\n            The selected simulation object.\n        \"\"\"\n        if isinstance(key, str):\n            return self.sim(key)\n        else:\n            return self.sim(self.df.loc[key, \"id\"])\n",
                 "lines": [
-                  135,
-                  146
+                  134,
+                  145
                 ]
               },
               "props": {
@@ -4450,8 +4481,8 @@
               "source": {
                 "code": "    def __len__(self) -> int:\n        return len(self.all_uids)\n",
                 "lines": [
-                  161,
-                  162
+                  160,
+                  161
                 ]
               },
               "props": {
@@ -4476,8 +4507,8 @@
               "source": {
                 "code": "    def __iter__(self) -> Generator[Simulation]:\n        for sim in self.sims():\n            yield sim\n",
                 "lines": [
-                  164,
-                  166
+                  163,
+                  165
                 ]
               },
               "props": {
@@ -4507,8 +4538,8 @@
               "source": {
                 "code": "    def get_view(self, include_linked_sims: bool = False) -> pd.DataFrame:\n        \"\"\"View of the database and its parametric space. Read from the sql\n        database. If `include_linked_sims` is True, the individual h5 files are\n        scanned.\n\n        Args:\n            include_linked_sims: if True, include the parameters of linked sims\n\n        Examples:\n            >>> db.get_view()\n            >>> db.get_view(include_linked_sims=True)\n        \"\"\"\n        if include_linked_sims:\n            return self.get_view_from_hdf_files(include_linked_sims=include_linked_sims)\n\n        try:\n            with self._table.open():\n                self._table.sync()\n                df = self._table.read_table()\n        except index.Error as e:\n            log.warning(f\"index error: {e}\")\n            return self.get_view_from_hdf_files(include_linked_sims=include_linked_sims)\n\n        if df.empty:\n            return df\n        df[\"time_stamp\"] = pd.to_datetime(df[\"time_stamp\"])\n\n        # Sort dataframe columns\n        columns_start = [\"id\", \"notes\", \"status\", \"time_stamp\"]\n        self._dataframe = df[[*columns_start, *df.columns.difference(columns_start)]]\n\n        opts = config.get(\"options\", {})\n        if \"sort_table_key\" in opts:\n            self._dataframe.sort_values(\n                opts.get(\"sort_table_key\", \"id\"),\n                ascending=opts.get(\"sort_table_order\", \"asc\") == \"asc\",\n                inplace=True,\n            )\n        return self._dataframe\n",
                 "lines": [
-                  272,
-                  310
+                  271,
+                  309
                 ]
               },
               "props": {
@@ -4540,8 +4571,8 @@
               "source": {
                 "code": "    def get_view_from_hdf_files(\n        self, include_linked_sims: bool = False\n    ) -> pd.DataFrame:\n        \"\"\"View of the database and its parametric space. Read from the h5\n        files metadata.\n\n        Args:\n            include_linked_sims: if True, include the parameters of linked sims\n        \"\"\"\n        all_uids = self._get_uids()\n        data = list()\n\n        for uid in all_uids:\n            tmp_dict = self._get_parameters_for_uid(\n                uid, include_linked_sims=include_linked_sims\n            )\n            data.append(tmp_dict)\n\n        df = pd.DataFrame.from_records(data)\n        if df.empty:\n            return df\n        df[\"time_stamp\"] = pd.to_datetime(df[\"time_stamp\"])\n\n        # Sort dataframe columns\n        columns_start = [\"id\", \"notes\", \"status\", \"time_stamp\"]\n        self._dataframe = df[[*columns_start, *df.columns.difference(columns_start)]]\n        return self._dataframe\n",
                 "lines": [
-                  312,
-                  338
+                  311,
+                  337
                 ]
               },
               "props": {
@@ -4581,8 +4612,8 @@
               "source": {
                 "code": "    def sim(\n        self,\n        uid,\n        return_writer: bool = False,\n        writer_type: SimulationWriter = SimulationWriter,\n    ) -> Simulation:\n        \"\"\"Get an existing simulation with uid. Same as accessing with `db[uid]` directly.\n\n        Args:\n            uid (`str`): unique identifier\n            return_writer: if true, return `SimulationWriter`, otherwise\n                return `Simulation`\n            writer_type: Optionally, you can specify a custom writer type to return.\n\n        Returns:\n            :class:`~bamboost.simulation.Simulation`\n        \"\"\"\n        if return_writer:\n            return writer_type(uid, self.path, self.comm)\n        return Simulation(uid, self.path, self.comm, _db_id=self.UID)\n",
                 "lines": [
-                  366,
-                  385
+                  365,
+                  384
                 ]
               },
               "props": {
@@ -4632,8 +4663,8 @@
               "source": {
                 "code": "    def sims(\n        self,\n        select: pd.Series = None,\n        sort: str = None,\n        reverse: bool = False,\n        exclude: set = None,\n        return_writer: bool = False,\n    ) -> list:\n        \"\"\"Get all simulations in a list. Optionally, get all simulations matching the\n        given selection using pandas.\n\n        Args:\n            select (`pd.Series`): pandas boolean series\n            sort (`str`): Optionally sort the list with this keyword\n            reverse (`bool`): swap sort direction\n            exclude (`list[str]`): sims to exclude\n            return_writer: if true, return `SimulationWriter`, otherwise\n                return `Simulation`\n\n        Returns:\n            A list of `:class:~bamboost.simulation.Simulation` objects\n\n        Examples:\n            >>> db.sims(select=db.df[\"status\"] == \"finished\", sort=\"time_stamp\")\n        \"\"\"\n        if select is not None:\n            id_list = self.df[select][\"id\"].values\n        else:\n            id_list = self.all_uids\n        if exclude is not None:\n            exclude = list([exclude]) if isinstance(exclude, str) else exclude\n            id_list = [id for id in id_list if id not in exclude]\n\n        existing_sims = [self.sim(uid, return_writer) for uid in id_list]\n\n        if sort is None:\n            return existing_sims\n        else:\n            return sorted(\n                existing_sims, key=lambda s: s.parameters[sort], reverse=reverse\n            )\n",
                 "lines": [
-                  387,
-                  427
+                  386,
+                  426
                 ]
               },
               "props": {
@@ -4644,11 +4675,11 @@
               ]
             },
             "create_simulation": {
-              "docstring": "Get a writer object for a new simulation. This is written for paralell use\nas it is likely that this may be used in an executable, creating multiple runs\nfor a parametric space, which may be run in paralell.",
-              "signature": "(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    prefix: str = None\n) -> bamboost.simulation_writer.SimulationWriter",
+              "docstring": "Get a writer object for a new simulation. This is written for paralell use\nas it is likely that this may be used in an executable, creating multiple runs\nfor a parametric space, which may be run in paralell.\n\nArgs:\n    uid (`str`): The name/uid for the simulation. If not specified, a random id\n        will be assigned.\n    parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n        checked against the existing sims for duplication. Otherwise, they may be\n        specified later with :func:`~bamboost.simulation.SimulationWriter.add_parameters`.\n    skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n    prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n    duplicate_action (`str`): how to deal with duplicates.\n    `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\n     default \"prompt\" for each duplicate on a case by case basis.\nReturns:\n    sim (:class:`~bamboost.simulation.SimulationWriter`)\n\nExamples:\n    >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n    apple\n\n    >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")",
+              "signature": "(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    prefix: str = None,\n    duplicate_action: str = 'prompt'\n) -> bamboost.simulation_writer.SimulationWriter",
               "returns": {
                 "annotation": "<class 'bamboost.simulation_writer.SimulationWriter'>",
-                "description": "sim (:class:`~bamboost.simulation.SimulationWriter`)"
+                "description": null
               },
               "arguments": {
                 "self": {
@@ -4659,38 +4690,40 @@
                 "uid": {
                   "default": "None",
                   "annotation": "<class 'str'>",
-                  "description": "The name/uid for the simulation. If not specified, a random id will be assigned."
+                  "description": null
                 },
                 "parameters": {
                   "default": "None",
                   "annotation": "<class 'dict'>",
-                  "description": "Parameter dictionary. If provided, the parameters will be checked against the existing sims for duplication. Otherwise, they may be specified later with :func:`~bamboost.simulation.SimulationWriter.add_parameters`."
+                  "description": null
                 },
                 "skip_duplicate_check": {
                   "default": "False",
                   "annotation": "<class 'bool'>",
-                  "description": "if True, the duplicate check is skipped."
+                  "description": null
                 },
                 "prefix": {
                   "default": "None",
                   "annotation": "<class 'str'>",
-                  "description": "Prefix for the uid. If not specified, no prefix is used."
+                  "description": null
+                },
+                "duplicate_action": {
+                  "default": "prompt",
+                  "annotation": "<class 'str'>",
+                  "description": null
                 }
               },
               "source": {
-                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        prefix: str = None,\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with :func:`~bamboost.simulation.SimulationWriter.add_parameters`.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n\n        Returns:\n            sim (:class:`~bamboost.simulation.SimulationWriter`)\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n            apple\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on, uid = self._check_duplicate(parameters, uid)\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n        if parameters:\n            new_sim.add_parameters(parameters)\n        return new_sim\n",
+                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        prefix: str = None,\n        duplicate_action: str = \"prompt\",\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with :func:`~bamboost.simulation.SimulationWriter.add_parameters`.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n            duplicate_action (`str`): how to deal with duplicates.\n            `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\n             default \"prompt\" for each duplicate on a case by case basis.\n        Returns:\n            sim (:class:`~bamboost.simulation.SimulationWriter`)\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n            apple\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on, uid = self._check_duplicate(\n                parameters, uid, duplicate_action=duplicate_action\n            )\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n        if parameters:\n            new_sim.add_parameters(parameters)\n        return new_sim\n",
                 "lines": [
-                  429,
-                  486
+                  428,
+                  490
                 ]
               },
               "props": {
                 "isClassMethod": false
               },
-              "examples": [
-                ">>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\napple",
-                ">>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")"
-              ]
+              "examples": []
             },
             "remove": {
               "docstring": "CAUTION, DELETING DATA. Remove the data of a simulation.\n",
@@ -4714,8 +4747,8 @@
               "source": {
                 "code": "    def remove(self, uid: str) -> None:\n        \"\"\"CAUTION, DELETING DATA. Remove the data of a simulation.\n\n        Args:\n            uid (`str`): uid\n        \"\"\"\n        shutil.rmtree(os.path.join(self.path, uid))\n",
                 "lines": [
-                  488,
-                  494
+                  492,
+                  498
                 ]
               },
               "props": {
@@ -4740,8 +4773,8 @@
               "source": {
                 "code": "    def global_fields_in_all(self) -> list:\n        \"\"\"Get a list of all global fields in all simulations.\n\n        Returns:\n            List of global fields\n        \"\"\"\n        fields = set()\n        for sim in self:\n            try:\n                fields.update(sim.globals.columns)\n            except KeyError:\n                continue\n\n        return fields\n",
                 "lines": [
-                  570,
-                  583
+                  580,
+                  593
                 ]
               },
               "props": {
@@ -4766,8 +4799,8 @@
               "source": {
                 "code": "    def get_parameters(self) -> dict:\n        \"\"\"Get the parameters used in this database.\n\n        Returns:\n            Dictionary of parameters with it's count, range, and type. Sorted by count.\n        \"\"\"\n        parameters = dict()\n        for sim in self:\n            for key, val in sim.parameters.items():\n                if key not in parameters:\n                    range = (val, val) if isinstance(val, numbers.Number) else None\n                    parameters[key] = {\"range\": range, \"count\": 1, \"type\": type(val)}\n                else:\n                    if isinstance(val, numbers.Number):\n                        parameters[key][\"range\"] = (\n                            min(parameters[key][\"range\"][0], val),\n                            max(parameters[key][\"range\"][1], val),\n                        )\n                    parameters[key][\"count\"] += 1\n                    parameters[key][\"type\"] = type(val)\n        return dict(\n            sorted(parameters.items(), key=lambda x: x[1][\"count\"], reverse=True)\n        )\n",
                 "lines": [
-                  585,
-                  607
+                  595,
+                  617
                 ]
               },
               "props": {
@@ -4820,7 +4853,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f74a4fb52b0>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ac854bb8730>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -4838,8 +4871,8 @@
             "source": {
               "code": "    def __init__(\n        self,\n        path: str = None,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n        uid: str = None,\n        create_if_not_exist: bool = True,\n    ):\n        # provided uid has precedence\n        if uid is not None:\n            path = self._index.get_path(uid.upper())\n            path = comm.bcast(path, root=0)\n        self.path = path\n        self.comm = comm\n\n        # check if path exists\n        if not os.path.isdir(path):\n            if not create_if_not_exist:\n                raise NotADirectoryError(\"Specified path is not a valid path.\")\n            log.info(f\"Created new database ({path})\")\n            self._make_new(path)\n\n        # retrieve the UID of the database from the id file\n        # if not found, a new one is generated\n        self.UID = uid or self._retrieve_uid()\n\n        # Update the SQL table for the database\n        try:\n            with self._index.open():\n                self._index.insert_path(self.UID, self.path)\n                self._table.create_database_table()\n                self._table.sync()\n        except index.Error as e:\n            log.warning(f\"index error: {e}\")\n",
               "lines": [
-                101,
-                133
+                100,
+                132
               ]
             }
           }
@@ -4871,8 +4904,8 @@
               "source": {
                 "code": "    def __getitem__(self, key) -> Manager:\n        key = key.split()[0]  # take only uid\n        return Manager(uid=key, create_if_not_exist=False)\n",
                 "lines": [
-                  58,
-                  60
+                  57,
+                  59
                 ]
               },
               "props": {
@@ -4901,8 +4934,8 @@
             "source": {
               "code": "    def __init__(self) -> None:\n        # or [] to circumvent Null type (MPI)\n        ids = IndexAPI().fetch(f\"SELECT id, path FROM dbindex\") or []\n        self.completion_keys = tuple(\n            [f'{key} - {\"...\"+val[-25:] if len(val)>=25 else val}' for key, val in ids]\n        )\n",
               "lines": [
-                48,
-                53
+                47,
+                52
               ]
             }
           }
@@ -4934,8 +4967,8 @@
               "source": {
                 "code": "    def __getitem__(self, key) -> Manager:\n        return Manager(key, create_if_not_exist=False)\n",
                 "lines": [
-                  73,
-                  74
+                  72,
+                  73
                 ]
               },
               "props": {
@@ -4964,8 +4997,8 @@
             "source": {
               "code": "    def __init__(self) -> None:\n        paths = IndexAPI().fetch(\"SELECT path FROM dbindex\") or []\n        self.completion_keys = tuple(paths)\n",
               "lines": [
-                66,
-                68
+                65,
+                67
               ]
             }
           }
@@ -5005,8 +5038,8 @@
               "source": {
                 "code": "    @classmethod\n    def fromUID(cls, full_uid: str, *, index_database: index.IndexAPI = None) -> Self:\n        \"\"\"Return the `Simulation` with given UID.\n\n        Args:\n            full_uid: the full id (Database uid : simulation uid)\n        \"\"\"\n        if index_database is None:\n            index_database = index.IndexAPI()\n        db_uid, sim_uid = full_uid.split(\":\")\n        db_path = index_database.get_path(db_uid)\n        return cls(sim_uid, db_path, create_if_not_exists=False)\n",
                 "lines": [
-                  139,
-                  150
+                  138,
+                  149
                 ]
               },
               "props": {
@@ -5036,8 +5069,8 @@
               "source": {
                 "code": "    @with_file_open()\n    def __getitem__(self, key) -> hdf_pointer.BasePointer:\n        \"\"\"Direct access to HDF5 file.\n\n        Returns:\n            :class:`~bamboost.common.file_handler.BasePointer`\n        \"\"\"\n        return hdf_pointer.BasePointer.new_pointer(self._file, key)\n",
                 "lines": [
-                  152,
-                  159
+                  151,
+                  158
                 ]
               },
               "props": {
@@ -5067,8 +5100,8 @@
               "source": {
                 "code": "    def files(self, filename: str) -> str:\n        \"\"\"Get the path to the file.\n\n        Args:\n            filename: name of the file\n        \"\"\"\n        return os.path.join(self.path, filename)\n",
                 "lines": [
-                  257,
-                  263
+                  256,
+                  262
                 ]
               },
               "props": {
@@ -5113,8 +5146,8 @@
               "source": {
                 "code": "    def show_files(\n        self, level=-1, limit_to_directories=False, length_limit=1000, printit=True\n    ) -> str:\n        \"\"\"Show the file tree of the simulation directory.\n\n        Args:\n            level: how deep to print the tree\n            limit_to_directories: only print directories\n            length_limit: cutoff\n        \"\"\"\n        tree_string = utilities.tree(\n            self.path, level, limit_to_directories, length_limit\n        )\n        if printit:\n            print(tree_string)\n        else:\n            return tree_string\n",
                 "lines": [
-                  265,
-                  281
+                  264,
+                  280
                 ]
               },
               "props": {
@@ -5139,8 +5172,8 @@
               "source": {
                 "code": "    def open_in_file_explorer(self) -> None:\n        \"\"\"Open the simulation directory. Uses `xdg-open` on linux systems.\"\"\"\n        if os.name == \"nt\":  # should work on Windows\n            os.startfile(self.path)\n        else:\n            subprocess.run([\"xdg-open\", self.path])\n",
                 "lines": [
-                  283,
-                  288
+                  282,
+                  287
                 ]
               },
               "props": {
@@ -5165,8 +5198,8 @@
               "source": {
                 "code": "    def open_in_paraview(self) -> None:\n        \"\"\"Open the xdmf file in paraview.\"\"\"\n        subprocess.Popen([\"paraview\", self.xdmffile])\n",
                 "lines": [
-                  290,
-                  292
+                  289,
+                  291
                 ]
               },
               "props": {
@@ -5191,8 +5224,8 @@
               "source": {
                 "code": "    def get_full_uid(self) -> str:\n        \"\"\"Returns the full uid of the simulation (including the one of the database)\"\"\"\n        database_uid = index.get_uid_from_path(self.path_database)\n        return f\"{database_uid}:{self.uid}\"\n",
                 "lines": [
-                  294,
-                  297
+                  293,
+                  296
                 ]
               },
               "props": {
@@ -5222,8 +5255,8 @@
               "source": {
                 "code": "    def change_status(self, status: str) -> None:\n        \"\"\"Change status of simulation.\n\n        Args:\n            status (str): new status\n        \"\"\"\n        if self._prank == 0:\n            self._file.open(\"a\")\n            self._file.attrs[\"status\"] = status\n            self._file.close()\n\n        self._push_update_to_sqlite({\"status\": status})\n",
                 "lines": [
-                  299,
-                  310
+                  298,
+                  309
                 ]
               },
               "props": {
@@ -5253,8 +5286,8 @@
               "source": {
                 "code": "    def update_metadata(self, update_dict: dict) -> None:\n        \"\"\"Update the metadata attributes.\n\n        Args:\n            update_dict: dictionary to push\n        \"\"\"\n        if self._prank == 0:\n            update_dict = utilities.flatten_dict(update_dict)\n            with self._file(\"a\") as file:\n                file.attrs.update(update_dict)\n\n            self._push_update_to_sqlite(update_dict)\n",
                 "lines": [
-                  312,
-                  323
+                  311,
+                  322
                 ]
               },
               "props": {
@@ -5284,8 +5317,8 @@
               "source": {
                 "code": "    def update_parameters(self, update_dict: dict) -> None:\n        \"\"\"Update the parameters dictionary.\n\n        Args:\n            update_dict: dictionary to push\n        \"\"\"\n        if self._prank == 0:\n            update_dict = utilities.flatten_dict(update_dict)\n            with self._file(\"a\") as file:\n                file[\"parameters\"].attrs.update(update_dict)\n\n            self._push_update_to_sqlite(update_dict)\n",
                 "lines": [
-                  325,
-                  336
+                  324,
+                  335
                 ]
               },
               "props": {
@@ -5320,8 +5353,8 @@
               "source": {
                 "code": "    def create_xdmf_file(self, fields: list = None, nb_steps: int = None) -> None:\n        \"\"\"Create the xdmf file to read in paraview.\n\n        Args:\n            fields (list[str]): fields for which to write timeseries information,\n                if not specified, all fields in data are written.\n            nb_steps (int): number of steps the simulation has\n        \"\"\"\n\n        if self._prank == 0:\n            with self._file(\"r\") as f:\n                if \"data\" not in f.keys():\n                    fields, nb_steps = [], 0\n                if fields is None:\n                    fields = list(f[\"data\"].keys())\n\n                if nb_steps is None:\n                    grp_name = list(f[\"data\"].keys())[0]\n                    nb_steps = list(f[f\"data/{grp_name}\"].keys())\n                    nb_steps = max(\n                        [int(step) for step in nb_steps if not step.startswith(\"__\")]\n                    )\n\n                # temporary fix to load coordinates/geometry\n                coords_name = (\n                    \"geometry\"\n                    if \"geometry\"\n                    in f[f\"{self._mesh_location}/{self._default_mesh}\"].keys()\n                    else \"coordinates\"\n                )\n\n            xdmf_writer = XDMFWriter(self.xdmffile, self.h5file)\n            xdmf_writer.write_points_cells(\n                f\"{self._mesh_location}/{self._default_mesh}/{coords_name}\",\n                f\"{self._mesh_location}/{self._default_mesh}/topology\",\n            )\n\n            if fields:\n                xdmf_writer.add_timeseries(nb_steps + 1, fields)\n            xdmf_writer.write_file()\n",
                 "lines": [
-                  338,
-                  377
+                  337,
+                  376
                 ]
               },
               "props": {
@@ -5331,7 +5364,7 @@
             },
             "create_run_script": {
               "docstring": "Create a batch job and put it into the folder.\n",
-              "signature": "(\n    self,\n    commands: list = None,\n    nnodes: int = 1,\n    ntasks: int = 4,\n    ncpus: int = 1,\n    time: str = '04:00:00',\n    mem_per_cpu: int = 2048,\n    tmp=None,\n    euler: bool = True\n) -> None",
+              "signature": "(\n    self,\n    commands: list = None,\n    nnodes: int = 1,\n    ntasks: int = 4,\n    ncpus: int = 1,\n    time: str = '04:00:00',\n    mem_per_cpu: int = 2048,\n    tmp=None,\n    euler: bool = True,\n    sbatch_kwargs: list = None\n) -> None",
               "returns": {
                 "annotation": "None",
                 "description": null
@@ -5381,13 +5414,18 @@
                   "default": "True",
                   "annotation": "<class 'bool'>",
                   "description": "If false, a local bash script will be written"
+                },
+                "sbatch_kwargs": {
+                  "default": "None",
+                  "annotation": "<class 'list'>",
+                  "description": "Additional sbatch arguments. allow to provide additional sbatch arguments. in the format [\"--mail=BEGIN,END,FAIL\", ...]."
                 }
               },
               "source": {
-                "code": "    def create_run_script(\n        self,\n        commands: list = None,\n        nnodes: int = 1,\n        ntasks: int = 4,\n        ncpus: int = 1,\n        time: str = \"04:00:00\",\n        mem_per_cpu: int = 2048,\n        tmp=None,\n        euler: bool = True,\n    ) -> None:\n        \"\"\"Create a batch job and put it into the folder.\n\n        Args:\n            commands: A list of strings being the user defined commands to run\n            nnodes: nb of nodes (default=1)\n            ntasks: nb of tasks (default=4)\n            ncpus: nb of cpus per task (default=1)\n            time: requested time, format \"HH:MM:SS\" (default=4 hours)\n            mem_per_cpu: memory (default=2048)\n            tmp: temporary storage, set None to exclude option (default=8000)\n            euler: If false, a local bash script will be written\n        \"\"\"\n        job = Job()\n\n        if euler:\n            job.create_sbatch_script(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                db_id=self.database_id,\n                nnodes=nnodes,\n                ntasks=ntasks,\n                ncpus=ncpus,\n                time=time,\n                mem_per_cpu=mem_per_cpu,\n                tmp=tmp,\n            )\n        else:\n            job.create_bash_script_local(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                db_id=self.database_id,\n                ntasks=ntasks,\n            )\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": False})\n",
+                "code": "    def create_run_script(\n        self,\n        commands: list = None,\n        nnodes: int = 1,\n        ntasks: int = 4,\n        ncpus: int = 1,\n        time: str = \"04:00:00\",\n        mem_per_cpu: int = 2048,\n        tmp=None,\n        euler: bool = True,\n        sbatch_kwargs: list = None,\n    ) -> None:\n        \"\"\"Create a batch job and put it into the folder.\n\n        Args:\n            commands: A list of strings being the user defined commands to run\n            nnodes: nb of nodes (default=1)\n            ntasks: nb of tasks (default=4)\n            ncpus: nb of cpus per task (default=1)\n            time: requested time, format \"HH:MM:SS\" (default=4 hours)\n            mem_per_cpu: memory (default=2048)\n            tmp: temporary storage, set None to exclude option (default=8000)\n            euler: If false, a local bash script will be written\n            sbatch_kwargs: Additional sbatch arguments. allow to provide\n                additional sbatch arguments. in the format [\"--mail=BEGIN,END,FAIL\", ...].\n        \"\"\"\n        job = Job()\n\n        if euler:\n            job.create_sbatch_script(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                db_id=self.database_id,\n                nnodes=nnodes,\n                ntasks=ntasks,\n                ncpus=ncpus,\n                time=time,\n                mem_per_cpu=mem_per_cpu,\n                tmp=tmp,\n                sbatch_kwargs=sbatch_kwargs,\n            )\n        else:\n            job.create_bash_script_local(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                db_id=self.database_id,\n                ntasks=ntasks,\n            )\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": False})\n",
                 "lines": [
-                  379,
-                  426
+                  378,
+                  429
                 ]
               },
               "props": {
@@ -5422,8 +5460,8 @@
               "source": {
                 "code": "    @deprecated(\"use `create_run_script` instead\")\n    def create_batch_script(self, *args, **kwargs):\n        return self.create_run_script(*args, **kwargs)\n",
                 "lines": [
-                  428,
-                  430
+                  431,
+                  433
                 ]
               },
               "props": {
@@ -5448,8 +5486,8 @@
               "source": {
                 "code": "    def submit(self) -> None:\n        \"\"\"Submit the job for this simulation.\"\"\"\n        if f\"sbatch_{self.uid}.sh\" in os.listdir(self.path):\n            batch_script = os.path.abspath(\n                os.path.join(self.path, f\"sbatch_{self.uid}.sh\")\n            )\n            env = os.environ.copy()\n            _ = env.pop(\"BAMBOOST_MPI\", None)\n            subprocess.run([\"sbatch\", f\"{batch_script}\"], env=env)\n        elif f\"{self.uid}.sh\" in os.listdir(self.path):\n            bash_script = os.path.abspath(os.path.join(self.path, f\"{self.uid}.sh\"))\n            env = os.environ.copy()\n            _ = env.pop(\"BAMBOOST_MPI\", None)\n            subprocess.run([\"bash\", f\"{bash_script}\"], env=env)\n        else:\n            raise FileNotFoundError(\n                f\"Could not find a batch script for simulation {self.uid}.\"\n            )\n\n        log.info(f\"Simulation {self.uid} submitted!\")\n\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": True})\n\n        self._push_update_to_sqlite({\"submitted\": True})\n",
                 "lines": [
-                  432,
-                  456
+                  435,
+                  459
                 ]
               },
               "props": {
@@ -5479,8 +5517,8 @@
               "source": {
                 "code": "    @with_file_open(\"a\")\n    def change_note(self, note) -> None:\n        if self._prank == 0:\n            self._file.attrs[\"notes\"] = note\n            self._push_update_to_sqlite({\"notes\": note})\n",
                 "lines": [
-                  458,
-                  462
+                  461,
+                  465
                 ]
               },
               "props": {
@@ -5520,8 +5558,8 @@
               "source": {
                 "code": "    def open(self, mode: str = \"r\", driver=None, comm=None) -> FileHandler:\n        \"\"\"Use this as a context manager in a `with` statement.\n        Purpose: keeping the file open to directly access/edit something in the\n        HDF5 file of this simulation.\n\n        Args:\n            mode (`str`): file mode (see h5py docs)\n            driver (`str`): file driver (see h5py docs)\n            comm (`str`): mpi communicator\n        \"\"\"\n        return self._file(mode, driver, comm)\n",
                 "lines": [
-                  467,
-                  477
+                  470,
+                  480
                 ]
               },
               "props": {
@@ -5551,8 +5589,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\")\n    def get_mesh(self, mesh_name: str = None) -> Tuple[np.ndarray, np.ndarray]:\n        \"\"\"Return coordinates and connectivity. Currently returns numpy arrays.\n\n        Args:\n            mesh_name (`str`): optional, name of mesh to read (default = mesh)\n        Returns:\n            Tuple of np.arrays (coordinates, connectivity)\n        \"\"\"\n        if mesh_name is None:\n            mesh_name = self._default_mesh\n\n        # Raise an error if the mesh is not found\n        if (self._mesh_location.split(\"/\")[0] not in self._file.keys()) or (\n            mesh_name not in self._file[self._mesh_location].keys()\n        ):\n            raise KeyError(f\"Mesh location {self._mesh_location} not found in file.\")\n\n        mesh = self.meshes[mesh_name]\n        return mesh.coordinates, mesh.connectivity\n",
                 "lines": [
-                  488,
-                  507
+                  491,
+                  510
                 ]
               },
               "props": {
@@ -5587,8 +5625,8 @@
               "source": {
                 "code": "    def get_data_interpolator(self, field: str, step: int):\n        \"\"\"Get Linear interpolator for data field at step. Uses the linked mesh.\n\n        Args:\n            name (`str`): name of the data field\n            step (`int`): step\n        Returns:\n            :class:`scipy.interpolate.LinearNDInterpolator`\n        \"\"\"\n        from scipy.interpolate import LinearNDInterpolator\n\n        return LinearNDInterpolator(\n            self.data[field].mesh.coordinates, self.data[field].at_step(step)\n        )\n",
                 "lines": [
-                  546,
-                  559
+                  549,
+                  562
                 ]
               },
               "props": {
@@ -5611,10 +5649,10 @@
                 }
               },
               "source": {
-                "code": "    @with_file_open()\n    def show_h5tree(self) -> None:\n        \"\"\"Print the tree inside the h5 file.\"\"\"\n        # print('\\U00002B57 ' + os.path.basename(self.h5file))\n        print(\"\\U0001F43C \" + os.path.basename(self.h5file))\n        utilities.h5_tree(self._file.file_object)\n",
+                "code": "    @with_file_open()\n    def show_h5tree(self) -> None:\n        \"\"\"Print the tree inside the h5 file.\"\"\"\n        # print('\\U00002B57 ' + os.path.basename(self.h5file))\n        print(\"\\U0001f43c \" + os.path.basename(self.h5file))\n        utilities.h5_tree(self._file.file_object)\n",
                 "lines": [
-                  561,
-                  566
+                  564,
+                  569
                 ]
               },
               "props": {
@@ -5639,8 +5677,8 @@
               "source": {
                 "code": "    @contextmanager\n    def enter_path(self):\n        \"\"\"A context manager for changing the working directory to this simulations' path.\n\n        >>> with sim.working_directory():\n        >>>     ...\n        \"\"\"\n\n        current_dir = os.getcwd()\n        try:\n            os.chdir(self.path)\n            yield\n        finally:\n            os.chdir(current_dir)\n",
                 "lines": [
-                  568,
-                  581
+                  571,
+                  584
                 ]
               },
               "props": {
@@ -5736,7 +5774,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f74a4fb52b0>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ac854bb8730>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               },
@@ -5754,8 +5792,8 @@
             "source": {
               "code": "    def __init__(\n        self,\n        uid: str,\n        path: str,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n        create_if_not_exists: bool = False,\n        *,\n        _db_id: str = None,\n    ):\n        self.uid: str = uid\n        path = comm.bcast(path, root=0)\n        self.path_database: str = os.path.abspath(path)\n        self.database_id = _db_id or index.get_uid_from_path(self.path_database)\n        self.path: str = os.path.abspath(os.path.join(path, uid))\n        self.h5file: str = os.path.join(self.path, f\"{self.uid}.h5\")\n        self.xdmffile: str = os.path.join(self.path, f\"{self.uid}.xdmf\")\n\n        if not os.path.exists(self.h5file) and not create_if_not_exists:\n            raise FileNotFoundError(\n                f\"Simulation {self.uid} does not exist in {self.path}.\"\n            )\n\n        os.makedirs(self.path, exist_ok=True)\n\n        # MPI information\n        self._comm = comm\n        self._psize = self._comm.size\n        self._prank = self._comm.rank\n        self._ranks = np.array([i for i in range(self._psize)])\n\n        self._file = FileHandler(self.h5file)\n\n        # Initialize groups to meshes, data and userdata. Create groups.\n        self.meshes: MeshGroup = MeshGroup(self._file)\n        self.data: DataGroup = DataGroup(self._file, self.meshes)\n        self.globals: GlobalGroup = GlobalGroup(self._file, \"/globals\")\n        self.userdata: hdf_pointer.MutableGroup = hdf_pointer.MutableGroup(\n            self._file, \"/userdata\"\n        )\n        self.links: Links = Links(self._file)\n",
               "lines": [
-                98,
-                137
+                97,
+                136
               ]
             }
           }
@@ -5787,8 +5825,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\", driver=\"mpio\")\n    def __getitem__(self, key) -> Simulation:\n        \"\"\"Returns the linked simulation object.\"\"\"\n        return Simulation.fromUID(self.obj.attrs[key])\n",
                 "lines": [
-                  55,
-                  58
+                  54,
+                  57
                 ]
               },
               "props": {
@@ -5823,8 +5861,8 @@
               "source": {
                 "code": "    def __setitem__(self, key, newvalue):\n        \"\"\"Creates the link.\"\"\"\n        return self.update_attrs({key: newvalue})\n",
                 "lines": [
-                  60,
-                  62
+                  59,
+                  61
                 ]
               },
               "props": {
@@ -5849,8 +5887,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\")\n    def all_links(self) -> dict:\n        return dict(self.obj.attrs)\n",
                 "lines": [
-                  81,
-                  83
+                  80,
+                  82
                 ]
               },
               "props": {
@@ -5939,8 +5977,8 @@
             "source": {
               "code": "    def __init__(self, file_handler: FileHandler) -> None:\n        super().__init__(file_handler, path_to_data=\"links\")\n",
               "lines": [
-                49,
-                50
+                48,
+                49
               ]
             }
           }
@@ -6620,7 +6658,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7f74a4fb52b0>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ac854bb8730>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               },
