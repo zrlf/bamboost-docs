@@ -986,7 +986,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7b378f483760>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -1004,7 +1004,7 @@
           "functions": {
             "open_h5file": {
               "docstring": "Open h5 file. Waiting if file is not available.\n",
-              "signature": "(\n    file: str,\n    mode: \"Literal['mpio'] | Type[None]\",\n    driver: 'bool | Type[None]' = None,\n    comm=None\n)",
+              "signature": "(\n    file: str,\n    mode: Union[Literal['mpio'], Type[NoneType]],\n    driver: Union[bool, Type[NoneType]] = None,\n    comm=None\n)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
                 "description": null
@@ -1017,12 +1017,12 @@
                 },
                 "mode": {
                   "default": null,
-                  "annotation": "Literal['mpio'] | Type[None]",
+                  "annotation": "typing.Union[typing.Literal['mpio'], typing.Type[NoneType]]",
                   "description": "'r', 'a', 'w', ..."
                 },
                 "driver": {
                   "default": "None",
-                  "annotation": "bool | Type[None]",
+                  "annotation": "typing.Union[bool, typing.Type[NoneType]]",
                   "description": "driver for h5.File"
                 },
                 "comm": {
@@ -2562,7 +2562,7 @@
                     "description": "Path to database"
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7b378f483760>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   },
@@ -2596,9 +2596,9 @@
               "methods": {
                 "list": {
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> <classmethod object at 0x7b378f45d880>",
+                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x743de432b740>)>",
                   "returns": {
-                    "annotation": "<classmethod object at 0x7b378f45d880>",
+                    "annotation": "<classmethod(<function Remote.list at 0x743de432b740>)>",
                     "description": null
                   },
                   "arguments": {
@@ -3121,16 +3121,16 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7b378f483760>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   }
                 },
                 "source": {
-                  "code": "    def __init__(\n        self,\n        id: str,\n        remote: Remote,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n    ) -> None:\n        \"\"\"\n        params\n        skip_update: if True, does not lookup the new database on the remote:\n        \"\"\"\n        self.UID = id\n        self.remote = remote\n        self.comm = comm\n        self.path = os.path.join(self.remote.local_path, self.UID)\n        log.info(f\"Creating cache directory at {self.path}\")\n        os.makedirs(self.path, exist_ok=True)\n\n        self.remote_path_db = self._index.get_path(self.UID)\n\n        # check if path exists\n        if not os.path.isdir(self.path):\n            os.makedirs(self.path)\n\n        # Write the database ID file if it does not exist\n        if not os.path.exists(f\"{self.path}/.BAMBOOST-{self.UID}\"):\n            with open(f\"{self.path}/.BAMBOOST-{self.UID}\", \"w\") as f:\n                f.write(self.UID)\n\n        self.UID = id\n        self._index.insert_local_path(self.UID, self.path)\n\n        # Update the SQL table for the database\n        with self._index.open():\n            self._table.create_database_table()\n",
+                  "code": "    def __init__(\n        self,\n        id: str,\n        remote: Remote,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n    ) -> None:\n        \"\"\"\n        params\n        skip_update: if True, does not lookup the new database on the remote:\n        \"\"\"\n        self.UID = id\n        self.remote = remote\n        self.comm = comm\n        self.path = os.path.join(self.remote.local_path, self.UID)\n        log.info(f\"Creating cache directory at {self.path}\")\n        os.makedirs(self.path, exist_ok=True)\n\n        self.remote_path_db = self._index.get_path(self.UID)\n\n        # check if path exists\n        if not os.path.isdir(self.path):\n            os.makedirs(self.path)\n\n        # Write the database ID file if it does not exist\n        if not os.path.exists(f\"{self.path}/.BAMBOOST-{self.UID}\"):\n            with open(f\"{self.path}/.BAMBOOST-{self.UID}\", \"w\") as f:\n                f.write(self.UID)\n\n        self.UID = id\n        self._index.insert_local_path(self.UID, self.path)\n\n        # Update the SQL table for the database\n        with self._index.open():\n            self._table.create_database_table()\n            # self._table.sync()\n",
                   "lines": [
                     216,
-                    249
+                    250
                   ]
                 }
               }
@@ -3776,7 +3776,7 @@
                 }
               },
               "source": {
-                "code": "    @sql.with_connection\n    def scan_known_paths(self) -> dict:\n        \"\"\"Scan known paths for databases and update the index.\"\"\"\n        for path in get_known_paths():\n            completed_process = subprocess.run(\n                [\"find\", path, \"-iname\", f\"{PREFIX}*\", \"-not\", \"-path\", \"*/\\.git/*\"],\n                capture_output=True,\n            )\n            databases_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n            for database in databases_found:\n                name = os.path.basename(database)\n                id = name.split(\"-\")[1]\n                self.insert_path(id, os.path.dirname(database))\n",
+                "code": "    @sql.with_connection\n    def scan_known_paths(self) -> dict:\n        \"\"\"Scan known paths for databases and update the index.\"\"\"\n        for path in get_known_paths():\n            completed_process = subprocess.run(\n                [\"find\", path, \"-iname\", f\"{PREFIX}*\", \"-not\", \"-path\", r\"*/\\.git/*\"],\n                capture_output=True,\n            )\n            databases_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n            for database in databases_found:\n                name = os.path.basename(database)\n                id = name.split(\"-\")[1]\n                self.insert_path(id, os.path.dirname(database))\n",
                 "lines": [
                   234,
                   246
@@ -4496,9 +4496,9 @@
             },
             "__iter__": {
               "docstring": "",
-              "signature": "(self) -> 'Generator[Simulation]'",
+              "signature": "(self) -> Generator[bamboost.simulation.Simulation, NoneType, NoneType]",
               "returns": {
-                "annotation": "Generator[Simulation]",
+                "annotation": "typing.Generator[bamboost.simulation.Simulation, NoneType, NoneType]",
                 "description": null
               },
               "arguments": {
@@ -4509,7 +4509,7 @@
                 }
               },
               "source": {
-                "code": "    def __iter__(self) -> Generator[Simulation]:\n        for sim in self.sims():\n            yield sim\n",
+                "code": "    def __iter__(self) -> Generator[Simulation, None, None]:\n        for sim in self.sims():\n            yield sim\n",
                 "lines": [
                   165,
                   167
@@ -4540,10 +4540,10 @@
                 }
               },
               "source": {
-                "code": "    def get_view(self, include_linked_sims: bool = False) -> pd.DataFrame:\n        \"\"\"View of the database and its parametric space. Read from the sql\n        database. If `include_linked_sims` is True, the individual h5 files are\n        scanned.\n\n        Args:\n            include_linked_sims: if True, include the parameters of linked sims\n\n        Examples:\n            >>> db.get_view()\n            >>> db.get_view(include_linked_sims=True)\n        \"\"\"\n        if include_linked_sims:\n            return self.get_view_from_hdf_files(include_linked_sims=include_linked_sims)\n\n        try:\n            with self._table.open():\n                self._table.sync()\n                df = self._table.read_table()\n        except index.Error as e:\n            log.warning(f\"index error: {e}\")\n            return self.get_view_from_hdf_files(include_linked_sims=include_linked_sims)\n\n        if df.empty:\n            return df\n        df[\"time_stamp\"] = pd.to_datetime(df[\"time_stamp\"])\n\n        # Sort dataframe columns\n        columns_start = [\"id\", \"notes\", \"status\", \"time_stamp\"]\n        self._dataframe = df[[*columns_start, *df.columns.difference(columns_start)]]\n\n        opts = config.get(\"options\", {})\n        if \"sort_table_key\" in opts:\n            self._dataframe.sort_values(\n                opts.get(\"sort_table_key\", \"id\"),\n                ascending=opts.get(\"sort_table_order\", \"asc\") == \"asc\",\n                inplace=True,\n            )\n        return self._dataframe\n",
+                "code": "    def get_view(self, include_linked_sims: bool = False) -> pd.DataFrame:\n        \"\"\"View of the database and its parametric space. Read from the sql\n        database. If `include_linked_sims` is True, the individual h5 files are\n        scanned.\n\n        Args:\n            include_linked_sims: if True, include the parameters of linked sims\n\n        Examples:\n            >>> db.get_view()\n            >>> db.get_view(include_linked_sims=True)\n        \"\"\"\n        if include_linked_sims:\n            return self.get_view_from_hdf_files(include_linked_sims=include_linked_sims)\n\n        try:\n            with self._table.open():\n                self._table.sync()\n                df = self._table.read_table()\n        except index.Error as e:\n            log.warning(f\"index error: {e}\")\n            return self.get_view_from_hdf_files(include_linked_sims=include_linked_sims)\n\n        if df.empty:\n            return df\n        df[\"time_stamp\"] = pd.to_datetime(df[\"time_stamp\"])\n\n        # Sort dataframe columns\n        columns_start = [\"id\", \"notes\", \"status\", \"time_stamp\"]\n        columns_start = [col for col in columns_start if col in df.columns]\n        self._dataframe = df[[*columns_start, *df.columns.difference(columns_start)]]\n\n        opts = config.get(\"options\", {})\n        if \"sort_table_key\" in opts:\n            self._dataframe.sort_values(\n                opts.get(\"sort_table_key\", \"id\"),\n                ascending=opts.get(\"sort_table_order\", \"asc\") == \"asc\",\n                inplace=True,\n            )\n        return self._dataframe\n",
                 "lines": [
                   273,
-                  311
+                  312
                 ]
               },
               "props": {
@@ -4573,10 +4573,10 @@
                 }
               },
               "source": {
-                "code": "    def get_view_from_hdf_files(\n        self, include_linked_sims: bool = False\n    ) -> pd.DataFrame:\n        \"\"\"View of the database and its parametric space. Read from the h5\n        files metadata.\n\n        Args:\n            include_linked_sims: if True, include the parameters of linked sims\n        \"\"\"\n        all_uids = self._get_uids()\n        data = list()\n\n        for uid in all_uids:\n            tmp_dict = self._get_parameters_for_uid(\n                uid, include_linked_sims=include_linked_sims\n            )\n            data.append(tmp_dict)\n\n        df = pd.DataFrame.from_records(data)\n        if df.empty:\n            return df\n        df[\"time_stamp\"] = pd.to_datetime(df[\"time_stamp\"])\n\n        # Sort dataframe columns\n        columns_start = [\"id\", \"notes\", \"status\", \"time_stamp\"]\n        self._dataframe = df[[*columns_start, *df.columns.difference(columns_start)]]\n        return self._dataframe\n",
+                "code": "    def get_view_from_hdf_files(\n        self, include_linked_sims: bool = False\n    ) -> pd.DataFrame:\n        \"\"\"View of the database and its parametric space. Read from the h5\n        files metadata.\n\n        Args:\n            include_linked_sims: if True, include the parameters of linked sims\n        \"\"\"\n        all_uids = self._get_uids()\n        data = list()\n\n        for uid in all_uids:\n            tmp_dict = self._get_parameters_for_uid(\n                uid, include_linked_sims=include_linked_sims\n            )\n            data.append(tmp_dict)\n\n        df = pd.DataFrame.from_records(data)\n        if df.empty:\n            return df\n        df[\"time_stamp\"] = pd.to_datetime(df[\"time_stamp\"])\n\n        # Sort dataframe columns\n        columns_start = [\"id\", \"notes\", \"status\", \"time_stamp\"]\n        columns_start = [col for col in columns_start if col in df.columns]\n        self._dataframe = df[[*columns_start, *df.columns.difference(columns_start)]]\n        return self._dataframe\n",
                 "lines": [
-                  313,
-                  339
+                  314,
+                  341
                 ]
               },
               "props": {
@@ -4616,8 +4616,8 @@
               "source": {
                 "code": "    def sim(\n        self,\n        uid: str,\n        return_writer: bool = False,\n        writer_type: SimulationWriter = SimulationWriter,\n    ) -> Simulation:\n        \"\"\"Get an existing simulation with uid. Same as accessing with `db[uid]` directly.\n\n        Args:\n            uid (`str`): unique identifier\n            return_writer: if true, return `SimulationWriter`, otherwise\n                return `Simulation`\n            writer_type: Optionally, you can specify a custom writer type to return.\n\n        Returns:\n            :class:`~bamboost.simulation.Simulation`\n        \"\"\"\n        if return_writer:\n            return writer_type(uid, self.path, self.comm)\n        return Simulation(uid, self.path, self.comm, _db_id=self.UID)\n",
                 "lines": [
-                  367,
-                  386
+                  369,
+                  388
                 ]
               },
               "props": {
@@ -4627,7 +4627,7 @@
             },
             "sims": {
               "docstring": "Get all simulations in a list. Optionally, get all simulations matching the\ngiven selection using pandas.",
-              "signature": "(\n    self,\n    select: 'pd.Series | pd.DataFrame' = None,\n    sort: str = None,\n    reverse: bool = False,\n    exclude: set = None,\n    return_writer: bool = False\n) -> list",
+              "signature": "(\n    self,\n    select: pandas.core.series.Series | pandas.core.frame.DataFrame = None,\n    sort: str = None,\n    reverse: bool = False,\n    exclude: set = None,\n    return_writer: bool = False\n) -> list",
               "returns": {
                 "annotation": "<class 'list'>",
                 "description": "A list of `:class:~bamboost.simulation.Simulation` objects"
@@ -4640,7 +4640,7 @@
                 },
                 "select": {
                   "default": "None",
-                  "annotation": "pd.Series | pd.DataFrame",
+                  "annotation": "pandas.core.series.Series | pandas.core.frame.DataFrame",
                   "description": "pandas boolean series or pandas DataFrame (being a subset of the full dataframe)"
                 },
                 "sort": {
@@ -4667,8 +4667,8 @@
               "source": {
                 "code": "    def sims(\n        self,\n        select: pd.Series | pd.DataFrame = None,\n        sort: str = None,\n        reverse: bool = False,\n        exclude: set = None,\n        return_writer: bool = False,\n    ) -> list:\n        \"\"\"Get all simulations in a list. Optionally, get all simulations matching the\n        given selection using pandas.\n\n        Args:\n            select (`pd.Series`): pandas boolean series or pandas DataFrame\n                (being a subset of the full dataframe)\n            sort (`str`): Optionally sort the list with this keyword\n            reverse (`bool`): swap sort direction\n            exclude (`list[str]`): sims to exclude\n            return_writer: if true, return `SimulationWriter`, otherwise\n                return `Simulation`\n\n        Returns:\n            A list of `:class:~bamboost.simulation.Simulation` objects\n\n        Examples:\n            >>> db.sims(select=db.df[\"status\"] == \"finished\", sort=\"time_stamp\")\n        \"\"\"\n        if select is None:\n            id_list = self.all_uids\n        elif isinstance(select, pd.DataFrame):\n            id_list = select[\"id\"].values\n        elif isinstance(select, pd.Series):\n            id_list = self.df[select][\"id\"].values\n        else:\n            raise ArgumentError('Invalid argument for argument \"select\"')\n\n        if exclude is not None:\n            exclude = list([exclude]) if isinstance(exclude, str) else exclude\n            id_list = [id for id in id_list if id not in exclude]\n\n        existing_sims = [self.sim(uid, return_writer) for uid in id_list]\n\n        if sort is None:\n            return existing_sims\n        else:\n            return sorted(\n                existing_sims, key=lambda s: s.parameters[sort], reverse=reverse\n            )\n",
                 "lines": [
-                  388,
-                  434
+                  390,
+                  436
                 ]
               },
               "props": {
@@ -4679,7 +4679,7 @@
               ]
             },
             "create_simulation": {
-              "docstring": "Get a writer object for a new simulation. This is written for paralell use\nas it is likely that this may be used in an executable, creating multiple runs\nfor a parametric space, which may be run in paralell.\n\nArgs:\n    uid (`str`): The name/uid for the simulation. If not specified, a random id\n        will be assigned.\n    parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n        checked against the existing sims for duplication. Otherwise, they may be\n        specified later with :func:`~bamboost.simulation.SimulationWriter.add_parameters`.\n    skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n    prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n    duplicate_action (`str`): how to deal with duplicates.\n    `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\n     default \"prompt\" for each duplicate on a case by case basis.\nReturns:\n    sim (:class:`~bamboost.simulation.SimulationWriter`)\n\nExamples:\n    >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n    apple\n\n    >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")",
+              "docstring": "Get a writer object for a new simulation. This is written for paralell use\nas it is likely that this may be used in an executable, creating multiple runs\nfor a parametric space, which may be run in paralell.",
               "signature": "(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    prefix: str = None,\n    duplicate_action: str = 'prompt'\n) -> bamboost.simulation_writer.SimulationWriter",
               "returns": {
                 "annotation": "<class 'bamboost.simulation_writer.SimulationWriter'>",
@@ -4694,40 +4694,43 @@
                 "uid": {
                   "default": "None",
                   "annotation": "<class 'str'>",
-                  "description": null
+                  "description": "The name/uid for the simulation. If not specified, a random id will be assigned."
                 },
                 "parameters": {
                   "default": "None",
                   "annotation": "<class 'dict'>",
-                  "description": null
+                  "description": "Parameter dictionary. If provided, the parameters will be checked against the existing sims for duplication. Otherwise, they may be specified later with :func:`~bamboost.simulation_writer.SimulationWriter.add_parameters`."
                 },
                 "skip_duplicate_check": {
                   "default": "False",
                   "annotation": "<class 'bool'>",
-                  "description": null
+                  "description": "if True, the duplicate check is skipped."
                 },
                 "prefix": {
                   "default": "None",
                   "annotation": "<class 'str'>",
-                  "description": null
+                  "description": "Prefix for the uid. If not specified, no prefix is used."
                 },
                 "duplicate_action": {
                   "default": "prompt",
                   "annotation": "<class 'str'>",
-                  "description": null
+                  "description": "how to deal with duplicates. `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`) default \"prompt\" for each duplicate on a case by case basis."
                 }
               },
               "source": {
-                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        prefix: str = None,\n        duplicate_action: str = \"prompt\",\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with :func:`~bamboost.simulation.SimulationWriter.add_parameters`.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n            duplicate_action (`str`): how to deal with duplicates.\n            `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\n             default \"prompt\" for each duplicate on a case by case basis.\n        Returns:\n            sim (:class:`~bamboost.simulation.SimulationWriter`)\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n            apple\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on, uid = self._check_duplicate(\n                parameters, uid, duplicate_action=duplicate_action\n            )\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n        if parameters:\n            new_sim.add_parameters(parameters)\n        return new_sim\n",
+                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        prefix: str = None,\n        duplicate_action: str = \"prompt\",\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with :func:`~bamboost.simulation_writer.SimulationWriter.add_parameters`.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n            duplicate_action (`str`): how to deal with duplicates.\n                `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\n                 default \"prompt\" for each duplicate on a case by case basis.\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on, uid = self._check_duplicate(\n                parameters, uid, duplicate_action=duplicate_action\n            )\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n        if parameters:\n            new_sim.add_parameters(parameters)\n        return new_sim\n",
                 "lines": [
-                  436,
-                  498
+                  438,
+                  497
                 ]
               },
               "props": {
                 "isClassMethod": false
               },
-              "examples": []
+              "examples": [
+                ">>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})",
+                ">>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")"
+              ]
             },
             "remove": {
               "docstring": "CAUTION, DELETING DATA. Remove the data of a simulation.\n",
@@ -4751,8 +4754,8 @@
               "source": {
                 "code": "    def remove(self, uid: str) -> None:\n        \"\"\"CAUTION, DELETING DATA. Remove the data of a simulation.\n\n        Args:\n            uid (`str`): uid\n        \"\"\"\n        shutil.rmtree(os.path.join(self.path, uid))\n",
                 "lines": [
-                  500,
-                  506
+                  499,
+                  505
                 ]
               },
               "props": {
@@ -4762,7 +4765,7 @@
             },
             "find": {
               "docstring": "Find simulations with the given parameters.\n\nThe dictionary can contain callables to filter inequalities or other\nfilters.",
-              "signature": "(\n    self,\n    parameter_selection: 'dict[str, Any]'\n) -> pandas.core.frame.DataFrame",
+              "signature": "(\n    self,\n    parameter_selection: dict[str, typing.Any]\n) -> pandas.core.frame.DataFrame",
               "returns": {
                 "annotation": "<class 'pandas.core.frame.DataFrame'>",
                 "description": null
@@ -4775,15 +4778,15 @@
                 },
                 "parameter_selection": {
                   "default": null,
-                  "annotation": "dict[str, Any]",
+                  "annotation": "dict[str, typing.Any]",
                   "description": "parameter selection dictionary"
                 }
               },
               "source": {
                 "code": "    def find(self, parameter_selection: dict[str, Any]) -> pd.DataFrame:\n        \"\"\"Find simulations with the given parameters.\n\n        The dictionary can contain callables to filter inequalities or other\n        filters.\n\n        Examples:\n            >>> db.find({\"a\": 1, \"b\": lambda x: x > 2})\n            >>> db.find({\"a\": 1, \"b\": 2})\n\n        Args:\n            parameter_selection (dict): parameter selection dictionary\n        \"\"\"\n        parameter_selection = flatten_dict(parameter_selection)\n        params = {}\n        filters = {}\n        for key, val in parameter_selection.items():\n            if callable(val):\n                filters[key] = val\n            else:\n                params[key] = val\n\n        df = self._table.read_table()\n        matches = self._list_duplicates(params)\n        matches = df[df.id.isin(matches)]\n        if len(matches) == 0:\n            return matches\n\n        for key, func in filters.items():\n            matches = matches[func(matches[key])]\n\n        return matches\n",
                 "lines": [
-                  508,
-                  539
+                  507,
+                  538
                 ]
               },
               "props": {
@@ -4810,8 +4813,8 @@
               "source": {
                 "code": "    def global_fields_in_all(self) -> list:\n        \"\"\"Get a list of all global fields in all simulations.\n\n        Returns:\n            List of global fields\n        \"\"\"\n        fields = set()\n        for sim in self:\n            try:\n                fields.update(sim.globals.columns)\n            except KeyError:\n                continue\n\n        return fields\n",
                 "lines": [
-                  635,
-                  648
+                  634,
+                  647
                 ]
               },
               "props": {
@@ -4836,8 +4839,8 @@
               "source": {
                 "code": "    def get_parameters(self) -> dict:\n        \"\"\"Get the parameters used in this database.\n\n        Returns:\n            Dictionary of parameters with it's count, range, and type. Sorted by count.\n        \"\"\"\n        parameters = dict()\n        for sim in self:\n            for key, val in sim.parameters.items():\n                if key not in parameters:\n                    range = (val, val) if isinstance(val, numbers.Number) else None\n                    parameters[key] = {\"range\": range, \"count\": 1, \"type\": type(val)}\n                else:\n                    if isinstance(val, numbers.Number):\n                        parameters[key][\"range\"] = (\n                            min(parameters[key][\"range\"][0], val),\n                            max(parameters[key][\"range\"][1], val),\n                        )\n                    parameters[key][\"count\"] += 1\n                    parameters[key][\"type\"] = type(val)\n        return dict(\n            sorted(parameters.items(), key=lambda x: x[1][\"count\"], reverse=True)\n        )\n",
                 "lines": [
-                  650,
-                  672
+                  649,
+                  671
                 ]
               },
               "props": {
@@ -4890,7 +4893,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7b378f483760>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -5055,9 +5058,9 @@
           "methods": {
             "fromUID": {
               "docstring": "Return the `Simulation` with given UID.\n",
-              "signature": "(\n    full_uid: str,\n    *,\n    index_database: bamboost.index.IndexAPI = None\n) -> typing_extensions.Self",
+              "signature": "(full_uid: str, *, index_database: bamboost.index.IndexAPI = None) -> Self",
               "returns": {
-                "annotation": "typing_extensions.Self",
+                "annotation": "typing.Self",
                 "description": null
               },
               "arguments": {
@@ -5811,7 +5814,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7b378f483760>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               },
@@ -6695,7 +6698,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7b378f483760>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               },
