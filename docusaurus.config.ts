@@ -84,6 +84,7 @@ const config: Config = {
   ],
 
   themeConfig: {
+    metadata: [{name: 'theme-color', content: '#1f1d2e'}],
     // Replace with your project's social card
     image: 'img/bamboost_icon.png',
     colorMode: {
