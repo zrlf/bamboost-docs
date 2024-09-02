@@ -26,8 +26,15 @@ Edit the `[keybinds.database]` table in the config file to your liking. The
 functions are named (also seeable in the TUI). You can simply assign a new key
 to a function.
 
-```yaml title='Example configuration file'
+```toml title='Example configuration file'
 theme = "default"  # or "highlight"
+
+# Maximum column widths (default: 30)
+[table]
+no-cutoff-columns = [
+    "some column name",
+    ...
+]
 
 # Keybindings
 [keybinds]
