@@ -1,11 +1,11 @@
 """
 Extract source documentation from bamboost package and store it in a JSON file.
 
-Classes: 
+Classes:
     AutoDoc
 
-Functions: 
-    parse_docstring, document_method, document_instance_variable, 
+Functions:
+    parse_docstring, document_method, document_instance_variable,
     document_class, document_module
 """
 
@@ -38,8 +38,8 @@ def parse_docstring(docstring: str):
     examples = re.split(r"\n\s*\n", examples_str.strip()) if examples_str else []
 
     return {
-        "short_description": doc.short_description if doc.short_description else '',
-        "description": doc.description if doc.description else '',
+        "short_description": doc.short_description if doc.short_description else "",
+        "description": doc.description if doc.description else "",
         "arguments": {
             param.arg_name.split()[0]: param.description for param in doc.params
         },
@@ -69,7 +69,7 @@ def document_method(method: pdoc.doc.Function, is_classmethod=False) -> dict:
                     str(val.annotation) if val.annotation != inspect._empty else None
                 ),
                 "description": (
-                    docstring["arguments"].get(key).replace("\n", " ")
+                    docstring["arguments"].get(key)
                     if key in docstring["arguments"]
                     else None
                 ),

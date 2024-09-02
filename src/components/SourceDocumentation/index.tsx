@@ -11,6 +11,7 @@ import {
   ParameterList,
   ReturnStatement,
 } from './RenderParts';
+import { parseString } from './ParseString';
 
 import './styles.scss';
 import styles from './styles.module.scss';
@@ -135,9 +136,7 @@ const RenderMethod = (method: {
       {isExpanded && (
         <>
           {/* RENDER DOCSTRING */}
-          {obj.docstring.split('\n\n').map((block, index) => (
-            <p key={`docstring_${name}_${index}`}>{block}</p>
-          ))}
+          {parseString(obj.docstring)}
 
           {/* RENDER ARGUMENTS */}
           <ParameterList parameters={obj.arguments} />
@@ -165,7 +164,14 @@ const RenderFunction = (method: { name: string; obj: Method; parentClassName?: s
       <SourceCodeButton
         sourceIsVisible={sourceIsVisible}
         setSourceIsVisible={setSourceIsVisible}
-        style={{ height: 'fit-content', top: 0, right: 0, position: 'absolute', width: '10em', zIndex: 1}}
+        style={{
+          height: 'fit-content',
+          top: 0,
+          right: 0,
+          position: 'absolute',
+          width: '10em',
+          zIndex: 1,
+        }}
       />
       <div
         className="spacing-header"
