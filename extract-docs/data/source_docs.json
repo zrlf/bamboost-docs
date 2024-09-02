@@ -20,8 +20,8 @@
       "source": {
         "code": "def add_stream_handler(logger: logging.Logger) -> None:\n    stream_handler = logging.StreamHandler()\n    formatter = logging.Formatter(\n        \"[%(asctime)s] %(name)s: %(levelname)s - %(message)s\",\n        style=\"%\",\n        datefmt=\"%Y-%m-%d %H:%M:%S\",\n    )\n    stream_handler.setFormatter(formatter)\n    logger.addHandler(stream_handler)\n",
         "lines": [
-          10,
-          18
+          19,
+          27
         ]
       },
       "props": {
@@ -46,8 +46,8 @@
       "source": {
         "code": "def set_log_level(\n    level: Literal[\"DEBUG\", \"INFO\", \"WARNING\", \"ERROR\", \"CRITICAL\"],\n) -> None:\n    BAMBOOST_LOGGER.setLevel(level)\n",
         "lines": [
-          25,
-          28
+          34,
+          37
         ]
       },
       "props": {
@@ -986,7 +986,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ef07cff78e0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -1004,7 +1004,7 @@
           "functions": {
             "open_h5file": {
               "docstring": "Open h5 file. Waiting if file is not available.\n",
-              "signature": "(\n    file: str,\n    mode: Union[Literal['mpio'], Type[NoneType]],\n    driver: Union[bool, Type[NoneType]] = None,\n    comm=None\n)",
+              "signature": "(\n    file: str,\n    mode: \"Literal['mpio'] | Type[None]\",\n    driver: 'bool | Type[None]' = None,\n    comm=None\n)",
               "returns": {
                 "annotation": "<class 'inspect._empty'>",
                 "description": null
@@ -1017,12 +1017,12 @@
                 },
                 "mode": {
                   "default": null,
-                  "annotation": "typing.Union[typing.Literal['mpio'], typing.Type[NoneType]]",
+                  "annotation": "Literal['mpio'] | Type[None]",
                   "description": "'r', 'a', 'w', ..."
                 },
                 "driver": {
                   "default": "None",
-                  "annotation": "typing.Union[bool, typing.Type[NoneType]]",
+                  "annotation": "bool | Type[None]",
                   "description": "driver for h5.File"
                 },
                 "comm": {
@@ -1106,173 +1106,6 @@
               "examples": []
             }
           },
-          "submodules": {}
-        },
-        "job": {
-          "name": "bamboost.common.job",
-          "docstring": "",
-          "classes": {
-            "Job": {
-              "name": "Job",
-              "short_description": "",
-              "docstring": "",
-              "methods": {
-                "create_sbatch_script": {
-                  "docstring": "Write sbatch script for new simulation.\n\nThe following environment variables are written to the script:\n    - DATABASE_DIR: Path to the database directory.\n    - SIMULATION_DIR: Path to the simulation directory.\n    - SIMULATION_ID: Full id of the simulation.",
-                  "signature": "(\n    self,\n    commands: list,\n    path: str,\n    uid: str = None,\n    db_id: str = None,\n    nnodes: int = 1,\n    ntasks: int = 4,\n    ncpus: int = 1,\n    time: str = '04:00:00',\n    mem_per_cpu: int = 2048,\n    tmp: int = None,\n    sbatch_kwargs: list = None\n) -> None",
-                  "returns": {
-                    "annotation": "None",
-                    "description": null
-                  },
-                  "arguments": {
-                    "self": {
-                      "default": null,
-                      "annotation": null,
-                      "description": null
-                    },
-                    "commands": {
-                      "default": null,
-                      "annotation": "<class 'list'>",
-                      "description": "List of commands to be executed."
-                    },
-                    "path": {
-                      "default": null,
-                      "annotation": "<class 'str'>",
-                      "description": "Path to the database directory."
-                    },
-                    "uid": {
-                      "default": "None",
-                      "annotation": "<class 'str'>",
-                      "description": "Unique identifier of the simulation."
-                    },
-                    "db_id": {
-                      "default": "None",
-                      "annotation": "<class 'str'>",
-                      "description": "Database ID. Defaults to None."
-                    },
-                    "nnodes": {
-                      "default": "1",
-                      "annotation": "<class 'int'>",
-                      "description": "Number of nodes. Defaults to 1."
-                    },
-                    "ntasks": {
-                      "default": "4",
-                      "annotation": "<class 'int'>",
-                      "description": "Number of tasks. Defaults to 4."
-                    },
-                    "ncpus": {
-                      "default": "1",
-                      "annotation": "<class 'int'>",
-                      "description": "Number of cpus. Defaults to 1."
-                    },
-                    "time": {
-                      "default": "04:00:00",
-                      "annotation": "<class 'str'>",
-                      "description": "Time limit. Defaults to \"04:00:00\"."
-                    },
-                    "mem_per_cpu": {
-                      "default": "2048",
-                      "annotation": "<class 'int'>",
-                      "description": "Memory per cpu. Defaults to 2048."
-                    },
-                    "tmp": {
-                      "default": "None",
-                      "annotation": "<class 'int'>",
-                      "description": "Temporary space."
-                    },
-                    "sbatch_kwargs": {
-                      "default": "None",
-                      "annotation": "<class 'list'>",
-                      "description": "Additional sbatch arguments. allow to provide additional sbatch arguments. in the format [\"--mail=BEGIN,END,FAIL\", ...]."
-                    }
-                  },
-                  "source": {
-                    "code": "    def create_sbatch_script(\n        self,\n        commands: list,\n        path: str,\n        uid: str = None,\n        db_id: str = None,\n        nnodes: int = 1,\n        ntasks: int = 4,\n        ncpus: int = 1,\n        time: str = \"04:00:00\",\n        mem_per_cpu: int = 2048,\n        tmp: int = None,\n        sbatch_kwargs: list = None,\n    ) -> None:\n        \"\"\"Write sbatch script for new simulation.\n\n        The following environment variables are written to the script:\n            - DATABASE_DIR: Path to the database directory.\n            - SIMULATION_DIR: Path to the simulation directory.\n            - SIMULATION_ID: Full id of the simulation.\n\n        Args:\n            commands (list): List of commands to be executed.\n            path (str): Path to the database directory.\n            uid (str): Unique identifier of the simulation.\n            db_id (str): Database ID. Defaults to None.\n            nnodes (int): Number of nodes. Defaults to 1.\n            ntasks (int): Number of tasks. Defaults to 4.\n            ncpus (int): Number of cpus. Defaults to 1.\n            time (str): Time limit. Defaults to \"04:00:00\".\n            mem_per_cpu (int): Memory per cpu. Defaults to 2048.\n            tmp (int): Temporary space.\n            sbatch_kwargs (list): Additional sbatch arguments. allow to provide\n                additional sbatch arguments. in the format [\"--mail=BEGIN,END,FAIL\", ...].\n        \"\"\"\n        nb_tasks_per_node = int(ntasks / nnodes)\n\n        # define how mpirun is called\n        mpicommand = \"\"\n        if ntasks > 1:\n            mpicommand = \"mpirun \"\n\n        script = \"#!/bin/bash\\n\\n\"\n\n        # sbatch commands\n        script += f\"#SBATCH --ntasks={ntasks}\\n\"\n        if ntasks > 1:\n            script += f\"#SBATCH --nodes={nnodes}\\n\"\n            script += f\"#SBATCH --cpus-per-task={ncpus}\\n\"\n            script += f\"#SBATCH --ntasks-per-node={nb_tasks_per_node}\\n\"\n        script += f\"#SBATCH --time={time}\\n\"\n        script += f\"#SBATCH --job-name={db_id}:{uid}\\n\"\n        script += f\"#SBATCH --mem-per-cpu={mem_per_cpu}\\n\"\n        if tmp:\n            script += f\"#SBATCH --tmp={tmp}\\n\"\n        script += f\"#SBATCH --output={os.path.join(path, uid)}/{uid}.out\\n\"\n\n        if sbatch_kwargs is not None:\n            for s in sbatch_kwargs:\n                script += f\"#SBATCH {s}\\n\"\n\n        # add paths as environment variables\n        script += self._set_environment_variables(db_id, uid)\n        # backwards compatibility: add SCRIPT_DIR as environment variable\n        script += \"SCRIPT_DIR=$SIMULATION_DIR\\n\\n\"\n\n        # user defined commands\n        script += \"\\n\"\n        for cmd in commands:\n            script += cmd.format(MPI=mpicommand) + \"\\n\"\n\n        # write to submission file\n        with open(\n            os.path.join(os.path.join(path, uid), f\"sbatch_{uid}.sh\"), \"w\"\n        ) as file:\n            file.write(script)\n",
-                    "lines": [
-                      32,
-                      107
-                    ]
-                  },
-                  "props": {
-                    "isClassMethod": false
-                  },
-                  "examples": []
-                },
-                "create_bash_script_local": {
-                  "docstring": "Write bash script for local execution.\n\nThe following environment variables are written to the script:\n    - DATABASE_DIR: Path to the database directory.\n    - SIMULATION_DIR: Path to the simulation directory.\n    - SIMULATION_ID: Full id of the simulation.",
-                  "signature": "(\n    self,\n    commands: list,\n    path: str,\n    uid: str,\n    db_id: str = None,\n    ntasks: int = 4\n) -> None",
-                  "returns": {
-                    "annotation": "None",
-                    "description": null
-                  },
-                  "arguments": {
-                    "self": {
-                      "default": null,
-                      "annotation": null,
-                      "description": null
-                    },
-                    "commands": {
-                      "default": null,
-                      "annotation": "<class 'list'>",
-                      "description": "List of commands to be executed."
-                    },
-                    "path": {
-                      "default": null,
-                      "annotation": "<class 'str'>",
-                      "description": "Path to the database directory."
-                    },
-                    "uid": {
-                      "default": null,
-                      "annotation": "<class 'str'>",
-                      "description": "Unique identifier of the simulation."
-                    },
-                    "db_id": {
-                      "default": "None",
-                      "annotation": "<class 'str'>",
-                      "description": "Database ID. Defaults to None."
-                    },
-                    "ntasks": {
-                      "default": "4",
-                      "annotation": "<class 'int'>",
-                      "description": "Number of tasks. Defaults to 4."
-                    }
-                  },
-                  "source": {
-                    "code": "    def create_bash_script_local(\n        self, commands: list, path: str, uid: str, db_id: str = None, ntasks: int = 4\n    ) -> None:\n        \"\"\"Write bash script for local execution.\n\n        The following environment variables are written to the script:\n            - DATABASE_DIR: Path to the database directory.\n            - SIMULATION_DIR: Path to the simulation directory.\n            - SIMULATION_ID: Full id of the simulation.\n\n        Args:\n            commands (list): List of commands to be executed.\n            path (str): Path to the database directory.\n            uid (str): Unique identifier of the simulation.\n            db_id (str): Database ID. Defaults to None.\n            ntasks (int): Number of tasks. Defaults to 4.\n        \"\"\"\n\n        # define how mpirun is called\n        mpicommand = \"\"\n        if ntasks > 1:\n            mpicommand = f\"mpirun -n {ntasks}\"\n\n        script = f\"#!/bin/bash\\n\\n\"\n\n        # add paths as environment variables\n        script += self._set_environment_variables(db_id, uid)\n\n        # user defined commands\n        for cmd in commands:\n            script += cmd.format(MPI=mpicommand) + \"\\n\"\n\n        with open(os.path.join(os.path.join(path, uid), f\"{uid}.sh\"), \"w\") as file:\n            file.write(script)\n",
-                    "lines": [
-                      109,
-                      142
-                    ]
-                  },
-                  "props": {
-                    "isClassMethod": false
-                  },
-                  "examples": []
-                }
-              },
-              "variables": {},
-              "inherits_from": {},
-              "examples": [],
-              "constructor": {
-                "signature": "()",
-                "arguments": {
-                  "self": {
-                    "default": null,
-                    "annotation": null,
-                    "description": null
-                  }
-                },
-                "source": {
-                  "code": "    def __init__(self):\n        pass\n",
-                  "lines": [
-                    19,
-                    20
-                  ]
-                }
-              }
-            }
-          },
-          "functions": {},
           "submodules": {}
         },
         "utilities": {
@@ -2276,12 +2109,12 @@
                     "dtype": {
                       "default": "None",
                       "annotation": "<class 'str'>",
-                      "description": "Optional. Numpy style datatype, see h5py documentation, defaults to the dtype of the vector"
+                      "description": "Optional. Numpy style datatype, see h5py documentation,\ndefaults to the dtype of the vector"
                     },
                     "center": {
                       "default": "Node",
                       "annotation": "<class 'str'>",
-                      "description": "Optional. Center of the data. Can be 'Node' or 'Cell'. Default is 'Node'."
+                      "description": "Optional. Center of the data. Can be 'Node' or 'Cell'.\nDefault is 'Node'."
                     }
                   },
                   "source": {
@@ -2562,7 +2395,7 @@
                     "description": "Path to database"
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ef07cff78e0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   },
@@ -2596,9 +2429,9 @@
               "methods": {
                 "list": {
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x743de432b740>)>",
+                  "signature": "(cls) -> <classmethod object at 0x7ef07cfd1c10>",
                   "returns": {
-                    "annotation": "<classmethod(<function Remote.list at 0x743de432b740>)>",
+                    "annotation": "<classmethod object at 0x7ef07cfd1c10>",
                     "description": null
                   },
                   "arguments": {
@@ -3121,16 +2954,16 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ef07cff78e0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   }
                 },
                 "source": {
-                  "code": "    def __init__(\n        self,\n        id: str,\n        remote: Remote,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n    ) -> None:\n        \"\"\"\n        params\n        skip_update: if True, does not lookup the new database on the remote:\n        \"\"\"\n        self.UID = id\n        self.remote = remote\n        self.comm = comm\n        self.path = os.path.join(self.remote.local_path, self.UID)\n        log.info(f\"Creating cache directory at {self.path}\")\n        os.makedirs(self.path, exist_ok=True)\n\n        self.remote_path_db = self._index.get_path(self.UID)\n\n        # check if path exists\n        if not os.path.isdir(self.path):\n            os.makedirs(self.path)\n\n        # Write the database ID file if it does not exist\n        if not os.path.exists(f\"{self.path}/.BAMBOOST-{self.UID}\"):\n            with open(f\"{self.path}/.BAMBOOST-{self.UID}\", \"w\") as f:\n                f.write(self.UID)\n\n        self.UID = id\n        self._index.insert_local_path(self.UID, self.path)\n\n        # Update the SQL table for the database\n        with self._index.open():\n            self._table.create_database_table()\n            # self._table.sync()\n",
+                  "code": "    def __init__(\n        self,\n        id: str,\n        remote: Remote,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n    ) -> None:\n        \"\"\"\n        params\n        skip_update: if True, does not lookup the new database on the remote:\n        \"\"\"\n        self.UID = id\n        self.remote = remote\n        self.comm = comm\n        self.path = os.path.join(self.remote.local_path, self.UID)\n        log.info(f\"Creating cache directory at {self.path}\")\n        os.makedirs(self.path, exist_ok=True)\n\n        self.remote_path_db = self._index.get_path(self.UID)\n\n        # check if path exists\n        if not os.path.isdir(self.path):\n            os.makedirs(self.path)\n\n        # Write the database ID file if it does not exist\n        if not os.path.exists(f\"{self.path}/.BAMBOOST-{self.UID}\"):\n            with open(f\"{self.path}/.BAMBOOST-{self.UID}\", \"w\") as f:\n                f.write(self.UID)\n\n        self.UID = id\n        self._index.insert_local_path(self.UID, self.path)\n\n        # Update the SQL table for the database\n        with self._index.open():\n            self._table.create_database_table()\n",
                   "lines": [
                     216,
-                    250
+                    249
                   ]
                 }
               }
@@ -4605,7 +4438,7 @@
                 "return_writer": {
                   "default": "False",
                   "annotation": "<class 'bool'>",
-                  "description": "if true, return `SimulationWriter`, otherwise return `Simulation`"
+                  "description": "if true, return `SimulationWriter`, otherwise\nreturn `Simulation`"
                 },
                 "writer_type": {
                   "default": "<class 'bamboost.simulation_writer.SimulationWriter'>",
@@ -4627,7 +4460,7 @@
             },
             "sims": {
               "docstring": "Get all simulations in a list. Optionally, get all simulations matching the\ngiven selection using pandas.",
-              "signature": "(\n    self,\n    select: pandas.core.series.Series | pandas.core.frame.DataFrame = None,\n    sort: str = None,\n    reverse: bool = False,\n    exclude: set = None,\n    return_writer: bool = False\n) -> list",
+              "signature": "(\n    self,\n    select: 'pd.Series | pd.DataFrame' = None,\n    sort: str = None,\n    reverse: bool = False,\n    exclude: set = None,\n    return_writer: bool = False\n) -> list",
               "returns": {
                 "annotation": "<class 'list'>",
                 "description": "A list of `:class:~bamboost.simulation.Simulation` objects"
@@ -4640,8 +4473,8 @@
                 },
                 "select": {
                   "default": "None",
-                  "annotation": "pandas.core.series.Series | pandas.core.frame.DataFrame",
-                  "description": "pandas boolean series or pandas DataFrame (being a subset of the full dataframe)"
+                  "annotation": "pd.Series | pd.DataFrame",
+                  "description": "pandas boolean series or pandas DataFrame\n(being a subset of the full dataframe)"
                 },
                 "sort": {
                   "default": "None",
@@ -4661,7 +4494,7 @@
                 "return_writer": {
                   "default": "False",
                   "annotation": "<class 'bool'>",
-                  "description": "if true, return `SimulationWriter`, otherwise return `Simulation`"
+                  "description": "if true, return `SimulationWriter`, otherwise\nreturn `Simulation`"
                 }
               },
               "source": {
@@ -4694,12 +4527,12 @@
                 "uid": {
                   "default": "None",
                   "annotation": "<class 'str'>",
-                  "description": "The name/uid for the simulation. If not specified, a random id will be assigned."
+                  "description": "The name/uid for the simulation. If not specified, a random id\nwill be assigned."
                 },
                 "parameters": {
                   "default": "None",
                   "annotation": "<class 'dict'>",
-                  "description": "Parameter dictionary. If provided, the parameters will be checked against the existing sims for duplication. Otherwise, they may be specified later with :func:`~bamboost.simulation_writer.SimulationWriter.add_parameters`."
+                  "description": "Parameter dictionary. If provided, the parameters will be\nchecked against the existing sims for duplication. Otherwise, they may be\nspecified later with :func:`~bamboost.simulation_writer.SimulationWriter.add_parameters`."
                 },
                 "skip_duplicate_check": {
                   "default": "False",
@@ -4714,14 +4547,14 @@
                 "duplicate_action": {
                   "default": "prompt",
                   "annotation": "<class 'str'>",
-                  "description": "how to deal with duplicates. `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`) default \"prompt\" for each duplicate on a case by case basis."
+                  "description": "how to deal with duplicates.\n`Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\ndefault \"prompt\" for each duplicate on a case by case basis."
                 }
               },
               "source": {
-                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        prefix: str = None,\n        duplicate_action: str = \"prompt\",\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with :func:`~bamboost.simulation_writer.SimulationWriter.add_parameters`.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n            duplicate_action (`str`): how to deal with duplicates.\n                `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\n                 default \"prompt\" for each duplicate on a case by case basis.\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on, uid = self._check_duplicate(\n                parameters, uid, duplicate_action=duplicate_action\n            )\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n        if parameters:\n            new_sim.add_parameters(parameters)\n        return new_sim\n",
+                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        prefix: str = None,\n        duplicate_action: str = \"prompt\",\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with :func:`~bamboost.simulation_writer.SimulationWriter.add_parameters`.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n            duplicate_action (`str`): how to deal with duplicates.\n                `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\n                 default \"prompt\" for each duplicate on a case by case basis.\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on = True\n            if self.comm.rank == 0:\n                go_on, uid = self._check_duplicate(\n                    parameters, uid, duplicate_action=duplicate_action\n                )\n            self.comm.bcast((go_on, uid), root=0)\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n        if parameters:\n            new_sim.add_parameters(parameters)\n        return new_sim\n",
                 "lines": [
                   438,
-                  497
+                  500
                 ]
               },
               "props": {
@@ -4754,8 +4587,8 @@
               "source": {
                 "code": "    def remove(self, uid: str) -> None:\n        \"\"\"CAUTION, DELETING DATA. Remove the data of a simulation.\n\n        Args:\n            uid (`str`): uid\n        \"\"\"\n        shutil.rmtree(os.path.join(self.path, uid))\n",
                 "lines": [
-                  499,
-                  505
+                  502,
+                  508
                 ]
               },
               "props": {
@@ -4765,7 +4598,7 @@
             },
             "find": {
               "docstring": "Find simulations with the given parameters.\n\nThe dictionary can contain callables to filter inequalities or other\nfilters.",
-              "signature": "(\n    self,\n    parameter_selection: dict[str, typing.Any]\n) -> pandas.core.frame.DataFrame",
+              "signature": "(\n    self,\n    parameter_selection: 'dict[str, Any]'\n) -> pandas.core.frame.DataFrame",
               "returns": {
                 "annotation": "<class 'pandas.core.frame.DataFrame'>",
                 "description": null
@@ -4778,15 +4611,15 @@
                 },
                 "parameter_selection": {
                   "default": null,
-                  "annotation": "dict[str, typing.Any]",
+                  "annotation": "dict[str, Any]",
                   "description": "parameter selection dictionary"
                 }
               },
               "source": {
                 "code": "    def find(self, parameter_selection: dict[str, Any]) -> pd.DataFrame:\n        \"\"\"Find simulations with the given parameters.\n\n        The dictionary can contain callables to filter inequalities or other\n        filters.\n\n        Examples:\n            >>> db.find({\"a\": 1, \"b\": lambda x: x > 2})\n            >>> db.find({\"a\": 1, \"b\": 2})\n\n        Args:\n            parameter_selection (dict): parameter selection dictionary\n        \"\"\"\n        parameter_selection = flatten_dict(parameter_selection)\n        params = {}\n        filters = {}\n        for key, val in parameter_selection.items():\n            if callable(val):\n                filters[key] = val\n            else:\n                params[key] = val\n\n        df = self._table.read_table()\n        matches = self._list_duplicates(params)\n        matches = df[df.id.isin(matches)]\n        if len(matches) == 0:\n            return matches\n\n        for key, func in filters.items():\n            matches = matches[func(matches[key])]\n\n        return matches\n",
                 "lines": [
-                  507,
-                  538
+                  510,
+                  541
                 ]
               },
               "props": {
@@ -4813,8 +4646,8 @@
               "source": {
                 "code": "    def global_fields_in_all(self) -> list:\n        \"\"\"Get a list of all global fields in all simulations.\n\n        Returns:\n            List of global fields\n        \"\"\"\n        fields = set()\n        for sim in self:\n            try:\n                fields.update(sim.globals.columns)\n            except KeyError:\n                continue\n\n        return fields\n",
                 "lines": [
-                  634,
-                  647
+                  637,
+                  650
                 ]
               },
               "props": {
@@ -4839,8 +4672,8 @@
               "source": {
                 "code": "    def get_parameters(self) -> dict:\n        \"\"\"Get the parameters used in this database.\n\n        Returns:\n            Dictionary of parameters with it's count, range, and type. Sorted by count.\n        \"\"\"\n        parameters = dict()\n        for sim in self:\n            for key, val in sim.parameters.items():\n                if key not in parameters:\n                    range = (val, val) if isinstance(val, numbers.Number) else None\n                    parameters[key] = {\"range\": range, \"count\": 1, \"type\": type(val)}\n                else:\n                    if isinstance(val, numbers.Number):\n                        parameters[key][\"range\"] = (\n                            min(parameters[key][\"range\"][0], val),\n                            max(parameters[key][\"range\"][1], val),\n                        )\n                    parameters[key][\"count\"] += 1\n                    parameters[key][\"type\"] = type(val)\n        return dict(\n            sorted(parameters.items(), key=lambda x: x[1][\"count\"], reverse=True)\n        )\n",
                 "lines": [
-                  649,
-                  671
+                  652,
+                  674
                 ]
               },
               "props": {
@@ -4893,7 +4726,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ef07cff78e0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -5058,9 +4891,9 @@
           "methods": {
             "fromUID": {
               "docstring": "Return the `Simulation` with given UID.\n",
-              "signature": "(full_uid: str, *, index_database: bamboost.index.IndexAPI = None) -> Self",
+              "signature": "(\n    full_uid: str,\n    *,\n    index_database: bamboost.index.IndexAPI = None\n) -> typing_extensions.Self",
               "returns": {
-                "annotation": "typing.Self",
+                "annotation": "typing_extensions.Self",
                 "description": null
               },
               "arguments": {
@@ -5078,8 +4911,8 @@
               "source": {
                 "code": "    @classmethod\n    def fromUID(cls, full_uid: str, *, index_database: index.IndexAPI = None) -> Self:\n        \"\"\"Return the `Simulation` with given UID.\n\n        Args:\n            full_uid: the full id (Database uid : simulation uid)\n        \"\"\"\n        if index_database is None:\n            index_database = index.IndexAPI()\n        db_uid, sim_uid = full_uid.split(\":\")\n        db_path = index_database.get_path(db_uid)\n        return cls(sim_uid, db_path, create_if_not_exists=False)\n",
                 "lines": [
-                  138,
-                  149
+                  137,
+                  148
                 ]
               },
               "props": {
@@ -5109,8 +4942,8 @@
               "source": {
                 "code": "    @with_file_open()\n    def __getitem__(self, key) -> hdf_pointer.BasePointer:\n        \"\"\"Direct access to HDF5 file.\n\n        Returns:\n            :class:`~bamboost.common.file_handler.BasePointer`\n        \"\"\"\n        return hdf_pointer.BasePointer.new_pointer(self._file, key)\n",
                 "lines": [
-                  151,
-                  158
+                  150,
+                  157
                 ]
               },
               "props": {
@@ -5140,8 +4973,8 @@
               "source": {
                 "code": "    def files(self, filename: str) -> str:\n        \"\"\"Get the path to the file.\n\n        Args:\n            filename: name of the file\n        \"\"\"\n        return os.path.join(self.path, filename)\n",
                 "lines": [
-                  256,
-                  262
+                  255,
+                  261
                 ]
               },
               "props": {
@@ -5186,8 +5019,8 @@
               "source": {
                 "code": "    def show_files(\n        self, level=-1, limit_to_directories=False, length_limit=1000, printit=True\n    ) -> str:\n        \"\"\"Show the file tree of the simulation directory.\n\n        Args:\n            level: how deep to print the tree\n            limit_to_directories: only print directories\n            length_limit: cutoff\n        \"\"\"\n        tree_string = utilities.tree(\n            self.path, level, limit_to_directories, length_limit\n        )\n        if printit:\n            print(tree_string)\n        else:\n            return tree_string\n",
                 "lines": [
-                  264,
-                  280
+                  263,
+                  279
                 ]
               },
               "props": {
@@ -5212,8 +5045,8 @@
               "source": {
                 "code": "    def open_in_file_explorer(self) -> None:\n        \"\"\"Open the simulation directory. Uses `xdg-open` on linux systems.\"\"\"\n        if os.name == \"nt\":  # should work on Windows\n            os.startfile(self.path)\n        else:\n            subprocess.run([\"xdg-open\", self.path])\n",
                 "lines": [
-                  282,
-                  287
+                  281,
+                  286
                 ]
               },
               "props": {
@@ -5238,8 +5071,8 @@
               "source": {
                 "code": "    def open_in_paraview(self) -> None:\n        \"\"\"Open the xdmf file in paraview.\"\"\"\n        subprocess.Popen([\"paraview\", self.xdmffile])\n",
                 "lines": [
-                  289,
-                  291
+                  288,
+                  290
                 ]
               },
               "props": {
@@ -5264,8 +5097,8 @@
               "source": {
                 "code": "    def get_full_uid(self) -> str:\n        \"\"\"Returns the full uid of the simulation (including the one of the database)\"\"\"\n        database_uid = index.get_uid_from_path(self.path_database)\n        return f\"{database_uid}:{self.uid}\"\n",
                 "lines": [
-                  293,
-                  296
+                  292,
+                  295
                 ]
               },
               "props": {
@@ -5295,8 +5128,8 @@
               "source": {
                 "code": "    def change_status(self, status: str) -> None:\n        \"\"\"Change status of simulation.\n\n        Args:\n            status (str): new status\n        \"\"\"\n        if self._prank == 0:\n            self._file.open(\"a\")\n            self._file.attrs[\"status\"] = status\n            self._file.close()\n\n        self._push_update_to_sqlite({\"status\": status})\n",
                 "lines": [
-                  298,
-                  309
+                  297,
+                  308
                 ]
               },
               "props": {
@@ -5326,8 +5159,8 @@
               "source": {
                 "code": "    def update_metadata(self, update_dict: dict) -> None:\n        \"\"\"Update the metadata attributes.\n\n        Args:\n            update_dict: dictionary to push\n        \"\"\"\n        if self._prank == 0:\n            update_dict = utilities.flatten_dict(update_dict)\n            with self._file(\"a\") as file:\n                file.attrs.update(update_dict)\n\n            self._push_update_to_sqlite(update_dict)\n",
                 "lines": [
-                  311,
-                  322
+                  310,
+                  321
                 ]
               },
               "props": {
@@ -5357,8 +5190,8 @@
               "source": {
                 "code": "    def update_parameters(self, update_dict: dict) -> None:\n        \"\"\"Update the parameters dictionary.\n\n        Args:\n            update_dict: dictionary to push\n        \"\"\"\n        if self._prank == 0:\n            update_dict = utilities.flatten_dict(update_dict)\n            with self._file(\"a\") as file:\n                file[\"parameters\"].attrs.update(update_dict)\n\n            self._push_update_to_sqlite(update_dict)\n",
                 "lines": [
-                  324,
-                  335
+                  323,
+                  334
                 ]
               },
               "props": {
@@ -5382,7 +5215,7 @@
                 "fields": {
                   "default": "None",
                   "annotation": "<class 'list'>",
-                  "description": "fields for which to write timeseries information, if not specified, all fields in data are written."
+                  "description": "fields for which to write timeseries information,\nif not specified, all fields in data are written."
                 },
                 "nb_steps": {
                   "default": "None",
@@ -5393,8 +5226,8 @@
               "source": {
                 "code": "    def create_xdmf_file(self, fields: list = None, nb_steps: int = None) -> None:\n        \"\"\"Create the xdmf file to read in paraview.\n\n        Args:\n            fields (list[str]): fields for which to write timeseries information,\n                if not specified, all fields in data are written.\n            nb_steps (int): number of steps the simulation has\n        \"\"\"\n\n        if self._prank == 0:\n            with self._file(\"r\") as f:\n                if \"data\" not in f.keys():\n                    fields, nb_steps = [], 0\n                if fields is None:\n                    fields = list(f[\"data\"].keys())\n\n                if nb_steps is None:\n                    grp_name = list(f[\"data\"].keys())[0]\n                    nb_steps = list(f[f\"data/{grp_name}\"].keys())\n                    nb_steps = max(\n                        [int(step) for step in nb_steps if not step.startswith(\"__\")]\n                    )\n\n                # temporary fix to load coordinates/geometry\n                coords_name = (\n                    \"geometry\"\n                    if \"geometry\"\n                    in f[f\"{self._mesh_location}/{self._default_mesh}\"].keys()\n                    else \"coordinates\"\n                )\n\n            xdmf_writer = XDMFWriter(self.xdmffile, self.h5file)\n            xdmf_writer.write_points_cells(\n                f\"{self._mesh_location}/{self._default_mesh}/{coords_name}\",\n                f\"{self._mesh_location}/{self._default_mesh}/topology\",\n            )\n\n            if fields:\n                xdmf_writer.add_timeseries(nb_steps + 1, fields)\n            xdmf_writer.write_file()\n",
                 "lines": [
-                  337,
-                  376
+                  336,
+                  375
                 ]
               },
               "props": {
@@ -5404,7 +5237,7 @@
             },
             "create_run_script": {
               "docstring": "Create a batch job and put it into the folder.\n",
-              "signature": "(\n    self,\n    commands: list = None,\n    nnodes: int = 1,\n    ntasks: int = 4,\n    ncpus: int = 1,\n    time: str = '04:00:00',\n    mem_per_cpu: int = 2048,\n    tmp=None,\n    euler: bool = True,\n    sbatch_kwargs: list = None\n) -> None",
+              "signature": "(\n    self,\n    commands: 'list[str]',\n    euler: bool = True,\n    sbatch_kwargs: 'dict[str, Any]' = None\n) -> None",
               "returns": {
                 "annotation": "None",
                 "description": null
@@ -5416,39 +5249,9 @@
                   "description": null
                 },
                 "commands": {
-                  "default": "None",
-                  "annotation": "<class 'list'>",
+                  "default": null,
+                  "annotation": "list[str]",
                   "description": "A list of strings being the user defined commands to run"
-                },
-                "nnodes": {
-                  "default": "1",
-                  "annotation": "<class 'int'>",
-                  "description": "nb of nodes (default=1)"
-                },
-                "ntasks": {
-                  "default": "4",
-                  "annotation": "<class 'int'>",
-                  "description": "nb of tasks (default=4)"
-                },
-                "ncpus": {
-                  "default": "1",
-                  "annotation": "<class 'int'>",
-                  "description": "nb of cpus per task (default=1)"
-                },
-                "time": {
-                  "default": "04:00:00",
-                  "annotation": "<class 'str'>",
-                  "description": "requested time, format \"HH:MM:SS\" (default=4 hours)"
-                },
-                "mem_per_cpu": {
-                  "default": "2048",
-                  "annotation": "<class 'int'>",
-                  "description": "memory (default=2048)"
-                },
-                "tmp": {
-                  "default": "None",
-                  "annotation": null,
-                  "description": "temporary storage, set None to exclude option (default=8000)"
                 },
                 "euler": {
                   "default": "True",
@@ -5457,15 +5260,15 @@
                 },
                 "sbatch_kwargs": {
                   "default": "None",
-                  "annotation": "<class 'list'>",
-                  "description": "Additional sbatch arguments. allow to provide additional sbatch arguments. in the format [\"--mail=BEGIN,END,FAIL\", ...]."
+                  "annotation": "dict[str, Any]",
+                  "description": "Additional sbatch arguments.\nThis parameter allows you to provide additional arguments to the `sbatch` command\nwhen submitting jobs to a Slurm workload manager. The arguments should be provided\nin the format of a dict of sbatch option name and values.\n\nUse this parameter to specify various job submission options such as the number of\ntasks, CPU cores, memory requirements, email notifications, and other sbatch options\nthat are not covered by default settings.\nBy default, the following sbatch options are set:\n- `--output`: The output file is set to `<uid>.out`.\n- `--job-name`: The job name is set to `<full_uid>`.\n\nThe following arguments should bring you far:\n- `--ntasks`: The number of tasks to run. This is the number of MPI processes to start.\n- `--mem-per-cpu`: The memory required per CPU core.\n- `--time`: The maximum time the job is allowed to run.\n- `--tmp`: Temporary scratch space to use for the job."
                 }
               },
               "source": {
-                "code": "    def create_run_script(\n        self,\n        commands: list = None,\n        nnodes: int = 1,\n        ntasks: int = 4,\n        ncpus: int = 1,\n        time: str = \"04:00:00\",\n        mem_per_cpu: int = 2048,\n        tmp=None,\n        euler: bool = True,\n        sbatch_kwargs: list = None,\n    ) -> None:\n        \"\"\"Create a batch job and put it into the folder.\n\n        Args:\n            commands: A list of strings being the user defined commands to run\n            nnodes: nb of nodes (default=1)\n            ntasks: nb of tasks (default=4)\n            ncpus: nb of cpus per task (default=1)\n            time: requested time, format \"HH:MM:SS\" (default=4 hours)\n            mem_per_cpu: memory (default=2048)\n            tmp: temporary storage, set None to exclude option (default=8000)\n            euler: If false, a local bash script will be written\n            sbatch_kwargs: Additional sbatch arguments. allow to provide\n                additional sbatch arguments. in the format [\"--mail=BEGIN,END,FAIL\", ...].\n        \"\"\"\n        job = Job()\n\n        if euler:\n            job.create_sbatch_script(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                db_id=self.database_id,\n                nnodes=nnodes,\n                ntasks=ntasks,\n                ncpus=ncpus,\n                time=time,\n                mem_per_cpu=mem_per_cpu,\n                tmp=tmp,\n                sbatch_kwargs=sbatch_kwargs,\n            )\n        else:\n            job.create_bash_script_local(\n                commands,\n                path=os.path.abspath(self.path_database),\n                uid=self.uid,\n                db_id=self.database_id,\n                ntasks=ntasks,\n            )\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": False})\n",
+                "code": "    def create_run_script(\n        self,\n        commands: list[str],\n        euler: bool = True,\n        sbatch_kwargs: dict[str, Any] = None,\n    ) -> None:\n        \"\"\"Create a batch job and put it into the folder.\n\n        Args:\n            commands: A list of strings being the user defined commands to run\n            euler: If false, a local bash script will be written\n            sbatch_kwargs: Additional sbatch arguments.\n                This parameter allows you to provide additional arguments to the `sbatch` command\n                when submitting jobs to a Slurm workload manager. The arguments should be provided\n                in the format of a dict of sbatch option name and values.\n\n                Use this parameter to specify various job submission options such as the number of\n                tasks, CPU cores, memory requirements, email notifications, and other sbatch options\n                that are not covered by default settings.\n                By default, the following sbatch options are set:\n                - `--output`: The output file is set to `<uid>.out`.\n                - `--job-name`: The job name is set to `<full_uid>`.\n\n                The following arguments should bring you far:\n                - `--ntasks`: The number of tasks to run. This is the number of MPI processes to start.\n                - `--mem-per-cpu`: The memory required per CPU core.\n                - `--time`: The maximum time the job is allowed to run.\n                - `--tmp`: Temporary scratch space to use for the job.\n        \"\"\"\n        def _set_environment_variables():\n            return (\n                f\"\"\"DATABASE_DIR=$(sqlite3 {paths['DATABASE_FILE']} \"SELECT path FROM dbindex WHERE id='{self.database_id}'\")\\n\"\"\"\n                f\"SIMULATION_DIR=$DATABASE_DIR/{self.uid}\\n\"\n                f\"SIMULATION_ID={self.database_id}:{self.uid}\\n\\n\"\n            )\n\n        script = \"#!/bin/bash\\n\\n\"\n        if euler:\n            # Write sbatch submission script for EULER\n            # filename: sbatch_{self.uid}.sh\n            if sbatch_kwargs is None:\n                sbatch_kwargs = {}\n\n            sbatch_kwargs.setdefault(\"--output\", f\"{self.path}/{self.uid}.out\")\n            sbatch_kwargs.setdefault(\"--job-name\", self.get_full_uid())\n\n            for key, value in sbatch_kwargs.items():\n                script += f\"#SBATCH {key}={value}\\n\"\n\n            script += \"\\n\"\n            script += _set_environment_variables()\n            script += \"\\n\".join(commands)\n\n            with open(self.files(f\"sbatch_{self.uid}.sh\"), \"w\") as file:\n                file.write(script)\n        else:\n            # Write local bash script\n            # filename: {self.uid}.sh\n            script += _set_environment_variables()\n            script += \"\\n\".join(commands)\n\n            with open(self.files(f\"{self.uid}.sh\"), \"w\") as file:\n                file.write(script)\n\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": False})\n        self._push_update_to_sqlite({\"submitted\": False})\n",
                 "lines": [
-                  378,
-                  429
+                  377,
+                  443
                 ]
               },
               "props": {
@@ -5500,8 +5303,8 @@
               "source": {
                 "code": "    @deprecated(\"use `create_run_script` instead\")\n    def create_batch_script(self, *args, **kwargs):\n        return self.create_run_script(*args, **kwargs)\n",
                 "lines": [
-                  431,
-                  433
+                  445,
+                  447
                 ]
               },
               "props": {
@@ -5526,8 +5329,8 @@
               "source": {
                 "code": "    def submit(self) -> None:\n        \"\"\"Submit the job for this simulation.\"\"\"\n        if f\"sbatch_{self.uid}.sh\" in os.listdir(self.path):\n            batch_script = os.path.abspath(\n                os.path.join(self.path, f\"sbatch_{self.uid}.sh\")\n            )\n            env = os.environ.copy()\n            _ = env.pop(\"BAMBOOST_MPI\", None)\n            subprocess.run([\"sbatch\", f\"{batch_script}\"], env=env)\n        elif f\"{self.uid}.sh\" in os.listdir(self.path):\n            bash_script = os.path.abspath(os.path.join(self.path, f\"{self.uid}.sh\"))\n            env = os.environ.copy()\n            _ = env.pop(\"BAMBOOST_MPI\", None)\n            subprocess.run([\"bash\", f\"{bash_script}\"], env=env)\n        else:\n            raise FileNotFoundError(\n                f\"Could not find a batch script for simulation {self.uid}.\"\n            )\n\n        log.info(f\"Simulation {self.uid} submitted!\")\n\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": True})\n\n        self._push_update_to_sqlite({\"submitted\": True})\n",
                 "lines": [
-                  435,
-                  459
+                  449,
+                  473
                 ]
               },
               "props": {
@@ -5557,8 +5360,8 @@
               "source": {
                 "code": "    @with_file_open(\"a\")\n    def change_note(self, note) -> None:\n        if self._prank == 0:\n            self._file.attrs[\"notes\"] = note\n            self._push_update_to_sqlite({\"notes\": note})\n",
                 "lines": [
-                  461,
-                  465
+                  475,
+                  479
                 ]
               },
               "props": {
@@ -5598,8 +5401,8 @@
               "source": {
                 "code": "    def open(self, mode: str = \"r\", driver=None, comm=None) -> FileHandler:\n        \"\"\"Use this as a context manager in a `with` statement.\n        Purpose: keeping the file open to directly access/edit something in the\n        HDF5 file of this simulation.\n\n        Args:\n            mode (`str`): file mode (see h5py docs)\n            driver (`str`): file driver (see h5py docs)\n            comm (`str`): mpi communicator\n        \"\"\"\n        return self._file(mode, driver, comm)\n",
                 "lines": [
-                  470,
-                  480
+                  484,
+                  494
                 ]
               },
               "props": {
@@ -5629,8 +5432,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\")\n    def get_mesh(self, mesh_name: str = None) -> Tuple[np.ndarray, np.ndarray]:\n        \"\"\"Return coordinates and connectivity. Currently returns numpy arrays.\n\n        Args:\n            mesh_name (`str`): optional, name of mesh to read (default = mesh)\n        Returns:\n            Tuple of np.arrays (coordinates, connectivity)\n        \"\"\"\n        if mesh_name is None:\n            mesh_name = self._default_mesh\n\n        # Raise an error if the mesh is not found\n        if (self._mesh_location.split(\"/\")[0] not in self._file.keys()) or (\n            mesh_name not in self._file[self._mesh_location].keys()\n        ):\n            raise KeyError(f\"Mesh location {self._mesh_location} not found in file.\")\n\n        mesh = self.meshes[mesh_name]\n        return mesh.coordinates, mesh.connectivity\n",
                 "lines": [
-                  491,
-                  510
+                  505,
+                  524
                 ]
               },
               "props": {
@@ -5665,8 +5468,8 @@
               "source": {
                 "code": "    def get_data_interpolator(self, field: str, step: int):\n        \"\"\"Get Linear interpolator for data field at step. Uses the linked mesh.\n\n        Args:\n            name (`str`): name of the data field\n            step (`int`): step\n        Returns:\n            :class:`scipy.interpolate.LinearNDInterpolator`\n        \"\"\"\n        from scipy.interpolate import LinearNDInterpolator\n\n        return LinearNDInterpolator(\n            self.data[field].mesh.coordinates, self.data[field].at_step(step)\n        )\n",
                 "lines": [
-                  549,
-                  562
+                  563,
+                  576
                 ]
               },
               "props": {
@@ -5691,8 +5494,8 @@
               "source": {
                 "code": "    @with_file_open()\n    def show_h5tree(self) -> None:\n        \"\"\"Print the tree inside the h5 file.\"\"\"\n        # print('\\U00002B57 ' + os.path.basename(self.h5file))\n        print(\"\\U0001f43c \" + os.path.basename(self.h5file))\n        utilities.h5_tree(self._file.file_object)\n",
                 "lines": [
-                  564,
-                  569
+                  578,
+                  583
                 ]
               },
               "props": {
@@ -5717,8 +5520,8 @@
               "source": {
                 "code": "    @contextmanager\n    def enter_path(self):\n        \"\"\"A context manager for changing the working directory to this simulations' path.\n\n        >>> with sim.working_directory():\n        >>>     ...\n        \"\"\"\n\n        current_dir = os.getcwd()\n        try:\n            os.chdir(self.path)\n            yield\n        finally:\n            os.chdir(current_dir)\n",
                 "lines": [
-                  571,
-                  584
+                  585,
+                  598
                 ]
               },
               "props": {
@@ -5814,7 +5617,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ef07cff78e0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               },
@@ -5832,8 +5635,8 @@
             "source": {
               "code": "    def __init__(\n        self,\n        uid: str,\n        path: str,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n        create_if_not_exists: bool = False,\n        *,\n        _db_id: str = None,\n    ):\n        self.uid: str = uid\n        path = comm.bcast(path, root=0)\n        self.path_database: str = os.path.abspath(path)\n        self.database_id = _db_id or index.get_uid_from_path(self.path_database)\n        self.path: str = os.path.abspath(os.path.join(path, uid))\n        self.h5file: str = os.path.join(self.path, f\"{self.uid}.h5\")\n        self.xdmffile: str = os.path.join(self.path, f\"{self.uid}.xdmf\")\n\n        if not os.path.exists(self.h5file) and not create_if_not_exists:\n            raise FileNotFoundError(\n                f\"Simulation {self.uid} does not exist in {self.path}.\"\n            )\n\n        os.makedirs(self.path, exist_ok=True)\n\n        # MPI information\n        self._comm = comm\n        self._psize = self._comm.size\n        self._prank = self._comm.rank\n        self._ranks = np.array([i for i in range(self._psize)])\n\n        self._file = FileHandler(self.h5file)\n\n        # Initialize groups to meshes, data and userdata. Create groups.\n        self.meshes: MeshGroup = MeshGroup(self._file)\n        self.data: DataGroup = DataGroup(self._file, self.meshes)\n        self.globals: GlobalGroup = GlobalGroup(self._file, \"/globals\")\n        self.userdata: hdf_pointer.MutableGroup = hdf_pointer.MutableGroup(\n            self._file, \"/userdata\"\n        )\n        self.links: Links = Links(self._file)\n",
               "lines": [
-                97,
-                136
+                96,
+                135
               ]
             }
           }
@@ -5865,8 +5668,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\", driver=\"mpio\")\n    def __getitem__(self, key) -> Simulation:\n        \"\"\"Returns the linked simulation object.\"\"\"\n        return Simulation.fromUID(self.obj.attrs[key])\n",
                 "lines": [
-                  54,
-                  57
+                  53,
+                  56
                 ]
               },
               "props": {
@@ -5901,8 +5704,8 @@
               "source": {
                 "code": "    def __setitem__(self, key, newvalue):\n        \"\"\"Creates the link.\"\"\"\n        return self.update_attrs({key: newvalue})\n",
                 "lines": [
-                  59,
-                  61
+                  58,
+                  60
                 ]
               },
               "props": {
@@ -5927,8 +5730,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\")\n    def all_links(self) -> dict:\n        return dict(self.obj.attrs)\n",
                 "lines": [
-                  80,
-                  82
+                  79,
+                  81
                 ]
               },
               "props": {
@@ -6017,8 +5820,8 @@
             "source": {
               "code": "    def __init__(self, file_handler: FileHandler) -> None:\n        super().__init__(file_handler, path_to_data=\"links\")\n",
               "lines": [
-                48,
-                49
+                47,
+                48
               ]
             }
           }
@@ -6196,12 +5999,12 @@
                 "dtype": {
                   "default": "None",
                   "annotation": "<class 'str'>",
-                  "description": "Optional. Numpy style datatype, see h5py documentation, defaults to the dtype of the vector."
+                  "description": "Optional. Numpy style datatype, see h5py documentation,\ndefaults to the dtype of the vector."
                 },
                 "center": {
                   "default": "Node",
                   "annotation": "<class 'str'>",
-                  "description": "Optional. Center of the data. Can be 'Node' or 'Cell'. Default is 'Node'."
+                  "description": "Optional. Center of the data. Can be 'Node' or 'Cell'.\nDefault is 'Node'."
                 }
               },
               "source": {
@@ -6698,7 +6501,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x743de48d8890>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7ef07cff78e0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               },
