@@ -30,6 +30,15 @@
   --ifm-font-family-monospace: 'Fira Code', monospace;
   --radius: 6px;
 
+  background-color: var(--base);
+  // background-image: url('/static/img/background.svg');
+  background-size: cover;
+  background-blend-mode: overlay;
+  background-position: top;
+  background-repeat: no-repeat;
+  color: var(--text);
+  scroll-behavior: smooth;
+
   &[data-theme='light'] {
     @each $key, $value in $colorsLight {
       --#{$key}: #{$value};
@@ -69,15 +78,6 @@
     --ifm-navbar-search-input-background-color: var(--base-lighter);
     --ifm-navbar-search-input-color: var(--text);
   }
-
-  background-color: var(--base);
-  // background-image: url('/static/img/background.svg');
-  background-size: cover;
-  background-blend-mode: overlay;
-  background-position: top;
-  background-repeat: no-repeat;
-  color: var(--text);
-  scroll-behavior: smooth;
 
   // blur noise overlay
   &::after {
@@ -136,8 +136,3 @@ h5 {
   font-family: 'Montserrat', sans-serif;
   letter-spacing: -0.01em;
 }
-
-// h1 {
-//   margin-top: 1em;
-//   margin-bottom: 0.5em;
-// }
