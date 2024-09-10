@@ -4,10 +4,10 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
-import AuthorHeader from '@theme/BlogPostItem/Header/Author';
 
 import DatabaseScreenshot from '@site/static/img/database.png';
 import WelcomeScreenshot from '@site/static/img/bamboost-welcome.png';
+import BlogAuthor from '@theme/Blog/Components/Author';
 
 import styles from './index.module.scss';
 import { useEffect, useState } from 'react';
@@ -89,7 +89,7 @@ function RecentBlogPostCard({ recentPost }) {
         <h2>{metadata.title}</h2>
       </Link>
       <p>{metadata.description}</p>
-      <AuthorHeader author={metadata.authors[0]} />
+      <BlogAuthor author={metadata.authors[0]} />
       <hr />
       <Preview />
     </article>

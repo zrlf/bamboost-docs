@@ -35,7 +35,6 @@ $padding: 3em;
 }
 
 .blogContainer {
-  // padding: 3rem;
   max-width: $maxwidth;
   padding: 0 $padding;
 
@@ -58,7 +57,7 @@ $padding: 3em;
     // background-color: var(--base-content);
     background-image: linear-gradient(
       to bottom left,
-      var(--base-content),
+      var(--base),
       color-mix(in srgb, var(--base-content), transparent 50%)
     );
     padding: 1rem;
@@ -66,6 +65,10 @@ $padding: 3em;
     flex-shrink: 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
+
+    h2 {
+      margin-top: 1ex;
+    }
   }
 }
 
