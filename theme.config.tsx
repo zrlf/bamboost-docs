@@ -2,9 +2,9 @@ import { useConfig, type DocsThemeConfig } from "nextra-theme-docs";
 
 const config: DocsThemeConfig = {
   logo: (
-    <div className="_flex _gap-2 _items-center">
-      <img src="/logo_round.png" className="_h-8" alt="logo" />
-      <span className="_font-bold">BAMBOOST</span>
+    <div style={{display: 'flex', gap: "0.5rem", alignItems: 'center'}}>
+      <img src="/logo_round.png" style={{height: '2rem'}} alt="logo" />
+      <span style={{fontWeight: 'bold'}}>BAMBOOST</span>
     </div>
   ),
   project: {
