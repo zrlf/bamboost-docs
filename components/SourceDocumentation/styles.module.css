@@ -1,0 +1,43 @@
+.headerClass {
+  font-size: 1.3em;
+  font-weight: bold;
+  background-color: #2e3440;
+  /* border-radius: 10px 10px 0 0; */
+  padding: 0.5rem 1rem;
+}
+
+.srcClassContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-left: 3rem;
+  gap: 1rem;
+}
+
+.headerMethod {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.methodTitle::before {
+  @apply bg-foreground;
+  --radius: 0.7rem;
+  content: "";
+  position: absolute;
+  top: calc(0.5rem - (var(--radius) - 1rem) / 2);
+  left: calc(-1.25rem - var(--radius) / 2);
+  width: var(--radius);
+  height: var(--radius);
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.classContent::before {
+  @apply bg-gray-700;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1.25rem;
+  height: 100%;
+  width: 1px;
+}

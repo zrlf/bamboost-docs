@@ -1,27 +1,38 @@
-# Dependencies
-node_modules
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Production
-build
-public
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
 
-# Generated files
-.docusaurus
-.cache-loader
+# testing
+/coverage
 
-# Misc
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-__pycache__/
+*.pem
 
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-tmp
+# local env files
+.env*.local
 
-process.yml
-package-lock.json
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+.content-collections
+__pycache__

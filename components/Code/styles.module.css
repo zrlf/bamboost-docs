@@ -1,0 +1,7 @@
+.codeConstructor {
+  /* border-radius: 0 0 10px 10px; */
+}
+
+.pre, .pre span {
+  background-color: var(--highlight) !important;
+}
