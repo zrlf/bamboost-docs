@@ -49,8 +49,8 @@ const Home = () => {
         bamboo can fully carry pandas. 🐼🐼🐼🐼`}
           </p>
           <p className="subtitle md:flex md:flex-row md:gap-3 items-start">
-            <Link className={styles.cta} href="/docs/basics/03_getting_started">Get started <span>→</span></Link>
-            <Link className={styles.cta} href="/docs">Documentation <span>→</span></Link>
+            <Link className={styles.cta} href="/docs/basics/getting_started">Get started <span>→</span></Link>
+            <Link className={styles.cta} href="/docs/basics/getting_started">Documentation <span>→</span></Link>
             <Link className={styles.cta} href="/apidocs/manager">API documentation <span>→</span></Link>
           </p>
         </div>

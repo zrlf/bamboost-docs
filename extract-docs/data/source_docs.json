@@ -139,10 +139,6 @@
                     [
                       "function",
                       "datasets"
-                    ],
-                    [
-                      "function",
-                      "extract_attrs"
                     ]
                   ]
                 },
@@ -271,10 +267,6 @@
                     [
                       "function",
                       "datasets"
-                    ],
-                    [
-                      "function",
-                      "extract_attrs"
                     ]
                   ]
                 },
@@ -386,9 +378,9 @@
                 "__iter__": {
                   "name": "__iter__",
                   "docstring": "",
-                  "signature": "(self) -> 'Generator[FieldData]'",
+                  "signature": "(self) -> bamboost.accessors.fielddata.FieldData",
                   "returns": {
-                    "annotation": "Generator[FieldData]",
+                    "annotation": "<class 'bamboost.accessors.fielddata.FieldData'>",
                     "description": null
                   },
                   "arguments": {
@@ -399,7 +391,7 @@
                     }
                   },
                   "source": {
-                    "code": "    def __iter__(self) -> Generator[FieldData]:\n        for key in self.keys():\n            yield self.__getitem__(key)\n",
+                    "code": "    def __iter__(self) -> FieldData:\n        for key in self.keys():\n            yield self.__getitem__(key)\n",
                     "lines": [
                       50,
                       52
@@ -438,10 +430,6 @@
                     [
                       "function",
                       "datasets"
-                    ],
-                    [
-                      "function",
-                      "extract_attrs"
                     ]
                   ]
                 },
@@ -559,37 +547,10 @@
                     }
                   },
                   "source": {
-                    "code": "    @with_file_open(\"r\")\n    def __len__(self) -> int:\n        return len(self.datasets())\n",
+                    "code": "    @with_file_open(\"r\")\n    def __len__(self) -> int:\n        non_field_keys = set({self._vds_key, self._times_key})\n        return len(self.keys() - non_field_keys)\n",
                     "lines": [
-                      113,
-                      115
-                    ]
-                  },
-                  "props": {
-                    "isClassMethod": false
-                  },
-                  "examples": []
-                },
-                "datasets": {
-                  "name": "datasets",
-                  "docstring": "",
-                  "signature": "(self) -> set",
-                  "returns": {
-                    "annotation": "<class 'set'>",
-                    "description": null
-                  },
-                  "arguments": {
-                    "self": {
-                      "default": null,
-                      "annotation": "<class 'inspect._empty'>",
-                      "description": null
-                    }
-                  },
-                  "source": {
-                    "code": "    @with_file_open(\"r\")\n    def datasets(self) -> set:\n        return super().datasets() - {self._vds_key, self._times_key}\n",
-                    "lines": [
-                      117,
-                      119
+                      108,
+                      111
                     ]
                   },
                   "props": {
@@ -620,8 +581,8 @@
                   "source": {
                     "code": "    @with_file_open()\n    def at_step(self, *steps: int) -> np.ndarray:\n        \"\"\"Direct access to data at step. Does not require the virtual dataset.\n\n        Args:\n            step0, step1, ...: step to extract (can be multiple)\n        Returns:\n            :class:`np.ndarray`\n        \"\"\"\n        data = list()\n        for step in steps:\n            if step < 0:\n                step = len(self) + step\n            data.append(self.obj[str(step)][()])\n        if len(data) <= 1:\n            return data[0]\n        else:\n            return data\n",
                     "lines": [
-                      131,
-                      148
+                      123,
+                      140
                     ]
                   },
                   "props": {
@@ -647,8 +608,8 @@
                   "source": {
                     "code": "    def regenerate_virtual_datasets(self) -> None:\n        \"\"\"Regenerate virtual dataset. Call this if the data has changed, thus the\n        virtual datasets need to be updated to cover the actual data.\n        \"\"\"\n        self._create_times()\n        self._create_vds()\n",
                     "lines": [
-                      189,
-                      194
+                      181,
+                      186
                     ]
                   },
                   "props": {
@@ -717,7 +678,7 @@
                     ],
                     [
                       "function",
-                      "extract_attrs"
+                      "datasets"
                     ]
                   ]
                 },
@@ -821,10 +782,6 @@
                     [
                       "function",
                       "datasets"
-                    ],
-                    [
-                      "function",
-                      "extract_attrs"
                     ]
                   ]
                 },
@@ -1090,7 +1047,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x78ea9e1cbc20>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x799c9c9b7dd0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -1735,38 +1692,6 @@
                     "isClassMethod": false
                   },
                   "examples": []
-                },
-                "extract_attrs": {
-                  "name": "extract_attrs",
-                  "docstring": "Extract the attributes of all members of the group.\n",
-                  "signature": "(self, variant: Literal['group', 'dataset', 'all'] = 'all') -> dict",
-                  "returns": {
-                    "annotation": "<class 'dict'>",
-                    "description": null
-                  },
-                  "arguments": {
-                    "self": {
-                      "default": null,
-                      "annotation": "<class 'inspect._empty'>",
-                      "description": null
-                    },
-                    "variant": {
-                      "default": "all",
-                      "annotation": "typing.Literal['group', 'dataset', 'all']",
-                      "description": "one of 'group', 'dataset', 'all'"
-                    }
-                  },
-                  "source": {
-                    "code": "    @with_file_open(\"r\")\n    def extract_attrs(\n        self, variant: Literal[\"group\", \"dataset\", \"all\"] = \"all\"\n    ) -> dict:\n        \"\"\"Extract the attributes of all members of the group.\n\n        Args:\n            variant: one of 'group', 'dataset', 'all'\n        \"\"\"\n        if variant == \"group\":\n            keys = self.groups()\n        elif variant == \"dataset\":\n            keys = self.datasets()\n        elif variant == \"all\":\n            keys = self.keys()\n        else:\n            raise ValueError(\"variant must be one of 'group', 'dataset', 'all'\")\n\n        attrs = {}\n        for key in keys:\n            attrs[key] = dict(self.obj[key].attrs)\n        return attrs\n",
-                    "lines": [
-                      120,
-                      141
-                    ]
-                  },
-                  "props": {
-                    "isClassMethod": false
-                  },
-                  "examples": []
                 }
               },
               "properties": [],
@@ -1854,8 +1779,8 @@
                   "source": {
                     "code": "    @with_file_open(\"r\")\n    def __getitem__(self, key) -> Any:\n        \"\"\"Used to access datasets (:class:`~bamboost.common.hdf_pointer.Dataset`)\n        or groups inside this group (:class:`~bamboost.common.hdf_pointer.MutableGroup`)\n        \"\"\"\n        try:\n            return super().__getitem__(key)\n        except KeyError:\n            pass\n\n        try:\n            return self.obj.attrs[key]\n        except KeyError:\n            pass\n\n        return super().__getitem__(key)\n",
                     "lines": [
-                      203,
-                      218
+                      180,
+                      195
                     ]
                   },
                   "props": {
@@ -1891,8 +1816,8 @@
                   "source": {
                     "code": "    def __setitem__(self, key, newvalue):\n        \"\"\"Used to set an attribute.\n        Will be written as an attribute to the group.\n        \"\"\"\n        if isinstance(newvalue, str) or not isinstance(newvalue, Iterable):\n            self.update_attrs({key: newvalue})\n        else:\n            self.add_dataset(key, np.array(newvalue))\n",
                     "lines": [
-                      220,
-                      227
+                      197,
+                      204
                     ]
                   },
                   "props": {
@@ -1923,8 +1848,8 @@
                   "source": {
                     "code": "    @with_file_open(\"a\")\n    def update_attrs(self, attrs: dict) -> None:\n        \"\"\"Update the attributes of the group.\n\n        Args:\n            attrs: the dictionary to write as attributes\n        \"\"\"\n        self.obj.attrs.update(attrs)\n",
                     "lines": [
-                      237,
-                      244
+                      214,
+                      221
                     ]
                   },
                   "props": {
@@ -1970,8 +1895,8 @@
                   "source": {
                     "code": "    def add_dataset(\n        self, name: str, vector: np.ndarray, attrs: dict = None, dtype: str = None\n    ) -> None:\n        \"\"\"Add a dataset to the group. Error is thrown if attempting to overwrite\n        with different shape than before. If same shape, data is overwritten\n        (this is inherited from h5py -> require_dataset)\n\n        Args:\n            name: Name for the dataset\n            vector: Data to write (max 2d)\n            attrs: Optional. Attributes of dataset.\n            dtype: Optional. dtype of dataset. If not specified, uses dtype of inpyt array\n        \"\"\"\n        if attrs is None:\n            attrs = {}\n        length_local = vector.shape[0]\n        length_p = np.array(self._file._comm.allgather(length_local))\n        length = np.sum(length_p)\n        dim = vector.shape[1:]\n        vec_shape = length, *dim\n\n        ranks = np.array([i for i in range(self._file._comm.size)])\n        idx_start = np.sum(length_p[ranks < self._file._comm.rank])\n        idx_end = idx_start + length_local\n\n        with self._file(\"a\", driver=\"mpio\"):\n            dataset = self.obj.require_dataset(\n                name, shape=vec_shape, dtype=dtype if dtype else vector.dtype\n            )\n            dataset[idx_start:idx_end] = vector\n            for key, item in attrs.items():\n                dataset.attrs[key] = item\n\n        log.info(f\"Written {name} as userdata to {self._file.file_name}...\")\n",
                     "lines": [
-                      246,
-                      279
+                      223,
+                      256
                     ]
                   },
                   "props": {
@@ -2002,8 +1927,8 @@
                   "source": {
                     "code": "    def require_group(self, name: str) -> MutableGroup:\n        \"\"\"Add a new group to the current group. If exists, return existing.\n\n        Returns:\n            :class:`~bamboost.hdf_pointer.Group`\n        \"\"\"\n        return MutableGroup(self._file, f\"{self.path_to_data}/{name}\")\n",
                     "lines": [
-                      281,
-                      287
+                      258,
+                      264
                     ]
                   },
                   "props": {
@@ -2032,10 +1957,6 @@
                     [
                       "function",
                       "datasets"
-                    ],
-                    [
-                      "function",
-                      "extract_attrs"
                     ]
                   ]
                 },
@@ -2084,8 +2005,8 @@
                 "source": {
                   "code": "    def __init__(self, file_handler: FileHandler, path_to_data: str) -> None:\n        super().__init__(file_handler, path_to_data)\n        # Create group if it doesn't exist\n        with self._file(\"a\", driver=\"mpio\"):\n            self._file.file_object.require_group(path_to_data)\n",
                   "lines": [
-                    194,
-                    198
+                    171,
+                    175
                   ]
                 }
               }
@@ -2118,8 +2039,8 @@
                   "source": {
                     "code": "    @with_file_open(\"r\")\n    def __getitem__(self, slice):\n        return self.obj[slice]\n",
                     "lines": [
-                      294,
-                      296
+                      271,
+                      273
                     ]
                   },
                   "props": {
@@ -2187,8 +2108,8 @@
                 "source": {
                   "code": "    def __init__(self, file_handler: FileHandler, path_to_data: str) -> None:\n        super().__init__(file_handler, path_to_data)\n",
                   "lines": [
-                    291,
-                    292
+                    268,
+                    269
                   ]
                 }
               }
@@ -2277,7 +2198,7 @@
                 "add_field": {
                   "name": "add_field",
                   "docstring": "Add a dataset to the file. The data is stored at `data/`.\n",
-                  "signature": "(\n    self,\n    name: str,\n    func: <fenics.Function>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: Literal['Node', 'Cell'] = 'Node'\n) -> None",
+                  "signature": "(\n    self,\n    name: str,\n    func: <fenics.Function>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: str = 'Node'\n) -> None",
                   "returns": {
                     "annotation": "None",
                     "description": null
@@ -2315,15 +2236,15 @@
                     },
                     "center": {
                       "default": "Node",
-                      "annotation": "typing.Literal['Node', 'Cell']",
+                      "annotation": "<class 'str'>",
                       "description": "Optional. Center of the data. Can be 'Node' or 'Cell'.\nDefault is 'Node'."
                     }
                   },
                   "source": {
-                    "code": "    def add_field(\n        self,\n        name: str,\n        func: fe.Function,\n        time: float = None,\n        mesh: str = None,\n        dtype: str = None,\n        center: Literal[\"Node\", \"Cell\"] = \"Node\",\n    ) -> None:\n        \"\"\"Add a dataset to the file. The data is stored at `data/`.\n\n        Args:\n            name: Name for the dataset\n            func: FEniCS function to store\n            time: Optional. time\n            mesh: Optional. Linked mesh for this data\n            dtype: Optional. Numpy style datatype, see h5py documentation,\n                defaults to the dtype of the vector\n            center: Optional. Center of the data. Can be 'Node' or 'Cell'.\n                Default is 'Node'.\n        \"\"\"\n        mesh = mesh if mesh is not None else self._default_mesh\n        time = time if time is not None else self.step\n\n        self._dump_fenics_field(\n            f\"data/{name}/{self.step}\",\n            func,\n            dtype=dtype,\n            center=center,\n        )\n        self._comm.barrier()  # attempt to fix bug (see SimulationWriter add_field)\n\n        if self._prank == 0:\n            with self._file(\"a\"):\n                vec = self._file[\"data\"][name][str(self.step)]\n                vec.attrs.update({\"center\": center, \"mesh\": mesh, \"t\": time})\n\n        self._comm.barrier()  # attempt to fix bug (see SimulationWriter add_field)\n",
+                    "code": "    def add_field(\n        self,\n        name: str,\n        func: fe.Function,\n        time: float = None,\n        mesh: str = None,\n        dtype: str = None,\n        center: str = \"Node\",\n    ) -> None:\n        \"\"\"Add a dataset to the file. The data is stored at `data/`.\n\n        Args:\n            name: Name for the dataset\n            func: FEniCS function to store\n            time: Optional. time\n            mesh: Optional. Linked mesh for this data\n            dtype: Optional. Numpy style datatype, see h5py documentation,\n                defaults to the dtype of the vector\n            center: Optional. Center of the data. Can be 'Node' or 'Cell'.\n                Default is 'Node'.\n        \"\"\"\n        mesh = mesh if mesh is not None else self._default_mesh\n        time = time if time is not None else self.step\n\n        # get global dofs ordering and vector\n        if center == \"Node\":\n            data = self._get_global_dofs(func)\n        elif center == \"Cell\":\n            data = self._get_global_dofs_cell_data(func)\n        else:\n            raise ValueError(\"Center must be 'Node' or 'Cell'.\")\n        vector = data[\"vector\"]\n        global_map = data[\"global_map\"]\n        global_size = data[\"global_size\"]\n\n        dim = data[\"vector\"].shape[1:] if data[\"vector\"].ndim > 1 else None\n\n        # Write vector to file\n        with self._file(\"a\", driver=\"mpio\", comm=self._comm) as f:\n            data = f.require_group(\"data\")\n            grp = data.require_group(name)\n            vec = grp.require_dataset(\n                str(self.step),\n                shape=(global_size, *dim) if dim else (global_size,),\n                dtype=dtype if dtype else vector.dtype,\n            )\n            vec[global_map] = vector\n\n        if self._prank == 0:\n            with self._file(\"a\"):\n                vec = self._file[\"data\"][name][str(self.step)]\n                vec.attrs[\"t\"] = time  # add time as attribute to dataset\n                vec.attrs[\"mesh\"] = mesh  # add link to mesh as attribute\n                vec.attrs[\"center\"] = center\n",
                     "lines": [
-                      48,
-                      85
+                      46,
+                      99
                     ]
                   },
                   "props": {
@@ -2359,8 +2280,8 @@
                   "source": {
                     "code": "    def add_mesh(self, mesh: fe.Mesh, mesh_name: str = None) -> None:\n        \"\"\"\n        Add the mesh to file using fe.HDF5File. I can't figure out how to\n        extract the local mesh data in correct order when running in parallel.\n\n        Args:\n            mesh: FEniCS mesh object\n            mesh_name: name for mesh (default = `mesh`)\n        \"\"\"\n        mesh_name = mesh_name if mesh_name is not None else self._default_mesh\n        mesh_location = f\"{self._mesh_location}/{mesh_name}/\"\n\n        assert not self._file.file_object, \"File is open -> Quitting\"\n\n        @contextmanager\n        def temporary_close_file():\n            was_open = False\n            if self._file.file_object:\n                self._file.file_object.close()\n                was_open = True\n            try:\n                yield\n            finally:\n                if was_open:\n                    self._file.file_object = open_h5file(\n                        self._file.file_name,\n                        self._file.mode,\n                        self._file.driver,\n                        self._file.comm,\n                    )\n\n        with temporary_close_file():\n            with fe.HDF5File(self._comm, self.h5file, \"a\") as f:\n                f.write(mesh, mesh_location)\n",
                     "lines": [
-                      214,
-                      247
+                      184,
+                      217
                     ]
                   },
                   "props": {
@@ -2598,7 +2519,7 @@
                     "description": "Path to database"
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x78ea9e1cbc20>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x799c9c9b7dd0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   },
@@ -2611,8 +2532,8 @@
                 "source": {
                   "code": "    def __init__(\n        self,\n        uid: str,\n        path: str,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n        create_if_not_exists: bool = False,\n    ):\n        super().__init__(uid, path, comm)\n",
                   "lines": [
-                    39,
-                    46
+                    37,
+                    44
                   ]
                 }
               }
@@ -2638,9 +2559,9 @@
                 "list": {
                   "name": "list",
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x78ea9d6cbe20>)>",
+                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x799c9bf071a0>)>",
                   "returns": {
-                    "annotation": "<classmethod(<function Remote.list at 0x78ea9d6cbe20>)>",
+                    "annotation": "<classmethod(<function Remote.list at 0x799c9bf071a0>)>",
                     "description": null
                   },
                   "arguments": {
@@ -2980,8 +2901,8 @@
                   "source": {
                     "code": "    def get_view(self, include_linked_sims: bool = False) -> pd.DataFrame:\n        df = super().get_view(include_linked_sims)\n        df.insert(1, \"cached\", False)\n        for id in os.listdir(self.path):\n            if id in df[\"id\"].values:\n                df.loc[df[\"id\"] == id, \"cached\"] = True\n\n        opts = config.get(\"options\", {})\n        if \"sort_table_key\" in opts:\n            df.sort_values(\n                opts.get(\"sort_table_key\", \"id\"),\n                ascending=opts.get(\"sort_table_order\", \"asc\") == \"asc\",\n                inplace=True,\n            )\n        return df\n",
                     "lines": [
-                      275,
-                      289
+                      274,
+                      288
                     ]
                   },
                   "props": {
@@ -3019,8 +2940,8 @@
                   "source": {
                     "code": "    def sim(self, uid, return_writer: bool = False):\n        \"\"\"Return simulation object.\n\n        Args:\n            - uid (str): the unique id of the sim to be transferred.\n            - return_writer (bool): Flag to indicate whether to return a writer\n              object. Default is False.\n\n        This method checks if the data for the given uid is already in the\n        local cache. If not, it transfers the data from a remote location using\n        rsync. The method then calls the superclass method to perform further\n        operations on the transferred data.\n        \"\"\"\n        # Check if data is already in cache\n        if os.path.exists(f\"{self.path}/{uid}\"):\n            log.info(f\"Data for {uid} already in cache\")\n            return RemoteSimulation(uid, self)\n\n        # Transfer data using rsync\n        log.info(f\"Data not in cache. Transferring data for {uid} from {self.remote}\")\n        self.rsync(uid)\n\n        return RemoteSimulation(uid, self)\n",
                     "lines": [
-                      291,
-                      313
+                      290,
+                      312
                     ]
                   },
                   "props": {
@@ -3030,10 +2951,10 @@
                 },
                 "rsync": {
                   "name": "rsync",
-                  "docstring": "Transfer data using rsync. Wait for the process to finish and return\nself.",
-                  "signature": "(\n    self,\n    uid: str | None = None\n) -> bamboost.extensions.remote_manager.RemoteManager",
+                  "docstring": "Transfer data using rsync.",
+                  "signature": "(self, uid: str) -> None",
                   "returns": {
-                    "annotation": "<class 'bamboost.extensions.remote_manager.RemoteManager'>",
+                    "annotation": "None",
                     "description": null
                   },
                   "arguments": {
@@ -3043,16 +2964,16 @@
                       "description": null
                     },
                     "uid": {
-                      "default": "None",
-                      "annotation": "str | None",
-                      "description": "The unique id of the simulation to be transferred. If None,\nall simulations are synced."
+                      "default": null,
+                      "annotation": "<class 'str'>",
+                      "description": null
                     }
                   },
                   "source": {
-                    "code": "    def rsync(self, uid: str | None = None) -> RemoteManager:\n        \"\"\"Transfer data using rsync. Wait for the process to finish and return\n        self.\n\n        Args:\n            uid: The unique id of the simulation to be transferred. If None,\n                all simulations are synced.\n        \"\"\"\n        process = self._rsync(uid)\n        process.wait()\n        return self\n",
+                    "code": "    def rsync(self, uid: str) -> None:\n        \"\"\"Transfer data using rsync.\"\"\"\n        subprocess.call(\n            [\n                \"rsync\",\n                \"-r\",\n                f\"{self.remote.remote_name}:{self.remote_path_db}/{uid}\",\n                f\"{self.path}\",\n            ],\n            stdout=subprocess.PIPE,\n        )\n        log.info(f\"Data for {uid} synced with {self.path}\")\n",
                     "lines": [
-                      351,
-                      361
+                      314,
+                      325
                     ]
                   },
                   "props": {
@@ -3179,7 +3100,7 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x78ea9e1cbc20>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x799c9c9b7dd0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   }
@@ -3216,8 +3137,8 @@
                   "source": {
                     "code": "    def sync(self) -> RemoteSimulation:\n        \"\"\"Sync the simulation data with the remote server.\"\"\"\n        self.manager.rsync(self.uid)\n        return self\n",
                     "lines": [
-                      369,
-                      372
+                      333,
+                      336
                     ]
                   },
                   "props": {
@@ -3243,8 +3164,8 @@
                   "source": {
                     "code": "    def get_full_uid(self) -> str:\n        return f\"ssh://{self.manager.remote.remote_name}/{self.manager.UID}:{self.uid}\"\n",
                     "lines": [
-                      374,
-                      375
+                      338,
+                      339
                     ]
                   },
                   "props": {
@@ -3430,8 +3351,8 @@
                 "source": {
                   "code": "    def __init__(self, uid: str, manager: RemoteManager) -> None:\n        super().__init__(uid, manager.path, _db_id=manager.UID)\n        self.manager = manager\n",
                   "lines": [
-                    365,
-                    367
+                    329,
+                    331
                   ]
                 }
               }
@@ -4572,8 +4493,8 @@
               "source": {
                 "code": "    def __getitem__(self, key: Union[str, int]) -> Simulation:\n        \"\"\"Returns the simulation in the specified row of the dataframe.\n\n        Args:\n            key: The simulation identifier (`str`) or the row index (`int`).\n        Returns:\n            The selected simulation object.\n        \"\"\"\n        if isinstance(key, str):\n            return self.sim(key)\n        else:\n            return self.sim(self.df.loc[key, \"id\"])\n",
                 "lines": [
-                  134,
-                  145
+                  136,
+                  147
                 ]
               },
               "props": {
@@ -4599,8 +4520,8 @@
               "source": {
                 "code": "    def __len__(self) -> int:\n        return len(self.all_uids)\n",
                 "lines": [
-                  160,
-                  161
+                  162,
+                  163
                 ]
               },
               "props": {
@@ -4626,8 +4547,8 @@
               "source": {
                 "code": "    def __iter__(self) -> Generator[Simulation, None, None]:\n        for sim in self.sims():\n            yield sim\n",
                 "lines": [
-                  163,
-                  165
+                  165,
+                  167
                 ]
               },
               "props": {
@@ -4658,8 +4579,8 @@
               "source": {
                 "code": "    def get_view(self, include_linked_sims: bool = False) -> pd.DataFrame:\n        \"\"\"View of the database and its parametric space. Read from the sql\n        database. If `include_linked_sims` is True, the individual h5 files are\n        scanned.\n\n        Args:\n            include_linked_sims: if True, include the parameters of linked sims\n\n        Examples:\n            >>> db.get_view()\n            >>> db.get_view(include_linked_sims=True)\n        \"\"\"\n        if include_linked_sims:\n            return self.get_view_from_hdf_files(include_linked_sims=include_linked_sims)\n\n        try:\n            with self._table.open():\n                self._table.sync()\n                df = self._table.read_table()\n        except index.Error as e:\n            log.warning(f\"index error: {e}\")\n            return self.get_view_from_hdf_files(include_linked_sims=include_linked_sims)\n\n        if df.empty:\n            return df\n        df[\"time_stamp\"] = pd.to_datetime(df[\"time_stamp\"])\n\n        # Sort dataframe columns\n        columns_start = [\"id\", \"notes\", \"status\", \"time_stamp\"]\n        columns_start = [col for col in columns_start if col in df.columns]\n        self._dataframe = df[[*columns_start, *df.columns.difference(columns_start)]]\n\n        opts = config.get(\"options\", {})\n        if \"sort_table_key\" in opts:\n            self._dataframe.sort_values(\n                opts.get(\"sort_table_key\", \"id\"),\n                ascending=opts.get(\"sort_table_order\", \"asc\") == \"asc\",\n                inplace=True,\n            )\n        return self._dataframe\n",
                 "lines": [
-                  271,
-                  310
+                  273,
+                  312
                 ]
               },
               "props": {
@@ -4692,8 +4613,8 @@
               "source": {
                 "code": "    def get_view_from_hdf_files(\n        self, include_linked_sims: bool = False\n    ) -> pd.DataFrame:\n        \"\"\"View of the database and its parametric space. Read from the h5\n        files metadata.\n\n        Args:\n            include_linked_sims: if True, include the parameters of linked sims\n        \"\"\"\n        all_uids = self._get_uids()\n        data = list()\n\n        for uid in all_uids:\n            tmp_dict = self._get_parameters_for_uid(\n                uid, include_linked_sims=include_linked_sims\n            )\n            data.append(tmp_dict)\n\n        df = pd.DataFrame.from_records(data)\n        if df.empty:\n            return df\n        df[\"time_stamp\"] = pd.to_datetime(df[\"time_stamp\"])\n\n        # Sort dataframe columns\n        columns_start = [\"id\", \"notes\", \"status\", \"time_stamp\"]\n        columns_start = [col for col in columns_start if col in df.columns]\n        self._dataframe = df[[*columns_start, *df.columns.difference(columns_start)]]\n        return self._dataframe\n",
                 "lines": [
-                  312,
-                  339
+                  314,
+                  341
                 ]
               },
               "props": {
@@ -4734,8 +4655,8 @@
               "source": {
                 "code": "    def sim(\n        self,\n        uid: str,\n        return_writer: bool = False,\n        writer_type: SimulationWriter = SimulationWriter,\n    ) -> Simulation:\n        \"\"\"Get an existing simulation with uid. Same as accessing with `db[uid]` directly.\n\n        Args:\n            uid (`str`): unique identifier\n            return_writer: if true, return `SimulationWriter`, otherwise\n                return `Simulation`\n            writer_type: Optionally, you can specify a custom writer type to return.\n\n        Returns:\n            :class:`~bamboost.simulation.Simulation`\n        \"\"\"\n        if return_writer:\n            return writer_type(uid, self.path, self.comm)\n        return Simulation(uid, self.path, self.comm, _db_id=self.UID)\n",
                 "lines": [
-                  367,
-                  386
+                  369,
+                  388
                 ]
               },
               "props": {
@@ -4746,9 +4667,9 @@
             "sims": {
               "name": "sims",
               "docstring": "Get all simulations in a list. Optionally, get all simulations matching the\ngiven selection using pandas.",
-              "signature": "(\n    self,\n    select: pandas.core.series.Series | pandas.core.frame.DataFrame | dict = None,\n    sort: str = None,\n    reverse: bool = False,\n    exclude: set = None,\n    return_writer: bool = False\n) -> list[bamboost.simulation.Simulation]",
+              "signature": "(\n    self,\n    select: pandas.core.series.Series | pandas.core.frame.DataFrame | dict = None,\n    sort: str = None,\n    reverse: bool = False,\n    exclude: set = None,\n    return_writer: bool = False\n) -> list",
               "returns": {
-                "annotation": "list[bamboost.simulation.Simulation]",
+                "annotation": "<class 'list'>",
                 "description": "A list of `:class:~bamboost.simulation.Simulation` objects"
               },
               "arguments": {
@@ -4784,10 +4705,10 @@
                 }
               },
               "source": {
-                "code": "    def sims(\n        self,\n        select: pd.Series | pd.DataFrame | dict = None,\n        sort: str = None,\n        reverse: bool = False,\n        exclude: set = None,\n        return_writer: bool = False,\n    ) -> list[Simulation]:\n        \"\"\"Get all simulations in a list. Optionally, get all simulations matching the\n        given selection using pandas.\n\n        Args:\n            select: Selection of simulations. Can be one of the following.\n                - Pandas boolean series: A boolean series with the same length as the dataframe.\n                - Pandas DataFrame: A subset of the full dataframe.\n                - Dictionary: A dictionary with the parameters to select (see `find` for details).\n            sort (`str`): Optionally sort the list with this keyword\n            reverse (`bool`): swap sort direction\n            exclude (`list[str]`): sims to exclude\n            return_writer: if true, return `SimulationWriter`, otherwise\n                return `Simulation`\n\n        Returns:\n            A list of `:class:~bamboost.simulation.Simulation` objects\n\n        Examples:\n            >>> db.sims(select=db.df[\"status\"] == \"finished\", sort=\"time_stamp\")\n        \"\"\"\n        if select is None:\n            id_list = self.all_uids\n        elif isinstance(select, pd.DataFrame):\n            id_list = select[\"id\"].values\n        elif isinstance(select, pd.Series):\n            id_list = self.df[select][\"id\"].values\n        elif isinstance(select, dict):\n            id_list = self.find(select)[\"id\"].values\n        else:\n            raise ArgumentError('Invalid argument for argument \"select\"')\n\n        if exclude is not None:\n            exclude = list([exclude]) if isinstance(exclude, str) else exclude\n            id_list = [id for id in id_list if id not in exclude]\n\n        existing_sims = [self.sim(uid, return_writer) for uid in id_list]\n\n        if sort is None:\n            return existing_sims\n        else:\n            return sorted(\n                existing_sims, key=lambda s: s.parameters[sort], reverse=reverse\n            )\n",
+                "code": "    def sims(\n        self,\n        select: pd.Series | pd.DataFrame | dict = None,\n        sort: str = None,\n        reverse: bool = False,\n        exclude: set = None,\n        return_writer: bool = False,\n    ) -> list:\n        \"\"\"Get all simulations in a list. Optionally, get all simulations matching the\n        given selection using pandas.\n\n        Args:\n            select: Selection of simulations. Can be one of the following.\n                - Pandas boolean series: A boolean series with the same length as the dataframe.\n                - Pandas DataFrame: A subset of the full dataframe.\n                - Dictionary: A dictionary with the parameters to select (see `find` for details).\n            sort (`str`): Optionally sort the list with this keyword\n            reverse (`bool`): swap sort direction\n            exclude (`list[str]`): sims to exclude\n            return_writer: if true, return `SimulationWriter`, otherwise\n                return `Simulation`\n\n        Returns:\n            A list of `:class:~bamboost.simulation.Simulation` objects\n\n        Examples:\n            >>> db.sims(select=db.df[\"status\"] == \"finished\", sort=\"time_stamp\")\n        \"\"\"\n        if select is None:\n            id_list = self.all_uids\n        elif isinstance(select, pd.DataFrame):\n            id_list = select[\"id\"].values\n        elif isinstance(select, pd.Series):\n            id_list = self.df[select][\"id\"].values\n        elif isinstance(select, dict):\n            id_list = self.find(select)[\"id\"].values\n        else:\n            raise ArgumentError('Invalid argument for argument \"select\"')\n\n        if exclude is not None:\n            exclude = list([exclude]) if isinstance(exclude, str) else exclude\n            id_list = [id for id in id_list if id not in exclude]\n\n        existing_sims = [self.sim(uid, return_writer) for uid in id_list]\n\n        if sort is None:\n            return existing_sims\n        else:\n            return sorted(\n                existing_sims, key=lambda s: s.parameters[sort], reverse=reverse\n            )\n",
                 "lines": [
-                  388,
-                  438
+                  390,
+                  440
                 ]
               },
               "props": {
@@ -4800,10 +4721,10 @@
             "create_simulation": {
               "name": "create_simulation",
               "docstring": "Get a writer object for a new simulation. This is written for paralell use\nas it is likely that this may be used in an executable, creating multiple runs\nfor a parametric space, which may be run in paralell.",
-              "signature": "(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    *,\n    prefix: str = None,\n    duplicate_action: str = 'prompt',\n    note: str = None,\n    files: list[str] = None,\n    links: dict[str, str] = None\n) -> bamboost.simulation_writer.SimulationWriter",
+              "signature": "(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    prefix: str = None,\n    duplicate_action: str = 'prompt'\n) -> bamboost.simulation_writer.SimulationWriter",
               "returns": {
                 "annotation": "<class 'bamboost.simulation_writer.SimulationWriter'>",
-                "description": ":class:`~bamboost.simulation_writer.SimulationWriter`"
+                "description": null
               },
               "arguments": {
                 "self": {
@@ -4819,7 +4740,7 @@
                 "parameters": {
                   "default": "None",
                   "annotation": "<class 'dict'>",
-                  "description": "Parameter dictionary. If provided, the parameters will be\nchecked against the existing sims for duplication. Otherwise, they may be\nspecified later with :func:`~bamboost.simulation_writer.SimulationWriter.add_parameters`."
+                  "description": "Parameter dictionary. If provided, the parameters will be\nchecked against the existing sims for duplication. Otherwise, they may be\nspecified later with `bamboost.simulation_writer.SimulationWriter.add_parameters`.\nNote:\n    The parameters are stored in the h5 file as attributes.\n    - If the value is a dict, it is flattened using\n      `bamboost.common.utilities.flatten_dict`.\n    - If the value is a list/array, it is stored as a dataset."
                 },
                 "skip_duplicate_check": {
                   "default": "False",
@@ -4834,29 +4755,14 @@
                 "duplicate_action": {
                   "default": "prompt",
                   "annotation": "<class 'str'>",
-                  "description": "how to deal with duplicates. Replace\nfirst duplicate ('r'), Create with altered uid (`c`), Create new\nwith new id (`n`), Abort (`a`) default \"prompt\" for each\nduplicate on a case by case basis."
-                },
-                "note": {
-                  "default": "None",
-                  "annotation": "<class 'str'>",
-                  "description": "Note for the simulation."
-                },
-                "files": {
-                  "default": "None",
-                  "annotation": "list[str]",
-                  "description": "List of files to copy to the simulation directory."
-                },
-                "links": {
-                  "default": "None",
-                  "annotation": "dict[str, str]",
-                  "description": "Dictionary of links to other simulations."
+                  "description": "how to deal with duplicates.\n`Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\ndefault \"prompt\" for each duplicate on a case by case basis."
                 }
               },
               "source": {
-                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        *,\n        prefix: str = None,\n        duplicate_action: str = \"prompt\",\n        note: str = None,\n        files: list[str] = None,\n        links: dict[str, str] = None,\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with :func:`~bamboost.simulation_writer.SimulationWriter.add_parameters`.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n            duplicate_action (`str`): how to deal with duplicates. Replace\n                first duplicate ('r'), Create with altered uid (`c`), Create new\n                with new id (`n`), Abort (`a`) default \"prompt\" for each\n                duplicate on a case by case basis.\n            note (`str`): Note for the simulation.\n            files (`list`): List of files to copy to the simulation directory.\n            links (`dict`): Dictionary of links to other simulations.\n\n        Note:\n            The files and links are copied to the simulation directory. The files are\n            copied with the same name as the original file. The links are copied with\n            the given name.\n\n        Returns:\n            :class:`~bamboost.simulation_writer.SimulationWriter`\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on = True\n            if self.comm.rank == 0:\n                go_on, uid = self._check_duplicate(\n                    parameters, uid, duplicate_action=duplicate_action\n                )\n            self.comm.bcast((go_on, uid), root=0)\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n\n        # Add parameters, note, files, and links\n        if not any([parameters, note, files, links]):\n            return new_sim\n        with new_sim._file(\"r+\"):\n            if parameters:\n                new_sim.add_parameters(parameters)\n            if note:\n                new_sim.change_note(note)\n            if files:\n                new_sim.copy_file(files)\n            if links:\n                [new_sim.links.__setitem__(name, uid) for name, uid in links.items()]\n        return new_sim\n",
+                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        prefix: str = None,\n        duplicate_action: str = \"prompt\",\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with `bamboost.simulation_writer.SimulationWriter.add_parameters`.\n                Note:\n                    The parameters are stored in the h5 file as attributes.\n                    - If the value is a dict, it is flattened using\n                      `bamboost.common.utilities.flatten_dict`.\n                    - If the value is a list/array, it is stored as a dataset.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n            duplicate_action (`str`): how to deal with duplicates.\n                `Replace first duplicate ('r'), Create with altered uid (`c`), Create new with new id (`n`), Abort (`a`)\n                 default \"prompt\" for each duplicate on a case by case basis.\n\n        Note:\n            The files and links are copied to the simulation directory. The files are\n            copied with the same name as the original file. The links are copied with\n            the given name.\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on = True\n            if self.comm.rank == 0:\n                go_on, uid = self._check_duplicate(\n                    parameters, uid, duplicate_action=duplicate_action\n                )\n            self.comm.bcast((go_on, uid), root=0)\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n        if parameters:\n            new_sim.add_parameters(parameters)\n        return new_sim\n",
                 "lines": [
-                  440,
-                  529
+                  442,
+                  514
                 ]
               },
               "props": {
@@ -4890,8 +4796,8 @@
               "source": {
                 "code": "    def remove(self, uid: str) -> None:\n        \"\"\"CAUTION, DELETING DATA. Remove the data of a simulation.\n\n        Args:\n            uid (`str`): uid\n        \"\"\"\n        shutil.rmtree(os.path.join(self.path, uid))\n",
                 "lines": [
-                  531,
-                  537
+                  516,
+                  522
                 ]
               },
               "props": {
@@ -4920,10 +4826,10 @@
                 }
               },
               "source": {
-                "code": "    def find(self, parameter_selection: dict[str, Any]) -> pd.DataFrame:\n        \"\"\"Find simulations with the given parameters.\n\n        The dictionary can contain callables to filter inequalities or other\n        filters.\n\n        Examples:\n            >>> db.find({\"a\": 1, \"b\": lambda x: x > 2})\n            >>> db.find({\"a\": 1, \"b\": 2})\n\n        Args:\n            parameter_selection (dict): parameter selection dictionary\n        \"\"\"\n        parameter_selection = flatten_dict(parameter_selection)\n        params = {}\n        filters = {}\n        for key, val in parameter_selection.items():\n            if callable(val):\n                filters[key] = val\n            else:\n                params[key] = val\n\n        df = self.df\n        matches = self._list_duplicates(params, df=df)\n        matches = df[df.id.isin(matches)]\n        if len(matches) == 0:\n            return matches\n\n        for key, func in filters.items():\n            matches = matches[matches[key].apply(func)]\n\n        return matches\n",
+                "code": "    def find(self, parameter_selection: dict[str, Any]) -> pd.DataFrame:\n        \"\"\"Find simulations with the given parameters.\n\n        The dictionary can contain callables to filter inequalities or other\n        filters.\n\n        Examples:\n            >>> db.find({\"a\": 1, \"b\": lambda x: x > 2})\n            >>> db.find({\"a\": 1, \"b\": 2})\n\n        Args:\n            parameter_selection (dict): parameter selection dictionary\n        \"\"\"\n        parameter_selection = flatten_dict(parameter_selection)\n        params = {}\n        filters = {}\n        for key, val in parameter_selection.items():\n            if callable(val):\n                filters[key] = val\n            else:\n                params[key] = val\n\n        df = self._table.read_table()\n        matches = self._list_duplicates(params)\n        matches = df[df.id.isin(matches)]\n        if len(matches) == 0:\n            return matches\n\n        for key, func in filters.items():\n            matches = matches[func(matches[key])]\n\n        return matches\n",
                 "lines": [
-                  539,
-                  570
+                  524,
+                  555
                 ]
               },
               "props": {
@@ -4951,8 +4857,8 @@
               "source": {
                 "code": "    def global_fields_in_all(self) -> list:\n        \"\"\"Get a list of all global fields in all simulations.\n\n        Returns:\n            List of global fields\n        \"\"\"\n        fields = set()\n        for sim in self:\n            try:\n                fields.update(sim.globals.columns)\n            except KeyError:\n                continue\n\n        return fields\n",
                 "lines": [
-                  671,
-                  684
+                  651,
+                  664
                 ]
               },
               "props": {
@@ -4978,8 +4884,8 @@
               "source": {
                 "code": "    def get_parameters(self) -> dict:\n        \"\"\"Get the parameters used in this database.\n\n        Returns:\n            Dictionary of parameters with it's count, range, and type. Sorted by count.\n        \"\"\"\n        parameters = dict()\n        for sim in self:\n            for key, val in sim.parameters.items():\n                if key not in parameters:\n                    range = (val, val) if isinstance(val, numbers.Number) else None\n                    parameters[key] = {\"range\": range, \"count\": 1, \"type\": type(val)}\n                else:\n                    if isinstance(val, numbers.Number):\n                        parameters[key][\"range\"] = (\n                            min(parameters[key][\"range\"][0], val),\n                            max(parameters[key][\"range\"][1], val),\n                        )\n                    parameters[key][\"count\"] += 1\n                    parameters[key][\"type\"] = type(val)\n        return dict(\n            sorted(parameters.items(), key=lambda x: x[1][\"count\"], reverse=True)\n        )\n",
                 "lines": [
-                  686,
-                  708
+                  666,
+                  688
                 ]
               },
               "props": {
@@ -5002,21 +4908,6 @@
             {
               "name": "fromName",
               "annotation": "bamboost.manager.ManagerFromName",
-              "description": null
-            },
-            {
-              "name": "path",
-              "annotation": null,
-              "description": null
-            },
-            {
-              "name": "comm",
-              "annotation": null,
-              "description": null
-            },
-            {
-              "name": "UID",
-              "annotation": null,
               "description": null
             },
             {
@@ -5053,7 +4944,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x78ea9e1cbc20>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x799c9c9b7dd0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -5071,8 +4962,8 @@
             "source": {
               "code": "    def __init__(\n        self,\n        path: str = None,\n        comm: MPI.Comm = MPI.COMM_WORLD,\n        uid: str = None,\n        create_if_not_exist: bool = True,\n    ):\n        # provided uid has precedence\n        if uid is not None:\n            path = self._index.get_path(uid.upper())\n            path = comm.bcast(path, root=0)\n        self.path = path\n        self.comm = comm\n\n        # check if path exists\n        if not os.path.isdir(path):\n            if not create_if_not_exist:\n                raise NotADirectoryError(\"Specified path is not a valid path.\")\n            log.info(f\"Created new database ({path})\")\n            self._make_new(path)\n\n        # retrieve the UID of the database from the id file\n        # if not found, a new one is generated\n        self.UID = uid or self._retrieve_uid()\n\n        # Update the SQL table for the database\n        try:\n            with self._index.open():\n                self._index.insert_path(self.UID, self.path)\n                self._table.create_database_table()\n                self._table.sync()\n        except index.Error as e:\n            log.warning(f\"index error: {e}\")\n",
               "lines": [
-                100,
-                132
+                102,
+                134
               ]
             }
           }
@@ -5080,7 +4971,7 @@
         {
           "name": "ManagerFromUID",
           "short_description": "Get a database by its UID. This is used for autocompletion in ipython.",
-          "docstring": "Get a database by its UID. This is used for autocompletion in ipython.\n\n...note:\n    This is a test note.",
+          "docstring": "Get a database by its UID. This is used for autocompletion in ipython.",
           "methods": {
             "__getitem__": {
               "name": "__getitem__",
@@ -5105,8 +4996,8 @@
               "source": {
                 "code": "    def __getitem__(self, key) -> Manager:\n        key = key.split()[0]  # take only uid\n        return Manager(uid=key, create_if_not_exist=False)\n",
                 "lines": [
-                  57,
-                  59
+                  59,
+                  61
                 ]
               },
               "props": {
@@ -5136,8 +5027,8 @@
             "source": {
               "code": "    def __init__(self) -> None:\n        # or [] to circumvent Null type (MPI)\n        ids = IndexAPI().fetch(f\"SELECT id, path FROM dbindex\") or []\n        self.completion_keys = tuple(\n            [f'{key} - {\"...\"+val[-25:] if len(val)>=25 else val}' for key, val in ids]\n        )\n",
               "lines": [
-                47,
-                52
+                49,
+                54
               ]
             }
           }
@@ -5170,8 +5061,8 @@
               "source": {
                 "code": "    def __getitem__(self, key) -> Manager:\n        return Manager(key, create_if_not_exist=False)\n",
                 "lines": [
-                  72,
-                  73
+                  74,
+                  75
                 ]
               },
               "props": {
@@ -5201,8 +5092,8 @@
             "source": {
               "code": "    def __init__(self) -> None:\n        paths = IndexAPI().fetch(\"SELECT path FROM dbindex\") or []\n        self.completion_keys = tuple(paths)\n",
               "lines": [
-                65,
-                67
+                67,
+                69
               ]
             }
           }
@@ -5570,10 +5461,10 @@
                 }
               },
               "source": {
-                "code": "    def create_xdmf_file(self, fields: list = None, nb_steps: int = None) -> None:\n        \"\"\"Create the xdmf file to read in paraview.\n\n        Args:\n            fields (list[str]): fields for which to write timeseries information,\n                if not specified, all fields in data are written.\n            nb_steps (int): number of steps the simulation has\n        \"\"\"\n\n        if self._prank == 0:\n            with self._file(\"r\") as f:\n                if \"data\" not in f.keys():\n                    fields, nb_steps = [], 0\n                if fields is None:\n                    fields = list(f[\"data\"].keys())\n\n                if nb_steps is None:\n                    grp_name = list(f[\"data\"].keys())[0]\n                    nb_steps = list(f[f\"data/{grp_name}\"].keys())\n                    nb_steps = max(\n                        [\n                            int(step)\n                            for step in nb_steps\n                            if not (\n                                step.startswith(\"__\") or step.endswith(\"_intermediates\")\n                            )\n                        ]\n                    )\n\n                # temporary fix to load coordinates/geometry\n                coords_name = (\n                    \"geometry\"\n                    if \"geometry\"\n                    in f[f\"{self._mesh_location}/{self._default_mesh}\"].keys()\n                    else \"coordinates\"\n                )\n\n            xdmf_writer = XDMFWriter(self.xdmffile, self.h5file)\n            xdmf_writer.write_points_cells(\n                f\"{self._mesh_location}/{self._default_mesh}/{coords_name}\",\n                f\"{self._mesh_location}/{self._default_mesh}/topology\",\n            )\n\n            if fields:\n                xdmf_writer.add_timeseries(nb_steps + 1, fields)\n            xdmf_writer.write_file()\n",
+                "code": "    def create_xdmf_file(self, fields: list = None, nb_steps: int = None) -> None:\n        \"\"\"Create the xdmf file to read in paraview.\n\n        Args:\n            fields (list[str]): fields for which to write timeseries information,\n                if not specified, all fields in data are written.\n            nb_steps (int): number of steps the simulation has\n        \"\"\"\n\n        if self._prank == 0:\n            with self._file(\"r\") as f:\n                if \"data\" not in f.keys():\n                    fields, nb_steps = [], 0\n                if fields is None:\n                    fields = list(f[\"data\"].keys())\n\n                if nb_steps is None:\n                    grp_name = list(f[\"data\"].keys())[0]\n                    nb_steps = list(f[f\"data/{grp_name}\"].keys())\n                    nb_steps = max(\n                        [int(step) for step in nb_steps if not step.startswith(\"__\")]\n                    )\n\n                # temporary fix to load coordinates/geometry\n                coords_name = (\n                    \"geometry\"\n                    if \"geometry\"\n                    in f[f\"{self._mesh_location}/{self._default_mesh}\"].keys()\n                    else \"coordinates\"\n                )\n\n            xdmf_writer = XDMFWriter(self.xdmffile, self.h5file)\n            xdmf_writer.write_points_cells(\n                f\"{self._mesh_location}/{self._default_mesh}/{coords_name}\",\n                f\"{self._mesh_location}/{self._default_mesh}/topology\",\n            )\n\n            if fields:\n                xdmf_writer.add_timeseries(nb_steps + 1, fields)\n            xdmf_writer.write_file()\n",
                 "lines": [
                   336,
-                  381
+                  375
                 ]
               },
               "props": {
@@ -5614,8 +5505,8 @@
               "source": {
                 "code": "    def create_run_script(\n        self,\n        commands: list[str],\n        euler: bool = True,\n        sbatch_kwargs: dict[str, Any] = None,\n    ) -> None:\n        \"\"\"Create a batch job and put it into the folder.\n\n        Args:\n            commands: A list of strings being the user defined commands to run\n            euler: If false, a local bash script will be written\n            sbatch_kwargs: Additional sbatch arguments.\n                This parameter allows you to provide additional arguments to the `sbatch` command\n                when submitting jobs to a Slurm workload manager. The arguments should be provided\n                in the format of a dict of sbatch option name and values.\n\n                Use this parameter to specify various job submission options such as the number of\n                tasks, CPU cores, memory requirements, email notifications, and other sbatch options\n                that are not covered by default settings.\n                By default, the following sbatch options are set:\n                - `--output`: The output file is set to `<uid>.out`.\n                - `--job-name`: The job name is set to `<full_uid>`.\n\n                The following arguments should bring you far:\n                - `--ntasks`: The number of tasks to run. This is the number of MPI processes to start.\n                - `--mem-per-cpu`: The memory required per CPU core.\n                - `--time`: The maximum time the job is allowed to run.\n                - `--tmp`: Temporary scratch space to use for the job.\n        \"\"\"\n        def _set_environment_variables():\n            return (\n                f\"\"\"DATABASE_DIR=$(sqlite3 {paths['DATABASE_FILE']} \"SELECT path FROM dbindex WHERE id='{self.database_id}'\")\\n\"\"\"\n                f\"SIMULATION_DIR=$DATABASE_DIR/{self.uid}\\n\"\n                f\"SIMULATION_ID={self.database_id}:{self.uid}\\n\\n\"\n            )\n\n        script = \"#!/bin/bash\\n\\n\"\n        if euler:\n            # Write sbatch submission script for EULER\n            # filename: sbatch_{self.uid}.sh\n            if sbatch_kwargs is None:\n                sbatch_kwargs = {}\n\n            sbatch_kwargs.setdefault(\"--output\", f\"{self.path}/{self.uid}.out\")\n            sbatch_kwargs.setdefault(\"--job-name\", self.get_full_uid())\n\n            for key, value in sbatch_kwargs.items():\n                script += f\"#SBATCH {key}={value}\\n\"\n\n            script += \"\\n\"\n            script += _set_environment_variables()\n            script += \"\\n\".join(commands)\n\n            with open(self.files(f\"sbatch_{self.uid}.sh\"), \"w\") as file:\n                file.write(script)\n        else:\n            # Write local bash script\n            # filename: {self.uid}.sh\n            script += _set_environment_variables()\n            script += \"\\n\".join(commands)\n\n            with open(self.files(f\"{self.uid}.sh\"), \"w\") as file:\n                file.write(script)\n\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": False})\n        self._push_update_to_sqlite({\"submitted\": False})\n",
                 "lines": [
-                  383,
-                  449
+                  377,
+                  443
                 ]
               },
               "props": {
@@ -5651,8 +5542,8 @@
               "source": {
                 "code": "    @deprecated(\"use `create_run_script` instead\")\n    def create_batch_script(self, *args, **kwargs):\n        return self.create_run_script(*args, **kwargs)\n",
                 "lines": [
-                  451,
-                  453
+                  445,
+                  447
                 ]
               },
               "props": {
@@ -5678,8 +5569,8 @@
               "source": {
                 "code": "    def submit(self) -> None:\n        \"\"\"Submit the job for this simulation.\"\"\"\n        if f\"sbatch_{self.uid}.sh\" in os.listdir(self.path):\n            batch_script = os.path.abspath(\n                os.path.join(self.path, f\"sbatch_{self.uid}.sh\")\n            )\n            env = os.environ.copy()\n            _ = env.pop(\"BAMBOOST_MPI\", None)\n            subprocess.run([\"sbatch\", f\"{batch_script}\"], env=env)\n        elif f\"{self.uid}.sh\" in os.listdir(self.path):\n            bash_script = os.path.abspath(os.path.join(self.path, f\"{self.uid}.sh\"))\n            env = os.environ.copy()\n            _ = env.pop(\"BAMBOOST_MPI\", None)\n            subprocess.run([\"bash\", f\"{bash_script}\"], env=env)\n        else:\n            raise FileNotFoundError(\n                f\"Could not find a batch script for simulation {self.uid}.\"\n            )\n\n        log.info(f\"Simulation {self.uid} submitted!\")\n\n        with self._file(\"a\") as file:\n            file.attrs.update({\"submitted\": True})\n\n        self._push_update_to_sqlite({\"submitted\": True})\n",
                 "lines": [
-                  455,
-                  479
+                  449,
+                  473
                 ]
               },
               "props": {
@@ -5710,8 +5601,8 @@
               "source": {
                 "code": "    @with_file_open(\"a\")\n    def change_note(self, note) -> None:\n        if self._prank == 0:\n            self._file.attrs[\"notes\"] = note\n            self._push_update_to_sqlite({\"notes\": note})\n",
                 "lines": [
-                  481,
-                  485
+                  475,
+                  479
                 ]
               },
               "props": {
@@ -5752,8 +5643,8 @@
               "source": {
                 "code": "    def open(self, mode: str = \"r\", driver=None, comm=None) -> FileHandler:\n        \"\"\"Use this as a context manager in a `with` statement.\n        Purpose: keeping the file open to directly access/edit something in the\n        HDF5 file of this simulation.\n\n        Args:\n            mode (`str`): file mode (see h5py docs)\n            driver (`str`): file driver (see h5py docs)\n            comm (`str`): mpi communicator\n        \"\"\"\n        return self._file(mode, driver, comm)\n",
                 "lines": [
-                  490,
-                  500
+                  484,
+                  494
                 ]
               },
               "props": {
@@ -5784,8 +5675,8 @@
               "source": {
                 "code": "    @with_file_open(\"r\")\n    def get_mesh(self, mesh_name: str = None) -> Tuple[np.ndarray, np.ndarray]:\n        \"\"\"Return coordinates and connectivity. Currently returns numpy arrays.\n\n        Args:\n            mesh_name (`str`): optional, name of mesh to read (default = mesh)\n        Returns:\n            Tuple of np.arrays (coordinates, connectivity)\n        \"\"\"\n        if mesh_name is None:\n            mesh_name = self._default_mesh\n\n        # Raise an error if the mesh is not found\n        if (self._mesh_location.split(\"/\")[0] not in self._file.keys()) or (\n            mesh_name not in self._file[self._mesh_location].keys()\n        ):\n            raise KeyError(f\"Mesh location {self._mesh_location} not found in file.\")\n\n        mesh = self.meshes[mesh_name]\n        return mesh.coordinates, mesh.connectivity\n",
                 "lines": [
-                  511,
-                  530
+                  505,
+                  524
                 ]
               },
               "props": {
@@ -5821,8 +5712,8 @@
               "source": {
                 "code": "    def get_data_interpolator(self, field: str, step: int):\n        \"\"\"Get Linear interpolator for data field at step. Uses the linked mesh.\n\n        Args:\n            name (`str`): name of the data field\n            step (`int`): step\n        Returns:\n            :class:`scipy.interpolate.LinearNDInterpolator`\n        \"\"\"\n        from scipy.interpolate import LinearNDInterpolator\n\n        return LinearNDInterpolator(\n            self.data[field].mesh.coordinates, self.data[field].at_step(step)\n        )\n",
                 "lines": [
-                  569,
-                  582
+                  563,
+                  576
                 ]
               },
               "props": {
@@ -5848,8 +5739,8 @@
               "source": {
                 "code": "    @with_file_open()\n    def show_h5tree(self) -> None:\n        \"\"\"Print the tree inside the h5 file.\"\"\"\n        # print('\\U00002B57 ' + os.path.basename(self.h5file))\n        print(\"\\U0001f43c \" + os.path.basename(self.h5file))\n        utilities.h5_tree(self._file.file_object)\n",
                 "lines": [
-                  584,
-                  589
+                  578,
+                  583
                 ]
               },
               "props": {
@@ -5875,8 +5766,8 @@
               "source": {
                 "code": "    @contextmanager\n    def enter_path(self):\n        \"\"\"A context manager for changing the working directory to this simulations' path.\n\n        >>> with sim.working_directory():\n        >>>     ...\n        \"\"\"\n\n        current_dir = os.getcwd()\n        try:\n            os.chdir(self.path)\n            yield\n        finally:\n            os.chdir(current_dir)\n",
                 "lines": [
-                  591,
-                  604
+                  585,
+                  598
                 ]
               },
               "props": {
@@ -5953,8 +5844,8 @@
             },
             {
               "name": "mesh",
-              "annotation": "bamboost.accessors.meshes.Mesh",
-              "description": "Return the default mesh. "
+              "annotation": "Tuple[numpy.ndarray, numpy.ndarray]",
+              "description": "Return coordinates and connectivity of default mesh. "
             },
             {
               "name": "data_info",
@@ -5988,7 +5879,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x78ea9e1cbc20>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x799c9c9b7dd0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               },
@@ -6151,10 +6042,6 @@
                 [
                   "function",
                   "datasets"
-                ],
-                [
-                  "function",
-                  "extract_attrs"
                 ]
               ]
             },
@@ -6239,8 +6126,8 @@
               "source": {
                 "code": "    def initialize(self) -> SimulationWriter:\n        \"\"\"Create a new file for this simlation.\n        This deletes an existing h5 file of the simulation and creates an empty new one\n        \"\"\"\n        self.step = 0\n        self.add_metadata()\n        self.change_status(\"Initiated\")\n\n        return self\n",
                 "lines": [
-                  67,
-                  75
+                  65,
+                  73
                 ]
               },
               "props": {
@@ -6266,8 +6153,8 @@
               "source": {
                 "code": "    def add_metadata(self) -> None:\n        \"\"\"Add metadata to h5 file.\"\"\"\n        nb_proc = self._comm.Get_size()\n        if self._prank == 0:\n            with self._file(\"a\"):\n                data = {\n                    \"time_stamp\": str(datetime.datetime.now().replace(microsecond=0)),\n                    \"id\": self.uid,\n                    \"processors\": nb_proc,\n                    \"notes\": self._file.attrs.get(\"notes\", \"\"),\n                }\n                self._file.attrs.update(data)\n            self._push_update_to_sqlite(data)\n",
                 "lines": [
-                  77,
-                  89
+                  75,
+                  87
                 ]
               },
               "props": {
@@ -6298,8 +6185,8 @@
               "source": {
                 "code": "    def add_parameters(self, parameters: dict) -> None:\n        \"\"\"Add parameters to simulation.\n\n        Args:\n            parameters: Dictionary with parameters.\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\"):\n                # flatten parameters\n                parameters = flatten_dict(parameters)\n\n                if \"parameters\" in self._file.keys():\n                    del self._file[\"parameters\"]\n                grp = self._file.create_group(\"/parameters\")\n                for key, val in parameters.items():\n                    if isinstance(val, np.ndarray):\n                        grp.create_dataset(key, data=val)\n                    elif val is not None:\n                        grp.attrs[key] = val\n            self._push_update_to_sqlite(parameters)\n",
                 "lines": [
-                  91,
-                  110
+                  89,
+                  108
                 ]
               },
               "props": {
@@ -6309,7 +6196,7 @@
             },
             "add_mesh": {
               "name": "add_mesh",
-              "docstring": "Add the mesh to file. Currently only 2d meshes.\n",
+              "docstring": "Add the mesh to file. Currently only 2d meshes.\n\nNote:\n    If you are working with FEniCS, you can use the\n    `bamboost.extensions.fenics.FenicsWriter` writer. With it you can\n    write the FEniCS mesh directly.",
               "signature": "(\n    self,\n    coordinates: numpy.ndarray,\n    connectivity: numpy.ndarray,\n    mesh_name: str = None\n) -> None",
               "returns": {
                 "annotation": "None",
@@ -6338,10 +6225,10 @@
                 }
               },
               "source": {
-                "code": "    def add_mesh(\n        self, coordinates: np.ndarray, connectivity: np.ndarray, mesh_name: str = None\n    ) -> None:\n        \"\"\"Add the mesh to file. Currently only 2d meshes.\n\n        Args:\n            coordinates: Coordinates as array (nb_nodes, dim)\n            connectivity: Connectivity matrix (nb_cells, nb nodes per cell)\n            mesh_name: name for mesh (default = `mesh`)\n        \"\"\"\n        if mesh_name is None:\n            mesh_name = self._default_mesh\n        # self._mesh_location = 'Mesh/0/mesh/'\n        mesh_location = f\"{self._mesh_location}/{mesh_name}/\"\n\n        nb_nodes_local = coordinates.shape[0]\n        nb_cells_local = connectivity.shape[0]\n\n        # gather total mesh\n        nb_nodes_p = np.array(self._comm.allgather(nb_nodes_local))\n        nb_cells_p = np.array(self._comm.allgather(nb_cells_local))\n        nb_nodes, nb_cells = np.sum(nb_nodes_p), np.sum(nb_cells_p)\n\n        # shape of datasets\n        coord_shape = (\n            (nb_nodes, coordinates.shape[1]) if coordinates.ndim > 1 else (nb_nodes,)\n        )\n        conn_shape = (\n            (nb_cells, connectivity.shape[1]) if connectivity.ndim > 1 else (nb_cells,)\n        )\n\n        # global indices nodes\n        idx_start = np.sum(nb_nodes_p[self._ranks < self._prank])\n        idx_end = idx_start + nb_nodes_local\n\n        # global indices cells\n        idx_start_cells = np.sum(nb_cells_p[self._ranks < self._prank])\n        idx_end_cells = idx_start_cells + nb_cells_local\n        connectivity = connectivity + idx_start\n\n        with self._file(\"a\", driver=\"mpio\", comm=self._comm) as f:\n            if mesh_location in self._file.file_object:\n                del self._file.file_object[mesh_location]\n            grp = f.require_group(mesh_location)\n            coord = grp.require_dataset(\n                \"geometry\", shape=coord_shape, dtype=coordinates.dtype\n            )\n            conn = grp.require_dataset(\n                \"topology\", shape=conn_shape, dtype=connectivity.dtype\n            )\n\n            coord[idx_start:idx_end] = coordinates\n            conn[idx_start_cells:idx_end_cells] = connectivity\n",
+                "code": "    def add_mesh(\n        self, coordinates: np.ndarray, connectivity: np.ndarray, mesh_name: str = None\n    ) -> None:\n        \"\"\"Add the mesh to file. Currently only 2d meshes.\n\n        Note:\n            If you are working with FEniCS, you can use the\n            `bamboost.extensions.fenics.FenicsWriter` writer. With it you can\n            write the FEniCS mesh directly.\n        Args:\n            coordinates: Coordinates as array (nb_nodes, dim)\n            connectivity: Connectivity matrix (nb_cells, nb nodes per cell)\n            mesh_name: name for mesh (default = `mesh`)\n        \"\"\"\n        if mesh_name is None:\n            mesh_name = self._default_mesh\n        # self._mesh_location = 'Mesh/0/mesh/'\n        mesh_location = f\"{self._mesh_location}/{mesh_name}/\"\n\n        nb_nodes_local = coordinates.shape[0]\n        nb_cells_local = connectivity.shape[0]\n\n        # gather total mesh\n        nb_nodes_p = np.array(self._comm.allgather(nb_nodes_local))\n        nb_cells_p = np.array(self._comm.allgather(nb_cells_local))\n        nb_nodes, nb_cells = np.sum(nb_nodes_p), np.sum(nb_cells_p)\n\n        # shape of datasets\n        coord_shape = (\n            (nb_nodes, coordinates.shape[1]) if coordinates.ndim > 1 else (nb_nodes,)\n        )\n        conn_shape = (\n            (nb_cells, connectivity.shape[1]) if connectivity.ndim > 1 else (nb_cells,)\n        )\n\n        # global indices nodes\n        idx_start = np.sum(nb_nodes_p[self._ranks < self._prank])\n        idx_end = idx_start + nb_nodes_local\n\n        # global indices cells\n        idx_start_cells = np.sum(nb_cells_p[self._ranks < self._prank])\n        idx_end_cells = idx_start_cells + nb_cells_local\n        connectivity = connectivity + idx_start\n\n        with self._file(\"a\", driver=\"mpio\", comm=self._comm) as f:\n            if mesh_location in self._file.file_object:\n                del self._file.file_object[mesh_location]\n            grp = f.require_group(mesh_location)\n            coord = grp.require_dataset(\n                \"geometry\", shape=coord_shape, dtype=coordinates.dtype\n            )\n            conn = grp.require_dataset(\n                \"topology\", shape=conn_shape, dtype=connectivity.dtype\n            )\n\n            coord[idx_start:idx_end] = coordinates\n            conn[idx_start_cells:idx_end_cells] = connectivity\n",
                 "lines": [
-                  112,
-                  164
+                  110,
+                  166
                 ]
               },
               "props": {
@@ -6352,7 +6239,7 @@
             "add_field": {
               "name": "add_field",
               "docstring": "Add a dataset to the file. The data is stored at `data/`.\n",
-              "signature": "(\n    self,\n    name: str,\n    vector: <built-in function array>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: Literal['Node', 'Cell'] = 'Node'\n) -> None",
+              "signature": "(\n    self,\n    name: str,\n    vector: <built-in function array>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: str = 'Node'\n) -> None",
               "returns": {
                 "annotation": "None",
                 "description": null
@@ -6390,15 +6277,15 @@
                 },
                 "center": {
                   "default": "Node",
-                  "annotation": "typing.Literal['Node', 'Cell']",
+                  "annotation": "<class 'str'>",
                   "description": "Optional. Center of the data. Can be 'Node' or 'Cell'.\nDefault is 'Node'."
                 }
               },
               "source": {
-                "code": "    def add_field(\n        self,\n        name: str,\n        vector: np.array,\n        time: float = None,\n        mesh: str = None,\n        dtype: str = None,\n        center: Literal[\"Node\", \"Cell\"] = \"Node\",\n    ) -> None:\n        \"\"\"Add a dataset to the file. The data is stored at `data/`.\n\n        Args:\n            name: Name for the dataset\n            vector: Dataset\n            time: Optional. time\n            mesh: Optional. Linked mesh for this data\n            dtype: Optional. Numpy style datatype, see h5py documentation,\n                defaults to the dtype of the vector.\n            center: Optional. Center of the data. Can be 'Node' or 'Cell'.\n                Default is 'Node'.\n        \"\"\"\n        if mesh is None:\n            mesh = self._default_mesh\n\n        if time is None:\n            time = self.step\n\n        self._dump_array(f\"data/{name}/{self.step}\", vector, dtype=dtype)\n        self._comm.barrier()  # attempt to fix bug (see SimulationWriter add_field)\n\n        if self._prank == 0:\n            with self._file(\"a\"):\n                # Sometimes this fails with (if simultaneously trying to read the file)\n                # KeyError: 'Unable to synchronously open object (addr overflow, addr = 247903512, size = 328, eoa = 247903240)'\n                # I don't know exactly what is going on.\n                # It could be that some process is still writing and then it's opened again and the dataset doesn't exist properly\n                # OR the other processes try to open the file already for the next time while this one is waiting\n                vec = self._file[\"data\"][name][str(self.step)]\n                vec.attrs.update({\"center\": center, \"mesh\": mesh, \"t\": time})\n\n        self._comm.barrier()  # attempt to fix bug (see SimulationWriter add_field)\n",
+                "code": "    def add_field(\n        self,\n        name: str,\n        vector: np.array,\n        time: float = None,\n        mesh: str = None,\n        dtype: str = None,\n        center: str = \"Node\",\n    ) -> None:\n        \"\"\"Add a dataset to the file. The data is stored at `data/`.\n\n        Args:\n            name: Name for the dataset\n            vector: Dataset\n            time: Optional. time\n            mesh: Optional. Linked mesh for this data\n            dtype: Optional. Numpy style datatype, see h5py documentation,\n                defaults to the dtype of the vector.\n            center: Optional. Center of the data. Can be 'Node' or 'Cell'.\n                Default is 'Node'.\n        \"\"\"\n        if mesh is None:\n            mesh = self._default_mesh\n\n        dim = vector.shape[1:] if vector.ndim > 1 else None\n\n        if time is None:\n            time = self.step\n\n        length_local = vector.shape[0]\n        length_p = np.array(self._comm.allgather(length_local))\n\n        length = np.sum(length_p)\n\n        # global indices\n        idx_start = np.sum(length_p[self._ranks < self._prank])\n        idx_end = idx_start + length_local\n\n        # open file\n        with self._file(\"a\", driver=\"mpio\", comm=self._comm) as f:\n            data = f.require_group(\n                \"data\"\n            )  # Require group data to store all point data in\n            grp = data.require_group(name)\n            vec = grp.require_dataset(\n                str(self.step),\n                shape=(length, *dim) if dim else (length,),\n                dtype=dtype if dtype else vector.dtype,\n            )\n            vec[idx_start:idx_end] = vector\n\n        if self._prank == 0:\n            with self._file(\"a\"):\n                vec = self._file[\"data\"][name][str(self.step)]\n                vec.attrs[\"t\"] = time  # add time as attribute to dataset\n                vec.attrs[\"mesh\"] = mesh  # add link to mesh as attribute\n                vec.attrs[\"center\"] = center\n",
                 "lines": [
-                  166,
-                  206
+                  168,
+                  224
                 ]
               },
               "props": {
@@ -6409,7 +6296,7 @@
             "add_fields": {
               "name": "add_fields",
               "docstring": "Add multiple fields at once.\n",
-              "signature": "(\n    self,\n    fields: Dict[str, Union[numpy.ndarray, Tuple[numpy.ndarray, str]]],\n    time: float = None,\n    mesh: str = None\n) -> None",
+              "signature": "(\n    self,\n    fields: Dict[str, <built-in function array>],\n    time: float = None,\n    mesh: str = None\n) -> None",
               "returns": {
                 "annotation": "None",
                 "description": null
@@ -6422,8 +6309,8 @@
                 },
                 "fields": {
                   "default": null,
-                  "annotation": "typing.Dict[str, typing.Union[numpy.ndarray, typing.Tuple[numpy.ndarray, str]]]",
-                  "description": "Dictionary with fields. The value can be a tuple with the\ndata and a string \"Node\" or \"Cell\"."
+                  "annotation": "typing.Dict[str, <built-in function array>]",
+                  "description": "Dictionary with fields"
                 },
                 "time": {
                   "default": "None",
@@ -6437,10 +6324,10 @@
                 }
               },
               "source": {
-                "code": "    def add_fields(\n        self,\n        fields: Dict[str, np.ndarray | Tuple[np.ndarray, str]],\n        time: float = None,\n        mesh: str = None,\n    ) -> None:\n        \"\"\"Add multiple fields at once.\n\n        Args:\n            fields: Dictionary with fields. The value can be a tuple with the\n                data and a string \"Node\" or \"Cell\".\n            time: Optional. time\n        \"\"\"\n        for key, value in fields.items():\n            if isinstance(value, tuple):\n                vector, center = value\n            else:\n                vector, center = value, \"Node\"\n            self.add_field(key, vector, time, mesh, center=center)\n",
+                "code": "    def add_fields(\n        self,\n        fields: Dict[str, np.array],\n        time: float = None,\n        mesh: str = None,\n    ) -> None:\n        \"\"\"Add multiple fields at once.\n\n        Args:\n            fields: Dictionary with fields\n            time: Optional. time\n        \"\"\"\n        for name, vector in fields.items():\n            self.add_field(name, vector, time, mesh)\n",
                 "lines": [
-                  239,
-                  257
+                  226,
+                  239
                 ]
               },
               "props": {
@@ -6479,10 +6366,10 @@
                 }
               },
               "source": {
-                "code": "    def add_global_field(self, name: str, value: Any, dtype: str = None) -> None:\n        \"\"\"Add a gobal field. These are stored at `globals/` as an array in a\n        single dataset.\n\n        Args:\n            name: Name for the data\n            value: Data. Can be a numpy array or a single value.\n        \"\"\"\n        self._dump_global_data(f\"globals/{name}\", value, self.step, dtype=dtype)\n",
+                "code": "    def add_global_field(self, name: str, value: Any, dtype: str = None) -> None:\n        \"\"\"Add a gobal field. These are stored at `globals/` as an array in a\n        single dataset.\n\n        Args:\n            name: Name for the data\n            value: Data. Can be a numpy array or a single value.\n        \"\"\"\n        if isinstance(value, np.ndarray):\n            shape = (self.step + 1, *value.shape)\n        else:\n            shape = (self.step + 1,)\n\n        if self._prank == 0:\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"globals\")\n                if name not in grp.keys():\n                    vec = grp.create_dataset(\n                        name,\n                        shape=shape,\n                        dtype=dtype if dtype else np.array(value).dtype,\n                        chunks=True,\n                        maxshape=(None, *shape[1:]) if len(shape) > 1 else (None,),\n                        fillvalue=np.nan,\n                    )\n                    vec[-1] = value\n                else:\n                    vec = grp[name]\n                    vec.resize(shape)\n                    vec[-1] = value\n",
                 "lines": [
-                  259,
-                  267
+                  241,
+                  270
                 ]
               },
               "props": {
@@ -6513,8 +6400,8 @@
               "source": {
                 "code": "    def add_global_fields(self, fields: Dict[str, Any]) -> None:\n        \"\"\"Add multiple global fields at once.\n\n        Args:\n            fields: Dictionary with fields\n        \"\"\"\n        for name, value in fields.items():\n            self.add_global_field(name, value)\n",
                 "lines": [
-                  306,
-                  313
+                  272,
+                  279
                 ]
               },
               "props": {
@@ -6550,8 +6437,8 @@
               "source": {
                 "code": "    @deprecated(\"Use `copy_file` instead.\")\n    def add_additional(self, name: str, file: str) -> None:\n        \"\"\"Add an additional file stored elsewhere or in database directory.\n\n        Args:\n            name: Name of data\n            file: filename of file\n        \"\"\"\n        if self._prank == 0:\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"additionals\")\n                grp.attrs.update({name: file})\n",
                 "lines": [
-                  315,
-                  326
+                  281,
+                  292
                 ]
               },
               "props": {
@@ -6577,8 +6464,8 @@
               "source": {
                 "code": "    def finish_step(self) -> None:\n        \"\"\"Finish step. Adds 1 to the step counter.\"\"\"\n        self.step += 1\n",
                 "lines": [
-                  328,
-                  330
+                  294,
+                  296
                 ]
               },
               "props": {
@@ -6609,8 +6496,8 @@
               "source": {
                 "code": "    def finish_sim(self, status: str = \"Finished\") -> None:\n        if self._prank == 0:\n            self.change_status(status)\n",
                 "lines": [
-                  332,
-                  334
+                  298,
+                  300
                 ]
               },
               "props": {
@@ -6641,8 +6528,8 @@
               "source": {
                 "code": "    def register_git_attributes(self, repo_path: str = \"./\") -> None:\n        \"\"\"Register git information for given repo.\n\n        Args:\n            repo_path (`str`): path to git repository\n        \"\"\"\n        if self._prank == 0:\n            repo_path = os.path.abspath(repo_path)\n            # store current working directory\n            cwd = os.getcwd()\n\n            # switch directory to git repo\n            os.chdir(repo_path)\n            git_string = GitStateGetter().create_git_string()\n\n            # switch working directory back\n            os.chdir(cwd)\n\n            with self._file(\"a\") as f:\n                grp = f.require_group(\"git\")\n                repo_name = os.path.split(repo_path)[1]\n                log.info(f\"Adding repo {repo_name}\")\n                if repo_name in grp.keys():\n                    del grp[repo_name]\n                grp.create_dataset(repo_name, data=git_string)\n",
                 "lines": [
-                  336,
-                  360
+                  302,
+                  326
                 ]
               },
               "props": {
@@ -6673,8 +6560,8 @@
               "source": {
                 "code": "    def copy_executable(self, script_path: str) -> None:\n        \"\"\"WILL BE REMOVED. USE COPY_FILE.\n        Copy an executable to directory for reproducability.\n\n        Args:\n            script_path: path to script\n        \"\"\"\n        shutil.copy(script_path, self.path)\n        self.executable = os.path.split(script_path)[1]\n",
                 "lines": [
-                  362,
-                  370
+                  328,
+                  336
                 ]
               },
               "props": {
@@ -6710,8 +6597,8 @@
               "source": {
                 "code": "    def copy_file(self, source: Union[str, list], destination: str = \"\") -> None:\n        \"\"\"Copy a file to the datafolder.\n\n        Args:\n            source: path to file, or list of files\n            destination: destination (will create intermediatory directories)\n        \"\"\"\n        if self._prank != 0:\n            return\n\n        if isinstance(source, list):\n            for item in source:\n                self.copy_file(item, destination)\n            return\n\n        destination = os.path.join(self.path, destination)\n\n        if os.path.isdir(source):\n            shutil.copytree(\n                source,\n                os.path.join(destination, os.path.basename(source)),\n                dirs_exist_ok=True,\n            )\n        elif os.path.isfile(source):\n            os.makedirs(destination, exist_ok=True)\n            shutil.copy(source, destination)\n        else:\n            raise FileNotFoundError\n",
                 "lines": [
-                  372,
-                  399
+                  338,
+                  365
                 ]
               },
               "props": {
@@ -6898,7 +6785,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x78ea9e1cbc20>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x799c9c9b7dd0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               },

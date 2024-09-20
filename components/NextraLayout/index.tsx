@@ -5,11 +5,11 @@ import { useMDXComponents } from "nextra/mdx";
 import Layout from "nextra-theme-docs";
 
 import config from "@/theme.config";
-// import "nextra-theme-docs/style.css";
 import sourceDoc from "@/extract-docs/data/source_docs.json";
 
 import { ModuleObj } from "@/components/SourceDocumentation/types";
 import { useEffect } from "react";
+import { API_PATH } from "@/constants";
 
 function getTOC(data: ModuleObj | undefined): Heading[] {
   if (!data || !data.classes) return [];
@@ -61,16 +61,16 @@ export default function ApiLayout({
   useEffect(() => {
     const navbar = document.querySelector("nav");
     const apiLink = document.createElement("a");
-    apiLink.href = "/apidocs/manager";
+    apiLink.href = `${API_PATH}/manager`;
     apiLink.className =
       "_text-sm contrast-more:_text-gray-700 contrast-more:dark:_text-gray-100 max-md:_hidden _whitespace-nowrap _font-medium _subpixel-antialiased";
-    apiLink.innerText = "api";
+    apiLink.innerText = "API Docs";
     apiLink.ariaCurrent = "true";
     const docsLink = document.createElement("a");
-    docsLink.href = "/docs/basics/01_installation";
+    docsLink.href = "/docs/basics/getting_started";
     docsLink.className =
       "_text-sm contrast-more:_text-gray-700 contrast-more:dark:_text-gray-100 max-md:_hidden _whitespace-nowrap _text-gray-600 hover:_text-gray-800 dark:_text-gray-400 dark:hover:_text-gray-200";
-    docsLink.innerText = "docs";
+    docsLink.innerText = "Docs";
     docsLink.ariaCurrent = "false";
     navbar.insertBefore(apiLink, navbar.querySelector(".nextra-search"));
     navbar.insertBefore(docsLink, apiLink);
