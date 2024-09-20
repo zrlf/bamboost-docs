@@ -2,6 +2,8 @@
 title: Goal
 ---
 
+import { Callout } from "@/components/Callout";
+
 # Goal
 
 Finding the right data in a large amount of files is hard. By using a database,
@@ -10,16 +12,14 @@ automatically and the naming is no longer important. Unfortunately, most
 database solutions require significant initial setup and maintenance. The goal
 is to provide a database system with **zero overhead**.
 
-:::info[Why bamboost?]
-
+<Callout type="default" title="Why bamboost?">
 - No setup required.
 - Uses HDF5 to store data, allowing fast and specific access to your data.
 - Minimizes the number of files.
 - Create new databases on the fly.
 - Add new entries to a database with a single command.
 - Helps you to generate jobs, specifically on ETH's Euler cluster.
-
-:::
+</Callout>
 
 ## Concept
 

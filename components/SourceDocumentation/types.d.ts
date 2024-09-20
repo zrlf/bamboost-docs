@@ -53,3 +53,10 @@ export type ModuleObj = {
   functions: MethodObj[];
   submodules: ModuleObj[];
 };
+
+export type GenericArgument = {
+  name: string;
+  annotation?: string;
+  description?: string;
+  default?: string;
+};

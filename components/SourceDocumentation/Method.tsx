@@ -3,10 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CodeBlock } from "../Code";
 import cn from "clsx";
 import type { MethodObj } from "./types";
+import { getComponents } from "nextra-theme-docs";
 
 import styles from "./styles.module.css";
-import { classes, RenderMarkdownString, LinkAnnotation } from "./index";
-import { getComponents } from "nextra-theme-docs";
+import { classes, LinkAnnotation } from "./index";
+import { Markdown } from "./index";
+import { ArgumentList, SegmentTitle } from "./Class";
 
 export const RenderMethod = ({
   data,
@@ -76,40 +78,38 @@ export const RenderMethod = ({
         )}
       </AnimatePresence>
 
-      <div className="ml-10 space-y-5">
-        <RenderMarkdownString>{data.docstring}</RenderMarkdownString>
-        <components.ul className="space-y-5 list-disc ml-5">
-          {Object.entries(data.arguments).map(([name, arg]) => (
-            <components.li key={name}>
-              <div className="flex gap-3 items-center">
-                <div className={classes.hl}>{name}</div>
-                {arg.annotation && (
-                  <div>
-                    <LinkAnnotation>{arg.annotation}</LinkAnnotation>
-                  </div>
-                )}
-              </div>
-              <p className="ml-5">{arg.description}</p>
-            </components.li>
-          ))}
-        </components.ul>
+      <div className={cn("ml-5 space-y-5 pt-3")}>
+        <Markdown>{data.docstring}</Markdown>
 
-        {data.returns && (
+        {Object.keys(data.arguments).length > 0 && (
+          <>
+            <SegmentTitle>Arguments</SegmentTitle>
+            <ArgumentList
+              className="md:pl-5"
+              args={Object.entries(data.arguments).map(([key, value]) => ({
+                ...value,
+                name: key,
+              }))}
+            />
+          </>
+        )}
+
+        {data.returns && data.returns.annotation != "None" && (
           <div>
-            <div className="font-semibold text-lg">Returns</div>
+            <SegmentTitle className="mb-5">Returns</SegmentTitle>
             {data.returns.annotation && (
-              <div className="ml-5">
+              <div className="md:pl-5">
                 <LinkAnnotation>{data.returns.annotation}</LinkAnnotation>
               </div>
             )}
-            <div className="ml-5">{data.returns.description}</div>
+            <div className="md:pl-5">{data.returns.description}</div>
           </div>
         )}
 
         {data.examples.length > 0 && (
-          <div className="space-y-2">
-            <div className="font-semibold text-lg mb-3">Examples</div>
-            <ul className="space-y-2 ml-5">
+          <div>
+            <SegmentTitle className="mb-5">Examples</SegmentTitle>
+            <ul className="space-y-3 md:ml-5">
               {data.examples.map((example, idx) => (
                 <li key={idx}>
                   <CodeBlock language="python" code={example} />

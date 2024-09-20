@@ -1,4 +1,4 @@
-import { classes, RenderMarkdownString } from "./index";
+import { classes, Markdown } from "./index";
 import { RenderClass } from "./Class";
 import { RenderMethod } from "./Method";
 import type { ModuleObj } from "./types";
@@ -10,7 +10,7 @@ export function RenderModule({ data }: { data: ModuleObj }) {
   return (
     <div>
       <components.h1>{data.name}</components.h1>
-      <RenderMarkdownString>{data.docstring}</RenderMarkdownString>
+      <Markdown>{data.docstring}</Markdown>
       {data.functions.length > 0 && (
         <ul className="space-y-5 mb-20">
           {data.functions.map((func) => (

@@ -8,15 +8,15 @@ export default {
     }
   },
   docs: {
-    title: "docs",
+    title: "Docs",
     type: "page"
   },
   apidocs: {
-    title: "api",
+    title: "API Docs",
     type: "page"
   },
   apiLink: {
-    title: "api",
+    title: "API Docs",
     type: "page",
     href: "/apidocs/manager"
   },

@@ -1,35 +1,42 @@
 import React from "react";
-import { ClassObj, PropertyObj } from "./types";
+import { ClassObj, GenericArgument } from "./types";
 import { CodeBlock } from "@/components/Code";
 import { RenderMethod } from "./Method";
 import { getComponents } from "nextra-theme-docs";
 import cn from "clsx";
-import { classes, RenderMarkdownString, LinkAnnotation, Divider } from "./index";
+import { classes, LinkAnnotation, Divider } from "./index";
 
 import styles from "./styles.module.css";
+import { Markdown } from "./index";
 
-const Properties = ({ properties }: { properties: PropertyObj[] }) => {
+export const ArgumentList = ({ args, className }: { args: GenericArgument[], className?: string }) => {
   return (
-    <ul className={classes.ul}>
-      {Object.values(properties).map((property) => (
-        <li key={property.name} className="space-y-2">
-          <div className="flex gap-3 h-7 items-center">
-            <div className={classes.hl}>{property.name}</div>
-            {property.annotation && (
-              <>
-                {/* <Divider orientation="vertical" /> */}
-                <div>
-                  <LinkAnnotation>{property.annotation}</LinkAnnotation>
-                </div>
-              </>
+    <ul className={cn(classes.ul, className)}>
+      {Object.values(args).map((arg) => (
+        <li key={arg.name} className="space-y-2">
+          <div className="space-x-2">
+            <div className={cn(classes.hl, "inline-block")}>{arg.name}</div>
+            {arg.annotation && (
+              <div className="inline-block">
+                <LinkAnnotation>{arg.annotation}</LinkAnnotation>
+              </div>
+            )}
+            {arg.default && (
+              <div className="inline-block text-gray-500">
+                Default: {arg.default}
+              </div>
             )}
           </div>
-          <p className="ml-5">{property.description}</p>
+          <Markdown>{arg.description}</Markdown>
         </li>
       ))}
     </ul>
   );
 };
+
+export function SegmentTitle({ children, className }: { children: string, className?: string }) {
+  return <div className={cn("bg-highlight font-bold px-2", className)}>{children}</div>;
+}
 
 export function RenderClass({
   data,
@@ -63,33 +70,44 @@ export function RenderClass({
           styles.classContent,
         )}
       >
-        <RenderMarkdownString>{data.docstring}</RenderMarkdownString>
+        <Markdown>{data.docstring}</Markdown>
 
-        <Divider />
-        <div className="text-lg font-bold">Arguments</div>
-        <ul className={classes.ul}>
-          {Object.entries(data.constructor.arguments).map(([name, arg]) => {
-            if (name === "self") return null;
-            return (
-              <components.li key={name}>
-                <div className="flex gap-3 h-7 items-center">
-                  <div className={classes.hl}>{name}</div>
-                  {arg.annotation && (
-                    <div>
-                      <LinkAnnotation>{arg.annotation}</LinkAnnotation>
-                    </div>
-                  )}
-                </div>
-                <p className="ml-5">{arg.description}</p>
-              </components.li>
-            );
-          })}
-        </ul>
-        <Divider />
-        <div className="text-lg font-bold">Properties</div>
-        <Properties properties={data.properties} />
+        {Object.keys(data.constructor.arguments).length > 0 && (
+          <>
+            <Divider />
+            <SegmentTitle>Arguments</SegmentTitle>
+            <ArgumentList
+              args={Object.entries(data.constructor.arguments).map(
+                ([key, value]) => ({ ...value, name: key }),
+              )}
+            />
+          </>
+        )}
 
-        <Divider />
+        {data.properties.length > 0 && (
+          <>
+            <Divider />
+            <SegmentTitle>Properties</SegmentTitle>
+            <ArgumentList args={data.properties} />
+          </>
+        )}
+
+        {data.examples.length > 0 && (
+          <>
+            <Divider />
+            <div className="space-y-2">
+              <SegmentTitle>Examples</SegmentTitle>
+              <ul className="space-y-2 ml-5">
+                {data.examples.map((example, idx) => (
+                  <li key={idx}>
+                    <CodeBlock language="python" code={example} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
+
         <ul className="space-y-14">
           {Object.values(data.methods).map((method) => (
             <RenderMethod

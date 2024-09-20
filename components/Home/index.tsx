@@ -41,14 +41,14 @@ const Home = () => {
     <div className="home-content">
       <div className="content-container">
         <div className="hero">
-          <h1 className="headline">Get a grip on your data<br className='sm:block hidden' />with bamboost </h1>
+          <h1 className="headline">Get a grip on your data <br className='sm:block hidden' />with bamboost </h1>
           <p className="subtitle">
             {`Bamboost is a Python library built for datamanagement using the HDF5 file
         format. bamboost stands for a lightweight shelf which will boost your
         efficiency and which will totally break if you load it heavily. Just kidding,
         bamboo can fully carry pandas. 🐼🐼🐼🐼`}
           </p>
-          <p className="subtitle lg:flex lg:flex-row lg:gap-6 items-start">
+          <p className="subtitle md:flex md:flex-row md:gap-3 items-start">
             <Link className={styles.cta} href="/docs/basics/03_getting_started">Get started <span>→</span></Link>
             <Link className={styles.cta} href="/docs">Documentation <span>→</span></Link>
             <Link className={styles.cta} href="/apidocs/manager">API documentation <span>→</span></Link>

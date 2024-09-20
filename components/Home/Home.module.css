@@ -39,6 +39,7 @@
 }
 
 a.cta {
+  @apply mr-3 md:mr-0;
   display: inline-block;
   background: linear-gradient(to bottom, transparent -400%, var(--secondary));
   text-decoration: none;

@@ -2,6 +2,8 @@
 title: Installation
 ---
 
+import { Callout } from "@/components/Callout";
+
 ## Basic installation
 
 To use the latest release of `bamboost`, install it using the python package
@@ -19,20 +21,20 @@ automatically:
 - [pandas](https://pandas.pydata.org/pandas-docs/stable/getting_started/install.html)
 - [mpi4py](https://mpi4py.readthedocs.io/en/stable/install.html)
 
-:::info[Issues with `mpi4py`]
+<Callout type="warning" title="Issues with `mpi4py`">
 
 If you run into issues installing `mpi4py`, make sure that a python distribution
 containing the header files is installed on your system. Google this for your
 distribution. On Linux, a suitable package will be named `python3-dev` or
 `libpython3.8-dev` (insert the python version accordingly).
 
-:::
+</Callout>
 
-:::info[Installation troubleshooting]
+<Callout type="info" title="Installation troubleshooting">
 
 [Installation troubleshooting](../guides/installation-troubleshooting)
 
-:::
+</Callout>
 
 ### Parallel support for writing HDF5 files
 
