@@ -1,9 +1,8 @@
-image: node:latest
+image: node
 
 cache:
   paths:
     - node_modules/
-    - .next/
 
 stages:
   - deploy
@@ -11,10 +10,12 @@ stages:
 pages:
   stage: deploy
   script:
-  - npm install
-  - npm run build
-  - rm -rf ./public
-  - mv ./out ./public
+    - npm install
+    - npm run build
+    - rm -rf ./public
+    - mv ./out ./public
+  after_script:
+    - rm -rf out
   artifacts:
     paths:
     - public
