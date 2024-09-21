@@ -66,7 +66,7 @@ export function RenderClass({
       />
       <div
         className={cn(
-          "relative ml-10 my-4 flex flex-col gap-5",
+          "relative overflow-x-clip ml-10 my-4 flex flex-col gap-5",
           styles.classContent,
         )}
       >

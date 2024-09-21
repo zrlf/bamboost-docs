@@ -41,3 +41,24 @@
   height: 100%;
   width: 1px;
 }
+
+.classContainer::before {
+  @apply shadow-lg md:rounded dark:shadow-[#040404];
+  --padding: 1.5rem;
+  content: "";
+  position: absolute;
+  top: calc(0rem - var(--padding));
+  bottom: calc(0rem - var(--padding));
+  left: calc(-50vw + 50%);
+  width: 100vw;
+  background-color: var(--primary-bg);
+  z-index: -1;
+}
+
+@media (min-width: 768px) {
+  .classContainer::before {
+    left: calc(0rem - var(--padding));
+    right: calc(0rem - var(--padding));
+    width: unset;
+  }
+}

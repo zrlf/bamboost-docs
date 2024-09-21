@@ -4,6 +4,7 @@ import { RenderMethod } from "./Method";
 import type { ModuleObj } from "./types";
 import cn from "clsx";
 import { getComponents } from "nextra-theme-docs";
+import styles from "./styles.module.css";
 
 export function RenderModule({ data }: { data: ModuleObj }) {
   const components = getComponents({ isRawLayout: false });
@@ -14,10 +15,7 @@ export function RenderModule({ data }: { data: ModuleObj }) {
       {data.functions.length > 0 && (
         <ul className="space-y-5 mb-20">
           {data.functions.map((func) => (
-            <RenderMethod
-              data={func}
-              key={func.name}
-            />
+            <RenderMethod data={func} key={func.name} />
           ))}
         </ul>
       )}
@@ -26,8 +24,8 @@ export function RenderModule({ data }: { data: ModuleObj }) {
         {data.classes.map((classObj) => (
           <RenderClass
             className={cn(
-              "px-5 py-1 m-[-1.25rem] rounded-3xl pb-10",
-              classes.backgroundClass,
+              "relative",
+              styles.classContainer,
             )}
             data={classObj}
             key={classObj.name}

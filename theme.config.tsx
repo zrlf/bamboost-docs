@@ -22,7 +22,7 @@ const config: DocsThemeConfig = {
   backgroundColor: {
     // dark: "17,17,17",
     dark: "20,20,30",
-    light: "254,252,232",
+    light: "254,252,252",
   },
   feedback: { content: null },
   docsRepositoryBase: "https://gitlab.com/cmbm-ethz/bamboost",

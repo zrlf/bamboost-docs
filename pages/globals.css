@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #f6f4e1;
-  --bg: rgb(254, 252, 232);
+  --background: rgb(234, 232, 232);
+  --bg: rgb(254, 252, 252);
   --foreground: #111111;
-  --highlight: #ebe8d5;
+  --highlight: rgb(224, 222, 222);
   --primary: #31394b;
   --secondary: #acc06f;
-  --primary-bg: #f5f2df;
-  --card-bg: #fcfbf0;
+  --primary-bg: rgb(244, 242, 242);
+  --card-bg: rgb(234, 232, 232);
 }
 
 .dark {
