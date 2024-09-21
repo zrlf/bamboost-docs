@@ -20,16 +20,15 @@
 }
 
 .methodTitle::before {
-  @apply bg-foreground;
+  @apply bg-gray-700 opacity-50;
   --radius: 0.7rem;
   content: "";
   position: absolute;
   top: calc(0.5rem - (var(--radius) - 1rem) / 2);
-  left: calc(-1.25rem - var(--radius) / 2);
+  left: calc(-1.24rem - var(--radius) / 2);
   width: var(--radius);
   height: var(--radius);
   border-radius: 50%;
-  opacity: 0.4;
 }
 
 .classContent::before {

@@ -22,7 +22,7 @@
   --secondary: #acc06f;
   --primary-bg: #2427303f;
   --card-bg: #31394b;
-  --github-bg: #24292E;
+  --github-bg: #24292e;
 }
 
 html.dark .shiki,
@@ -36,9 +36,12 @@ body {
   font-family: var(--font-geist-sans), monospace;
   letter-spacing: 0.01em;
   text-underline-offset: 0.3em;
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
 }
-:not(pre) > code:not([class*="twoslash-"]) {
+
+:not(pre)>code:not([class*="twoslash-"]) {
   font-family: var(--font-geist-mono);
   font-size: 0.875em;
 }
@@ -68,6 +71,7 @@ footer {
   .home-content p {
     font-size: 0.9rem;
   }
+
   .home-content .hide-small {
     display: none;
   }
@@ -80,15 +84,17 @@ footer {
   padding-right: max(env(safe-area-inset-right), 1.5rem);
   margin: 0 auto;
 }
+
 .content-container h3 {
   font-weight: bold;
   font-size: 1.2rem;
   padding-bottom: 0.5rem;
 }
+
 .headline {
   display: inline-flex;
   font-size: 3.125rem;
-  font-size: min(4.375rem, max(10vw, 2.5rem));
+  font-size: min(4.375rem, max(13vw, 2.5rem));
   font-weight: 700;
   font-feature-settings: initial;
   letter-spacing: -0.12rem;
@@ -100,13 +106,15 @@ footer {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
 .dark .headline {
   background-image: linear-gradient(146deg, var(--secondary), #757a7d);
 }
+
 .subtitle {
   position: relative;
-  font-size: 1.3rem;
-  font-size: min(1.3rem, max(3.5vw, 1.2rem));
+  font-size: 3.3rem;
+  font-size: min(1.3rem, max(4.5vw, 1.2rem));
   font-feature-settings: initial;
   line-height: 1.6;
   width: min(100%, 60ch);
@@ -115,6 +123,7 @@ footer {
 .hero {
   position: relative;
 }
+
 .hero::after {
   content: "";
   position: absolute;
@@ -123,9 +132,12 @@ footer {
   height: 150%;
   width: 100vw;
   z-index: -1;
-  background-color: var(--highlight);
+  background-color: var(--card-bg);
 }
 
 .dark .hero::after {
-  background-image: linear-gradient(to bottom, transparent, var(--card-bg) 100%);
+  background-color: unset;
+  background-image: linear-gradient(to bottom,
+      transparent,
+      var(--card-bg) 100%);
 }

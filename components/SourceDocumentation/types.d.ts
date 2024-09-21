@@ -42,7 +42,7 @@ export type ClassObj = {
   constructor: MethodObj;
   methods: { [key: string]: MethodObj | undefined };
   properties: PropertyObj[];
-  inherits_from: object;
+  inherits_from: { [key: string]: { module: string; members: string[][] } };
   examples: string[];
 };
 

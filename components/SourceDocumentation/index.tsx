@@ -213,9 +213,9 @@ export function LinkAnnotation({ children }: { children: string }) {
  * @param input - The input string to be parsed.
  * @returns A link or the original input string.
  */
-function linkifyPkg(input: string, markdown: true): string;
-function linkifyPkg(input: string, markdown?: false): React.ReactNode;
-function linkifyPkg(
+export function linkifyPkg(input: string, markdown: true): string;
+export function linkifyPkg(input: string, markdown?: false): React.ReactNode;
+export function linkifyPkg(
   input: string,
   markdown: boolean = false,
 ): React.ReactNode | string {
