@@ -1,4 +1,4 @@
-import { classes, Markdown } from "./index";
+import { Markdown } from "./index";
 import { RenderClass } from "./Class";
 import { RenderMethod } from "./Method";
 import type { ModuleObj } from "./types";
