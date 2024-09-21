@@ -108,43 +108,9 @@ have something in the database, let's display a pandas dataframe of it:
 ```python
 db.df
 ```
-
-<div>
-<table>
- <thead>
-   <tr style={{textAlign: "right"}}>
-     <th></th>
-     <th>id</th>
-     <th>notes</th>
-     <th>status</th>
-     <th>time_stamp</th>
-     <th>boat.E</th>
-     <th>boat.nu</th>
-     <th>material_model</th>
-     <th>penalty_constant</th>
-     <th>processors</th>
-     <th>wall.E</th>
-     <th>wall.nu</th>
-   </tr>
- </thead>
- <tbody>
-   <tr>
-     <th>0</th>
-     <td>e25559b8</td>
-     <td></td>
-     <td>Initiated</td>
-     <td>2024-07-21 17:52:43</td>
-     <td>1</td>
-     <td>0.3</td>
-     <td>Linear elastic</td>
-     <td>100</td>
-     <td>1</td>
-     <td>20</td>
-     <td>0.2</td>
-   </tr>
- </tbody>
-</table>
-</div>
+|   | id | notes | status | time_stamp | boat.E | boat.nu | material_model | penalty_constant | processors | wall.E | wall.nu |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | e25559b8 | | Initiated | 2024-07-21 17:52:43 | 1 | 0.3 | Linear elastic | 100 | 1 | 20 | 0.2 |
 
 <Callout type="default">
 This is a good point to introduce the bamboost TUI. It does not come bundled
@@ -214,7 +180,7 @@ sim.add_field(
 )
 ```
 
-:::warning
+<Callout type="warning">
 The current step is an internal counter. Calling `add_field` does not increase
 the step counter. This means that you can call `add_field` for all your fields
 consequentally. To finish the current step and go to the next one call
@@ -228,8 +194,7 @@ To go to a specific step, set the step variable explicitly:
 ```python
 sim.step = 73
 ```
-
-:::
+</Callout>
 
 ### Global data
 

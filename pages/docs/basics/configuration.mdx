@@ -2,6 +2,8 @@
 title: Configuration
 ---
 
+import { Callout } from '@/components/Callout';
+
 # Configuration
 
 A few global options are available. Bamboost can be configured using the
@@ -33,10 +35,10 @@ paths = [
   functionality. This is useful if you never use mpi anyway as most of the
   import time of `bamboost` is due to the import of MPI.
 
-:::info
+<Callout type="info">
 You can disable MPI for the current shell by setting the environment variable
 `BAMBOOST_MPI = "0"`.
-:::
+</Callout>
 
 - **sort_table_key**: any dataframe will be sorted by this key. This should be a
   key that exists in all your databases. E.g. the metadata set by bamboost.
