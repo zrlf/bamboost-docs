@@ -52,6 +52,7 @@ export type ModuleObj = {
   docstring: string;
   functions: MethodObj[];
   submodules: ModuleObj[];
+  constants?: PropertyObj[];
 };
 
 export type GenericArgument = {

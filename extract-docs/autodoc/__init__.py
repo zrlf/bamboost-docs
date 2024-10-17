@@ -14,6 +14,7 @@ from __future__ import annotations
 import inspect
 import json
 import re
+from pprint import pprint
 from types import ModuleType
 from typing import TypedDict
 
@@ -141,7 +142,7 @@ def document_instance_variable(variable: pdoc.doc.Variable) -> apiVariable:
         "name": variable.name,
         "annotation": sanitize_annotation(variable.annotation_str),
         "description": (
-            parse_docstring(variable.docstring)["description"].replace("\n", " ")
+            parse_docstring(variable.docstring)["description"]#.replace("\n", " ")
             if variable.docstring
             else None
         ),
@@ -219,6 +220,7 @@ def document_module(module: pdoc.doc.Module) -> apiModule:
         "name": module.name,
         "slug": module.fullname.split("."),
         "docstring": parse_docstring(module.docstring)["description"].strip(),
+        "constants": [document_instance_variable(const) for const in module.variables],
         "classes": [document_class(cls) for cls in module.classes],
         "functions": [
             document_method(func)
@@ -269,4 +271,4 @@ def sanitize_annotation(annotation: str) -> str:
     """Sanitize annotation string."""
     if not annotation or annotation == inspect._empty:
         return None
-    return annotation.lstrip(':').strip()
+    return annotation.lstrip(":").strip()

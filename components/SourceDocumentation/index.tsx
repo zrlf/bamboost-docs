@@ -1,5 +1,5 @@
-import React from "react";
-import cn from "clsx";
+import React, { ComponentProps } from "react";
+import { cn } from "@/scripts/utils";
 import { Link } from "nextra-theme-docs";
 import MarkdownOriginal from "marked-react";
 import { Callout } from "../Callout";
@@ -14,8 +14,13 @@ export const classes = {
   backgroundClass: cn("bg-[var(--primary-bg)] shadow-xl dark:shadow-[#040404]"),
 };
 
-export const Divider = () => {
-  return <div className="bg-gray-700 h-[1px] w-full"></div>;
+export const Divider = ({ className, ...props }: ComponentProps<"div">) => {
+  return (
+    <div
+      className={cn("bg-gray-700 h-[1px] w-full", className)}
+      {...props}
+    ></div>
+  );
 };
 
 /**
@@ -123,6 +128,7 @@ export function Markdown({
   const content = children.replace(/`([^`]+)`/g, (match, p1) => {
     return linkifyPkg(p1, true);
   });
+  console.log(content);
 
   const result: (
     | string
@@ -183,10 +189,14 @@ export function LinkAnnotation({ children }: { children: string }) {
   const cleanedChildren = children.replace(/[^a-zA-Z0-9._\[\]() ]/g, "");
 
   // Remove any occurrence of class, func, etc.
-  const filteredChildren = cleanedChildren.replace(/(class|func|method|module|object)/g, "").trim();
+  const filteredChildren = cleanedChildren
+    .replace(/(class|func|method|module|object)/g, "")
+    .trim();
 
   // Find the part of the string that starts with 'bamboost.'
-  const match = filteredChildren.match(new RegExp(`${PKG_NAME}\\.[a-zA-Z0-9._]+`));
+  const match = filteredChildren.match(
+    new RegExp(`${PKG_NAME}\\.[a-zA-Z0-9._]+`),
+  );
 
   if (match) {
     const bamboostPart = match[0];
@@ -194,7 +204,9 @@ export function LinkAnnotation({ children }: { children: string }) {
 
     // Create the full element by combining the parsed part with the rest of the string
     const beforeMatch = filteredChildren.slice(0, match.index);
-    const afterMatch = filteredChildren.slice(match.index + bamboostPart.length);
+    const afterMatch = filteredChildren.slice(
+      match.index + bamboostPart.length,
+    );
 
     return (
       <code>
@@ -224,7 +236,7 @@ export function linkifyPkg(
   // 1. Check if the input starts with 'bamboost.'
   if (!input.startsWith(prefix)) {
     // Do nothing if the prefix doesn't match
-    return input;
+    return `\`${input}\``;
   }
 
   // 2. Remove the prefix
@@ -275,6 +287,6 @@ export function linkifyPkg(
     );
   } else {
     // No matching slug found; do nothing
-    return input;
+    return `\`${input}\``;
   }
 }

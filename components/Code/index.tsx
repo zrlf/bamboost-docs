@@ -54,7 +54,8 @@ export function CodeBlock({
 
   useEffect(() => {
     async function generateCodeSignature() {
-      const out = await codeToHast(code, {
+      const codeWithPreservedBlanks = code.replace(/^\s*$/gm, " ").trimEnd();
+      const out = await codeToHast(codeWithPreservedBlanks, {
         lang: language,
         themes: { light: "github-light", dark: "github-dark" },
       });
