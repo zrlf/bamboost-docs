@@ -1,5 +1,5 @@
 import React, { ComponentProps } from "react";
-import { cn } from "@/scripts/utils";
+import cn from "clsx";
 import { Link } from "nextra-theme-docs";
 import MarkdownOriginal from "marked-react";
 import { Callout } from "../Callout";

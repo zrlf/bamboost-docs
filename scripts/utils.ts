@@ -1,10 +1,4 @@
 import { ModuleObj } from "@/components/SourceDocumentation/types";
-import clsx, { ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export const cn = (...args: ClassValue[]) => {
-  return twMerge(clsx(...args));
-};
 
 /**
  * Retrieves all possible slugs from a nested structure.
