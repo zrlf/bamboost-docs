@@ -1,8 +1,9 @@
-image: node
+image: node:22-alpine
 
 cache:
   paths:
     - node_modules/
+    - .next/cache/
 
 stages:
   - deploy
@@ -10,8 +11,8 @@ stages:
 pages:
   stage: deploy
   script:
-    - npm install
-    - npm run build
+    - npm ci
+    - npm run build --verbose
     - rm -rf ./public
     - mv ./out ./public
   after_script:
