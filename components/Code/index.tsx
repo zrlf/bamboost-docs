@@ -71,7 +71,7 @@ export function CodeBlock({
             />
           ),
           pre: (props) => (
-            <pre {...props} className={cn(styles.pre, "shiki")} />
+            <pre {...props} className={cn(styles.pre, "shiki p-2")} />
           ),
         },
       });
