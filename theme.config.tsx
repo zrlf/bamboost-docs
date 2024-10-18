@@ -36,6 +36,9 @@ const config: DocsThemeConfig = {
       light: 40,
     },
   },
+  toc: {
+    backToTop: true,
+  },
   nextThemes: {
     defaultTheme: "dark",
   },

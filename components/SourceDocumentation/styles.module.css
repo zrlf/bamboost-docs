@@ -61,3 +61,14 @@
     width: unset;
   }
 }
+
+.markdownTable {
+  @apply table-auto border-collapse;
+}
+
+.markdownTable th {
+  @apply border border-primary bg-highlight px-2 py-1 text-sm;
+}
+.markdownTable td {
+  @apply border border-primary p-2;
+}

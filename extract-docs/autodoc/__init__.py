@@ -74,8 +74,14 @@ class apiReturn(TypedDict):
     description: str
     annotation: str
 
+class parsedDocstring(TypedDict):
+    short_description: str
+    description: str
+    arguments: dict[str, str]
+    returns: str  # Changed from 'return' to 'returns'
+    examples: list[str]
 
-def parse_docstring(docstring: str):
+def parse_docstring(docstring: str) -> parsedDocstring:
     """Parse docstring and return description, arguments and return."""
     doc = parse(docstring)
 
@@ -91,7 +97,7 @@ def parse_docstring(docstring: str):
         "arguments": {
             param.arg_name.split()[0]: param.description for param in doc.params
         },
-        "return": doc.returns.description if doc.returns else None,
+        "returns": doc.returns.description if doc.returns else None,
         "examples": examples,
     }
 
@@ -108,7 +114,7 @@ def document_method(method: pdoc.doc.Function, is_classmethod=False) -> apiMetho
         "returns": {
             "annotation": sanitize_annotation(str(signature.return_annotation)),
             "description": (
-                docstring["return"].replace("\n", " ") if docstring["return"] else None
+                docstring["returns"].replace("\n", " ") if docstring["returns"] else None
             ),
         },
         "arguments": {
@@ -136,16 +142,21 @@ def document_method(method: pdoc.doc.Function, is_classmethod=False) -> apiMetho
     return method_data
 
 
-def document_instance_variable(variable: pdoc.doc.Variable) -> apiVariable:
+def document_instance_variable(
+    variable: pdoc.doc.Variable, module_arguments: dict = None
+) -> apiVariable:
     """Document instance variable and return dictionary with documentation."""
+    if variable.docstring:
+        description = parse_docstring(variable.docstring)["description"]
+    elif module_arguments and variable.name in module_arguments:
+        description = module_arguments[variable.name]
+    else:
+        description = None
+
     return {
         "name": variable.name,
         "annotation": sanitize_annotation(variable.annotation_str),
-        "description": (
-            parse_docstring(variable.docstring)["description"]#.replace("\n", " ")
-            if variable.docstring
-            else None
-        ),
+        "description": description,
     }
 
 
@@ -216,11 +227,17 @@ def document_module(module: pdoc.doc.Module) -> apiModule:
     """Document module and return dictionary with documentation."""
     if not isinstance(module, pdoc.doc.Module):
         module = pdoc.doc.Module(module)
+
+    parsed_docstring = parse_docstring(module.docstring)
+
     result = {
         "name": module.name,
         "slug": module.fullname.split("."),
-        "docstring": parse_docstring(module.docstring)["description"].strip(),
-        "constants": [document_instance_variable(const) for const in module.variables],
+        "docstring": parsed_docstring["description"].strip(),
+        "constants": [
+            document_instance_variable(const, module_arguments=parsed_docstring['arguments'])
+            for const in module.variables
+        ],
         "classes": [document_class(cls) for cls in module.classes],
         "functions": [
             document_method(func)
@@ -228,6 +245,7 @@ def document_module(module: pdoc.doc.Module) -> apiModule:
             if not func.name.startswith("_")
         ],
         "submodules": [document_module(sub_module) for sub_module in module.submodules],
+        "examples": parsed_docstring["examples"],
     }
 
     return result
@@ -272,3 +290,9 @@ def sanitize_annotation(annotation: str) -> str:
     if not annotation or annotation == inspect._empty:
         return None
     return annotation.lstrip(":").strip()
+
+
+if __name__ == "__main__":
+    from bamboost.extensions import use_locking
+
+    document_module(pdoc.doc.Module(use_locking))

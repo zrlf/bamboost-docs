@@ -5,6 +5,7 @@ import MarkdownOriginal from "marked-react";
 import { Callout } from "../Callout";
 
 import { API_PATH, ALL_MODULES, PKG_NAME } from "@/constants";
+import styles from './styles.module.css';
 
 export const classes = {
   ul: "space-y-2 md:space-y-2 list-disc ml-5",
@@ -128,7 +129,6 @@ export function Markdown({
   const content = children.replace(/`([^`]+)`/g, (match, p1) => {
     return linkifyPkg(p1, true);
   });
-  console.log(content);
 
   const result: (
     | string
@@ -141,7 +141,10 @@ export function Markdown({
       if (ordered) {
         return (
           <ol
-            className={`list-disc [&>li]:ml-5 ${typeof parent !== "undefined" && !parent ? "my-2" : ""}`}
+            className={cn(
+              "list-decimal marker:font-bold marker:text-sm [&>li]:ml-5",
+              typeof parent !== "undefined" && !parent ? "my-2" : "",
+            )}
           >
             {children}
           </ol>
@@ -158,6 +161,11 @@ export function Markdown({
     },
     paragraph: (children: any) => (
       <p className="[&:not(:last-child)]:mb-3">{children}</p>
+    ),
+    table: (children: React.ReactNode) => (
+      <div className="overflow-x-auto">
+        <table className={styles.markdownTable}>{children}</table>
+      </div>
     ),
   };
 

@@ -53,6 +53,7 @@ export type ModuleObj = {
   functions: MethodObj[];
   submodules: ModuleObj[];
   constants?: PropertyObj[];
+  examples?: string[];
 };
 
 export type GenericArgument = {

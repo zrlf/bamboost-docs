@@ -14,20 +14,35 @@ import { API_PATH } from "@/constants";
 function getTOC(data: ModuleObj | undefined): Heading[] {
   if (!data || !data.classes) return [];
   const headings: Heading[] = [];
-  data.functions?.map((func) => {
-    headings.push({ depth: 2, value: func.name, id: func.name });
-  });
-  data.classes?.map((cls) => {
-    headings.push({ depth: 2, value: cls.name, id: cls.name });
-    Object.values(cls.methods).map((method) => {
-      method.name &&
-        headings.push({
-          depth: 3,
+
+  if (data.constants?.length > 0) {
+    headings.push({ depth: 2, value: "Constants", id: "constants" });
+  }
+
+  if (data.functions?.length > 0) {
+    headings.push({ depth: 2, value: "Functions", id: "functions" });
+
+    data.functions?.map((func) => {
+      headings.push({ depth: 3, value: func.name, id: func.name });
+    });
+  }
+
+  if (data.classes?.length > 0) {
+    headings.push({ depth: 2, value: "Classes", id: "classes" });
+
+    data.classes?.map((cls) => {
+      headings.push({ depth: 3, value: cls.name, id: cls.name });
+      Object.values(cls.methods).map((method) => {
+        method.name &&
+          headings.push({
+          depth: 4,
           value: method.name,
           id: `${cls.name}.${method.name}`,
         });
+      });
     });
-  });
+  }
+
   return headings;
 }
 
