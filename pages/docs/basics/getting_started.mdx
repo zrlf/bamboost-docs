@@ -40,7 +40,7 @@ Alternatively, you can create a Manager directly from its UID:
 db = Manager(uid='<ID>')
 ```
 
-Internally, a sqlite database is maintained to keep track of known bamboost
+Internally, a sqlite database is maintained at `~/.local/share/bamboost/bamboost.db` to keep track of known bamboost
 databases and it's content. However, this serves more as a cache system to speed
 up operations. If a requested database is not in the sqlite database, the file
 system is searched. To tell bamboost where your data may be, edit the list of
