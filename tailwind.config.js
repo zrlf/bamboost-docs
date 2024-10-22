@@ -10,7 +10,7 @@ export default {
     './node_modules/fumadocs-ui/dist/**/*.js',
   ],
   presets: [createPreset({
-    preset: 'neutral',
+    preset: 'default',
     addGlobalColors: true,
   })],
 };

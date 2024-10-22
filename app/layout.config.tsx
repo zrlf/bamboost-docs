@@ -28,14 +28,14 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
           {
             title: "Docs",
             description: "Guides and tutorials",
-            icon: <Book size={24} className="text-orange-400" />,
+            icon: <Book size={24} className="text-[hsl(var(--primary-2))]" />,
             url: "/docs",
           },
           {
             title: "API",
             description: "API reference",
-            url: "/apidocs/index_",
-            icon: <Library size={24} className="text-blue-400"/>,
+            url: "/apidocs",
+            icon: <Library size={24} className="text-[hsl(var(--primary))]"/>,
           },
         ]}
       />

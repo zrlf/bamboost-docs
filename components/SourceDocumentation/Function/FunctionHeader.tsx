@@ -3,6 +3,7 @@ import { useState } from "react";
 import { MethodObj } from "../types";
 import FumaComponents from "fumadocs-ui/mdx";
 import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export const FunctionHeader = ({
   data,
@@ -17,12 +18,15 @@ export const FunctionHeader = ({
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row sm:justify-between w-full sm:items-center bg-muted rounded-md px-4 mt-12">
-        <FumaComponents.h3 id={data.name} className="my-4">
-          <div className="">
-            {data.name}
-            {signature}
-          </div>
+      <div
+        className={cn(
+          "flex flex-col sm:flex-row sm:justify-between w-full sm:items-center",
+          "bg-muted/50 rounded-md px-4 mt-12 border",
+        )}
+      >
+        <FumaComponents.h3 id={data.name} className="my-2">
+          {data.name}
+          {signature}
         </FumaComponents.h3>
         <button
           className="text-xs border px-2 py-1 rounded size-fit text-muted-foreground text-nowrap"

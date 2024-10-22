@@ -14,7 +14,6 @@ from __future__ import annotations
 import inspect
 import json
 import re
-from pprint import pprint
 from types import ModuleType
 from typing import TypedDict
 

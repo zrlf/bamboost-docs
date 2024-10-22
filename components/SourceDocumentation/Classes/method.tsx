@@ -1,8 +1,9 @@
-import FumaComponents from "fumadocs-ui/mdx";
-import { MethodObj } from "@/components/SourceDocumentation/types";
+import { MethodObj, ReturnObj } from "@/components/SourceDocumentation/types";
 import { Code } from "@/components/Code";
 import MethodHeader from "./MethodHeader";
 import Markdown from "@/components/Markdown/markdown";
+import { Arguments } from "@/components/SourceDocumentation/ArgumentList";
+import { LinkAnnotation } from "../annotation";
 
 export const Method = ({
   data,
@@ -31,7 +32,38 @@ export const Method = ({
         isClassMethod={isClassMethod}
       />
 
-      <Markdown>{data.docstring as string}</Markdown>
+      <Markdown input={data.docstring as string} />
+      <Arguments data={data.arguments} />
+      {data.returns && data.returns.annotation !== "None" && (
+        <Returns data={data.returns} />
+      )}
+      {data.examples.length > 0 && <Examples examples={data.examples} />}
+
     </>
+  );
+};
+
+const Returns = ({ data }: { data: ReturnObj }) => {
+  return (
+    <div>
+      <h5>Returns</h5>
+      <div className="ml-4">
+        <LinkAnnotation children={data.annotation!} />
+        <span className="ml-2">{data.description}</span>
+      </div>
+    </div>
+  );
+};
+
+const Examples = ({ examples }: { examples: string[] }) => {
+  return (
+    <div>
+      <h5>Examples</h5>
+      <div className="ml-4">
+        {examples.map((example, i) => (
+          <Code key={i} code={example} className="my-2 py-2 [&_*]:py-0" />
+        ))}
+      </div>
+    </div>
   );
 };

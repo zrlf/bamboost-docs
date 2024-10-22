@@ -61,6 +61,16 @@ export function createAPISource(): Source<{
         toc: createTOC(currentData),
         data: currentData,
       });
+    } else {
+      // We're at the root __init__ module
+      pages.push({
+        slug: path,
+        title: "bamboost",
+        path: path.join("/"),
+        description: currentData.docstring,
+        toc: createTOC(currentData),
+        data: currentData,
+      });
     }
 
     currentData.submodules.forEach((submodule) => {
@@ -77,6 +87,7 @@ export function createAPISource(): Source<{
       data: page,
     };
   });
+
   return {
     files,
   };

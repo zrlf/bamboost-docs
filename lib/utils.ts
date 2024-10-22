@@ -1,4 +1,4 @@
-import { ModuleObj } from "@src/components/SourceDocumentation/types";
+import { ModuleObj } from "@/components/SourceDocumentation/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
