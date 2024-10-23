@@ -4,19 +4,22 @@ import { loader, Source, VirtualFile } from "fumadocs-core/source";
 import data from "@/bamboostAPIdoc.json";
 import { ModuleObj } from "../components/SourceDocumentation/types";
 import { TOCItemType } from "fumadocs-core/server";
+import { StructuredData } from "fumadocs-core/mdx-plugins";
+import { getStructuredData } from "./getStructuredData";
 
 interface Page {
   slug: string[];
   title: string;
   path: string;
   description?: string;
+  structuredData: StructuredData;
   toc?: TOCItemType[];
   data?: ModuleObj;
 }
 
 function createTOC(module: ModuleObj): TOCItemType[] {
   const headers: TOCItemType[] = [];
-  
+
   if (module.attributes.length > 0) {
     headers.push({ title: "Attributes", depth: 2, url: "#attributes" });
   }
@@ -64,6 +67,7 @@ export function createAPISource(): Source<{
         path: slug.join("/"),
         description: currentData.docstring.split("\n\n")[0],
         toc: createTOC(currentData),
+        structuredData: getStructuredData(currentData),
         data: currentData,
       });
     } else {
@@ -74,6 +78,7 @@ export function createAPISource(): Source<{
         path: path.join("/"),
         description: currentData.docstring,
         toc: createTOC(currentData),
+        structuredData: getStructuredData(currentData),
         data: currentData,
       });
     }

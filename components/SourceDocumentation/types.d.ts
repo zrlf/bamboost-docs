@@ -12,7 +12,7 @@ export type ReturnObj = {
 };
 
 export type MethodObj = {
-  name?: string;
+  name: string;
   docstring?: string;
   signature: string | JSX.Element;
   returns: ReturnObj;
