@@ -35,15 +35,18 @@
   h6 {
     @apply text-base font-semibold;
   }
+
+  .divider {
+    @apply relative pb-2 after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border;
+  }
+
+  .class {
+    @apply relative bg-background;
+  }
 }
 
 html.dark .shiki,
 html.dark .shiki span {
-  @apply bg-muted;
+  /* @apply bg-secondary/50; */
   color: var(--shiki-dark) !important;
-}
-
-pre,
-code {
-  @apply bg-muted;
 }

@@ -78,6 +78,7 @@ export function createAPISource(): Source<{
     });
   }
 
+  // @ts-expect-error
   traverse(data, []);
 
   const files: VirtualFile[] = pages.map((page) => {

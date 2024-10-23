@@ -4,6 +4,18 @@ import { FunctionHeader } from "./FunctionHeader";
 import { Code } from "../../Code";
 import { Arguments } from "../ArgumentList";
 
+export const Functions = ({ data }: { data?: MethodObj[] }) => {
+  if (!data) return null;
+
+  return (
+    <div>
+      {data.map((method) => {
+        return <Function key={method.name} data={method} />;
+      })}
+    </div>
+  );
+};
+
 export const Function = ({ data }: { data: MethodObj }) => {
   const sourceCode = <Code code={data.source.code} className="my-2" />;
   const signature = (
@@ -19,9 +31,7 @@ export const Function = ({ data }: { data: MethodObj }) => {
     <div>
       <FunctionHeader data={data} signature={signature} code={sourceCode} />
       <div className="sm:ml-4">
-        {data.docstring && (
-          <Markdown input={splitParagraph(data.docstring)}/>
-        )}
+        {data.docstring && <Markdown input={splitParagraph(data.docstring)} />}
         <Arguments data={data.arguments} />
       </div>
     </div>

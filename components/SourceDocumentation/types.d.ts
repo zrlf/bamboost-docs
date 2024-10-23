@@ -57,6 +57,7 @@ export type ModuleObj = {
   submodules: ModuleObj[];
   constants?: PropertyObj[];
   examples?: string[] | null;
+  version?: string;
 };
 
 export type GenericArgument = {

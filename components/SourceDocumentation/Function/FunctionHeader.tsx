@@ -21,7 +21,7 @@ export const FunctionHeader = ({
       <div
         className={cn(
           "flex flex-col sm:flex-row sm:justify-between w-full sm:items-center",
-          "bg-muted/50 rounded-md px-4 mt-12 border",
+          "bg-secondary/50 rounded-md px-4 mt-12 border",
         )}
       >
         <FumaComponents.h3 id={data.name} className="my-2">

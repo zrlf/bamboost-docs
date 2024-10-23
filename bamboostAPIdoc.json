@@ -1138,7 +1138,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x796be67b7650>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -2686,7 +2686,7 @@
                     "description": "Path to database"
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x796be67b7650>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   },
@@ -2728,9 +2728,9 @@
                 "list": {
                   "name": "list",
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x796be614f060>)>",
+                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x7333fddaf100>)>",
                   "returns": {
-                    "annotation": "<classmethod(<function Remote.list at 0x796be614f060>)>",
+                    "annotation": "<classmethod(<function Remote.list at 0x7333fddaf100>)>",
                     "description": null
                   },
                   "arguments": {
@@ -3269,7 +3269,7 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x796be67b7650>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   }
@@ -5371,7 +5371,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x796be67b7650>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -6308,7 +6308,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x796be67b7650>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               },
@@ -7183,7 +7183,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x796be67b7650>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               },
@@ -7475,5 +7475,6 @@
       "examples": []
     }
   ],
-  "examples": []
+  "examples": [],
+  "version": "0.8.1.dev5+g5e3bcee.d20241018"
 }

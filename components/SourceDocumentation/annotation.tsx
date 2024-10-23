@@ -56,7 +56,7 @@ export function LinkifyPkg(
   // 1. Check if the input starts with 'bamboost.'
   if (!input.startsWith(prefix)) {
     // Do nothing if the prefix doesn't match
-    return `\`${input}\``;
+    return `${input}`;
   }
 
   // 2. Remove the prefix
@@ -105,6 +105,6 @@ export function LinkifyPkg(
     );
   } else {
     // No matching slug found; do nothing
-    return `\`${input}\``;
+    return `${input}`;
   }
 }

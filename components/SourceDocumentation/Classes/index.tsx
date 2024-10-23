@@ -1,10 +1,11 @@
 import { Method } from "./method";
-import { Properties } from "@/components/SourceDocumentation/properties";
+import { Attributes } from "@/components/SourceDocumentation/attributes";
 import { ClassObj } from "@/components/SourceDocumentation/types";
 import { cn } from "@/lib/utils";
-import FumaComponents from "fumadocs-ui/mdx";
+import fuma from "fumadocs-ui/mdx";
 import { LinkAnnotation } from "../annotation";
 import { InheritedMembers } from "./inherited";
+import Markdown from "@/components/Markdown/markdown";
 
 export const Classes = ({ data }: { data: ClassObj[] }) => {
   return (
@@ -19,11 +20,11 @@ export const Classes = ({ data }: { data: ClassObj[] }) => {
 export const Class = ({ data }: { data: ClassObj }) => {
   return (
     <div>
-      <FumaComponents.h2 id={data.name}>{data.name}</FumaComponents.h2>
-      <p>{data.short_description}</p>
-      {/* <Markdown>{data.docstring}</Markdown> */}
-      <Properties data={data.properties} />
-
+      <fuma.h2 id={data.name} className="class">
+        {data.name}
+      </fuma.h2>
+      <Markdown input={data.docstring} />
+      <Attributes data={data.properties} />
       <InheritedMembers data={data.inherits_from} />
 
       {Object.values(data.methods).map((method) => {
@@ -33,4 +34,3 @@ export const Class = ({ data }: { data: ClassObj }) => {
     </div>
   );
 };
-

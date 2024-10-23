@@ -17,7 +17,7 @@ export default async function Page(props: {
   if (!page) notFound();
 
   return (
-    <DocsPage toc={page.data.toc} tableOfContent={{ style: "clerk" }}>
+    <DocsPage toc={page.data.toc} tableOfContent={{ style: "clerk", single: false }}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>

@@ -34,6 +34,7 @@ class apiModule(TypedDict):
     classes: list[apiClass]
     functions: list[apiMethod]
     submodules: list[apiModule]
+    version: str | None
 
 
 class apiClass(TypedDict):
@@ -73,12 +74,14 @@ class apiReturn(TypedDict):
     description: str
     annotation: str
 
+
 class parsedDocstring(TypedDict):
     short_description: str
     description: str
     arguments: dict[str, str]
     returns: str  # Changed from 'return' to 'returns'
     examples: list[str]
+
 
 def parse_docstring(docstring: str) -> parsedDocstring:
     """Parse docstring and return description, arguments and return."""
@@ -113,7 +116,9 @@ def document_method(method: pdoc.doc.Function, is_classmethod=False) -> apiMetho
         "returns": {
             "annotation": sanitize_annotation(str(signature.return_annotation)),
             "description": (
-                docstring["returns"].replace("\n", " ") if docstring["returns"] else None
+                docstring["returns"].replace("\n", " ")
+                if docstring["returns"]
+                else None
             ),
         },
         "arguments": {
@@ -228,13 +233,16 @@ def document_module(module: pdoc.doc.Module) -> apiModule:
         module = pdoc.doc.Module(module)
 
     parsed_docstring = parse_docstring(module.docstring)
+    slug = module.fullname.split(".")
 
     result = {
         "name": module.name,
-        "slug": module.fullname.split("."),
+        "slug": slug,
         "docstring": parsed_docstring["description"].strip(),
         "constants": [
-            document_instance_variable(const, module_arguments=parsed_docstring['arguments'])
+            document_instance_variable(
+                const, module_arguments=parsed_docstring["arguments"]
+            )
             for const in module.variables
         ],
         "classes": [document_class(cls) for cls in module.classes],
@@ -274,6 +282,8 @@ class AutoDoc:
         """Generate documentation for module."""
         module = pdoc.doc.Module(self.module)
         result = document_module(module)
+        if hasattr(self.module, "__version__"):
+            result["version"] = self.module.__version__
 
         if write:
             if not self.output_file:
