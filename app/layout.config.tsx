@@ -29,7 +29,7 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
             title: "Docs",
             description: "Guides and tutorials",
             icon: <BookOpenText size={24} className="text-[hsl(var(--primary-2))]" />,
-            url: "/docs",
+            url: "/docs"
           },
           {
             title: "API",

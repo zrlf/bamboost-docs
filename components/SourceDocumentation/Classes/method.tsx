@@ -12,7 +12,9 @@ export const Method = ({
   data: MethodObj;
   clsName: string;
 }) => {
-  const code = <Code code={data.source.code} className="my-2" />;
+  const code = data.source.code ? (
+    <Code code={data.source.code} className="my-2" />
+  ) : null;
   const signature = (
     <Code code={data.signature as string} inline noBackground />
   );
@@ -77,7 +79,9 @@ export const Constructor = ({
   data: MethodObj;
   clsName: string;
 }) => {
-  const code = <Code code={data.source.code} className="my-2" />;
+  const code = data.source.code ? (
+    <Code code={data.source.code} className="my-2" />
+  ) : null;
   const signature = (
     <Code code={data.signature as string} inline noBackground />
   );

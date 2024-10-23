@@ -1,15 +1,14 @@
 "use client";
 import FumaComponents from "fumadocs-ui/mdx";
-import { MethodObj } from "../types";
 import { useState } from "react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MethodHeaderProps {
   name?: string;
   clsName?: string;
   signature: JSX.Element;
-  code: JSX.Element;
+  code: JSX.Element | null;
   id?: string;
   isClassMethod?: JSX.Element;
   isConstructor?: boolean;
@@ -31,7 +30,7 @@ export default function MethodHeader({
       <div
         className={cn(
           "flex flex-col sm:flex-row sm:justify-between sm:items-center w-full",
-          "bg-secondary/50 rounded-md px-4 mt-12 mb-4 border",
+          "bg-secondary/50 rounded-md px-4 mt-12 mb-4 border pb-2 sm:pb-0",
         )}
       >
         <div className="">
@@ -60,20 +59,24 @@ export default function MethodHeader({
             {signature}
           </FumaComponents.h4>
         </div>
-        <button
-          className="text-xs border px-2 py-1 rounded size-fit text-muted-foreground text-nowrap"
-          onClick={() => setSourceCodeVisible(!sourceCodeVisible)}
-        >
-          Source code{" "}
-          <ChevronDown
-            className="inline transition-all"
-            size={16}
-            style={{
-              rotate: sourceCodeVisible ? "0deg" : "-90deg",
-            }}
-          />
-        </button>
+
+        {code && (
+          <button
+            className="text-xs border px-2 py-1 rounded size-fit text-muted-foreground text-nowrap hover:bg-secondary-foreground/5 transition-colors"
+            onClick={() => setSourceCodeVisible(!sourceCodeVisible)}
+          >
+            Source code{" "}
+            <ChevronDown
+              className="inline transition-all"
+              size={16}
+              style={{
+                rotate: sourceCodeVisible ? "0deg" : "-90deg",
+              }}
+            />
+          </button>
+        )}
       </div>
+
       {sourceCodeVisible && code}
     </>
   );
