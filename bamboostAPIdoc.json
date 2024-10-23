@@ -4,26 +4,31 @@
     "bamboost"
   ],
   "docstring": "",
+  "short_description": "",
   "attributes": [
     {
       "name": "__author__",
       "annotation": null,
-      "description": null
+      "description": null,
+      "default": "'florez@ethz.ch'"
     },
     {
       "name": "__copyright__",
       "annotation": null,
-      "description": null
+      "description": null,
+      "default": "''"
     },
     {
       "name": "__license__",
       "annotation": null,
-      "description": null
+      "description": null,
+      "default": "'LGPLv3'"
     },
     {
       "name": "BAMBOOST_LOGGER",
       "annotation": null,
-      "description": null
+      "description": null,
+      "default": "<Logger bamboost (WARNING)>"
     }
   ],
   "classes": [],
@@ -33,7 +38,7 @@
       "docstring": "",
       "signature": "(logger: logging.Logger) -> None",
       "returns": {
-        "annotation": "None",
+        "annotation": null,
         "description": null
       },
       "arguments": {
@@ -60,7 +65,7 @@
       "docstring": "",
       "signature": "(level: Literal['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']) -> None",
       "returns": {
-        "annotation": "None",
+        "annotation": null,
         "description": null
       },
       "arguments": {
@@ -91,6 +96,7 @@
         "accessors"
       ],
       "docstring": "",
+      "short_description": "",
       "attributes": [],
       "classes": [],
       "functions": [],
@@ -103,6 +109,7 @@
             "meshes"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [],
           "classes": [
             {
@@ -121,12 +128,12 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "key": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -198,7 +205,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_handler": {
@@ -218,7 +225,7 @@
                   },
                   "kwargs": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   }
                 },
@@ -247,7 +254,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -268,12 +275,14 @@
                 {
                   "name": "coordinates",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "connectivity",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 }
               ],
               "inherits_from": {
@@ -334,7 +343,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_handler": {
@@ -370,6 +379,7 @@
             "fielddata"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [],
           "classes": [
             {
@@ -388,12 +398,12 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "key": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -412,20 +422,20 @@
                 "__iter__": {
                   "name": "__iter__",
                   "docstring": "",
-                  "signature": "(self) -> 'Generator[FieldData]'",
+                  "signature": "(\n    self\n) -> Generator[bamboost.accessors.fielddata.FieldData, NoneType, NoneType]",
                   "returns": {
-                    "annotation": "Generator[FieldData]",
+                    "annotation": "typing.Generator[bamboost.accessors.fielddata.FieldData, NoneType, NoneType]",
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
                   "source": {
-                    "code": "    def __iter__(self) -> Generator[FieldData]:\n        for key in self.keys():\n            yield self.__getitem__(key)\n",
+                    "code": "    def __iter__(self) -> Generator[FieldData, None, None]:\n        for key in self.keys():\n            yield self.__getitem__(key)\n",
                     "lines": [
                       50,
                       52
@@ -441,12 +451,14 @@
                 {
                   "name": "meshes",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "info",
-                  "annotation": "pandas.core.frame.DataFrame",
-                  "description": "View the data stored.\n"
+                  "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                  "description": "View the data stored.\n",
+                  "default": ""
                 }
               ],
               "inherits_from": {
@@ -499,7 +511,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_handler": {
@@ -519,7 +531,7 @@
                   },
                   "kwargs": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   }
                 },
@@ -548,12 +560,12 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "key": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -580,7 +592,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -607,7 +619,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -634,7 +646,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "steps": {
@@ -660,13 +672,13 @@
                   "docstring": "Regenerate virtual dataset. Call this if the data has changed, thus the\nvirtual datasets need to be updated to cover the actual data.",
                   "signature": "(self) -> None",
                   "returns": {
-                    "annotation": "None",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -687,42 +699,50 @@
                 {
                   "name": "meshes",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "shape",
-                  "annotation": "tuple",
-                  "description": null
+                  "annotation": "<class 'tuple'>",
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "dtype",
-                  "annotation": "type",
-                  "description": null
+                  "annotation": "<class 'type'>",
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "times",
-                  "annotation": "numpy.ndarray",
-                  "description": "Return the array of timestamps.\n"
+                  "annotation": "<class 'numpy.ndarray'>",
+                  "description": "Return the array of timestamps.\n",
+                  "default": ""
                 },
                 {
                   "name": "mesh",
-                  "annotation": "bamboost.accessors.meshes.Mesh",
-                  "description": "Return the linked mesh. Currently returns the linked mesh of first step only.\n"
+                  "annotation": "<class 'bamboost.accessors.meshes.Mesh'>",
+                  "description": "Return the linked mesh. Currently returns the linked mesh of first step only.\n",
+                  "default": ""
                 },
                 {
                   "name": "coordinates",
-                  "annotation": "numpy.ndarray",
-                  "description": "Wrapper for mesh.coordinates"
+                  "annotation": "<class 'numpy.ndarray'>",
+                  "description": "Wrapper for mesh.coordinates",
+                  "default": ""
                 },
                 {
                   "name": "connectivity",
-                  "annotation": "numpy.ndarray",
-                  "description": "Wrapper for mesh.connectivity"
+                  "annotation": "<class 'numpy.ndarray'>",
+                  "description": "Wrapper for mesh.connectivity",
+                  "default": ""
                 },
                 {
                   "name": "msh",
-                  "annotation": "Tuple[numpy.ndarray, numpy.ndarray]",
-                  "description": "Wrapper to get mesh as tuple"
+                  "annotation": "typing.Tuple[numpy.ndarray, numpy.ndarray]",
+                  "description": "Wrapper to get mesh as tuple",
+                  "default": ""
                 }
               ],
               "inherits_from": {
@@ -775,7 +795,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_handler": {
@@ -816,6 +836,7 @@
             "globals"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [],
           "classes": [
             {
@@ -826,8 +847,9 @@
               "properties": [
                 {
                   "name": "df",
-                  "annotation": "pandas.core.frame.DataFrame",
-                  "description": "Return a pandas DataFrame with all datasets."
+                  "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                  "description": "Return a pandas DataFrame with all datasets.",
+                  "default": ""
                 }
               ],
               "inherits_from": {
@@ -888,7 +910,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_handler": {
@@ -926,6 +948,7 @@
         "common"
       ],
       "docstring": "",
+      "short_description": "",
       "attributes": [],
       "classes": [],
       "functions": [],
@@ -938,21 +961,25 @@
             "file_handler"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [
             {
               "name": "HAS_MPIO",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": "True"
             },
             {
               "name": "MPI_ACTIVE",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": "False"
             },
             {
               "name": "FILE_MODE_HIRARCHY",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": "{'r': 1, 'r+': 2, 'a': 2, 'w': 3}"
             }
           ],
           "classes": [
@@ -972,12 +999,12 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "key": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -998,13 +1025,13 @@
                   "docstring": "",
                   "signature": "(self, mode: str = 'r', driver=None, comm=None)",
                   "returns": {
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "mode": {
@@ -1014,12 +1041,12 @@
                     },
                     "driver": {
                       "default": "None",
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "comm": {
                       "default": "None",
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1040,13 +1067,13 @@
                   "docstring": "",
                   "signature": "(self)",
                   "returns": {
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1067,13 +1094,13 @@
                   "docstring": "",
                   "signature": "(self, mode: str, driver=None, comm=None)",
                   "returns": {
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "mode": {
@@ -1083,12 +1110,12 @@
                     },
                     "driver": {
                       "default": "None",
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "comm": {
                       "default": "None",
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1108,18 +1135,21 @@
               "properties": [
                 {
                   "name": "file_object",
-                  "annotation": "h5py._hl.files.File",
-                  "description": null
+                  "annotation": "<class 'h5py._hl.files.File'>",
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "file_name",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "simulation_uid",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 }
               ],
               "inherits_from": {},
@@ -1129,7 +1159,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_name": {
@@ -1138,7 +1168,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7138027b7da0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -1159,7 +1189,7 @@
               "docstring": "Open h5 file. Waiting if file is not available.\n",
               "signature": "(\n    file: str,\n    mode: Union[Literal['mpio'], Type[NoneType]],\n    driver: Union[bool, Type[NoneType]] = None,\n    comm=None\n)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
@@ -1180,7 +1210,7 @@
                 },
                 "comm": {
                   "default": "None",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": "MPI communicator"
                 }
               },
@@ -1201,7 +1231,7 @@
               "docstring": "Open the file (`self._file`) before function\nClose the file after the function call\n\nWorks on classes containing the member `_file` of type :class:`~bamboost.common.file_handler.FileHandler`",
               "signature": "(mode: str = 'r', driver=None, comm=None)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
@@ -1212,12 +1242,12 @@
                 },
                 "driver": {
                   "default": "None",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "comm": {
                   "default": "None",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -1238,13 +1268,13 @@
               "docstring": "",
               "signature": "(method)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "method": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -1272,6 +1302,7 @@
             "utilities"
           ],
           "docstring": "Utility functions used by bamboost.",
+          "short_description": "Utility functions used by bamboost.",
           "attributes": [],
           "classes": [],
           "functions": [
@@ -1280,23 +1311,23 @@
               "docstring": "",
               "signature": "(dictionary, parent_key='', seperator='.')",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "dictionary": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "parent_key": {
                   "default": "",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "seperator": {
                   "default": ".",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -1317,18 +1348,18 @@
               "docstring": "",
               "signature": "(dictionary, seperator='.')",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "dictionary": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "seperator": {
                   "default": ".",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -1349,7 +1380,7 @@
               "docstring": "Given a directory Path object print a visual tree structure",
               "signature": "(\n    dir_path: pathlib.Path,\n    level: int = -1,\n    limit_to_directories: bool = False,\n    length_limit: int = 1000\n)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
@@ -1391,18 +1422,18 @@
               "docstring": "",
               "signature": "(val, pre='')",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "val": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "pre": {
                   "default": "",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -1484,6 +1515,7 @@
             "git_utility"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [],
           "classes": [
             {
@@ -1502,7 +1534,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1527,7 +1559,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   }
                 },
@@ -1553,6 +1585,7 @@
             "hdf_pointer"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [],
           "classes": [
             {
@@ -1571,7 +1604,7 @@
                   "arguments": {
                     "cls": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "file_handler": {
@@ -1602,18 +1635,18 @@
                   "docstring": "",
                   "signature": "(self, key)",
                   "returns": {
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "key": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1634,17 +1667,20 @@
                 {
                   "name": "path_to_data",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "obj",
                   "annotation": null,
-                  "description": "The object this BasePointer points to. File needs to be open for access."
+                  "description": "The object this BasePointer points to. File needs to be open for access.",
+                  "default": ""
                 },
                 {
                   "name": "attrs",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 }
               ],
               "inherits_from": {},
@@ -1654,7 +1690,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_handler": {
@@ -1687,13 +1723,13 @@
                   "docstring": "",
                   "signature": "(self)",
                   "returns": {
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1720,7 +1756,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1747,7 +1783,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1774,7 +1810,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1801,7 +1837,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "variant": {
@@ -1857,7 +1893,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_handler": {
@@ -1896,12 +1932,12 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "key": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1922,23 +1958,23 @@
                   "docstring": "Used to set an attribute.\nWill be written as an attribute to the group.",
                   "signature": "(self, key, newvalue)",
                   "returns": {
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "key": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "newvalue": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -1959,13 +1995,13 @@
                   "docstring": "Update the attributes of the group.\n",
                   "signature": "(self, attrs: dict) -> None",
                   "returns": {
-                    "annotation": "None",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "attrs": {
@@ -1991,13 +2027,13 @@
                   "docstring": "Add a dataset to the group. Error is thrown if attempting to overwrite\nwith different shape than before. If same shape, data is overwritten\n(this is inherited from h5py -> require_dataset)",
                   "signature": "(\n    self,\n    name: str,\n    vector: numpy.ndarray,\n    attrs: dict = None,\n    dtype: str = None\n) -> None",
                   "returns": {
-                    "annotation": "None",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "name": {
@@ -2044,7 +2080,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "name": {
@@ -2121,7 +2157,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_handler": {
@@ -2154,18 +2190,18 @@
                   "docstring": "",
                   "signature": "(self, slice)",
                   "returns": {
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "slice": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -2186,17 +2222,20 @@
                 {
                   "name": "attrs",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "shape",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "dtype",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 }
               ],
               "inherits_from": {
@@ -2224,7 +2263,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "file_handler": {
@@ -2260,31 +2299,37 @@
             "mpi"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [
             {
               "name": "log",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": "<Logger bamboost.mpi (WARNING)>"
             },
             {
               "name": "MPIType",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": "typing.Union[bamboost.common._mock_mpi.MockMPI, typing.Any]"
             },
             {
               "name": "MPI_ON",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": "False"
             },
             {
               "name": "ENV_BAMBOOST_MPI",
-              "annotation": "bool",
-              "description": "Indicates the use of `mpi4py.MPI`. If `0`, the `MockMPI` class is used\ninstead. Is set by reading the environment variable `BAMBOOST_MPI` [0 or 1]."
+              "annotation": "<class 'bool'>",
+              "description": "Indicates the use of `mpi4py.MPI`. If `0`, the `MockMPI` class is used\ninstead. Is set by reading the environment variable `BAMBOOST_MPI` [0 or 1].",
+              "default": "'0'"
             },
             {
               "name": "MPI",
-              "annotation": "Union[bamboost.common._mock_mpi.MockMPI, Any]",
-              "description": null
+              "annotation": "typing.Union[bamboost.common._mock_mpi.MockMPI, typing.Any]",
+              "description": null,
+              "default": "<class 'bamboost.common._mock_mpi.MockMPI'>"
             }
           ],
           "classes": [],
@@ -2302,11 +2347,13 @@
         "extensions"
       ],
       "docstring": "",
+      "short_description": "",
       "attributes": [
         {
           "name": "extensions",
           "annotation": null,
-          "description": null
+          "description": null,
+          "default": "<bamboost.extensions.ExtensionsLazyLoader object>"
         }
       ],
       "classes": [
@@ -2319,22 +2366,26 @@
             {
               "name": "FenicsWriter",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "Remote",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "RemoteManager",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "install_slurm",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             }
           ],
           "inherits_from": {},
@@ -2359,6 +2410,7 @@
             "fenics"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [],
           "classes": [
             {
@@ -2371,13 +2423,13 @@
                   "docstring": "Add a dataset to the file. The data is stored at `data/`.\n",
                   "signature": "(\n    self,\n    name: str,\n    func: <fenics.Function>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: Literal['Node', 'Cell'] = 'Node'\n) -> None",
                   "returns": {
-                    "annotation": "None",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "name": {
@@ -2428,13 +2480,13 @@
                   "docstring": "Add the mesh to file using fe.HDF5File. I can't figure out how to\nextract the local mesh data in correct order when running in parallel.",
                   "signature": "(self, mesh: <fenics.Mesh>, mesh_name: str = None) -> None",
                   "returns": {
-                    "annotation": "None",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "mesh": {
@@ -2672,7 +2724,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "uid": {
@@ -2686,7 +2738,7 @@
                     "description": "Path to database"
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7138027b7da0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   },
@@ -2718,6 +2770,7 @@
             "remote_manager"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [],
           "classes": [
             {
@@ -2728,15 +2781,15 @@
                 "list": {
                   "name": "list",
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x73f3a78a3100>)>",
+                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x7138020baac0>)>",
                   "returns": {
-                    "annotation": "<classmethod(<function Remote.list at 0x73f3a78a3100>)>",
+                    "annotation": "<classmethod(<function Remote.list at 0x7138020baac0>)>",
                     "description": null
                   },
                   "arguments": {
                     "cls": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -2763,7 +2816,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "id": {
@@ -2795,7 +2848,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -2822,7 +2875,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "id": {
@@ -2859,7 +2912,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "id": {
@@ -2885,13 +2938,13 @@
                   "docstring": "",
                   "signature": "(self, id: str, path: str) -> None",
                   "returns": {
-                    "annotation": "None",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "id": {
@@ -2922,17 +2975,20 @@
                 {
                   "name": "remote_name",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "local_path",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "file",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 }
               ],
               "inherits_from": {
@@ -3019,17 +3075,17 @@
                 "arguments": {
                   "cls": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "args": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "kwargs": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   }
                 },
@@ -3058,7 +3114,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "include_linked_sims": {
@@ -3086,18 +3142,18 @@
                   "docstring": "Return simulation object.\n",
                   "signature": "(self, uid, return_writer: bool = False)",
                   "returns": {
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "uid": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "return_writer": {
@@ -3129,7 +3185,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     },
                     "uid": {
@@ -3155,27 +3211,32 @@
                 {
                   "name": "UID",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "remote",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "comm",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "path",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 },
                 {
                   "name": "remote_path_db",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 }
               ],
               "inherits_from": {
@@ -3255,7 +3316,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "id": {
@@ -3269,7 +3330,7 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7138027b7da0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   }
@@ -3299,7 +3360,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -3326,7 +3387,7 @@
                   "arguments": {
                     "self": {
                       "default": null,
-                      "annotation": "<class 'inspect._empty'>",
+                      "annotation": null,
                       "description": null
                     }
                   },
@@ -3347,7 +3408,8 @@
                 {
                   "name": "manager",
                   "annotation": null,
-                  "description": null
+                  "description": null,
+                  "default": ""
                 }
               ],
               "inherits_from": {
@@ -3503,7 +3565,7 @@
                 "arguments": {
                   "self": {
                     "default": null,
-                    "annotation": "<class 'inspect._empty'>",
+                    "annotation": null,
                     "description": null
                   },
                   "uid": {
@@ -3539,6 +3601,7 @@
             "slurm"
           ],
           "docstring": "",
+          "short_description": "",
           "attributes": [],
           "classes": [],
           "functions": [
@@ -3547,7 +3610,7 @@
               "docstring": "Install the slurm extension to the SimulationWriter class. Extends the\n__exit__ method to add slurm metadata.",
               "signature": "()",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {},
@@ -3575,6 +3638,7 @@
             "use_locking"
           ],
           "docstring": "This module provides a custom rather primitive file locking mechanism for\nHDF5 files.\n\nThis module provides a function `use_locking` that installs the mechanism by\nMonkey-patching the `FileHandler` class. To use this mechanism, call the\n`use_locking` function at the start of your script, before creating any\n`bamboost.common.file_handler.FileHandler` instances.",
+          "short_description": "This module provides a custom rather primitive file locking mechanism for\nHDF5 files.",
           "attributes": [],
           "classes": [],
           "functions": [
@@ -3610,7 +3674,7 @@
               "docstring": "Close an HDF5 file and release the associated file lock.\n\nThis function performs the following operations:\n1. Closes the given HDF5 file.\n2. Releases the lock on the lock file.\n3. Closes the lock file.",
               "signature": "(h5_file: h5py._hl.files.File, lock_file: _io.BufferedReader) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": "None"
               },
               "arguments": {
@@ -3669,7 +3733,7 @@
               "docstring": "Installs a primitive locking mechanism for FileHandler operations.\n\nThis function modifies the FileHandler class to include file locking\ncapabilities, ensuring thread-safe access to files. It wraps the\n`__init__`, `open`, and `close` methods of FileHandler with locking mechanisms.\n\nUsage:\n    Call this function before using FileHandler to enable locking:\n    use_locking(\"shared\")  # or use_locking(\"exclusive\")\n\nNote:\n    This function should be called only once, preferably at the start\n    of your program, before any FileHandler instances are created.\n\nNote:\n    You should only need this functionality if you are using HDF5 <= 1.10.6.\n    The newer versions of HDF5 (>= 1.10.7) have built-in file locking.",
               "signature": "(lock_type: Literal['shared', 'exclusive']) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
@@ -3707,26 +3771,31 @@
         "index"
       ],
       "docstring": "Module to manage the database index and its ID's.",
+      "short_description": "Module to manage the database index and its ID's.\n",
       "attributes": [
         {
           "name": "THREAD_SAFE",
           "annotation": null,
-          "description": null
+          "description": "if True, the index is thread safe",
+          "default": "False"
         },
         {
           "name": "CONVERT_ARRAYS",
           "annotation": null,
-          "description": null
+          "description": "if True, convert numpy arrays to lists",
+          "default": "True"
         },
         {
           "name": "PREFIX",
           "annotation": null,
-          "description": "prefix for databaseID identifier file"
+          "description": "prefix for databaseID identifier file",
+          "default": "'.BAMBOOST-'"
         },
         {
           "name": "DOT_REPLACEMENT",
           "annotation": null,
-          "description": "replace dots with this in column names for sqlite"
+          "description": "replace dots with this in column names for sqlite",
+          "default": "'DOT'"
         }
       ],
       "classes": [
@@ -3740,26 +3809,26 @@
               "docstring": "",
               "signature": "(self, _)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "_": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    def __getitem__(self, _):\n        return self\n",
                 "lines": [
-                  92,
-                  93
+                  97,
+                  98
                 ]
               },
               "props": {
@@ -3783,7 +3852,7 @@
         {
           "name": "IndexAPI",
           "short_description": "SQLite database to store database ID, path lookup. As well as the table for",
-          "docstring": "SQLite database to store database ID, path lookup. As well as the table for\neach database. Location: ~/.local/share/bamboost\nSingleton pattern.",
+          "docstring": "SQLite database to store database ID, path lookup. As well as the table for\neach database. Location: `~/.local/share/bamboost/bamboost.db`.\nSingleton pattern.",
           "methods": {
             "ThreadSafe": {
               "name": "ThreadSafe",
@@ -3796,25 +3865,25 @@
               "arguments": {
                 "cls": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "args": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "kwargs": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    @classmethod\n    def ThreadSafe(cls, *args, **kwargs) -> IndexAPI:\n        instance = super().__new__(cls)\n        instance.__init__(*args, **kwargs)\n        return instance\n",
                 "lines": [
-                  139,
-                  143
+                  145,
+                  149
                 ]
               },
               "props": {
@@ -3833,7 +3902,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "id": {
@@ -3845,8 +3914,8 @@
               "source": {
                 "code": "    def __getitem__(self, id: str) -> DatabaseTable:\n        return DatabaseTable(id, _index=self)\n",
                 "lines": [
-                  151,
-                  152
+                  157,
+                  158
                 ]
               },
               "props": {
@@ -3859,21 +3928,21 @@
               "docstring": "Create the index table if it does not exist.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    @sql.with_connection\n    def create_index_table(self) -> None:\n        \"\"\"Create the index table if it does not exist.\"\"\"\n        self._cursor.execute(\n            \"\"\"CREATE TABLE IF NOT EXISTS dbindex (id TEXT PRIMARY KEY, path TEXT)\"\"\"\n        )\n",
                 "lines": [
-                  157,
-                  162
+                  163,
+                  168
                 ]
               },
               "props": {
@@ -3892,7 +3961,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "id": {
@@ -3904,8 +3973,8 @@
               "source": {
                 "code": "    def get_database_table(self, id: str) -> DatabaseTable:\n        \"\"\"Get the table of a database.\n\n        Args:\n            - id (str): ID of the database\n        \"\"\"\n        return DatabaseTable(id, _index=self)\n",
                 "lines": [
-                  164,
-                  170
+                  170,
+                  176
                 ]
               },
               "props": {
@@ -3924,25 +3993,25 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "args": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "kwargs": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    @sql.with_connection\n    def read_table(self, *args, **kwargs) -> pd.DataFrame:\n        \"\"\"Read the index table.\n\n        Returns:\n            pd.DataFrame: index table\n        \"\"\"\n        return pd.read_sql_query(\"SELECT * FROM dbindex\", self._conn, *args, **kwargs)\n",
                 "lines": [
-                  172,
-                  179
+                  178,
+                  185
                 ]
               },
               "props": {
@@ -3961,7 +4030,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "query": {
@@ -3971,20 +4040,20 @@
                 },
                 "args": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "kwargs": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    @sql.with_connection\n    def fetch(self, query: str, *args, **kwargs) -> pd.DataFrame:\n        \"\"\"Query the index table.\n\n        Args:\n            query (str): query string\n        \"\"\"\n        self._cursor.execute(query, *args, **kwargs)\n        return self._cursor.fetchall()\n",
                 "lines": [
-                  181,
-                  189
+                  187,
+                  195
                 ]
               },
               "props": {
@@ -4003,7 +4072,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "id": {
@@ -4015,8 +4084,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def get_path(self, id: str) -> str:\n        \"\"\"Get the path of a database from its ID.\n\n        Args:\n            id (str): ID of the database\n\n        Returns:\n            str: path of the database\n        \"\"\"\n        self._cursor.execute(\"SELECT path FROM dbindex WHERE id=?\", (id,))\n        path_db = self._cursor.fetchone()\n        if path_db and _check_path(id, path_db[0]):\n            return path_db[0]\n\n        # if path is wrong, try to find it\n        for root_dir in get_known_paths():\n            res = find(id, root_dir)\n            if res:\n                path = os.path.dirname(res[0])\n                self.insert_path(id, path)\n                return path\n\n        # last resort, check home\n        res = find(id, paths[\"HOME\"])\n        if res:\n            path = os.path.dirname(res[0])\n            self.insert_path(id, path)\n            return path\n\n        raise FileNotFoundError(f\"Database {id} not found on system.\")\n",
                 "lines": [
-                  191,
-                  221
+                  197,
+                  227
                 ]
               },
               "props": {
@@ -4029,13 +4098,13 @@
               "docstring": "Insert a database path into the index.\n",
               "signature": "(self, id: str, path: str) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "id": {
@@ -4052,8 +4121,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def insert_path(self, id: str, path: str) -> None:\n        \"\"\"Insert a database path into the index.\n\n        Args:\n            id (str): ID of the database\n            path (str): path of the database\n        \"\"\"\n        path = os.path.abspath(path)\n        self._cursor.execute(\"INSERT OR REPLACE INTO dbindex VALUES (?, ?)\", (id, path))\n",
                 "lines": [
-                  223,
-                  232
+                  229,
+                  238
                 ]
               },
               "props": {
@@ -4072,7 +4141,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "path": {
@@ -4084,8 +4153,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def get_id(self, path: str) -> str:\n        \"\"\"Get the ID of a database from its path.\n\n        Args:\n            path (str): path of the database\n\n        Returns:\n            str: ID of the database\n\n        Raises:\n            DatabaseNotFoundError: if the database is not found in the index\n        \"\"\"\n        path = os.path.abspath(path)\n        self._cursor.execute(\"SELECT id FROM dbindex WHERE path=?\", (path,))\n        fetched = self._cursor.fetchone()\n        if fetched is None:\n            raise DatabaseNotFoundError(f\"Database at {path} not found in index.\")\n        return fetched[0]\n",
                 "lines": [
-                  234,
-                  252
+                  240,
+                  258
                 ]
               },
               "props": {
@@ -4104,15 +4173,15 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    @sql.with_connection\n    def scan_known_paths(self) -> dict:\n        \"\"\"Scan known paths for databases and update the index.\"\"\"\n        for path in get_known_paths():\n            completed_process = subprocess.run(\n                [\"find\", path, \"-iname\", f\"{PREFIX}*\", \"-not\", \"-path\", r\"*/\\.git/*\"],\n                capture_output=True,\n            )\n            databases_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n            for database in databases_found:\n                name = os.path.basename(database)\n                id = name.split(\"-\")[1]\n                self.insert_path(id, os.path.dirname(database))\n",
                 "lines": [
-                  254,
-                  266
+                  260,
+                  272
                 ]
               },
               "props": {
@@ -4131,20 +4200,20 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "func": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    def commit_once(self, func) -> Callable:\n        \"\"\"Decorator to bundle changes to a single commit.\n\n        Example:\n            >>> @Index.commit_once\n            >>> def create_a_bunch_of_simulations():\n            >>>     for i in range(1000):\n            >>>         db.create_simulation(parameters={...})\n            >>>\n            >>> create_a_bunch_of_simulations()\n        \"\"\"\n\n        def wrapper(*args, **kwargs):\n            with self.open(ensure_commit=True):\n                return func(*args, **kwargs)\n\n        return wrapper\n",
                 "lines": [
-                  268,
-                  284
+                  274,
+                  290
                 ]
               },
               "props": {
@@ -4165,7 +4234,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "purge": {
@@ -4177,8 +4246,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def clean(self, purge: bool = False) -> IndexAPI:\n        \"\"\"Clean the index from wrong paths.\n\n        Args:\n            purge (bool, optional): Also deletes the table of unmatching uid/path pairs. Defaults to False.\n        \"\"\"\n        index = self._cursor.execute(\"SELECT id, path FROM dbindex\").fetchall()\n        for id, path in index:\n            if not _check_path(id, path):\n                self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n\n        if purge:\n            # all tables starting with db_ are tables of databases\n            all_tables = self._cursor.execute(\n                \"SELECT name FROM sqlite_master WHERE type='table'\"\n            ).fetchall()\n            id_list_tables = {\n                i[0].split(\"_\")[1] for i in all_tables if i[0].startswith(\"db_\")\n            }\n            id_list = self._cursor.execute(\"SELECT id FROM dbindex\").fetchall()\n\n            for id in id_list_tables:\n                if id not in id_list:\n                    self._cursor.execute(f\"DROP TABLE db_{id}\")\n                    self._cursor.execute(f\"DROP TABLE db_{id}_t\")\n\n        return self\n",
                 "lines": [
-                  286,
-                  313
+                  292,
+                  319
                 ]
               },
               "props": {
@@ -4191,13 +4260,13 @@
               "docstring": "Drop a path from the index.\n",
               "signature": "(self, id: str) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "id": {
@@ -4209,8 +4278,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def drop_path(self, id: str) -> None:\n        \"\"\"Drop a path from the index.\n\n        Args:\n            id (str): ID of the database\n        \"\"\"\n        self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n",
                 "lines": [
-                  315,
-                  322
+                  321,
+                  328
                 ]
               },
               "props": {
@@ -4229,7 +4298,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "id": {
@@ -4246,8 +4315,8 @@
               "source": {
                 "code": "    def check_path(self, id: str, path: str) -> bool:\n        \"\"\"Check if path is going to the correct database.\"\"\"\n        return _check_path(id, path)\n",
                 "lines": [
-                  324,
-                  326
+                  330,
+                  332
                 ]
               },
               "props": {
@@ -4290,25 +4359,25 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "_file": {
                 "default": "None",
                 "annotation": "<class 'str'>",
-                "description": null
+                "description": "path to the database file"
               },
               "convert_arrays": {
                 "default": "None",
                 "annotation": "<class 'bool'>",
-                "description": null
+                "description": "Defaults to True. If False, when reading from the database,\nlists with tag ARRAY are not converted back to numpy arrays but\nremain a standard list."
               }
             },
             "source": {
               "code": "    def __init__(self, *, _file: str = None, convert_arrays: bool = None):\n        convert_arrays = (\n            convert_arrays if convert_arrays is not None else CONVERT_ARRAYS\n        )\n        if hasattr(self, \"_initialized\"):\n            return\n        _file = _file or paths[\"DATABASE_FILE\"]\n        super().__init__(file=_file, convert_arrays=convert_arrays)\n        self.create_index_table()\n        self.clean()\n        self._initialized = True\n",
               "lines": [
-                127,
-                137
+                133,
+                143
               ]
             }
           }
@@ -4329,15 +4398,15 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    @sql.with_connection\n    def read_table(self) -> pd.DataFrame:\n        \"\"\"Read the table of the database.\n\n        Returns:\n            pd.DataFrame: table of the database\n        \"\"\"\n        df = pd.read_sql_query(f\"SELECT * FROM {self.tablename_db}\", self._conn)\n        # drop \"hidden\" columns which start with _\n        df = df.loc[:, ~df.columns.str.startswith(\"_\")]\n        df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return df\n",
                 "lines": [
-                  374,
-                  385
+                  380,
+                  391
                 ]
               },
               "props": {
@@ -4356,7 +4425,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "entry_id": {
@@ -4368,8 +4437,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def read_entry(self, entry_id: str) -> pd.Series:\n        \"\"\"Read an entry from the database.\n\n        Args:\n            entry_id (str): ID of the entry\n\n        Returns:\n            pd.Series: entry from the database\n        \"\"\"\n        self._cursor.execute(\n            f\"SELECT * FROM {self.tablename_db} WHERE id=?\", (entry_id,)\n        )\n        series = pd.Series(*self._cursor.fetchall())\n        series.index = [description[0] for description in self._cursor.description]\n        series.rename(index=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return series\n",
                 "lines": [
-                  387,
-                  403
+                  393,
+                  409
                 ]
               },
               "props": {
@@ -4388,7 +4457,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "columns": {
@@ -4400,8 +4469,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def read_column(self, *columns: str) -> pd.DataFrame:\n        \"\"\"Read columns from the database.\n\n        Args:\n            *columns (list): columns to read\n\n        Returns:\n            pd.DataFrame: columns from the database\n        \"\"\"\n        self._cursor.execute(f\"SELECT {', '.join(columns)} FROM {self.tablename_db}\")\n        df = pd.DataFrame.from_records(self._cursor.fetchall(), columns=columns)\n        df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return df\n",
                 "lines": [
-                  405,
-                  418
+                  411,
+                  424
                 ]
               },
               "props": {
@@ -4414,21 +4483,21 @@
               "docstring": "Drop the table of the database.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    @sql.with_connection\n    def drop_table(self) -> None:\n        \"\"\"Drop the table of the database.\"\"\"\n        self._cursor.execute(f\"DROP TABLE {self.tablename_db}\")\n        self._cursor.execute(f\"DROP TABLE {self.tablename_update_times}\")\n",
                 "lines": [
-                  420,
-                  424
+                  426,
+                  430
                 ]
               },
               "props": {
@@ -4441,21 +4510,21 @@
               "docstring": "Create a table for a database.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    @sql.with_connection\n    def create_database_table(self) -> None:\n        \"\"\"Create a table for a database.\"\"\"\n        self._cursor.execute(\n            f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_db} \n                (id TEXT PRIMARY KEY NOT NULL, time_stamp DATETIME, notes TEXT, processors INTEGER)\n            \"\"\"\n        )\n        self._cursor.execute(\n            f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_update_times} (id TEXT PRIMARY KEY,\n                update_time DATETIME)\n            \"\"\"\n        )\n",
                 "lines": [
-                  426,
-                  438
+                  432,
+                  444
                 ]
               },
               "props": {
@@ -4468,13 +4537,13 @@
               "docstring": "Update an entry in the database.\n",
               "signature": "(self, entry_id: str, data: dict) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "entry_id": {
@@ -4491,8 +4560,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def update_entry(self, entry_id: str, data: dict) -> None:\n        \"\"\"Update an entry in the database.\n\n        Args:\n            entry_id (str): ID of the entry\n            data (dict): data to update\n        \"\"\"\n        # return if data is empty\n        if not data:\n            return\n\n        # get columns of table\n        self._cursor.execute(f\"PRAGMA table_info({self.tablename_db})\")\n        cols = self._cursor.fetchall()\n\n        # replace dots in keys\n        for key in list(data.keys()):\n            new_key = key.replace(\".\", DOT_REPLACEMENT)\n            new_key = _remove_illegal_column_characters(new_key)\n            if new_key != key:\n                data[new_key] = data.pop(key)\n\n        # check if columns exist\n        for key, val in data.items():\n            # key = key.replace(\".\", DOT_REPLACEMENT)\n            # key = _remove_illegal_column_characters(key)\n            if any(key == column[1] for column in cols):\n                continue\n            dtype = sql.get_sqlite_column_type(val)\n            self._cursor.execute(\n                f\"ALTER TABLE {self.tablename_db} ADD COLUMN [{key}] {dtype}\"\n            )\n\n        # insert data into table\n        data.pop(\"id\", None)\n\n        keys = \", \".join([f\"[{key}]\" for key in data.keys()])\n        values = \", \".join([f\":{key}\" for key in data.keys()])\n        updates = \", \".join([f\"[{key}] = excluded.[{key}]\" for key in data.keys()])\n\n        query = f\"\"\"\n        INSERT INTO {self.tablename_db} (id, {keys})\n        VALUES (:id, {values})\n        ON CONFLICT(id) DO UPDATE SET\n        {updates}\n        \"\"\"\n        data[\"id\"] = entry_id\n        self._cursor.execute(query, data)\n\n        # update update time\n        self._cursor.execute(\n            f\"INSERT OR REPLACE INTO {self.tablename_update_times} VALUES (?, ?)\",\n            (entry_id, time()),\n        )\n",
                 "lines": [
-                  440,
-                  494
+                  446,
+                  500
                 ]
               },
               "props": {
@@ -4505,21 +4574,21 @@
               "docstring": "Sync the table with the file system.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    @sql.with_connection\n    def sync(self) -> None:\n        \"\"\"Sync the table with the file system.\"\"\"\n        all_ids_fs = set(\n            [\n                i\n                for i in os.listdir(self.path)\n                if os.path.isdir(os.path.join(self.path, i))\n            ]\n        )\n\n        self._cursor.execute(\n            f\"SELECT id, update_time FROM {self.tablename_update_times}\"\n        )\n\n        for id, last_up_time in self._cursor.fetchall():\n            # remove entries that do not exist on the file system\n            if id not in all_ids_fs:\n                self._cursor.execute(\n                    f\"DELETE FROM {self.tablename_db} WHERE id=?\", (id,)\n                )\n                self._cursor.execute(\n                    f\"DELETE FROM {self.tablename_update_times} WHERE id=?\", (id,)\n                )\n                continue\n\n            # update entries that have been modified\n            all_ids_fs.remove(id)\n            if self.entry(id).mtime > last_up_time:\n                self.update_entry(id, self.entry(id).get_all_metadata())\n\n        # add new entries\n        for id in all_ids_fs:\n            self.update_entry(id, self.entry(id).get_all_metadata())\n",
                 "lines": [
-                  496,
-                  529
+                  502,
+                  535
                 ]
               },
               "props": {
@@ -4538,7 +4607,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "entry_id": {
@@ -4550,8 +4619,8 @@
               "source": {
                 "code": "    @sql.with_connection\n    def entry(self, entry_id: str) -> Entry:\n        \"\"\"Get the Entry object of an entry.\n        Multiton pattern. One Entry per entry.\n        \"\"\"\n        if entry_id not in self._entries:\n            self._entries[entry_id] = Entry(entry_id, self.path)\n        return self._entries[entry_id]\n",
                 "lines": [
-                  531,
-                  538
+                  537,
+                  544
                 ]
               },
               "props": {
@@ -4564,22 +4633,26 @@
             {
               "name": "id",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "path",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "tablename_db",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "tablename_update_times",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             }
           ],
           "inherits_from": {},
@@ -4589,7 +4662,7 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "id": {
@@ -4606,8 +4679,8 @@
             "source": {
               "code": "    def __init__(self, id: str, *, _index: IndexAPI = None):\n        if hasattr(self, \"_initialized\"):\n            return\n\n        self.id = id\n        self._entries = {}\n        self._initialized = True\n        self._index = _index if _index is not None else IndexAPI()\n        self.path = self._index.get_path(self.id)\n        self.tablename_db = f\"db_{self.id}\"\n        self.tablename_update_times = f\"db_{self.id}_t\"\n        self.create_database_table()\n",
               "lines": [
-                345,
-                356
+                351,
+                362
               ]
             }
           }
@@ -4628,15 +4701,15 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    def get_all_metadata(self) -> dict:\n        \"\"\"Get all metadata of the entry.\"\"\"\n        return {**self.metadata, **self.parameters}\n",
                 "lines": [
-                  572,
-                  574
+                  578,
+                  580
                 ]
               },
               "props": {
@@ -4649,32 +4722,38 @@
             {
               "name": "id",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "path",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "h5file",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "metadata",
-              "annotation": "dict",
-              "description": "Get the metadata of the entry."
+              "annotation": "<class 'dict'>",
+              "description": "Get the metadata of the entry.",
+              "default": ""
             },
             {
               "name": "parameters",
-              "annotation": "dict",
-              "description": "Get the parameters of the entry."
+              "annotation": "<class 'dict'>",
+              "description": "Get the parameters of the entry.",
+              "default": ""
             },
             {
               "name": "mtime",
-              "annotation": "float",
-              "description": "Get the modification time of the entry."
+              "annotation": "<class 'float'>",
+              "description": "Get the modification time of the entry.",
+              "default": ""
             }
           ],
           "inherits_from": {},
@@ -4684,7 +4763,7 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "id": {
@@ -4701,8 +4780,8 @@
             "source": {
               "code": "    def __init__(self, id: str, path: str) -> None:\n        self.id = id\n        self.path = path\n        self.h5file = os.path.join(self.path, self.id, f\"{self.id}.h5\")\n",
               "lines": [
-                547,
-                550
+                553,
+                556
               ]
             }
           }
@@ -4720,17 +4799,17 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "args": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "kwargs": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               }
             },
@@ -4753,20 +4832,20 @@
           "arguments": {
             "uid": {
               "default": null,
-              "annotation": "<class 'inspect._empty'>",
+              "annotation": null,
               "description": "UID to search for"
             },
             "root_dir": {
               "default": null,
-              "annotation": "<class 'inspect._empty'>",
+              "annotation": null,
               "description": "root directory for search"
             }
           },
           "source": {
             "code": "def find(uid, root_dir) -> list:\n    \"\"\"Find the database with UID under given root_dir.\n\n    Args:\n        uid: UID to search for\n        root_dir: root directory for search\n    \"\"\"\n    if os.name == \"posix\":\n        paths = _find_posix(uid, root_dir)\n    else:\n        paths = _find_python(uid, root_dir)\n    if len(paths) > 1:\n        log.warning(f\"Multiple paths found for UID {uid}:\\n{paths}\")\n    return paths\n",
             "lines": [
-              587,
-              600
+              593,
+              606
             ]
           },
           "props": {
@@ -4792,8 +4871,8 @@
           "source": {
             "code": "def get_uid_from_path(path: str) -> str:\n    \"\"\"Returns the UID found in the specified path.\"\"\"\n    for file in os.listdir(path):\n        if file.startswith(\".BAMBOOST\"):\n            return file.split(\"-\")[1]\n    raise FileNotFoundError(\"No UID file found at specified path.\")\n",
             "lines": [
-              603,
-              608
+              609,
+              614
             ]
           },
           "props": {
@@ -4813,8 +4892,8 @@
           "source": {
             "code": "def get_known_paths() -> list:\n    return config[\"index\"].get(\"paths\", [])\n",
             "lines": [
-              611,
-              612
+              617,
+              618
             ]
           },
           "props": {
@@ -4833,15 +4912,15 @@
           "arguments": {
             "uid": {
               "default": null,
-              "annotation": "<class 'inspect._empty'>",
+              "annotation": null,
               "description": null
             }
           },
           "source": {
             "code": "def uid2(uid) -> str:\n    return f\"{PREFIX}{uid}\"\n",
             "lines": [
-              633,
-              634
+              639,
+              640
             ]
           },
           "props": {
@@ -4860,6 +4939,7 @@
         "manager"
       ],
       "docstring": "",
+      "short_description": "",
       "attributes": [],
       "classes": [
         {
@@ -4878,7 +4958,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "key": {
@@ -4910,7 +4990,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -4937,7 +5017,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -4964,7 +5044,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "include_linked_sims": {
@@ -4998,7 +5078,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "include_linked_sims": {
@@ -5030,7 +5110,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "uid": {
@@ -5072,7 +5152,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "select": {
@@ -5121,12 +5201,12 @@
               "signature": "(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    *,\n    prefix: str = None,\n    duplicate_action: str = 'prompt',\n    note: str = None,\n    files: list[str] = None,\n    links: dict[str, str] = None\n) -> bamboost.simulation_writer.SimulationWriter",
               "returns": {
                 "annotation": "<class 'bamboost.simulation_writer.SimulationWriter'>",
-                "description": null
+                "description": "A simulation writer object."
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "uid": {
@@ -5171,10 +5251,10 @@
                 }
               },
               "source": {
-                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        *,\n        prefix: str = None,\n        duplicate_action: str = \"prompt\",\n        note: str = None,\n        files: list[str] = None,\n        links: dict[str, str] = None,\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with `bamboost.simulation_writer.SimulationWriter.add_parameters`.\n                Note:\n                    The parameters are stored in the h5 file as attributes.\n                    - If the value is a dict, it is flattened using\n                      `bamboost.common.utilities.flatten_dict`.\n                    - If the value is a list/array, it is stored as a dataset.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n            duplicate_action (`str`): how to deal with duplicates. Replace\n                first duplicate ('r'), Create with altered uid (`c`), Create new\n                with new id (`n`), Abort (`a`) default \"prompt\" for each\n                duplicate on a case by case basis.\n            note (`str`): Note for the simulation.\n            files (`list`): List of files to copy to the simulation directory.\n            links (`dict`): Dictionary of links to other simulations.\n\n        Note:\n            The files and links are copied to the simulation directory. The files are\n            copied with the same name as the original file. The links are copied with\n            the given name.\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on = True\n            if self.comm.rank == 0:\n                go_on, uid = self._check_duplicate(\n                    parameters, uid, duplicate_action=duplicate_action\n                )\n            self.comm.bcast((go_on, uid), root=0)\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        try:\n            # Create directory and h5 file\n            if self.comm.rank == 0:\n                os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n                path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n                if os.path.exists(path_to_h5_file):\n                    os.remove(path_to_h5_file)\n                h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n            new_sim = SimulationWriter(uid, self.path, self.comm)\n            new_sim.initialize()  # sets metadata and status\n            # add the id to the (fixed) _all_uids list\n            if hasattr(self, \"_all_uids\"):\n                self._all_uids.append(new_sim.uid)\n\n            # Add parameters, note, files, and links\n            if not any([parameters, note, files, links]):\n                return new_sim\n\n            with new_sim._file(\"r+\"):\n                if parameters:\n                    new_sim.add_parameters(parameters)\n                if note:\n                    new_sim.change_note(note)\n                if files:\n                    new_sim.copy_file(files)\n                if links:\n                    [\n                        new_sim.links.__setitem__(name, uid)\n                        for name, uid in links.items()\n                    ]\n\n            return new_sim\n\n        except Exception as e:\n            # If any error occurs, remove the partially created simulation\n            if self.comm.rank == 0:\n                self.remove(uid)\n            raise e  # Re-raise the exception after cleanup\n",
+                "code": "    def create_simulation(\n        self,\n        uid: str = None,\n        parameters: dict = None,\n        skip_duplicate_check: bool = False,\n        *,\n        prefix: str = None,\n        duplicate_action: str = \"prompt\",\n        note: str = None,\n        files: list[str] = None,\n        links: dict[str, str] = None,\n    ) -> SimulationWriter:\n        \"\"\"Get a writer object for a new simulation. This is written for paralell use\n        as it is likely that this may be used in an executable, creating multiple runs\n        for a parametric space, which may be run in paralell.\n\n        Args:\n            uid (`str`): The name/uid for the simulation. If not specified, a random id\n                will be assigned.\n            parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n                checked against the existing sims for duplication. Otherwise, they may be\n                specified later with `bamboost.simulation_writer.SimulationWriter.add_parameters`.\n                Note:\n                    The parameters are stored in the h5 file as attributes.\n                    - If the value is a dict, it is flattened using\n                      `bamboost.common.utilities.flatten_dict`.\n                    - If the value is a list/array, it is stored as a dataset.\n            skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n            prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n            duplicate_action (`str`): how to deal with duplicates. Replace\n                first duplicate ('r'), Create with altered uid (`c`), Create new\n                with new id (`n`), Abort (`a`) default \"prompt\" for each\n                duplicate on a case by case basis.\n            note (`str`): Note for the simulation.\n            files (`list`): List of files to copy to the simulation directory.\n            links (`dict`): Dictionary of links to other simulations.\n\n        Note:\n            The files and links are copied to the simulation directory. The files are\n            copied with the same name as the original file. The links are copied with\n            the given name.\n\n        Examples:\n            >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n\n            >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n\n        Returns:\n            A simulation writer object.\n        \"\"\"\n        if parameters and not skip_duplicate_check:\n            go_on = True\n            if self.comm.rank == 0:\n                go_on, uid = self._check_duplicate(\n                    parameters, uid, duplicate_action=duplicate_action\n                )\n            self.comm.bcast((go_on, uid), root=0)\n            if not go_on:\n                print(\"Aborting by user desire...\")\n                return None\n\n        if self.comm.rank == 0:\n            if not uid:\n                uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n            if isinstance(prefix, str) and prefix != \"\":\n                uid = \"_\".join([prefix, uid])\n        uid = self.comm.bcast(uid, root=0)\n\n        try:\n            # Create directory and h5 file\n            if self.comm.rank == 0:\n                os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n                path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n                if os.path.exists(path_to_h5_file):\n                    os.remove(path_to_h5_file)\n                h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n            new_sim = SimulationWriter(uid, self.path, self.comm)\n            new_sim.initialize()  # sets metadata and status\n            # add the id to the (fixed) _all_uids list\n            if hasattr(self, \"_all_uids\"):\n                self._all_uids.append(new_sim.uid)\n\n            # Add parameters, note, files, and links\n            if not any([parameters, note, files, links]):\n                return new_sim\n\n            with new_sim._file(\"r+\"):\n                if parameters:\n                    new_sim.add_parameters(parameters)\n                if note:\n                    new_sim.change_note(note)\n                if files:\n                    new_sim.copy_file(files)\n                if links:\n                    [\n                        new_sim.links.__setitem__(name, uid)\n                        for name, uid in links.items()\n                    ]\n\n            return new_sim\n\n        except Exception as e:\n            # If any error occurs, remove the partially created simulation\n            if self.comm.rank == 0:\n                self.remove(uid)\n            raise e  # Re-raise the exception after cleanup\n",
                 "lines": [
                   436,
-                  539
+                  542
                 ]
               },
               "props": {
@@ -5190,13 +5270,13 @@
               "docstring": "CAUTION, DELETING DATA. Remove the data of a simulation.\n",
               "signature": "(self, uid: str) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "uid": {
@@ -5208,8 +5288,8 @@
               "source": {
                 "code": "    def remove(self, uid: str) -> None:\n        \"\"\"CAUTION, DELETING DATA. Remove the data of a simulation.\n\n        Args:\n            uid (`str`): uid\n        \"\"\"\n        shutil.rmtree(os.path.join(self.path, uid))\n        self._table.sync()\n",
                 "lines": [
-                  541,
-                  548
+                  544,
+                  551
                 ]
               },
               "props": {
@@ -5228,7 +5308,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "parameter_selection": {
@@ -5240,8 +5320,8 @@
               "source": {
                 "code": "    def find(self, parameter_selection: dict[str, Any]) -> pd.DataFrame:\n        \"\"\"Find simulations with the given parameters.\n\n        The dictionary can contain callables to filter inequalities or other\n        filters.\n\n        Examples:\n            >>> db.find({\"a\": 1, \"b\": lambda x: x > 2})\n            >>> db.find({\"a\": 1, \"b\": 2})\n\n        Args:\n            parameter_selection (dict): parameter selection dictionary\n        \"\"\"\n        parameter_selection = flatten_dict(parameter_selection)\n        params = {}\n        filters = {}\n        for key, val in parameter_selection.items():\n            if callable(val):\n                filters[key] = val\n            else:\n                params[key] = val\n\n        df = self.df\n        matches = self._list_duplicates(params, df=df)\n        matches = df[df.id.isin(matches)]\n        if len(matches) == 0:\n            return matches\n\n        for key, func in filters.items():\n            matches = matches[matches[key].apply(func)]\n\n        return matches\n",
                 "lines": [
-                  550,
-                  581
+                  553,
+                  584
                 ]
               },
               "props": {
@@ -5262,15 +5342,15 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    def global_fields_in_all(self) -> list:\n        \"\"\"Get a list of all global fields in all simulations.\n\n        Returns:\n            List of global fields\n        \"\"\"\n        fields = set()\n        for sim in self:\n            try:\n                fields.update(sim.globals.columns)\n            except KeyError:\n                continue\n\n        return fields\n",
                 "lines": [
-                  682,
-                  695
+                  685,
+                  698
                 ]
               },
               "props": {
@@ -5289,15 +5369,15 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
               "source": {
                 "code": "    def get_parameters(self) -> dict:\n        \"\"\"Get the parameters used in this database.\n\n        Returns:\n            Dictionary of parameters with it's count, range, and type. Sorted by count.\n        \"\"\"\n        parameters = dict()\n        for sim in self:\n            for key, val in sim.parameters.items():\n                if key not in parameters:\n                    range = (val, val) if isinstance(val, numbers.Number) else None\n                    parameters[key] = {\"range\": range, \"count\": 1, \"type\": type(val)}\n                else:\n                    if isinstance(val, numbers.Number):\n                        parameters[key][\"range\"] = (\n                            min(parameters[key][\"range\"][0], val),\n                            max(parameters[key][\"range\"][1], val),\n                        )\n                    parameters[key][\"count\"] += 1\n                    parameters[key][\"type\"] = type(val)\n        return dict(\n            sorted(parameters.items(), key=lambda x: x[1][\"count\"], reverse=True)\n        )\n",
                 "lines": [
-                  697,
-                  719
+                  700,
+                  722
                 ]
               },
               "props": {
@@ -5310,47 +5390,56 @@
             {
               "name": "FIX_DF",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": "True"
             },
             {
               "name": "fromUID",
-              "annotation": "bamboost.manager.ManagerFromUID",
-              "description": null
+              "annotation": "<class 'bamboost.manager.ManagerFromUID'>",
+              "description": null,
+              "default": "<bamboost.manager.ManagerFromUID object>"
             },
             {
               "name": "fromName",
-              "annotation": "bamboost.manager.ManagerFromName",
-              "description": null
+              "annotation": "<class 'bamboost.manager.ManagerFromName'>",
+              "description": null,
+              "default": "<bamboost.manager.ManagerFromName object>"
             },
             {
               "name": "path",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "comm",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "UID",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "all_uids",
-              "annotation": "list",
-              "description": null
+              "annotation": "<class 'list'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "df",
-              "annotation": "pandas.core.frame.DataFrame",
-              "description": "View of the database and its parametric space.\n"
+              "annotation": "<class 'pandas.core.frame.DataFrame'>",
+              "description": "View of the database and its parametric space.\n",
+              "default": ""
             },
             {
               "name": "data_info",
-              "annotation": "pandas.core.frame.DataFrame",
-              "description": "Return view of stored data for all simulations\n"
+              "annotation": "<class 'pandas.core.frame.DataFrame'>",
+              "description": "Return view of stored data for all simulations\n",
+              "default": ""
             }
           ],
           "inherits_from": {},
@@ -5362,16 +5451,16 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "path": {
                 "default": "None",
                 "annotation": "<class 'str'>",
-                "description": "path to the directory of the database. If doesn't exist, a new database will be created."
+                "description": "path to the directory of the database. If doesn't exist,\na new database will be created."
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7138027b7da0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -5411,12 +5500,12 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "key": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -5437,7 +5526,8 @@
             {
               "name": "completion_keys",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             }
           ],
           "inherits_from": {},
@@ -5447,7 +5537,7 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               }
             },
@@ -5476,12 +5566,12 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "key": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -5502,7 +5592,8 @@
             {
               "name": "completion_keys",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             }
           ],
           "inherits_from": {},
@@ -5512,7 +5603,7 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               }
             },
@@ -5537,6 +5628,7 @@
         "simulation"
       ],
       "docstring": "",
+      "short_description": "",
       "attributes": [],
       "classes": [
         {
@@ -5587,12 +5679,12 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "key": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -5619,7 +5711,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "filename": {
@@ -5651,27 +5743,27 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "level": {
                   "default": "-1",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": "how deep to print the tree"
                 },
                 "limit_to_directories": {
                   "default": "False",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": "only print directories"
                 },
                 "length_limit": {
                   "default": "1000",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": "cutoff"
                 },
                 "printit": {
                   "default": "True",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -5692,13 +5784,13 @@
               "docstring": "Open the simulation directory. Uses `xdg-open` on linux systems.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -5719,13 +5811,13 @@
               "docstring": "Open the xdmf file in paraview.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -5752,7 +5844,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -5773,13 +5865,13 @@
               "docstring": "Change status of simulation.\n",
               "signature": "(self, status: str) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "status": {
@@ -5805,13 +5897,13 @@
               "docstring": "Update the metadata attributes.\n",
               "signature": "(self, update_dict: dict) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "update_dict": {
@@ -5837,13 +5929,13 @@
               "docstring": "Update the parameters dictionary.\n",
               "signature": "(self, update_dict: dict) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "update_dict": {
@@ -5869,13 +5961,13 @@
               "docstring": "Create the xdmf file to read in paraview.\n",
               "signature": "(self, fields: list = None, nb_steps: int = None) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "fields": {
@@ -5906,13 +5998,13 @@
               "docstring": "Create a batch job and put it into the folder.\n",
               "signature": "(\n    self,\n    commands: list[str],\n    euler: bool = True,\n    sbatch_kwargs: dict[str, typing.Any] = None\n) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "commands": {
@@ -5948,23 +6040,23 @@
               "docstring": "",
               "signature": "(self, *args, **kwargs)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "args": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "kwargs": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -5985,13 +6077,13 @@
               "docstring": "Submit the job for this simulation.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6012,18 +6104,18 @@
               "docstring": "",
               "signature": "(self, note) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "note": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6050,7 +6142,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "mode": {
@@ -6060,12 +6152,12 @@
                 },
                 "driver": {
                   "default": "None",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": "file driver (see h5py docs)"
                 },
                 "comm": {
                   "default": "None",
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": "mpi communicator"
                 }
               },
@@ -6092,7 +6184,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "mesh_name": {
@@ -6118,13 +6210,13 @@
               "docstring": "Get Linear interpolator for data field at step. Uses the linked mesh.\n",
               "signature": "(self, field: str, step: int)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": ":class:`scipy.interpolate.LinearNDInterpolator`"
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "field": {
@@ -6155,13 +6247,13 @@
               "docstring": "Print the tree inside the h5 file.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6182,13 +6274,13 @@
               "docstring": "A context manager for changing the working directory to this simulations' path.\n\n>>> with sim.working_directory():\n>>>     ...",
               "signature": "(self)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6208,83 +6300,99 @@
           "properties": [
             {
               "name": "uid",
-              "annotation": "str",
-              "description": null
+              "annotation": "<class 'str'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "path_database",
-              "annotation": "str",
-              "description": null
+              "annotation": "<class 'str'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "database_id",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "path",
-              "annotation": "str",
-              "description": null
+              "annotation": "<class 'str'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "h5file",
-              "annotation": "str",
-              "description": null
+              "annotation": "<class 'str'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "xdmffile",
-              "annotation": "str",
-              "description": null
+              "annotation": "<class 'str'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "meshes",
-              "annotation": "bamboost.accessors.meshes.MeshGroup",
-              "description": null
+              "annotation": "<class 'bamboost.accessors.meshes.MeshGroup'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "data",
-              "annotation": "bamboost.accessors.fielddata.DataGroup",
-              "description": null
+              "annotation": "<class 'bamboost.accessors.fielddata.DataGroup'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "globals",
-              "annotation": "bamboost.accessors.globals.GlobalGroup",
-              "description": null
+              "annotation": "<class 'bamboost.accessors.globals.GlobalGroup'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "userdata",
-              "annotation": "bamboost.common.hdf_pointer.MutableGroup",
-              "description": null
+              "annotation": "<class 'bamboost.common.hdf_pointer.MutableGroup'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "links",
-              "annotation": "bamboost.simulation.Links",
-              "description": null
+              "annotation": "<class 'bamboost.simulation.Links'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "parameters",
-              "annotation": "Dict[str, Any]",
-              "description": null
+              "annotation": "typing.Dict[str, typing.Any]",
+              "description": null,
+              "default": ""
             },
             {
               "name": "metadata",
-              "annotation": "dict",
-              "description": null
+              "annotation": "<class 'dict'>",
+              "description": null,
+              "default": ""
             },
             {
               "name": "mesh",
-              "annotation": "bamboost.accessors.meshes.Mesh",
-              "description": "Return the default mesh.\n"
+              "annotation": "<class 'bamboost.accessors.meshes.Mesh'>",
+              "description": "Return the default mesh.\n",
+              "default": ""
             },
             {
               "name": "data_info",
-              "annotation": "pandas.core.frame.DataFrame",
-              "description": "View the data stored.\n"
+              "annotation": "<class 'pandas.core.frame.DataFrame'>",
+              "description": "View the data stored.\n",
+              "default": ""
             },
             {
               "name": "git",
-              "annotation": "dict",
-              "description": "Get Git information.\n"
+              "annotation": "<class 'dict'>",
+              "description": "Get Git information.\n",
+              "default": ""
             }
           ],
           "inherits_from": {},
@@ -6294,7 +6402,7 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "uid": {
@@ -6308,7 +6416,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7138027b7da0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               },
@@ -6348,12 +6456,12 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "key": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6374,23 +6482,23 @@
               "docstring": "Creates the link.",
               "signature": "(self, key, newvalue)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "key": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "newvalue": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6417,7 +6525,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6506,7 +6614,7 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "file_handler": {
@@ -6536,6 +6644,7 @@
         "simulation_writer"
       ],
       "docstring": "",
+      "short_description": "",
       "attributes": [],
       "classes": [
         {
@@ -6554,7 +6663,7 @@
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6575,13 +6684,13 @@
               "docstring": "Add metadata to h5 file.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6602,13 +6711,13 @@
               "docstring": "Add parameters to simulation.\n",
               "signature": "(self, parameters: dict) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "parameters": {
@@ -6634,13 +6743,13 @@
               "docstring": "Add the mesh to file. Currently only 2d meshes.\n\nNote:\n    If you are working with FEniCS, you can use the\n    `bamboost.extensions.fenics.FenicsWriter` writer. With it you can\n    write the FEniCS mesh directly.",
               "signature": "(\n    self,\n    coordinates: numpy.ndarray,\n    connectivity: numpy.ndarray,\n    mesh_name: str = None\n) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "coordinates": {
@@ -6676,13 +6785,13 @@
               "docstring": "Add a dataset to the file. The data is stored at `data/`.\n",
               "signature": "(\n    self,\n    name: str,\n    vector: <built-in function array>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: Literal['Node', 'Cell'] = 'Node'\n) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "name": {
@@ -6733,13 +6842,13 @@
               "docstring": "Add multiple fields at once.\n",
               "signature": "(\n    self,\n    fields: Dict[str, Union[numpy.ndarray, Tuple[numpy.ndarray, str]]],\n    time: float = None,\n    mesh: str = None\n) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "fields": {
@@ -6775,13 +6884,13 @@
               "docstring": "Add a gobal field. These are stored at `globals/` as an array in a\nsingle dataset.",
               "signature": "(self, name: str, value: Any, dtype: str = None) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "name": {
@@ -6817,13 +6926,13 @@
               "docstring": "Add multiple global fields at once.\n",
               "signature": "(self, fields: Dict[str, Any]) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "fields": {
@@ -6849,13 +6958,13 @@
               "docstring": "Finish step. Adds 1 to the step counter.",
               "signature": "(self) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -6876,13 +6985,13 @@
               "docstring": "",
               "signature": "(self, status: str = 'Finished') -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "status": {
@@ -6908,13 +7017,13 @@
               "docstring": "Register git information for given repo.\n",
               "signature": "(self, repo_path: str = './') -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "repo_path": {
@@ -6940,13 +7049,13 @@
               "docstring": "WILL BE REMOVED. USE COPY_FILE.\nCopy an executable to directory for reproducability.",
               "signature": "(self, script_path: str) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "script_path": {
@@ -6972,13 +7081,13 @@
               "docstring": "Copy a file to the datafolder.\n",
               "signature": "(self, source: Union[str, list], destination: str = '') -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "source": {
@@ -7008,8 +7117,9 @@
           "properties": [
             {
               "name": "step",
-              "annotation": "int",
-              "description": null
+              "annotation": "<class 'int'>",
+              "description": null,
+              "default": ""
             }
           ],
           "inherits_from": {
@@ -7169,7 +7279,7 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "uid": {
@@ -7183,7 +7293,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7138027b7da0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               },
@@ -7214,6 +7324,7 @@
         "xdmf"
       ],
       "docstring": "",
+      "short_description": "",
       "attributes": [],
       "classes": [
         {
@@ -7226,13 +7337,13 @@
               "docstring": "",
               "signature": "(self)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 }
               },
@@ -7253,13 +7364,13 @@
               "docstring": "Write the mesh to the xdmf file.\n",
               "signature": "(self, points_location: str, cells_location: str)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "points_location": {
@@ -7290,13 +7401,13 @@
               "docstring": "",
               "signature": "(self, steps: int, fields: list)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "steps": {
@@ -7327,13 +7438,13 @@
               "docstring": "Write the data array for time t.\n",
               "signature": "(\n    self,\n    collection: xml.etree.ElementTree.Element,\n    fields: list,\n    step: int\n)",
               "returns": {
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "collection": {
@@ -7369,13 +7480,13 @@
               "docstring": "Write an attribute/field.",
               "signature": "(\n    self,\n    grid: xml.etree.ElementTree.Element,\n    field_name: str,\n    name: str,\n    step: int\n) -> None",
               "returns": {
-                "annotation": "None",
+                "annotation": null,
                 "description": null
               },
               "arguments": {
                 "self": {
                   "default": null,
-                  "annotation": "<class 'inspect._empty'>",
+                  "annotation": null,
                   "description": null
                 },
                 "grid": {
@@ -7416,27 +7527,32 @@
             {
               "name": "filename",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "h5file",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "xdmf_file",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "domain",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             },
             {
               "name": "mesh_name",
               "annotation": null,
-              "description": null
+              "description": null,
+              "default": ""
             }
           ],
           "inherits_from": {},
@@ -7446,7 +7562,7 @@
             "arguments": {
               "self": {
                 "default": null,
-                "annotation": "<class 'inspect._empty'>",
+                "annotation": null,
                 "description": null
               },
               "filename": {

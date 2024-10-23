@@ -2,7 +2,7 @@
 import FumaComponents from "fumadocs-ui/mdx";
 import { MethodObj } from "../types";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MethodHeaderProps {
@@ -10,8 +10,9 @@ interface MethodHeaderProps {
   clsName?: string;
   signature: JSX.Element;
   code: JSX.Element;
-  id: string;
+  id?: string;
   isClassMethod?: JSX.Element;
+  isConstructor?: boolean;
 }
 
 export default function MethodHeader({
@@ -21,6 +22,7 @@ export default function MethodHeader({
   code,
   id,
   isClassMethod,
+  isConstructor,
 }: MethodHeaderProps) {
   const [sourceCodeVisible, setSourceCodeVisible] = useState(false);
 
@@ -38,10 +40,21 @@ export default function MethodHeader({
             id={id}
             className={cn(isClassMethod ? "my-2 mt-0" : "my-2")}
           >
+            {isConstructor && (
+              <span className="text-foreground mr-2">Constructor:</span>
+            )}
             {clsName && (
-              <span className="text-muted-foreground text-base">
-                {clsName} .{" "}
+              <span
+                className={cn(
+                  "text-muted-foreground text-base",
+                  isConstructor && "text-foreground",
+                )}
+              >
+                {clsName}
               </span>
+            )}
+            {clsName && name && (
+              <span className="text-muted-foreground mx-1">.</span>
             )}
             {name}
             {signature}

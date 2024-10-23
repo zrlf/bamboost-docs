@@ -31,6 +31,7 @@ export type PropertyObj = {
   name: string;
   annotation: string | null;
   description: string | null;
+  default: string | null;
   source?: {
     code: string;
     lines: number[] | null;
@@ -53,6 +54,7 @@ export type ModuleObj = {
   slug: string[];
   classes: ClassObj[];
   docstring: string;
+  short_description: string;
   functions: MethodObj[];
   submodules: ModuleObj[];
   attributes: PropertyObj[];

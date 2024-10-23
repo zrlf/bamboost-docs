@@ -27,7 +27,7 @@ Edit the `[keybinds.database]` table in the config file to your liking.The
 functions are named(also seeable in the TUI).You can simply assign a new key
 to a function.
 
-```toml filename='Example configuration file'
+```toml title="Example configuration file"
 theme = "default" # or "highlight"
 
 # Maximum column widths (default: 30)
@@ -90,7 +90,7 @@ keypress is recorded. `key` is the key that was pressed.
 To interact with the table itself, e.g.to get the simulation in focus, there is
 a minimal API available.
 
-```python filename='bamboostcli API'
+```python
 from bamboostcli import api
 sim = api.get_entry_in_focus()
 database_widget = api.Database()

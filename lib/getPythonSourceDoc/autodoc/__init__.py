@@ -14,11 +14,18 @@ from __future__ import annotations
 import inspect
 import json
 import re
+from pprint import pprint
 from types import ModuleType
-from typing import TypedDict
+from typing import Any, TypedDict
 
 import pdoc
-from docstring_parser import parse
+from docstring_parser import DocstringParam, DocstringStyle, parse
+
+
+class Null:
+    def __getattr__(self, _):
+        return None
+
 
 INCLUDE_METHODS = {
     "__getitem__",
@@ -31,6 +38,7 @@ INCLUDE_METHODS = {
 class apiModule(TypedDict):
     name: str
     docstring: str
+    short_description: str
     classes: list[apiClass]
     functions: list[apiMethod]
     submodules: list[apiModule]
@@ -63,6 +71,7 @@ class apiVariable(TypedDict):
     name: str
     annotation: str
     description: str
+    default: str
 
 
 class apiParameter(TypedDict):
@@ -80,13 +89,14 @@ class parsedDocstring(TypedDict):
     short_description: str
     description: str
     arguments: dict[str, str]
+    params: dict[str, dict[str, DocstringParam]]
     returns: str  # Changed from 'return' to 'returns'
     examples: list[str]
 
 
 def parse_docstring(docstring: str) -> parsedDocstring:
     """Parse docstring and return description, arguments and return."""
-    doc = parse(docstring)
+    doc = parse(docstring, DocstringStyle.GOOGLE)
 
     # split examples on empty lines
     examples_str = (
@@ -97,6 +107,10 @@ def parse_docstring(docstring: str) -> parsedDocstring:
     return {
         "short_description": doc.short_description if doc.short_description else "",
         "description": doc.description if doc.description else "",
+        "params": {
+            param_type: {value.arg_name: value for value in doc.params}
+            for param_type in [k.args[0] for k in doc.params]
+        },
         "arguments": {
             param.arg_name.split()[0]: param.description for param in doc.params
         },
@@ -115,7 +129,7 @@ def document_method(method: pdoc.doc.Function, is_classmethod=False) -> apiMetho
         "docstring": docstring["description"],
         "signature": signature.__str__(),
         "returns": {
-            "annotation": sanitize_annotation(str(signature.return_annotation)),
+            "annotation": sanitize_annotation(signature.return_annotation),
             "description": (
                 docstring["returns"].replace("\n", " ")
                 if docstring["returns"]
@@ -125,7 +139,7 @@ def document_method(method: pdoc.doc.Function, is_classmethod=False) -> apiMetho
         "arguments": {
             key: {
                 "default": str(val.default) if val.default != inspect._empty else None,
-                "annotation": sanitize_annotation(str(val.annotation)),
+                "annotation": sanitize_annotation(val.annotation),
                 "description": (
                     docstring["arguments"].get(key)
                     if key in docstring["arguments"]
@@ -148,20 +162,21 @@ def document_method(method: pdoc.doc.Function, is_classmethod=False) -> apiMetho
 
 
 def document_instance_variable(
-    variable: pdoc.doc.Variable, module_arguments: dict = None
+    variable: pdoc.doc.Variable, module_attributes: dict[str, DocstringParam] = None
 ) -> apiVariable:
     """Document instance variable and return dictionary with documentation."""
     if variable.docstring:
         description = parse_docstring(variable.docstring)["description"]
-    elif module_arguments and variable.name in module_arguments:
-        description = module_arguments[variable.name]
+    elif module_attributes and variable.name in module_attributes:
+        description = module_attributes[variable.name].description
     else:
         description = None
 
     return {
         "name": variable.name,
-        "annotation": sanitize_annotation(variable.annotation_str),
+        "annotation": sanitize_annotation(variable.annotation),
         "description": description,
+        "default": variable.default_value_str,
     }
 
 
@@ -201,11 +216,12 @@ def document_class(cls: pdoc.doc.Class) -> apiClass:
         "arguments": {
             key: {
                 "default": str(val.default) if val.default != inspect._empty else None,
-                "annotation": sanitize_annotation(repr(val.annotation)),
+                "annotation": sanitize_annotation(val.annotation),
                 "description": (
-                    class_docstring["arguments"].get(key).replace("\n", " ")
-                    if key in class_docstring["arguments"]
-                    else None
+                    class_docstring["params"]
+                    .get("param", {})
+                    .get(key, Null())
+                    .description
                 ),
             }
             for key, val in constructor.signature.parameters.items()
@@ -236,13 +252,15 @@ def document_module(module: pdoc.doc.Module) -> apiModule:
     parsed_docstring = parse_docstring(module.docstring)
     slug = module.fullname.split(".")
 
-    result = {
+    result: apiModule = {
         "name": module.name,
         "slug": slug,
         "docstring": parsed_docstring["description"].strip(),
+        "short_description": parsed_docstring["description"].split("\n\n")[0],
         "attributes": [
             document_instance_variable(
-                const, module_arguments=parsed_docstring["arguments"]
+                const,
+                module_attributes=parsed_docstring["params"].get("attribute", {}),
             )
             for const in module.variables
         ],
@@ -295,11 +313,11 @@ class AutoDoc:
         return result
 
 
-def sanitize_annotation(annotation: str) -> str:
+def sanitize_annotation(annotation: Any) -> str:
     """Sanitize annotation string."""
     if not annotation or annotation == inspect._empty:
         return None
-    return annotation.lstrip(":").strip()
+    return str(annotation).lstrip(":").strip()
 
 
 if __name__ == "__main__":

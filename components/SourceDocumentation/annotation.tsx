@@ -5,7 +5,11 @@ import Link from "next/link";
 export function LinkAnnotation({
   children,
   ...props
-}: { children: string } & ComponentProps<"code">) {
+}: { children: string | null } & ComponentProps<"code">) {
+  if (!children) {
+    return null;
+  }
+
   const cleanedChildren = children.replace(/[^a-zA-Z0-9,._\[\]()= ]/g, "");
 
   // Remove any occurrence of class, func, etc.

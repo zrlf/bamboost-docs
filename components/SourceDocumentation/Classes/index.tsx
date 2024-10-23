@@ -1,4 +1,4 @@
-import { Method } from "./method";
+import { Constructor, Method } from "./method";
 import { Attributes } from "@/components/SourceDocumentation/attributes";
 import { ClassObj } from "@/components/SourceDocumentation/types";
 import fuma from "fumadocs-ui/mdx";
@@ -21,8 +21,18 @@ export const Class = ({ data }: { data: ClassObj }) => {
       <fuma.h2 id={data.name} className="class">
         {data.name}
       </fuma.h2>
+
       <Markdown input={data.docstring} />
-      <Attributes data={data.properties} />
+
+      {data.properties.length > 0 && (
+        <>
+          <fuma.h4>Attributes</fuma.h4>
+          <Attributes data={data.properties} />
+        </>
+      )}
+
+      <Constructor data={data.constructor} clsName={data.name} />
+
       <InheritedMembers data={data.inherits_from} />
 
       {Object.values(data.methods).map((method) => {

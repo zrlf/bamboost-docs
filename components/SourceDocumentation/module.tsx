@@ -5,18 +5,25 @@ import { Functions } from "./Function";
 import { Attributes } from "./attributes";
 import { ModuleObj } from "./types";
 import fuma from "fumadocs-ui/mdx";
+import { File, FileBadge } from "lucide-react";
 
 export const Module = ({ data }: { data: ModuleObj }) => {
   let cards = null;
-  if (data.name === "bamboost") {
+  if (data.submodules.length > 0) {
     cards = (
       <Cards>
         {data.submodules.map((module) => (
-          <Card key={module.name} title={module.name} description={module.docstring} href={`apidocs/${module.slug.join('/')}`} />
+          <Card
+            key={module.name}
+            title={module.name}
+            description={module.short_description}
+            href={`/apidocs/${module.slug.slice(1).join("/")}`}
+          />
         ))}
       </Cards>
     );
   }
+  console.log(data.docstring)
   return (
     <div>
       {data.docstring && <Markdown input={data.docstring} />}

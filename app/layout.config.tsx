@@ -1,7 +1,7 @@
 import { RootToggle } from "fumadocs-ui/components/layout/root-toggle";
 import { DocsLayoutProps } from "fumadocs-ui/layouts/docs";
 import { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { Book, Library } from "lucide-react";
+import { BookOpenText, Library } from "lucide-react";
 
 /**
  * Shared layout configurations
@@ -28,7 +28,7 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
           {
             title: "Docs",
             description: "Guides and tutorials",
-            icon: <Book size={24} className="text-[hsl(var(--primary-2))]" />,
+            icon: <BookOpenText size={24} className="text-[hsl(var(--primary-2))]" />,
             url: "/docs",
           },
           {

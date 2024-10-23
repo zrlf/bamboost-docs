@@ -17,26 +17,53 @@ interface Page {
   data?: ModuleObj;
 }
 
+const Separator = ({ title }: { title: string }) => {
+  return (
+    <div className="hidden sm:block">
+      <div
+        className="relative text-foreground font-semibold z-10 mt-4"
+      >
+        {title}
+      </div>
+      <div
+        className="absolute inset-0 bg-background"
+      ></div>
+    </div>
+  );
+};
+
 function createTOC(module: ModuleObj): TOCItemType[] {
   const headers: TOCItemType[] = [];
 
   if (module.attributes.length > 0) {
-    headers.push({ title: "Attributes", depth: 2, url: "#attributes" });
+    headers.push({
+      title: <Separator title="Attributes" />,
+      depth: 2,
+      url: "#attributes",
+    });
   }
 
   if (module.functions.length > 0) {
-    headers.push({ title: "Functions", depth: 2, url: "#functions" });
+    headers.push({
+      title: <Separator title="Functions" />,
+      depth: 2,
+      url: "#functions",
+    });
     module.functions.forEach((func) => {
-      headers.push({ title: func.name, depth: 3, url: `#${func.name}` });
+      headers.push({ title: func.name, depth: 2, url: `#${func.name}` });
     });
   }
 
   if (module.classes.length > 0) {
-    headers.push({ title: "Classes", depth: 2, url: "#classes" });
+    headers.push({
+      title: <Separator title="Classes" />,
+      depth: 2,
+      url: "#classes",
+    });
     module.classes.forEach((cls) => {
-      headers.push({ title: cls.name, depth: 3, url: `#${cls.name}` });
+      headers.push({ title: cls.name, depth: 2, url: `#${cls.name}` });
       Object.keys(cls.methods).forEach((method) => {
-        headers.push({ title: method, depth: 4, url: `#${cls.name}${method}` });
+        headers.push({ title: method, depth: 3, url: `#${cls.name}${method}` });
       });
     });
   }

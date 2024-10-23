@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import {
   DocsPage,
   DocsBody,
-  DocsDescription,
   DocsTitle,
 } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
@@ -17,9 +16,12 @@ export default async function Page(props: {
   if (!page) notFound();
 
   return (
-    <DocsPage toc={page.data.toc} tableOfContent={{ style: "clerk", single: false }}>
+    <DocsPage
+      toc={page.data.toc}
+      tableOfContent={{ style: "clerk", single: false }}
+      breadcrumb={{ full: true, includeRoot: true }}
+    >
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <Module data={page.data.data!} />
       </DocsBody>

@@ -16,7 +16,6 @@ export default async function Page(props: {
   if (!page) notFound();
 
   const MDX = page.data.body;
-  console.log(page.data.structuredData)
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>

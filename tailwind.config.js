@@ -8,9 +8,10 @@ export default {
     './content/**/*.{md,mdx}',
     './mdx-components.{ts,tsx}',
     './node_modules/fumadocs-ui/dist/**/*.js',
+    './lib/source.tsx',
   ],
   presets: [createPreset({
-    preset: 'default',
+    preset: 'neutral',
     addGlobalColors: true,
   })],
 };
