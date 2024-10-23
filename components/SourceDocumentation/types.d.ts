@@ -55,7 +55,7 @@ export type ModuleObj = {
   docstring: string;
   functions: MethodObj[];
   submodules: ModuleObj[];
-  constants?: PropertyObj[];
+  attributes: PropertyObj[];
   examples?: string[] | null;
   version?: string;
 };

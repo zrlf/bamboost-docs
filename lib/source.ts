@@ -16,6 +16,11 @@ interface Page {
 
 function createTOC(module: ModuleObj): TOCItemType[] {
   const headers: TOCItemType[] = [];
+  
+  if (module.attributes.length > 0) {
+    headers.push({ title: "Attributes", depth: 2, url: "#attributes" });
+  }
+
   if (module.functions.length > 0) {
     headers.push({ title: "Functions", depth: 2, url: "#functions" });
     module.functions.forEach((func) => {
@@ -57,7 +62,7 @@ export function createAPISource(): Source<{
         slug,
         title: currentData.name,
         path: slug.join("/"),
-        description: currentData.docstring,
+        description: currentData.docstring.split("\n\n")[0],
         toc: createTOC(currentData),
         data: currentData,
       });
@@ -65,7 +70,7 @@ export function createAPISource(): Source<{
       // We're at the root __init__ module
       pages.push({
         slug: path,
-        title: "bamboost",
+        title: `bamboost @${currentData.version}`,
         path: path.join("/"),
         description: currentData.docstring,
         toc: createTOC(currentData),

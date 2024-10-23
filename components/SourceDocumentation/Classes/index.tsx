@@ -1,9 +1,7 @@
 import { Method } from "./method";
 import { Attributes } from "@/components/SourceDocumentation/attributes";
 import { ClassObj } from "@/components/SourceDocumentation/types";
-import { cn } from "@/lib/utils";
 import fuma from "fumadocs-ui/mdx";
-import { LinkAnnotation } from "../annotation";
 import { InheritedMembers } from "./inherited";
 import Markdown from "@/components/Markdown/markdown";
 

@@ -34,6 +34,7 @@ class apiModule(TypedDict):
     classes: list[apiClass]
     functions: list[apiMethod]
     submodules: list[apiModule]
+    attributes: list[apiVariable]
     version: str | None
 
 
@@ -239,7 +240,7 @@ def document_module(module: pdoc.doc.Module) -> apiModule:
         "name": module.name,
         "slug": slug,
         "docstring": parsed_docstring["description"].strip(),
-        "constants": [
+        "attributes": [
             document_instance_variable(
                 const, module_arguments=parsed_docstring["arguments"]
             )

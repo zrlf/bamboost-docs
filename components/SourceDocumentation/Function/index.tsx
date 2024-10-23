@@ -1,12 +1,11 @@
-import { MethodObj } from "../types";
+import { MethodObj, ReturnObj } from "../types";
 import Markdown, { splitParagraph } from "../../Markdown/markdown";
 import { FunctionHeader } from "./FunctionHeader";
 import { Code } from "../../Code";
 import { Arguments } from "../ArgumentList";
+import { LinkAnnotation } from "../annotation";
 
-export const Functions = ({ data }: { data?: MethodObj[] }) => {
-  if (!data) return null;
-
+export const Functions = ({ data }: { data: MethodObj[] }) => {
   return (
     <div>
       {data.map((method) => {
@@ -33,6 +32,21 @@ export const Function = ({ data }: { data: MethodObj }) => {
       <div className="sm:ml-4">
         {data.docstring && <Markdown input={splitParagraph(data.docstring)} />}
         <Arguments data={data.arguments} />
+      </div>
+      {data.returns && data.returns.annotation !== "None" && (
+        <Returns data={data.returns} />
+      )}
+    </div>
+  );
+};
+
+const Returns = ({ data }: { data: ReturnObj }) => {
+  return (
+    <div>
+      <h5>Returns</h5>
+      <div className="ml-4">
+        <LinkAnnotation children={data.annotation!} />
+        <span className="ml-2">{data.description}</span>
       </div>
     </div>
   );

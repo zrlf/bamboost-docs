@@ -4,7 +4,7 @@
     "bamboost"
   ],
   "docstring": "",
-  "constants": [
+  "attributes": [
     {
       "name": "__author__",
       "annotation": null,
@@ -91,7 +91,7 @@
         "accessors"
       ],
       "docstring": "",
-      "constants": [],
+      "attributes": [],
       "classes": [],
       "functions": [],
       "submodules": [
@@ -103,7 +103,7 @@
             "meshes"
           ],
           "docstring": "",
-          "constants": [],
+          "attributes": [],
           "classes": [
             {
               "name": "MeshGroup",
@@ -370,7 +370,7 @@
             "fielddata"
           ],
           "docstring": "",
-          "constants": [],
+          "attributes": [],
           "classes": [
             {
               "name": "DataGroup",
@@ -816,7 +816,7 @@
             "globals"
           ],
           "docstring": "",
-          "constants": [],
+          "attributes": [],
           "classes": [
             {
               "name": "GlobalGroup",
@@ -926,7 +926,7 @@
         "common"
       ],
       "docstring": "",
-      "constants": [],
+      "attributes": [],
       "classes": [],
       "functions": [],
       "submodules": [
@@ -938,7 +938,7 @@
             "file_handler"
           ],
           "docstring": "",
-          "constants": [
+          "attributes": [
             {
               "name": "HAS_MPIO",
               "annotation": null,
@@ -1138,7 +1138,7 @@
                     "description": "the path to the file"
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   }
@@ -1272,7 +1272,7 @@
             "utilities"
           ],
           "docstring": "Utility functions used by bamboost.",
-          "constants": [],
+          "attributes": [],
           "classes": [],
           "functions": [
             {
@@ -1484,7 +1484,7 @@
             "git_utility"
           ],
           "docstring": "",
-          "constants": [],
+          "attributes": [],
           "classes": [
             {
               "name": "GitStateGetter",
@@ -1553,7 +1553,7 @@
             "hdf_pointer"
           ],
           "docstring": "",
-          "constants": [],
+          "attributes": [],
           "classes": [
             {
               "name": "BasePointer",
@@ -2260,7 +2260,7 @@
             "mpi"
           ],
           "docstring": "",
-          "constants": [
+          "attributes": [
             {
               "name": "log",
               "annotation": null,
@@ -2302,7 +2302,7 @@
         "extensions"
       ],
       "docstring": "",
-      "constants": [
+      "attributes": [
         {
           "name": "extensions",
           "annotation": null,
@@ -2359,7 +2359,7 @@
             "fenics"
           ],
           "docstring": "",
-          "constants": [],
+          "attributes": [],
           "classes": [
             {
               "name": "FenicsWriter",
@@ -2686,7 +2686,7 @@
                     "description": "Path to database"
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": "MPI communicator"
                   },
@@ -2718,7 +2718,7 @@
             "remote_manager"
           ],
           "docstring": "",
-          "constants": [],
+          "attributes": [],
           "classes": [
             {
               "name": "Remote",
@@ -2728,9 +2728,9 @@
                 "list": {
                   "name": "list",
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x7333fddaf100>)>",
+                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x73f3a78a3100>)>",
                   "returns": {
-                    "annotation": "<classmethod(<function Remote.list at 0x7333fddaf100>)>",
+                    "annotation": "<classmethod(<function Remote.list at 0x73f3a78a3100>)>",
                     "description": null
                   },
                   "arguments": {
@@ -3269,7 +3269,7 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   }
@@ -3539,7 +3539,7 @@
             "slurm"
           ],
           "docstring": "",
-          "constants": [],
+          "attributes": [],
           "classes": [],
           "functions": [
             {
@@ -3574,8 +3574,8 @@
             "extensions",
             "use_locking"
           ],
-          "docstring": "This module provides a custom rather primitive file locking mechanism for\nHDF5 files.\n\nThis module provides a function `use_locking` that installs the mechanism by\nMonkey-patching the `FileHandler` class. To use this mechanism, call the\n`use_locking` function at the start of your script, before creating any\n`FileHandler` instances.",
-          "constants": [],
+          "docstring": "This module provides a custom rather primitive file locking mechanism for\nHDF5 files.\n\nThis module provides a function `use_locking` that installs the mechanism by\nMonkey-patching the `FileHandler` class. To use this mechanism, call the\n`use_locking` function at the start of your script, before creating any\n`bamboost.common.file_handler.FileHandler` instances.",
+          "attributes": [],
           "classes": [],
           "functions": [
             {
@@ -3707,7 +3707,7 @@
         "index"
       ],
       "docstring": "Module to manage the database index and its ID's.",
-      "constants": [
+      "attributes": [
         {
           "name": "THREAD_SAFE",
           "annotation": null,
@@ -4860,7 +4860,7 @@
         "manager"
       ],
       "docstring": "",
-      "constants": [],
+      "attributes": [],
       "classes": [
         {
           "name": "Manager",
@@ -5371,7 +5371,7 @@
                 "description": "path to the directory of the database. If doesn't exist, a new database will be created."
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator"
               },
@@ -5537,7 +5537,7 @@
         "simulation"
       ],
       "docstring": "",
-      "constants": [],
+      "attributes": [],
       "classes": [
         {
           "name": "Simulation",
@@ -6308,7 +6308,7 @@
                 "description": "path to parent/database folder"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "MPI communicator (default=MPI.COMM_WORLD)"
               },
@@ -6536,7 +6536,7 @@
         "simulation_writer"
       ],
       "docstring": "",
-      "constants": [],
+      "attributes": [],
       "classes": [
         {
           "name": "SimulationWriter",
@@ -7183,7 +7183,7 @@
                 "description": "The (parent) database path"
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7333fe4abb00>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x73f3a7fb79e0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": "An MPI communicator (Default: `MPI.COMM_WORLD`)"
               },
@@ -7214,7 +7214,7 @@
         "xdmf"
       ],
       "docstring": "",
-      "constants": [],
+      "attributes": [],
       "classes": [
         {
           "name": "XDMFWriter",

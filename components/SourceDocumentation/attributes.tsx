@@ -1,8 +1,7 @@
 import Markdown from "../Markdown/markdown";
 import { PropertyObj } from "./types";
 
-export const Attributes = ({ data }: { data?: PropertyObj[] }) => {
-  if (!data) return null;
+export const Attributes = ({ data }: { data: PropertyObj[] }) => {
 
   return (
     <>
