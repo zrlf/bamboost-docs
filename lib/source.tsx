@@ -6,6 +6,8 @@ import { ModuleObj } from "../components/SourceDocumentation/types";
 import { TOCItemType } from "fumadocs-core/server";
 import { StructuredData } from "fumadocs-core/mdx-plugins";
 import { getStructuredData } from "./getStructuredData";
+import { createElement } from "react";
+import {icons} from "lucide-react";
 
 interface Page {
   slug: string[];
@@ -133,6 +135,12 @@ export function createAPISource(): Source<{
 
 export const docSource = loader({
   baseUrl: "/docs",
+  icon(icon) {
+    if (!icon) {
+      return
+    }
+    if (icon in icons) return createElement(icons[icon as keyof typeof icons])
+  },
   source: createMDXSource(docs, meta),
 });
 
