@@ -17,5 +17,8 @@ pages:
     - mv ./out ./public
   after_script:
     - rm -rf out
+  artifacts:
+    paths:
+    - public
   only:
     - main
