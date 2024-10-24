@@ -5,13 +5,15 @@ on the website. It is specific to the TOC components of this website as it uses
 `RenderModule` and `RenderClass` components to render the documentation.
 """
 
+import json
 import os
 import sys
 from unittest.mock import Mock
 
 os.environ["BAMBOOST_MPI"] = "0"
 import bamboost
-from autodoc import AutoDoc
+
+from pdoc_to_json import AutoDoc
 
 
 class AttributeMock(Mock):
@@ -35,12 +37,21 @@ class AttributeMock(Mock):
         return f"<{self._name}>"
 
 
-# Mocking the fenics module
-sys.modules["fenics"] = AttributeMock(name="fenics")
+if __name__ == "__main__":
+    # Mocking the fenics module
+    sys.modules["fenics"] = AttributeMock(name="fenics")
 
-site_path = "../../"
-source_doc_json_file = "bamboostAPIdoc.json"
-source_doc_json_file_abspath = os.path.join(site_path, source_doc_json_file)
-source_docs = (
-    AutoDoc(bamboost).set_output_file(source_doc_json_file_abspath).generate(write=True)
-)
+    site_path = os.path.dirname(__file__)
+    while not os.path.exists(os.path.join(site_path, "package.json")):
+        site_path = os.path.dirname(site_path)
+        if site_path == os.path.dirname(site_path):  # Reached the root directory
+            raise FileNotFoundError(
+                "Could not find project root of project containing package.json"
+            )
+
+    source_doc_json_file = "bamboostAPIdoc.json"
+    source_doc_json_file_abspath = os.path.join(site_path, source_doc_json_file)
+    source_docs = AutoDoc(bamboost).generate()
+
+    with open(source_doc_json_file_abspath, "w") as file:
+        json.dump(source_docs, file, indent=2)
