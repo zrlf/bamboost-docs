@@ -1,4 +1,3 @@
-import { Banner } from "fumadocs-ui/components/banner";
 import "./global.css";
 import { RootProvider } from "fumadocs-ui/provider";
 import { Inter } from "next/font/google";
@@ -12,12 +11,12 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        {/* <Banner variant="rainbow" id="release">Bamboost v0.8.0 released! 🎉</Banner> */}
         <RootProvider
           search={{
             options: {
               api: "/api/search",
               allowClear: true,
+              type: "static",
               tags: [
                 { name: "API", value: "apidocs" },
                 { name: "Documentation", value: "docs" },

@@ -9,6 +9,7 @@ const config = {
     config.resolve.alias["@/"] = "./";
     return config;
   },
+  output: "export",
 };
 
 export default withMDX(config);

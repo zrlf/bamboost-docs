@@ -3,7 +3,7 @@ import { createSearchAPI } from "fumadocs-core/search/server";
 
 export const revalidate = false;
 
-export const { GET } = createSearchAPI("advanced", {
+export const { staticGET: GET } = createSearchAPI("advanced", {
   indexes: [
     ...docSource.getPages().map((page) => ({
       title: page.data.title,
