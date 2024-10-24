@@ -32,10 +32,11 @@ export const Function = ({ data }: { data: MethodObj }) => {
       <div className="sm:ml-4">
         {data.docstring && <Markdown input={splitParagraph(data.docstring)} />}
         <Arguments data={data.arguments} />
+        {data.returns &&
+          (data.returns.annotation || data.returns.description) && (
+            <Returns data={data.returns} />
+          )}
       </div>
-      {data.returns && data.returns.annotation !== "None" && (
-        <Returns data={data.returns} />
-      )}
     </div>
   );
 };
@@ -45,7 +46,7 @@ const Returns = ({ data }: { data: ReturnObj }) => {
     <div>
       <h5>Returns</h5>
       <div className="ml-4">
-        <LinkAnnotation children={data.annotation!} />
+        <LinkAnnotation children={data.annotation} />
         <span className="ml-2">{data.description}</span>
       </div>
     </div>

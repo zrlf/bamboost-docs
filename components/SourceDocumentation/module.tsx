@@ -27,7 +27,6 @@ export const Module = ({ data }: { data: ModuleObj }) => {
       </Cards>
     );
   }
-  console.log(data.docstring);
   return (
     <div>
       {data.docstring && <Markdown input={data.docstring} />}
