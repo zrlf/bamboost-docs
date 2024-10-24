@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rose: 359 68% 70%;
+  --green: 83 34% 63%;
+}
+
+@layer base {
+  :root {
+    --primary: 118 32% 45%;
+    --primary-2: var(--rose);
+
+    .route-docs {
+      --primary: var(--primary-2);
+    }
+  }
+
+  .dark {
+    /* --accent-foreground: 217 92% 76%; */
+    --primary: var(--green);
+    --primary-2: var(--rose);
+
+    .route-docs {
+      --primary: var(--primary-2);
+    }
+  }
+
+  h5 {
+    @apply text-base font-bold text-muted-foreground;
+    @apply mt-4;
+  }
+
+  h6 {
+    @apply text-base font-semibold;
+  }
+
+  .divider {
+    @apply relative pb-2 after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border;
+  }
+
+  .class {
+    @apply relative bg-background;
+  }
+}
+
+html.dark .shiki,
+html.dark .shiki span {
+  /* @apply bg-secondary/50; */
+  color: var(--shiki-dark) !important;
+}

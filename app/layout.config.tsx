@@ -1,0 +1,44 @@
+import { RootToggle } from "fumadocs-ui/components/layout/root-toggle";
+import { DocsLayoutProps } from "fumadocs-ui/layouts/docs";
+import { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import { BookOpenText, Library } from "lucide-react";
+
+/**
+ * Shared layout configurations
+ *
+ * you can configure layouts individually from:
+ * Home Layout: app/(home)/layout.tsx
+ * Docs Layout: app/docs/layout.tsx
+ */
+export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
+  nav: {
+    title: (
+      <div className="flex gap-4 items-center">
+        <img src="/logo_round.png" className="w-6 object-contain"></img>
+        Bamboost
+      </div>
+    ),
+  },
+  i18n: false,
+  githubUrl: "https://gitlab.com/zrlf/bamboost-docs",
+  sidebar: {
+    banner: (
+      <RootToggle
+        options={[
+          {
+            title: "Docs",
+            description: "Guides and tutorials",
+            icon: <BookOpenText size={24} className="text-[hsl(var(--primary-2))]" />,
+            url: "/docs"
+          },
+          {
+            title: "API",
+            description: "API reference",
+            url: "/apidocs",
+            icon: <Library size={24} className="text-[hsl(var(--primary))]"/>,
+          },
+        ]}
+      />
+    ),
+  },
+};
