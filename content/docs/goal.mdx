@@ -3,7 +3,7 @@ title: Goal
 icon: Goal
 ---
 
-import { Callout } from "fumadocs-ui/components/callout";
+import { File, Folder, Files } from "fumadocs-ui/components/files";
 
 # Goal
 
@@ -14,12 +14,14 @@ database solutions require significant initial setup and maintenance. The goal
 is to provide a database system with **zero overhead**.
 
 <Callout type="info" title="Why bamboost?">
-- No setup required.
+
+- Minimal setup.
 - Uses HDF5 to store data, allowing fast and specific access to your data.
 - Minimizes the number of files.
 - Create new databases on the fly.
 - Add new entries to a database with a single command.
 - Helps you to generate jobs, specifically on ETH's Euler cluster.
+
 </Callout>
 
 ## Concept
@@ -31,16 +33,19 @@ directory, a primary HDF5 file is present, storing all metadata and data.
 Additionally, users have the flexibility to store supplementary files within the
 simulation directory.
 
-```
-Database_A
-|-- Simulation_1
-|   |-- simulation_1.h5
-|   |-- additional_file_1.txt
-|   |-- additional_file_2.csv
-|-- Simulation_2
-|   |-- simulation_2.h5
-|   |-- additional_file_3.txt
-```
+<Files>
+  <Folder name="Database_A" defaultOpen>
+    <Folder name="Simulation_1" defaultOpen>
+      <File name="simulation_1.h5" />
+      <File name="additional_file_1.txt" />
+      <File name="additional_file_2.csv" />
+    </Folder>
+    <Folder name="Simulation_2" defaultOpen>
+      <File name="simulation_2.h5" />
+      <File name="additional_file_3.txt" />
+    </Folder>
+  </Folder>
+</Files>
 
 The goal is to maintain comparability within a single database, implying
 similarity in the nature of the data. For instance, you might have a
