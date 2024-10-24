@@ -8,21 +8,24 @@ export const Arguments = ({ data }: { data: ArgumentObj }) => {
     return null;
   }
 
-  return (
+  return Object.keys(data).length === 0 ||
+    (Object.keys(data).length === 1 &&
+      Object.keys(data)[0] === "self") ? null : (
     <div>
       <h5>Arguments</h5>
       <ul className="sm:ml-4 mt-0">
         {Object.entries(data).map(
-          ([name, { annotation, description, default: defaultValue }]) => (
-            <li key={name}>
-              <Argument
-                name={name}
-                type={annotation!}
-                defaultValue={defaultValue}
-                description={description}
-              />
-            </li>
-          ),
+          ([name, { annotation, description, default: defaultValue }]) =>
+            name !== "self" && (
+              <li key={name}>
+                <Argument
+                  name={name}
+                  type={annotation!}
+                  defaultValue={defaultValue}
+                  description={description}
+                />
+              </li>
+            ),
         )}
       </ul>
     </div>

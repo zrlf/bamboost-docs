@@ -67,7 +67,7 @@ const InheritedFromClass = ({
           {members.map(([type, name], index) => (
             <li key={index} className="my-0">
               <LinkAnnotation>
-                {`${module}.${cls}.${name}` + (type == "function" ? "()" : "")}
+                {`${cls}.${name}` + (type == "function" ? "()" : "")}
               </LinkAnnotation>
             </li>
           ))}
