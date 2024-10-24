@@ -27,7 +27,7 @@ export default async function Page(props: {
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
-      <DocsBody>
+      <DocsBody className="overflow-x-auto md:overflow-x-visible">
         <MDX
           components={{
             ...defaultMdxComponents,

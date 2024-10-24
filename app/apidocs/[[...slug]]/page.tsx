@@ -22,7 +22,7 @@ export default async function Page(props: {
       breadcrumb={{ full: true, includeRoot: true }}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsBody>
+      <DocsBody className="overflow-x-auto md:overflow-x-visible">
         <Module data={page.data.data!} />
       </DocsBody>
     </DocsPage>

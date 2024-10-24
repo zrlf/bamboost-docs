@@ -6,12 +6,12 @@ import { apiSource } from "@/lib/source";
 export default function Layout({ children }: { children: ReactNode }) {
   // I manually add a separator to the page tree
   const treeChildren = apiSource.pageTree.children;
+  const version = apiSource.getPage([""])?.data.data?.version;
   const modifiedTreeChildren: [] = [];
   for (const child of treeChildren) {
     const isRoot = child.name?.toString().startsWith("bamboost");
 
     if (isRoot) {
-      const version = child.name?.toString().split("@")[1];
       child.name = "bamboost";
       
       // @ts-expect-error
