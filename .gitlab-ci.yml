@@ -12,13 +12,10 @@ pages:
   stage: deploy
   script:
     - npm ci
-    - npm run build --verbose
+    - npm run build
     - rm -rf ./public
     - mv ./out ./public
   after_script:
     - rm -rf out
-  artifacts:
-    paths:
-    - public
   only:
-    - master
+    - main
