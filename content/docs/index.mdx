@@ -45,7 +45,7 @@ up operations. If a requested database is not in the sqlite database, the file
 system is searched. To tell bamboost where your data may be, edit the list of
 known paths in the config file at `~/.config/bamboost/config.toml`. As long as
 your data is in these directories, it will be found. Learn more about
-[Configuration](Configuration).
+[Configuration](/docs/configuration).
 
 ```toml
 [index]
@@ -117,13 +117,13 @@ This is a good point to introduce the bamboost TUI. It does not come bundled
 with the main package of bamboost but must be installed from
 [Gitlab](https://gitlab.com/zrlf/bamboost-tui).
 
-In the TUI, you can review all your databases in a single place. [Check out the page for the TUI](/docs/basics/TUI)
+In the TUI, you can review all your databases in a single place. [Check out the page for the TUI](/docs/tui)
 
 </Callout>
 
 ## Writing data
 
-The bamboost [SimulationWriter](/docs/autoDocs/simulation_writer#simulationwriter) is used to write data during your simulation (or as part of a
+The bamboost [SimulationWriter](/apidocs/simulation_writer#SimulationWriter) is used to write data during your simulation (or as part of a
 postprocessing step after). You can get a SimulationWriter object in one of the
 following ways:
 
@@ -216,7 +216,7 @@ sim.add_global_field(
 If the previous two options do not meet your need, bamboost provides a third
 _category_ of data. This part is stored at `/userdata/`. You can organize this
 part of the file yourself. `sim.userdata` is an object of type
-[MutableGroup](/docs/autoDocs/common/hdf_pointer#mutablegroup).
+[MutableGroup](/apidocs/common/hdf_pointer#MutableGroup).
 
 ```python title="Adding a subgroup"
 new_group = sim.userdata.require_group(name)
@@ -229,7 +229,7 @@ new_gropu['model_type'] = "Dummy"
 ```
 
 For a thourough guide on what you can do with userdata, have a look at
-[MutableGroup](/docs/autoDocs/common/hdf_pointer#mutablegroup).
+[MutableGroup](/apidocs/common/hdf_pointer#MutableGroup).
 
 ## Reading data
 
