@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
 import { ALL_MODULES, API_PATH, PKG_NAME } from "@/constants";
-import Link from "next/link";
+import Link from "fumadocs-core/link";
 
 export function LinkAnnotation({
   children,
@@ -103,7 +103,10 @@ export function LinkifyPkg(
     }
 
     return (
-      <Link href={href} className="text-primary decoration-primary">
+      <Link
+        href={href}
+        className="text-primary decoration-primary"
+      >
         {remainder}
       </Link>
     );
