@@ -10,7 +10,7 @@
       "name": "__author__",
       "annotation": null,
       "description": null,
-      "default": "'florez@ethz.ch'"
+      "default": "$GITLAB_USER_EMAIL"
     },
     {
       "name": "__copyright__",
@@ -1172,7 +1172,7 @@
                     "description": null
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x768437e92d50>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x783898a94ad0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   }
@@ -1383,7 +1383,7 @@
             {
               "name": "tree",
               "docstring": "Given a directory Path object print a visual tree structure",
-              "signature": "(\n    dir_path: pathlib.Path,\n    level: int = -1,\n    limit_to_directories: bool = False,\n    length_limit: int = 1000\n)",
+              "signature": "(\n    dir_path: pathlib._local.Path,\n    level: int = -1,\n    limit_to_directories: bool = False,\n    length_limit: int = 1000\n)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -1391,7 +1391,7 @@
               "arguments": {
                 "dir_path": {
                   "default": null,
-                  "annotation": "<class 'pathlib.Path'>",
+                  "annotation": "<class 'pathlib._local.Path'>",
                   "description": null
                 },
                 "level": {
@@ -2748,7 +2748,7 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x768437e92d50>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x783898a94ad0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   },
@@ -2792,9 +2792,9 @@
                 "list": {
                   "name": "list",
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x76843749c040>)>",
+                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x783897f302c0>)>",
                   "returns": {
-                    "annotation": "<classmethod(<function Remote.list at 0x76843749c040>)>",
+                    "annotation": "<classmethod(<function Remote.list at 0x783897f302c0>)>",
                     "description": null
                   },
                   "arguments": {
@@ -3341,7 +3341,7 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x768437e92d50>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x783898a94ad0>",
                     "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                     "description": null
                   }
@@ -5476,7 +5476,7 @@
                 "description": null
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x768437e92d50>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x783898a94ad0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": null
               },
@@ -6433,7 +6433,7 @@
                 "description": null
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x768437e92d50>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x783898a94ad0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": null
               },
@@ -7311,7 +7311,7 @@
                 "description": null
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x768437e92d50>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x783898a94ad0>",
                 "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
                 "description": null
               },
@@ -7612,5 +7612,5 @@
     }
   ],
   "examples": [],
-  "version": "0.8.1.dev10+gb49e966.d20241024"
+  "version": "0.8.1"
 }
