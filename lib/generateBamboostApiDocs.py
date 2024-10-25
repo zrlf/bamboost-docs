@@ -13,7 +13,7 @@ from unittest.mock import Mock
 os.environ["BAMBOOST_MPI"] = "0"
 import bamboost
 
-from pdoc_to_json.pdoc_to_json import AutoDoc
+from pdoc_to_json import AutoDoc
 
 
 class AttributeMock(Mock):

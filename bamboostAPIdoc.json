@@ -36,7 +36,7 @@
     {
       "name": "add_stream_handler",
       "docstring": "",
-      "signature": "(logger: logging.Logger) -> None:",
+      "signature": "(logger: logging.Logger) -> None",
       "returns": {
         "annotation": null,
         "description": null
@@ -44,7 +44,7 @@
       "arguments": {
         "logger": {
           "default": null,
-          "annotation": "<class 'logging.Logger'>",
+          "annotation": "logging.Logger",
           "description": null
         }
       },
@@ -63,7 +63,7 @@
     {
       "name": "set_log_level",
       "docstring": "",
-      "signature": "(\n    level: Literal[\"DEBUG\", \"INFO\", \"WARNING\", \"ERROR\", \"CRITICAL\"],\n) -> None:",
+      "signature": "(level: Literal['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']) -> None",
       "returns": {
         "annotation": null,
         "description": null
@@ -71,7 +71,7 @@
       "arguments": {
         "level": {
           "default": null,
-          "annotation": "typing.Literal['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']",
+          "annotation": "Literal['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']",
           "description": null
         }
       },
@@ -120,9 +120,9 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef __getitem__(self, key) -> Mesh:",
+                  "signature": "(self, key) -> bamboost.accessors.meshes.Mesh",
                   "returns": {
-                    "annotation": "<class 'bamboost.accessors.meshes.Mesh'>",
+                    "annotation": "bamboost.accessors.meshes.Mesh",
                     "description": null
                   },
                   "arguments": {
@@ -201,7 +201,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(\n    self,\n    file_handler: FileHandler,\n    path_to_data: str = \"/Mesh/0\",\n    _default_mesh: str = \"mesh\",\n    **kwargs,\n) -> None:",
+                "signature": "(\n    self,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str = '/Mesh/0',\n    _default_mesh: str = 'mesh',\n    **kwargs\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -210,17 +210,17 @@
                   },
                   "file_handler": {
                     "default": null,
-                    "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                    "annotation": "bamboost.common.file_handler.FileHandler",
                     "description": null
                   },
                   "path_to_data": {
                     "default": "/Mesh/0",
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "_default_mesh": {
                     "default": "mesh",
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "kwargs": {
@@ -246,9 +246,9 @@
                 "get_tuple": {
                   "name": "get_tuple",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef get_tuple(self) -> Tuple[np.ndarray, np.ndarray]:",
+                  "signature": "(self) -> Tuple[numpy.ndarray, numpy.ndarray]",
                   "returns": {
-                    "annotation": "typing.Tuple[numpy.ndarray, numpy.ndarray]",
+                    "annotation": "Tuple[numpy.ndarray, numpy.ndarray]",
                     "description": null
                   },
                   "arguments": {
@@ -339,7 +339,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(self, file_handler: FileHandler, path_to_data: str) -> None:",
+                "signature": "(\n    self,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -348,12 +348,12 @@
                   },
                   "file_handler": {
                     "default": null,
-                    "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                    "annotation": "bamboost.common.file_handler.FileHandler",
                     "description": null
                   },
                   "path_to_data": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   }
                 },
@@ -391,9 +391,9 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "docstring": "",
-                  "signature": "(self, key) -> FieldData:",
+                  "signature": "(self, key) -> bamboost.accessors.fielddata.FieldData",
                   "returns": {
-                    "annotation": "<class 'bamboost.accessors.fielddata.FieldData'>",
+                    "annotation": "bamboost.accessors.fielddata.FieldData",
                     "description": null
                   },
                   "arguments": {
@@ -423,9 +423,9 @@
                 "__iter__": {
                   "name": "__iter__",
                   "docstring": "",
-                  "signature": "(self) -> Generator[FieldData, None, None]:",
+                  "signature": "(\n    self\n) -> Generator[bamboost.accessors.fielddata.FieldData, NoneType, NoneType]",
                   "returns": {
-                    "annotation": "typing.Generator[bamboost.accessors.fielddata.FieldData, NoneType, NoneType]",
+                    "annotation": "Generator[bamboost.accessors.fielddata.FieldData, NoneType, NoneType]",
                     "description": null
                   },
                   "arguments": {
@@ -457,7 +457,7 @@
                 },
                 {
                   "name": "info",
-                  "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                  "annotation": "pandas.core.frame.DataFrame",
                   "description": "View the data stored.\n",
                   "default": ""
                 }
@@ -508,7 +508,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(\n    self,\n    file_handler: FileHandler,\n    meshes: MeshGroup,\n    path_to_data: str = \"/data\",\n    **kwargs,\n) -> None:",
+                "signature": "(\n    self,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    meshes: bamboost.accessors.meshes.MeshGroup,\n    path_to_data: str = '/data',\n    **kwargs\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -517,17 +517,17 @@
                   },
                   "file_handler": {
                     "default": null,
-                    "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                    "annotation": "bamboost.common.file_handler.FileHandler",
                     "description": null
                   },
                   "meshes": {
                     "default": null,
-                    "annotation": "<class 'bamboost.accessors.meshes.MeshGroup'>",
+                    "annotation": "bamboost.accessors.meshes.MeshGroup",
                     "description": null
                   },
                   "path_to_data": {
                     "default": "/data",
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "kwargs": {
@@ -553,9 +553,9 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef __getitem__(self, key) -> np.ndarray:",
+                  "signature": "(self, key) -> numpy.ndarray",
                   "returns": {
-                    "annotation": "<class 'numpy.ndarray'>",
+                    "annotation": "numpy.ndarray",
                     "description": null
                   },
                   "arguments": {
@@ -585,9 +585,9 @@
                 "__len__": {
                   "name": "__len__",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef __len__(self) -> int:",
+                  "signature": "(self) -> int",
                   "returns": {
-                    "annotation": "<class 'int'>",
+                    "annotation": "int",
                     "description": null
                   },
                   "arguments": {
@@ -612,9 +612,9 @@
                 "datasets": {
                   "name": "datasets",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef datasets(self) -> set:",
+                  "signature": "(self) -> set",
                   "returns": {
-                    "annotation": "<class 'set'>",
+                    "annotation": "set",
                     "description": null
                   },
                   "arguments": {
@@ -639,9 +639,9 @@
                 "at_step": {
                   "name": "at_step",
                   "docstring": "Direct access to data at step. Does not require the virtual dataset.\n",
-                  "signature": "()\ndef at_step(self, *steps:",
+                  "signature": "(self, *steps: int) -> numpy.ndarray",
                   "returns": {
-                    "annotation": "<class 'numpy.ndarray'>",
+                    "annotation": "numpy.ndarray",
                     "description": ":class:`np.ndarray`"
                   },
                   "arguments": {
@@ -652,7 +652,7 @@
                     },
                     "steps": {
                       "default": null,
-                      "annotation": "<class 'int'>",
+                      "annotation": "int",
                       "description": null
                     }
                   },
@@ -671,7 +671,7 @@
                 "regenerate_virtual_datasets": {
                   "name": "regenerate_virtual_datasets",
                   "docstring": "Regenerate virtual dataset. Call this if the data has changed, thus the\nvirtual datasets need to be updated to cover the actual data.",
-                  "signature": "(self) -> None:",
+                  "signature": "(self) -> None",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -705,43 +705,43 @@
                 },
                 {
                   "name": "shape",
-                  "annotation": "<class 'tuple'>",
+                  "annotation": "tuple",
                   "description": null,
                   "default": ""
                 },
                 {
                   "name": "dtype",
-                  "annotation": "<class 'type'>",
+                  "annotation": "type",
                   "description": null,
                   "default": ""
                 },
                 {
                   "name": "times",
-                  "annotation": "<class 'numpy.ndarray'>",
+                  "annotation": "numpy.ndarray",
                   "description": "Return the array of timestamps.\n",
                   "default": ""
                 },
                 {
                   "name": "mesh",
-                  "annotation": "<class 'bamboost.accessors.meshes.Mesh'>",
+                  "annotation": "bamboost.accessors.meshes.Mesh",
                   "description": "Return the linked mesh. Currently returns the linked mesh of first step only.\n",
                   "default": ""
                 },
                 {
                   "name": "coordinates",
-                  "annotation": "<class 'numpy.ndarray'>",
+                  "annotation": "numpy.ndarray",
                   "description": "Wrapper for mesh.coordinates",
                   "default": ""
                 },
                 {
                   "name": "connectivity",
-                  "annotation": "<class 'numpy.ndarray'>",
+                  "annotation": "numpy.ndarray",
                   "description": "Wrapper for mesh.connectivity",
                   "default": ""
                 },
                 {
                   "name": "msh",
-                  "annotation": "typing.Tuple[numpy.ndarray, numpy.ndarray]",
+                  "annotation": "Tuple[numpy.ndarray, numpy.ndarray]",
                   "description": "Wrapper to get mesh as tuple",
                   "default": ""
                 }
@@ -792,7 +792,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(\n    self, file_handler: FileHandler, path_to_data: str, meshes: MeshGroup\n) -> None:",
+                "signature": "(\n    self,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str,\n    meshes: bamboost.accessors.meshes.MeshGroup\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -801,17 +801,17 @@
                   },
                   "file_handler": {
                     "default": null,
-                    "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                    "annotation": "bamboost.common.file_handler.FileHandler",
                     "description": null
                   },
                   "path_to_data": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "meshes": {
                     "default": null,
-                    "annotation": "<class 'bamboost.accessors.meshes.MeshGroup'>",
+                    "annotation": "bamboost.accessors.meshes.MeshGroup",
                     "description": null
                   }
                 },
@@ -849,7 +849,7 @@
               "properties": [
                 {
                   "name": "df",
-                  "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                  "annotation": "pandas.core.frame.DataFrame",
                   "description": "Return a pandas DataFrame with all datasets.",
                   "default": ""
                 }
@@ -908,7 +908,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(self, file_handler: FileHandler, path_to_data: str) -> None:",
+                "signature": "(\n    self,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -917,12 +917,12 @@
                   },
                   "file_handler": {
                     "default": null,
-                    "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                    "annotation": "bamboost.common.file_handler.FileHandler",
                     "description": null
                   },
                   "path_to_data": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   }
                 },
@@ -995,9 +995,9 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "docstring": "",
-                  "signature": "(self, key) -> Any:",
+                  "signature": "(self, key) -> Any",
                   "returns": {
-                    "annotation": "typing.Any",
+                    "annotation": "Any",
                     "description": null
                   },
                   "arguments": {
@@ -1027,7 +1027,7 @@
                 "open": {
                   "name": "open",
                   "docstring": "",
-                  "signature": "(self, mode: str = \"r\", driver=None, comm=None):",
+                  "signature": "(self, mode: str = 'r', driver=None, comm=None)",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -1040,7 +1040,7 @@
                     },
                     "mode": {
                       "default": "r",
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": null
                     },
                     "driver": {
@@ -1069,7 +1069,7 @@
                 "close": {
                   "name": "close",
                   "docstring": "",
-                  "signature": "(self):",
+                  "signature": "(self)",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -1096,7 +1096,7 @@
                 "change_file_mode": {
                   "name": "change_file_mode",
                   "docstring": "",
-                  "signature": "(self, mode: str, driver=None, comm=None):",
+                  "signature": "(self, mode: str, driver=None, comm=None)",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -1109,7 +1109,7 @@
                     },
                     "mode": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": null
                     },
                     "driver": {
@@ -1139,7 +1139,7 @@
               "properties": [
                 {
                   "name": "file_object",
-                  "annotation": "<class 'h5py._hl.files.File'>",
+                  "annotation": "h5py._hl.files.File",
                   "description": null,
                   "default": ""
                 },
@@ -1159,7 +1159,7 @@
               "inherits_from": {},
               "examples": [],
               "constructor": {
-                "signature": "(\n    self, file_name: str, _comm: mpi.MPI.Comm = mpi.MPI.COMM_WORLD\n) -> None:",
+                "signature": "(\n    self,\n    file_name: str,\n    _comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -1168,12 +1168,12 @@
                   },
                   "file_name": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x76265dfd45c0>",
-                    "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                    "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                     "description": null
                   }
                 },
@@ -1191,7 +1191,7 @@
             {
               "name": "open_h5file",
               "docstring": "Open h5 file. Waiting if file is not available.\n",
-              "signature": "(\n    file: str,\n    mode: Literal[\"mpio\"] | Type[None],\n    driver: bool | Type[None] = None,\n    comm=None,\n):",
+              "signature": "(\n    file: str,\n    mode: Union[Literal['mpio'], Type[NoneType]],\n    driver: Union[bool, Type[NoneType]] = None,\n    comm=None\n)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -1199,17 +1199,17 @@
               "arguments": {
                 "file": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "File to open"
                 },
                 "mode": {
                   "default": null,
-                  "annotation": "typing.Union[typing.Literal['mpio'], typing.Type[NoneType]]",
+                  "annotation": "Union[Literal['mpio'], Type[NoneType]]",
                   "description": "'r', 'a', 'w', ..."
                 },
                 "driver": {
                   "default": "None",
-                  "annotation": "typing.Union[bool, typing.Type[NoneType]]",
+                  "annotation": "Union[bool, Type[NoneType]]",
                   "description": "driver for h5.File"
                 },
                 "comm": {
@@ -1233,7 +1233,7 @@
             {
               "name": "with_file_open",
               "docstring": "Open the file (`self._file`) before function\nClose the file after the function call\n\nWorks on classes containing the member `_file` of type :class:`~bamboost.common.file_handler.FileHandler`",
-              "signature": "(mode: str = \"r\", driver=None, comm=None):",
+              "signature": "(mode: str = 'r', driver=None, comm=None)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -1241,7 +1241,7 @@
               "arguments": {
                 "mode": {
                   "default": "r",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 },
                 "driver": {
@@ -1270,7 +1270,7 @@
             {
               "name": "capture_key_error",
               "docstring": "",
-              "signature": "(method):",
+              "signature": "(method)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -1314,7 +1314,7 @@
             {
               "name": "flatten_dict",
               "docstring": "",
-              "signature": "(dictionary, parent_key=\"\", seperator=\".\"):",
+              "signature": "(dictionary, parent_key='', seperator='.')",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -1351,7 +1351,7 @@
             {
               "name": "unflatten_dict",
               "docstring": "",
-              "signature": "(dictionary, seperator=\".\"):",
+              "signature": "(dictionary, seperator='.')",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -1383,7 +1383,7 @@
             {
               "name": "tree",
               "docstring": "Given a directory Path object print a visual tree structure",
-              "signature": "(\n    dir_path: Path,\n    level: int = -1,\n    limit_to_directories: bool = False,\n    length_limit: int = 1000,\n):",
+              "signature": "(\n    dir_path: pathlib.Path,\n    level: int = -1,\n    limit_to_directories: bool = False,\n    length_limit: int = 1000\n)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -1391,22 +1391,22 @@
               "arguments": {
                 "dir_path": {
                   "default": null,
-                  "annotation": "<class 'pathlib.Path'>",
+                  "annotation": "pathlib.Path",
                   "description": null
                 },
                 "level": {
                   "default": "-1",
-                  "annotation": "<class 'int'>",
+                  "annotation": "int",
                   "description": null
                 },
                 "limit_to_directories": {
                   "default": "False",
-                  "annotation": "<class 'bool'>",
+                  "annotation": "bool",
                   "description": null
                 },
                 "length_limit": {
                   "default": "1000",
-                  "annotation": "<class 'int'>",
+                  "annotation": "int",
                   "description": null
                 }
               },
@@ -1425,7 +1425,7 @@
             {
               "name": "h5_tree",
               "docstring": "",
-              "signature": "(val, pre=\"\"):",
+              "signature": "(val, pre='')",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -1457,15 +1457,15 @@
             {
               "name": "show_differences",
               "docstring": "This function takes a pandas DataFrame as input and returns a modified\nDataFrame that shows only the columns which have differences.\n\nThe function first creates a copy of the input DataFrame to work with. It\nthen iterates over each column in the DataFrame and tries to calculate the\nnumber of unique values in that column. If successful, it adds the column\nname and number of unique values to a list of good results. If there is an\nerror, it attempts to apply json.dumps to the column and then calculate the\nnumber of unique values again. If this is successful, it also adds the\ncolumn name and number of unique values to the list of good results. If\nthere is still an error, it adds the column name and the error to a list of\nerrors.\n\nAfter processing all columns, the function removes any columns that had\nerrors from the DataFrame. It then sets the index of the DataFrame to 'id'\nand filters out any columns that have only one unique value. The modified\nDataFrame is then returned.",
-              "signature": "(df: pd.DataFrame) -> pd.DataFrame:",
+              "signature": "(df: pandas.core.frame.DataFrame) -> pandas.core.frame.DataFrame",
               "returns": {
-                "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                "annotation": "pandas.core.frame.DataFrame",
                 "description": "pd.DataFrame"
               },
               "arguments": {
                 "df": {
                   "default": null,
-                  "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                  "annotation": "pandas.core.frame.DataFrame",
                   "description": "The input DataFrame to analyze"
                 }
               },
@@ -1484,15 +1484,15 @@
             {
               "name": "to_camel_case",
               "docstring": "",
-              "signature": "(s: str) -> str:",
+              "signature": "(s: str) -> str",
               "returns": {
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "arguments": {
                 "s": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -1532,9 +1532,9 @@
                 "create_git_string": {
                   "name": "create_git_string",
                   "docstring": "",
-                  "signature": "(self) -> str:",
+                  "signature": "(self) -> str",
                   "returns": {
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "arguments": {
@@ -1561,7 +1561,7 @@
               "inherits_from": {},
               "examples": [],
               "constructor": {
-                "signature": "(self) -> None:",
+                "signature": "(self)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -1603,9 +1603,9 @@
                 "new_pointer": {
                   "name": "new_pointer",
                   "docstring": "Returns a new pointer object.",
-                  "signature": "(cls, file_handler: FileHandler, path_to_data: str) -> BasePointer:",
+                  "signature": "(\n    cls,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n) -> bamboost.common.hdf_pointer.BasePointer",
                   "returns": {
-                    "annotation": "<class 'bamboost.common.hdf_pointer.BasePointer'>",
+                    "annotation": "bamboost.common.hdf_pointer.BasePointer",
                     "description": null
                   },
                   "arguments": {
@@ -1616,12 +1616,12 @@
                     },
                     "file_handler": {
                       "default": null,
-                      "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                      "annotation": "bamboost.common.file_handler.FileHandler",
                       "description": null
                     },
                     "path_to_data": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": null
                     }
                   },
@@ -1640,7 +1640,7 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef __getitem__(self, key):",
+                  "signature": "(self, key)",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -1693,7 +1693,7 @@
               "inherits_from": {},
               "examples": [],
               "constructor": {
-                "signature": "(self, file_handler: FileHandler, path_to_data: str) -> None:",
+                "signature": "(\n    self,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -1702,12 +1702,12 @@
                   },
                   "file_handler": {
                     "default": null,
-                    "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                    "annotation": "bamboost.common.file_handler.FileHandler",
                     "description": null
                   },
                   "path_to_data": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   }
                 },
@@ -1728,7 +1728,7 @@
                 "__iter__": {
                   "name": "__iter__",
                   "docstring": "",
-                  "signature": "(self):",
+                  "signature": "(self)",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -1755,9 +1755,9 @@
                 "keys": {
                   "name": "keys",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef keys(self) -> set:",
+                  "signature": "(self) -> set",
                   "returns": {
-                    "annotation": "<class 'set'>",
+                    "annotation": "set",
                     "description": null
                   },
                   "arguments": {
@@ -1782,9 +1782,9 @@
                 "groups": {
                   "name": "groups",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef groups(self) -> set:",
+                  "signature": "(self) -> set",
                   "returns": {
-                    "annotation": "<class 'set'>",
+                    "annotation": "set",
                     "description": null
                   },
                   "arguments": {
@@ -1809,9 +1809,9 @@
                 "datasets": {
                   "name": "datasets",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef datasets(self) -> set:",
+                  "signature": "(self) -> set",
                   "returns": {
-                    "annotation": "<class 'set'>",
+                    "annotation": "set",
                     "description": null
                   },
                   "arguments": {
@@ -1836,9 +1836,9 @@
                 "extract_attrs": {
                   "name": "extract_attrs",
                   "docstring": "Extract the attributes of all members of the group.\n",
-                  "signature": "(\"r\")\ndef extract_attrs(\n    self, variant:",
+                  "signature": "(self, variant: Literal['group', 'dataset', 'all'] = 'all') -> dict",
                   "returns": {
-                    "annotation": "<class 'dict'>",
+                    "annotation": "dict",
                     "description": null
                   },
                   "arguments": {
@@ -1849,7 +1849,7 @@
                     },
                     "variant": {
                       "default": "all",
-                      "annotation": "typing.Literal['group', 'dataset', 'all']",
+                      "annotation": "Literal['group', 'dataset', 'all']",
                       "description": "one of 'group', 'dataset', 'all'"
                     }
                   },
@@ -1896,7 +1896,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(self, file_handler: FileHandler, path_to_data: str) -> None:",
+                "signature": "(\n    self,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -1905,12 +1905,12 @@
                   },
                   "file_handler": {
                     "default": null,
-                    "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                    "annotation": "bamboost.common.file_handler.FileHandler",
                     "description": null
                   },
                   "path_to_data": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   }
                 },
@@ -1931,9 +1931,9 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "docstring": "Used to access datasets (:class:`~bamboost.common.hdf_pointer.Dataset`)\nor groups inside this group (:class:`~bamboost.common.hdf_pointer.MutableGroup`)",
-                  "signature": "(\"r\")\ndef __getitem__(self, key) -> Any:",
+                  "signature": "(self, key) -> Any",
                   "returns": {
-                    "annotation": "typing.Any",
+                    "annotation": "Any",
                     "description": null
                   },
                   "arguments": {
@@ -1963,7 +1963,7 @@
                 "__setitem__": {
                   "name": "__setitem__",
                   "docstring": "Used to set an attribute.\nWill be written as an attribute to the group.",
-                  "signature": "(self, key, newvalue):",
+                  "signature": "(self, key, newvalue)",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -2000,7 +2000,7 @@
                 "update_attrs": {
                   "name": "update_attrs",
                   "docstring": "Update the attributes of the group.\n",
-                  "signature": "(\"a\")\ndef update_attrs(self, attrs:",
+                  "signature": "(self, attrs: dict) -> None",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -2013,7 +2013,7 @@
                     },
                     "attrs": {
                       "default": null,
-                      "annotation": "<class 'dict'>",
+                      "annotation": "dict",
                       "description": "the dictionary to write as attributes"
                     }
                   },
@@ -2032,7 +2032,7 @@
                 "add_dataset": {
                   "name": "add_dataset",
                   "docstring": "Add a dataset to the group. Error is thrown if attempting to overwrite\nwith different shape than before. If same shape, data is overwritten\n(this is inherited from h5py -> require_dataset)",
-                  "signature": "(\n    self, name: str, vector: np.ndarray, attrs: dict = None, dtype: str = None\n) -> None:",
+                  "signature": "(\n    self,\n    name: str,\n    vector: numpy.ndarray,\n    attrs: dict = None,\n    dtype: str = None\n) -> None",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -2045,22 +2045,22 @@
                     },
                     "name": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": "Name for the dataset"
                     },
                     "vector": {
                       "default": null,
-                      "annotation": "<class 'numpy.ndarray'>",
+                      "annotation": "numpy.ndarray",
                       "description": "Data to write (max 2d)"
                     },
                     "attrs": {
                       "default": "None",
-                      "annotation": "<class 'dict'>",
+                      "annotation": "dict",
                       "description": "Optional. Attributes of dataset."
                     },
                     "dtype": {
                       "default": "None",
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": "Optional. dtype of dataset. If not specified, uses dtype of inpyt array"
                     }
                   },
@@ -2079,9 +2079,9 @@
                 "require_group": {
                   "name": "require_group",
                   "docstring": "Add a new group to the current group. If exists, return existing.\n",
-                  "signature": "(self, name: str) -> MutableGroup:",
+                  "signature": "(self, name: str) -> bamboost.common.hdf_pointer.MutableGroup",
                   "returns": {
-                    "annotation": "<class 'bamboost.common.hdf_pointer.MutableGroup'>",
+                    "annotation": "bamboost.common.hdf_pointer.MutableGroup",
                     "description": ":class:`~bamboost.hdf_pointer.Group`"
                   },
                   "arguments": {
@@ -2092,7 +2092,7 @@
                     },
                     "name": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": null
                     }
                   },
@@ -2160,7 +2160,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(self, file_handler: FileHandler, path_to_data: str) -> None:",
+                "signature": "(\n    self,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -2169,12 +2169,12 @@
                   },
                   "file_handler": {
                     "default": null,
-                    "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                    "annotation": "bamboost.common.file_handler.FileHandler",
                     "description": null
                   },
                   "path_to_data": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   }
                 },
@@ -2195,7 +2195,7 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "docstring": "",
-                  "signature": "(\"r\")\ndef __getitem__(self, slice):",
+                  "signature": "(self, slice)",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -2266,7 +2266,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(self, file_handler: FileHandler, path_to_data: str) -> None:",
+                "signature": "(\n    self,\n    file_handler: bamboost.common.file_handler.FileHandler,\n    path_to_data: str\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -2275,12 +2275,12 @@
                   },
                   "file_handler": {
                     "default": null,
-                    "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                    "annotation": "bamboost.common.file_handler.FileHandler",
                     "description": null
                   },
                   "path_to_data": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   }
                 },
@@ -2329,13 +2329,13 @@
             },
             {
               "name": "ENV_BAMBOOST_MPI",
-              "annotation": "<class 'bool'>",
+              "annotation": "bool",
               "description": "Indicates the use of `mpi4py.MPI`. If `0`, the `MockMPI` class is used\ninstead. Is set by reading the environment variable `BAMBOOST_MPI` [0 or 1].",
               "default": "'0'"
             },
             {
               "name": "MPI",
-              "annotation": "typing.Union[bamboost.common._mock_mpi.MockMPI, typing.Any]",
+              "annotation": "Union[bamboost.common._mock_mpi.MockMPI, Any]",
               "description": null,
               "default": "<class 'bamboost.common._mock_mpi.MockMPI'>"
             }
@@ -2401,7 +2401,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": null,
+            "signature": "()",
             "arguments": {},
             "source": {
               "code": "",
@@ -2431,7 +2431,7 @@
                 "add_field": {
                   "name": "add_field",
                   "docstring": "Add a dataset to the file. The data is stored at `data/`.\n",
-                  "signature": "(\n    self,\n    name: str,\n    func: fe.Function,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: Literal[\"Node\", \"Cell\"] = \"Node\",\n) -> None:",
+                  "signature": "(\n    self,\n    name: str,\n    func: <fenics.Function>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: Literal['Node', 'Cell'] = 'Node'\n) -> None",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -2444,7 +2444,7 @@
                     },
                     "name": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": "Name for the dataset"
                     },
                     "func": {
@@ -2454,22 +2454,22 @@
                     },
                     "time": {
                       "default": "None",
-                      "annotation": "<class 'float'>",
+                      "annotation": "float",
                       "description": "Optional. time"
                     },
                     "mesh": {
                       "default": "None",
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": "Optional. Linked mesh for this data"
                     },
                     "dtype": {
                       "default": "None",
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": "Optional. Numpy style datatype, see h5py documentation,\ndefaults to the dtype of the vector"
                     },
                     "center": {
                       "default": "Node",
-                      "annotation": "typing.Literal['Node', 'Cell']",
+                      "annotation": "Literal['Node', 'Cell']",
                       "description": "Optional. Center of the data. Can be 'Node' or 'Cell'.\nDefault is 'Node'."
                     }
                   },
@@ -2488,7 +2488,7 @@
                 "add_mesh": {
                   "name": "add_mesh",
                   "docstring": "Add the mesh to file using fe.HDF5File. I can't figure out how to\nextract the local mesh data in correct order when running in parallel.",
-                  "signature": "(self, mesh: fe.Mesh, mesh_name: str = None) -> None:",
+                  "signature": "(self, mesh: <fenics.Mesh>, mesh_name: str = None) -> None",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -2506,7 +2506,7 @@
                     },
                     "mesh_name": {
                       "default": "None",
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": "name for mesh (default = `mesh`)"
                     }
                   },
@@ -2730,7 +2730,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(\n    self,\n    uid: str,\n    path: str,\n    comm: MPI.Comm = MPI.COMM_WORLD,\n    create_if_not_exists: bool = False,\n):",
+                "signature": "(\n    self,\n    uid: str,\n    path: str,\n    comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>,\n    create_if_not_exists: bool = False\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -2739,22 +2739,22 @@
                   },
                   "uid": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "path": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x76265dfd45c0>",
-                    "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                    "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                     "description": null
                   },
                   "create_if_not_exists": {
                     "default": "False",
-                    "annotation": "<class 'bool'>",
+                    "annotation": "bool",
                     "description": null
                   }
                 },
@@ -2792,9 +2792,9 @@
                 "list": {
                   "name": "list",
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> list:",
+                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x701083ecf100>)>",
                   "returns": {
-                    "annotation": "<classmethod(<function Remote.list at 0x76265d8beb60>)>",
+                    "annotation": "<classmethod(<function Remote.list at 0x701083ecf100>)>",
                     "description": null
                   },
                   "arguments": {
@@ -2819,9 +2819,9 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "docstring": "Return a `RemoteManager` for the given id.",
-                  "signature": "(self, id: str) -> RemoteManager:",
+                  "signature": "(self, id: str) -> bamboost.extensions.remote_manager.RemoteManager",
                   "returns": {
-                    "annotation": "<class 'bamboost.extensions.remote_manager.RemoteManager'>",
+                    "annotation": "bamboost.extensions.remote_manager.RemoteManager",
                     "description": null
                   },
                   "arguments": {
@@ -2832,7 +2832,7 @@
                     },
                     "id": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": null
                     }
                   },
@@ -2851,9 +2851,9 @@
                 "fetch_index": {
                   "name": "fetch_index",
                   "docstring": "Fetch the index from the remote server.",
-                  "signature": "(self) -> subprocess.Popen:",
+                  "signature": "(self) -> subprocess.Popen",
                   "returns": {
-                    "annotation": "<class 'subprocess.Popen'>",
+                    "annotation": "subprocess.Popen",
                     "description": null
                   },
                   "arguments": {
@@ -2878,9 +2878,9 @@
                 "get_manager": {
                   "name": "get_manager",
                   "docstring": "",
-                  "signature": "(self, id: str, skip_update: bool = False) -> RemoteManager:",
+                  "signature": "(\n    self,\n    id: str,\n    skip_update: bool = False\n) -> bamboost.extensions.remote_manager.RemoteManager",
                   "returns": {
-                    "annotation": "<class 'bamboost.extensions.remote_manager.RemoteManager'>",
+                    "annotation": "bamboost.extensions.remote_manager.RemoteManager",
                     "description": null
                   },
                   "arguments": {
@@ -2891,12 +2891,12 @@
                     },
                     "id": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": null
                     },
                     "skip_update": {
                       "default": "False",
-                      "annotation": "<class 'bool'>",
+                      "annotation": "bool",
                       "description": null
                     }
                   },
@@ -2915,9 +2915,9 @@
                 "get_path": {
                   "name": "get_path",
                   "docstring": "Get the path of a database from its ID.\n",
-                  "signature": "(self, id: str) -> str:",
+                  "signature": "(self, id: str) -> str",
                   "returns": {
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": "path of the database"
                   },
                   "arguments": {
@@ -2928,7 +2928,7 @@
                     },
                     "id": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": "ID of the database"
                     }
                   },
@@ -2947,7 +2947,7 @@
                 "insert_local_path": {
                   "name": "insert_local_path",
                   "docstring": "",
-                  "signature": "(self, id: str, path: str) -> None:",
+                  "signature": "(self, id: str, path: str) -> None",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -2960,12 +2960,12 @@
                     },
                     "id": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": null
                     },
                     "path": {
                       "default": null,
-                      "annotation": "<class 'str'>",
+                      "annotation": "str",
                       "description": null
                     }
                   },
@@ -3082,7 +3082,7 @@
                 ">>> remote = Remote(\"euler\")\n>>> remote.read_table()\nreturns a pandas DataFrame of the remote index.\n>>> remote[\"<id>\"]\nreturns a RemoteManager object for the given id."
               ],
               "constructor": {
-                "signature": "(cls, *args, **kwargs):",
+                "signature": "(cls, *args, **kwargs)",
                 "arguments": {
                   "cls": {
                     "default": null,
@@ -3117,9 +3117,9 @@
                 "get_view": {
                   "name": "get_view",
                   "docstring": "View of the database and its parametric space. Read from the sql\ndatabase. If `include_linked_sims` is True, the individual h5 files are\nscanned.",
-                  "signature": "(self, include_linked_sims: bool = False) -> pd.DataFrame:",
+                  "signature": "(self, include_linked_sims: bool = False) -> pandas.core.frame.DataFrame",
                   "returns": {
-                    "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                    "annotation": "pandas.core.frame.DataFrame",
                     "description": null
                   },
                   "arguments": {
@@ -3130,7 +3130,7 @@
                     },
                     "include_linked_sims": {
                       "default": "False",
-                      "annotation": "<class 'bool'>",
+                      "annotation": "bool",
                       "description": "if True, include the parameters of linked sims"
                     }
                   },
@@ -3151,7 +3151,7 @@
                 "sim": {
                   "name": "sim",
                   "docstring": "Return simulation object.\n",
-                  "signature": "(self, uid, return_writer: bool = False):",
+                  "signature": "(self, uid, return_writer: bool = False)",
                   "returns": {
                     "annotation": null,
                     "description": null
@@ -3169,7 +3169,7 @@
                     },
                     "return_writer": {
                       "default": "False",
-                      "annotation": "<class 'bool'>",
+                      "annotation": "bool",
                       "description": null
                     }
                   },
@@ -3188,9 +3188,9 @@
                 "rsync": {
                   "name": "rsync",
                   "docstring": "Transfer data using rsync. Wait for the process to finish and return\nself.",
-                  "signature": "(self, uid: str | None = None) -> RemoteManager:",
+                  "signature": "(\n    self,\n    uid: str | None = None\n) -> bamboost.extensions.remote_manager.RemoteManager",
                   "returns": {
-                    "annotation": "<class 'bamboost.extensions.remote_manager.RemoteManager'>",
+                    "annotation": "bamboost.extensions.remote_manager.RemoteManager",
                     "description": null
                   },
                   "arguments": {
@@ -3323,7 +3323,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(\n    self,\n    id: str,\n    remote: Remote,\n    comm: MPI.Comm = MPI.COMM_WORLD,\n) -> None:",
+                "signature": "(\n    self,\n    id: str,\n    remote: bamboost.extensions.remote_manager.Remote,\n    comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -3332,17 +3332,17 @@
                   },
                   "id": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "remote": {
                     "default": null,
-                    "annotation": "<class 'bamboost.extensions.remote_manager.Remote'>",
+                    "annotation": "bamboost.extensions.remote_manager.Remote",
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x76265dfd45c0>",
-                    "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                    "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                     "description": null
                   }
                 },
@@ -3363,9 +3363,9 @@
                 "sync": {
                   "name": "sync",
                   "docstring": "Sync the simulation data with the remote server.",
-                  "signature": "(self) -> RemoteSimulation:",
+                  "signature": "(self) -> bamboost.extensions.remote_manager.RemoteSimulation",
                   "returns": {
-                    "annotation": "<class 'bamboost.extensions.remote_manager.RemoteSimulation'>",
+                    "annotation": "bamboost.extensions.remote_manager.RemoteSimulation",
                     "description": null
                   },
                   "arguments": {
@@ -3390,9 +3390,9 @@
                 "get_full_uid": {
                   "name": "get_full_uid",
                   "docstring": "Returns the full uid of the simulation (including the one of the database)",
-                  "signature": "(self) -> str:",
+                  "signature": "(self) -> str",
                   "returns": {
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "arguments": {
@@ -3572,7 +3572,7 @@
               },
               "examples": [],
               "constructor": {
-                "signature": "(self, uid: str, manager: RemoteManager) -> None:",
+                "signature": "(\n    self,\n    uid: str,\n    manager: bamboost.extensions.remote_manager.RemoteManager\n)",
                 "arguments": {
                   "self": {
                     "default": null,
@@ -3581,12 +3581,12 @@
                   },
                   "uid": {
                     "default": null,
-                    "annotation": "<class 'str'>",
+                    "annotation": "str",
                     "description": null
                   },
                   "manager": {
                     "default": null,
-                    "annotation": "<class 'bamboost.extensions.remote_manager.RemoteManager'>",
+                    "annotation": "bamboost.extensions.remote_manager.RemoteManager",
                     "description": null
                   }
                 },
@@ -3620,7 +3620,7 @@
             {
               "name": "install",
               "docstring": "Install the slurm extension to the SimulationWriter class. Extends the\n__exit__ method to add slurm metadata.",
-              "signature": "():",
+              "signature": "()",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -3658,15 +3658,15 @@
             {
               "name": "get_lock_and_open_function",
               "docstring": "Returns a function that locks and opens an HDF5 file with the specified\nlock type.\n\nThe returned function acquires a lock on the lock file and opens the HDF5\nfile, returning both the opened HDF5 file object and the lock file object.\n\nThe returned function takes the following parameters:\n\n| Argument  | Description                                                                 |\n|-----------|-----------------------------------------------------------------------------|\n| file      | The path to the HDF5 file to open.                                          |\n| lock_file | The path to the lock file.                                                  |\n| mode      | The mode to open the file in (e.g., 'r', 'w', 'a').                         |\n| driver    | The HDF5 driver to use (e.g., 'mpio' for MPI-IO).                           |\n| comm      | The MPI communicator (only used with 'mpio' driver).                        |",
-              "signature": "(\n    lock_type: Literal[\"shared\", \"exclusive\"],\n) -> Callable[..., Tuple[h5py.File, BufferedReader]]:",
+              "signature": "(\n    lock_type: Literal['shared', 'exclusive']\n) -> Callable[..., typing.Tuple[h5py._hl.files.File, _io.BufferedReader]]",
               "returns": {
-                "annotation": "collections.abc.Callable[..., typing.Tuple[h5py._hl.files.File, _io.BufferedReader]]",
+                "annotation": "Callable[..., typing.Tuple[h5py._hl.files.File, _io.BufferedReader]]",
                 "description": "A function that locks and opens an HDF5 file."
               },
               "arguments": {
                 "lock_type": {
                   "default": null,
-                  "annotation": "typing.Literal['shared', 'exclusive']",
+                  "annotation": "Literal['shared', 'exclusive']",
                   "description": "The type of lock to use."
                 }
               },
@@ -3685,7 +3685,7 @@
             {
               "name": "close_and_unlock",
               "docstring": "Close an HDF5 file and release the associated file lock.\n\nThis function performs the following operations:\n1. Closes the given HDF5 file.\n2. Releases the lock on the lock file.\n3. Closes the lock file.",
-              "signature": "(h5_file: h5py.File, lock_file: BufferedReader) -> None:",
+              "signature": "(h5_file: h5py._hl.files.File, lock_file: _io.BufferedReader) -> None",
               "returns": {
                 "annotation": null,
                 "description": "None"
@@ -3693,12 +3693,12 @@
               "arguments": {
                 "h5_file": {
                   "default": null,
-                  "annotation": "<class 'h5py._hl.files.File'>",
+                  "annotation": "h5py._hl.files.File",
                   "description": "The HDF5 file object to be closed."
                 },
                 "lock_file": {
                   "default": null,
-                  "annotation": "<class '_io.BufferedReader'>",
+                  "annotation": "_io.BufferedReader",
                   "description": "The lock file object to be unlocked and closed."
                 }
               },
@@ -3717,15 +3717,15 @@
             {
               "name": "get_open_method",
               "docstring": "",
-              "signature": "(\n    lock_type: Literal[\"shared\", \"exclusive\"],\n) -> Callable[..., h5py.File]:",
+              "signature": "(\n    lock_type: Literal['shared', 'exclusive']\n) -> Callable[..., h5py._hl.files.File]",
               "returns": {
-                "annotation": "collections.abc.Callable[..., h5py._hl.files.File]",
+                "annotation": "Callable[..., h5py._hl.files.File]",
                 "description": null
               },
               "arguments": {
                 "lock_type": {
                   "default": null,
-                  "annotation": "typing.Literal['shared', 'exclusive']",
+                  "annotation": "Literal['shared', 'exclusive']",
                   "description": null
                 }
               },
@@ -3744,7 +3744,7 @@
             {
               "name": "use_locking",
               "docstring": "Installs a primitive locking mechanism for FileHandler operations.\n\nThis function modifies the FileHandler class to include file locking\ncapabilities, ensuring thread-safe access to files. It wraps the\n`__init__`, `open`, and `close` methods of FileHandler with locking mechanisms.\n\nUsage:\n    Call this function before using FileHandler to enable locking:\n    use_locking(\"shared\")  # or use_locking(\"exclusive\")\n\nNote:\n    This function should be called only once, preferably at the start\n    of your program, before any FileHandler instances are created.\n\nNote:\n    You should only need this functionality if you are using HDF5 <= 1.10.6.\n    The newer versions of HDF5 (>= 1.10.7) have built-in file locking.",
-              "signature": "(lock_type: Literal[\"shared\", \"exclusive\"]) -> None:",
+              "signature": "(lock_type: Literal['shared', 'exclusive']) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -3752,7 +3752,7 @@
               "arguments": {
                 "lock_type": {
                   "default": null,
-                  "annotation": "typing.Literal['shared', 'exclusive']",
+                  "annotation": "Literal['shared', 'exclusive']",
                   "description": "The type of lock to use.\n- \"shared\" allows multiple processes to open the file simultaneously.\n- \"exclusive\" allows only one reader or writer at a time."
                 }
               },
@@ -3822,7 +3822,7 @@
             "__getitem__": {
               "name": "__getitem__",
               "docstring": "",
-              "signature": "(self, _):",
+              "signature": "(self, _)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -3856,7 +3856,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": null,
+            "signature": "()",
             "arguments": {},
             "source": {
               "code": "",
@@ -3872,9 +3872,9 @@
             "ThreadSafe": {
               "name": "ThreadSafe",
               "docstring": "",
-              "signature": "(cls, *args, **kwargs) -> IndexAPI:",
+              "signature": "(cls, *args, **kwargs) -> bamboost.index.IndexAPI",
               "returns": {
-                "annotation": "<class 'bamboost.index.IndexAPI'>",
+                "annotation": "bamboost.index.IndexAPI",
                 "description": null
               },
               "arguments": {
@@ -3909,9 +3909,9 @@
             "__getitem__": {
               "name": "__getitem__",
               "docstring": "",
-              "signature": "(self, id: str) -> DatabaseTable:",
+              "signature": "(self, id: str) -> bamboost.index.DatabaseTable",
               "returns": {
-                "annotation": "<class 'bamboost.index.DatabaseTable'>",
+                "annotation": "bamboost.index.DatabaseTable",
                 "description": null
               },
               "arguments": {
@@ -3922,7 +3922,7 @@
                 },
                 "id": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -3941,7 +3941,7 @@
             "create_index_table": {
               "name": "create_index_table",
               "docstring": "Create the index table if it does not exist.",
-              "signature": "(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -3968,9 +3968,9 @@
             "get_database_table": {
               "name": "get_database_table",
               "docstring": "Get the table of a database.\n",
-              "signature": "(self, id: str) -> DatabaseTable:",
+              "signature": "(self, id: str) -> bamboost.index.DatabaseTable",
               "returns": {
-                "annotation": "<class 'bamboost.index.DatabaseTable'>",
+                "annotation": "bamboost.index.DatabaseTable",
                 "description": null
               },
               "arguments": {
@@ -3981,7 +3981,7 @@
                 },
                 "id": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -4000,9 +4000,9 @@
             "read_table": {
               "name": "read_table",
               "docstring": "Read the index table.\n",
-              "signature": "(self, *args, **kwargs) -> pd.DataFrame:",
+              "signature": "(self, *args, **kwargs) -> pandas.core.frame.DataFrame",
               "returns": {
-                "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                "annotation": "pandas.core.frame.DataFrame",
                 "description": "index table"
               },
               "arguments": {
@@ -4037,9 +4037,9 @@
             "fetch": {
               "name": "fetch",
               "docstring": "Query the index table.\n",
-              "signature": "(self, query: str, *args, **kwargs) -> pd.DataFrame:",
+              "signature": "(self, query: str, *args, **kwargs) -> pandas.core.frame.DataFrame",
               "returns": {
-                "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                "annotation": "pandas.core.frame.DataFrame",
                 "description": null
               },
               "arguments": {
@@ -4050,7 +4050,7 @@
                 },
                 "query": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "query string"
                 },
                 "args": {
@@ -4079,9 +4079,9 @@
             "get_path": {
               "name": "get_path",
               "docstring": "Get the path of a database from its ID.\n",
-              "signature": "(self, id: str) -> str:",
+              "signature": "(self, id: str) -> str",
               "returns": {
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": "path of the database"
               },
               "arguments": {
@@ -4092,7 +4092,7 @@
                 },
                 "id": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "ID of the database"
                 }
               },
@@ -4111,7 +4111,7 @@
             "insert_path": {
               "name": "insert_path",
               "docstring": "Insert a database path into the index.\n",
-              "signature": "(self, id: str, path: str) -> None:",
+              "signature": "(self, id: str, path: str) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -4124,12 +4124,12 @@
                 },
                 "id": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "ID of the database"
                 },
                 "path": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "path of the database"
                 }
               },
@@ -4148,9 +4148,9 @@
             "get_id": {
               "name": "get_id",
               "docstring": "Get the ID of a database from its path.\n",
-              "signature": "(self, path: str) -> str:",
+              "signature": "(self, path: str) -> str",
               "returns": {
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": "ID of the database"
               },
               "arguments": {
@@ -4161,7 +4161,7 @@
                 },
                 "path": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "path of the database"
                 }
               },
@@ -4180,9 +4180,9 @@
             "scan_known_paths": {
               "name": "scan_known_paths",
               "docstring": "Scan known paths for databases and update the index.",
-              "signature": "(self) -> dict:",
+              "signature": "(self) -> dict",
               "returns": {
-                "annotation": "<class 'dict'>",
+                "annotation": "dict",
                 "description": null
               },
               "arguments": {
@@ -4207,9 +4207,9 @@
             "commit_once": {
               "name": "commit_once",
               "docstring": "Decorator to bundle changes to a single commit.\n",
-              "signature": "(self, func) -> Callable:",
+              "signature": "(self, func) -> Callable",
               "returns": {
-                "annotation": "typing.Callable",
+                "annotation": "Callable",
                 "description": null
               },
               "arguments": {
@@ -4241,9 +4241,9 @@
             "clean": {
               "name": "clean",
               "docstring": "Clean the index from wrong paths.\n",
-              "signature": "(self, purge: bool = False) -> IndexAPI:",
+              "signature": "(self, purge: bool = False) -> bamboost.index.IndexAPI",
               "returns": {
-                "annotation": "<class 'bamboost.index.IndexAPI'>",
+                "annotation": "bamboost.index.IndexAPI",
                 "description": null
               },
               "arguments": {
@@ -4254,7 +4254,7 @@
                 },
                 "purge": {
                   "default": "False",
-                  "annotation": "<class 'bool'>",
+                  "annotation": "bool",
                   "description": "Also deletes the table of unmatching uid/path pairs. Defaults to False."
                 }
               },
@@ -4273,7 +4273,7 @@
             "drop_path": {
               "name": "drop_path",
               "docstring": "Drop a path from the index.\n",
-              "signature": "(self, id: str) -> None:",
+              "signature": "(self, id: str) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -4286,7 +4286,7 @@
                 },
                 "id": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "ID of the database"
                 }
               },
@@ -4305,9 +4305,9 @@
             "check_path": {
               "name": "check_path",
               "docstring": "Check if path is going to the correct database.",
-              "signature": "(self, id: str, path: str) -> bool:",
+              "signature": "(self, id: str, path: str) -> bool",
               "returns": {
-                "annotation": "<class 'bool'>",
+                "annotation": "bool",
                 "description": null
               },
               "arguments": {
@@ -4318,12 +4318,12 @@
                 },
                 "id": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 },
                 "path": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -4370,7 +4370,7 @@
           },
           "examples": [],
           "constructor": {
-            "signature": "(self, *, _file: str = None, convert_arrays: bool = None):",
+            "signature": "(self, *, _file: str = None, convert_arrays: bool = None)",
             "arguments": {
               "self": {
                 "default": null,
@@ -4379,12 +4379,12 @@
               },
               "_file": {
                 "default": "None",
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "convert_arrays": {
                 "default": "None",
-                "annotation": "<class 'bool'>",
+                "annotation": "bool",
                 "description": null
               }
             },
@@ -4405,9 +4405,9 @@
             "read_table": {
               "name": "read_table",
               "docstring": "Read the table of the database.\n",
-              "signature": "(self) -> pd.DataFrame:",
+              "signature": "(self) -> pandas.core.frame.DataFrame",
               "returns": {
-                "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                "annotation": "pandas.core.frame.DataFrame",
                 "description": "table of the database"
               },
               "arguments": {
@@ -4432,9 +4432,9 @@
             "read_entry": {
               "name": "read_entry",
               "docstring": "Read an entry from the database.\n",
-              "signature": "(self, entry_id: str) -> pd.Series:",
+              "signature": "(self, entry_id: str) -> pandas.core.series.Series",
               "returns": {
-                "annotation": "<class 'pandas.core.series.Series'>",
+                "annotation": "pandas.core.series.Series",
                 "description": "entry from the database"
               },
               "arguments": {
@@ -4445,7 +4445,7 @@
                 },
                 "entry_id": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "ID of the entry"
                 }
               },
@@ -4464,9 +4464,9 @@
             "read_column": {
               "name": "read_column",
               "docstring": "Read columns from the database.\n",
-              "signature": "(self, *columns: str) -> pd.DataFrame:",
+              "signature": "(self, *columns: str) -> pandas.core.frame.DataFrame",
               "returns": {
-                "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                "annotation": "pandas.core.frame.DataFrame",
                 "description": "columns from the database"
               },
               "arguments": {
@@ -4477,7 +4477,7 @@
                 },
                 "columns": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -4496,7 +4496,7 @@
             "drop_table": {
               "name": "drop_table",
               "docstring": "Drop the table of the database.",
-              "signature": "(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -4523,7 +4523,7 @@
             "create_database_table": {
               "name": "create_database_table",
               "docstring": "Create a table for a database.",
-              "signature": "(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -4550,7 +4550,7 @@
             "update_entry": {
               "name": "update_entry",
               "docstring": "Update an entry in the database.\n",
-              "signature": "(self, entry_id: str, data: dict) -> None:",
+              "signature": "(self, entry_id: str, data: dict) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -4563,12 +4563,12 @@
                 },
                 "entry_id": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "ID of the entry"
                 },
                 "data": {
                   "default": null,
-                  "annotation": "<class 'dict'>",
+                  "annotation": "dict",
                   "description": "data to update"
                 }
               },
@@ -4587,7 +4587,7 @@
             "sync": {
               "name": "sync",
               "docstring": "Sync the table with the file system.",
-              "signature": "(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -4614,9 +4614,9 @@
             "entry": {
               "name": "entry",
               "docstring": "Get the Entry object of an entry.\nMultiton pattern. One Entry per entry.",
-              "signature": "(self, entry_id: str) -> Entry:",
+              "signature": "(self, entry_id: str) -> bamboost.index.Entry",
               "returns": {
-                "annotation": "<class 'bamboost.index.Entry'>",
+                "annotation": "bamboost.index.Entry",
                 "description": null
               },
               "arguments": {
@@ -4627,7 +4627,7 @@
                 },
                 "entry_id": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -4673,7 +4673,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": "(self, id: str, *, _index: IndexAPI = None):",
+            "signature": "(self, id: str, *, _index: bamboost.index.IndexAPI = None)",
             "arguments": {
               "self": {
                 "default": null,
@@ -4682,12 +4682,12 @@
               },
               "id": {
                 "default": null,
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "_index": {
                 "default": "None",
-                "annotation": "<class 'bamboost.index.IndexAPI'>",
+                "annotation": "bamboost.index.IndexAPI",
                 "description": null
               }
             },
@@ -4708,9 +4708,9 @@
             "get_all_metadata": {
               "name": "get_all_metadata",
               "docstring": "Get all metadata of the entry.",
-              "signature": "(self) -> dict:",
+              "signature": "(self) -> dict",
               "returns": {
-                "annotation": "<class 'dict'>",
+                "annotation": "dict",
                 "description": null
               },
               "arguments": {
@@ -4754,19 +4754,19 @@
             },
             {
               "name": "metadata",
-              "annotation": "<class 'dict'>",
+              "annotation": "dict",
               "description": "Get the metadata of the entry.",
               "default": ""
             },
             {
               "name": "parameters",
-              "annotation": "<class 'dict'>",
+              "annotation": "dict",
               "description": "Get the parameters of the entry.",
               "default": ""
             },
             {
               "name": "mtime",
-              "annotation": "<class 'float'>",
+              "annotation": "float",
               "description": "Get the modification time of the entry.",
               "default": ""
             }
@@ -4774,7 +4774,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": "(self, id: str, path: str) -> None:",
+            "signature": "(self, id: str, path: str)",
             "arguments": {
               "self": {
                 "default": null,
@@ -4783,12 +4783,12 @@
               },
               "id": {
                 "default": null,
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "path": {
                 "default": null,
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               }
             },
@@ -4810,7 +4810,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": null,
+            "signature": "(self, /, *args, **kwargs)",
             "arguments": {
               "self": {
                 "default": null,
@@ -4839,9 +4839,9 @@
         {
           "name": "find",
           "docstring": "Find the database with UID under given root_dir.\n",
-          "signature": "(uid, root_dir) -> list:",
+          "signature": "(uid, root_dir) -> list",
           "returns": {
-            "annotation": "<class 'list'>",
+            "annotation": "list",
             "description": null
           },
           "arguments": {
@@ -4871,15 +4871,15 @@
         {
           "name": "get_uid_from_path",
           "docstring": "Returns the UID found in the specified path.",
-          "signature": "(path: str) -> str:",
+          "signature": "(path: str) -> str",
           "returns": {
-            "annotation": "<class 'str'>",
+            "annotation": "str",
             "description": null
           },
           "arguments": {
             "path": {
               "default": null,
-              "annotation": "<class 'str'>",
+              "annotation": "str",
               "description": null
             }
           },
@@ -4898,9 +4898,9 @@
         {
           "name": "get_known_paths",
           "docstring": "",
-          "signature": "() -> list:",
+          "signature": "() -> list",
           "returns": {
-            "annotation": "<class 'list'>",
+            "annotation": "list",
             "description": null
           },
           "arguments": {},
@@ -4919,9 +4919,9 @@
         {
           "name": "uid2",
           "docstring": "",
-          "signature": "(uid) -> str:",
+          "signature": "(uid) -> str",
           "returns": {
-            "annotation": "<class 'str'>",
+            "annotation": "str",
             "description": null
           },
           "arguments": {
@@ -4966,9 +4966,9 @@
             "__getitem__": {
               "name": "__getitem__",
               "docstring": "Returns the simulation in the specified row of the dataframe.\n",
-              "signature": "(self, key: Union[str, int]) -> Simulation:",
+              "signature": "(self, key: Union[str, int]) -> bamboost.simulation.Simulation",
               "returns": {
-                "annotation": "<class 'bamboost.simulation.Simulation'>",
+                "annotation": "bamboost.simulation.Simulation",
                 "description": "The selected simulation object."
               },
               "arguments": {
@@ -4979,7 +4979,7 @@
                 },
                 "key": {
                   "default": null,
-                  "annotation": "typing.Union[str, int]",
+                  "annotation": "Union[str, int]",
                   "description": "The simulation identifier (`str`) or the row index (`int`)."
                 }
               },
@@ -4998,9 +4998,9 @@
             "__len__": {
               "name": "__len__",
               "docstring": "",
-              "signature": "(self) -> int:",
+              "signature": "(self) -> int",
               "returns": {
-                "annotation": "<class 'int'>",
+                "annotation": "int",
                 "description": null
               },
               "arguments": {
@@ -5025,9 +5025,9 @@
             "__iter__": {
               "name": "__iter__",
               "docstring": "",
-              "signature": "(self) -> Generator[Simulation, None, None]:",
+              "signature": "(self) -> Generator[bamboost.simulation.Simulation, NoneType, NoneType]",
               "returns": {
-                "annotation": "typing.Generator[bamboost.simulation.Simulation, NoneType, NoneType]",
+                "annotation": "Generator[bamboost.simulation.Simulation, NoneType, NoneType]",
                 "description": null
               },
               "arguments": {
@@ -5052,9 +5052,9 @@
             "get_view": {
               "name": "get_view",
               "docstring": "View of the database and its parametric space. Read from the sql\ndatabase. If `include_linked_sims` is True, the individual h5 files are\nscanned.",
-              "signature": "(self, include_linked_sims: bool = False) -> pd.DataFrame:",
+              "signature": "(self, include_linked_sims: bool = False) -> pandas.core.frame.DataFrame",
               "returns": {
-                "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                "annotation": "pandas.core.frame.DataFrame",
                 "description": null
               },
               "arguments": {
@@ -5065,7 +5065,7 @@
                 },
                 "include_linked_sims": {
                   "default": "False",
-                  "annotation": "<class 'bool'>",
+                  "annotation": "bool",
                   "description": "if True, include the parameters of linked sims"
                 }
               },
@@ -5086,9 +5086,9 @@
             "get_view_from_hdf_files": {
               "name": "get_view_from_hdf_files",
               "docstring": "View of the database and its parametric space. Read from the h5\nfiles metadata.",
-              "signature": "(\n    self, include_linked_sims: bool = False\n) -> pd.DataFrame:",
+              "signature": "(self, include_linked_sims: bool = False) -> pandas.core.frame.DataFrame",
               "returns": {
-                "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                "annotation": "pandas.core.frame.DataFrame",
                 "description": null
               },
               "arguments": {
@@ -5099,7 +5099,7 @@
                 },
                 "include_linked_sims": {
                   "default": "False",
-                  "annotation": "<class 'bool'>",
+                  "annotation": "bool",
                   "description": "if True, include the parameters of linked sims"
                 }
               },
@@ -5118,9 +5118,9 @@
             "sim": {
               "name": "sim",
               "docstring": "Get an existing simulation with uid. Same as accessing with `db[uid]` directly.\n",
-              "signature": "(\n    self,\n    uid: str,\n    return_writer: bool = False,\n    writer_type: SimulationWriter = SimulationWriter,\n) -> Simulation:",
+              "signature": "(\n    self,\n    uid: str,\n    return_writer: bool = False,\n    writer_type: bamboost.simulation_writer.SimulationWriter = <class 'bamboost.simulation_writer.SimulationWriter'>\n) -> bamboost.simulation.Simulation",
               "returns": {
-                "annotation": "<class 'bamboost.simulation.Simulation'>",
+                "annotation": "bamboost.simulation.Simulation",
                 "description": ":class:`~bamboost.simulation.Simulation`"
               },
               "arguments": {
@@ -5131,17 +5131,17 @@
                 },
                 "uid": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "unique identifier"
                 },
                 "return_writer": {
                   "default": "False",
-                  "annotation": "<class 'bool'>",
+                  "annotation": "bool",
                   "description": "if true, return `SimulationWriter`, otherwise\nreturn `Simulation`"
                 },
                 "writer_type": {
                   "default": "<class 'bamboost.simulation_writer.SimulationWriter'>",
-                  "annotation": "<class 'bamboost.simulation_writer.SimulationWriter'>",
+                  "annotation": "bamboost.simulation_writer.SimulationWriter",
                   "description": "Optionally, you can specify a custom writer type to return."
                 }
               },
@@ -5160,7 +5160,7 @@
             "sims": {
               "name": "sims",
               "docstring": "Get all simulations in a list. Optionally, get all simulations matching the\ngiven selection using pandas.",
-              "signature": "(\n    self,\n    select: pd.Series | pd.DataFrame | dict = None,\n    sort: str = None,\n    reverse: bool = False,\n    exclude: set = None,\n    return_writer: bool = False,\n) -> list[Simulation]:",
+              "signature": "(\n    self,\n    select: pandas.core.series.Series | pandas.core.frame.DataFrame | dict = None,\n    sort: str = None,\n    reverse: bool = False,\n    exclude: set = None,\n    return_writer: bool = False\n) -> list[bamboost.simulation.Simulation]",
               "returns": {
                 "annotation": "list[bamboost.simulation.Simulation]",
                 "description": "A list of `:class:~bamboost.simulation.Simulation` objects"
@@ -5178,22 +5178,22 @@
                 },
                 "sort": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "Optionally sort the list with this keyword"
                 },
                 "reverse": {
                   "default": "False",
-                  "annotation": "<class 'bool'>",
+                  "annotation": "bool",
                   "description": "swap sort direction"
                 },
                 "exclude": {
                   "default": "None",
-                  "annotation": "<class 'set'>",
+                  "annotation": "set",
                   "description": "sims to exclude"
                 },
                 "return_writer": {
                   "default": "False",
-                  "annotation": "<class 'bool'>",
+                  "annotation": "bool",
                   "description": "if true, return `SimulationWriter`, otherwise\nreturn `Simulation`"
                 }
               },
@@ -5214,9 +5214,9 @@
             "create_simulation": {
               "name": "create_simulation",
               "docstring": "Get a writer object for a new simulation. This is written for paralell use\nas it is likely that this may be used in an executable, creating multiple runs\nfor a parametric space, which may be run in paralell.",
-              "signature": "(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    *,\n    prefix: str = None,\n    duplicate_action: str = \"prompt\",\n    note: str = None,\n    files: list[str] = None,\n    links: dict[str, str] = None,\n) -> SimulationWriter:",
+              "signature": "(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    *,\n    prefix: str = None,\n    duplicate_action: str = 'prompt',\n    note: str = None,\n    files: list[str] = None,\n    links: dict[str, str] = None\n) -> bamboost.simulation_writer.SimulationWriter",
               "returns": {
-                "annotation": "<class 'bamboost.simulation_writer.SimulationWriter'>",
+                "annotation": "bamboost.simulation_writer.SimulationWriter",
                 "description": "A simulation writer object."
               },
               "arguments": {
@@ -5227,32 +5227,32 @@
                 },
                 "uid": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "The name/uid for the simulation. If not specified, a random id\nwill be assigned."
                 },
                 "parameters": {
                   "default": "None",
-                  "annotation": "<class 'dict'>",
+                  "annotation": "dict",
                   "description": "Parameter dictionary. If provided, the parameters will be\nchecked against the existing sims for duplication. Otherwise, they may be\nspecified later with `bamboost.simulation_writer.SimulationWriter.add_parameters`.\nNote:\n    The parameters are stored in the h5 file as attributes.\n    - If the value is a dict, it is flattened using\n      `bamboost.common.utilities.flatten_dict`.\n    - If the value is a list/array, it is stored as a dataset."
                 },
                 "skip_duplicate_check": {
                   "default": "False",
-                  "annotation": "<class 'bool'>",
+                  "annotation": "bool",
                   "description": "if True, the duplicate check is skipped."
                 },
                 "prefix": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "Prefix for the uid. If not specified, no prefix is used."
                 },
                 "duplicate_action": {
                   "default": "prompt",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "how to deal with duplicates. Replace\nfirst duplicate ('r'), Create with altered uid (`c`), Create new\nwith new id (`n`), Abort (`a`) default \"prompt\" for each\nduplicate on a case by case basis."
                 },
                 "note": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "Note for the simulation."
                 },
                 "files": {
@@ -5284,7 +5284,7 @@
             "remove": {
               "name": "remove",
               "docstring": "CAUTION, DELETING DATA. Remove the data of a simulation.\n",
-              "signature": "(self, uid: str) -> None:",
+              "signature": "(self, uid: str) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -5297,7 +5297,7 @@
                 },
                 "uid": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "uid"
                 }
               },
@@ -5316,9 +5316,9 @@
             "find": {
               "name": "find",
               "docstring": "Find simulations with the given parameters.\n\nThe dictionary can contain callables to filter inequalities or other\nfilters.",
-              "signature": "(self, parameter_selection: dict[str, Any]) -> pd.DataFrame:",
+              "signature": "(\n    self,\n    parameter_selection: dict[str, typing.Any]\n) -> pandas.core.frame.DataFrame",
               "returns": {
-                "annotation": "<class 'pandas.core.frame.DataFrame'>",
+                "annotation": "pandas.core.frame.DataFrame",
                 "description": null
               },
               "arguments": {
@@ -5350,9 +5350,9 @@
             "global_fields_in_all": {
               "name": "global_fields_in_all",
               "docstring": "Get a list of all global fields in all simulations.\n",
-              "signature": "(self) -> list:",
+              "signature": "(self) -> list",
               "returns": {
-                "annotation": "<class 'list'>",
+                "annotation": "list",
                 "description": "List of global fields"
               },
               "arguments": {
@@ -5377,9 +5377,9 @@
             "get_parameters": {
               "name": "get_parameters",
               "docstring": "Get the parameters used in this database.\n",
-              "signature": "(self) -> dict:",
+              "signature": "(self) -> dict",
               "returns": {
-                "annotation": "<class 'dict'>",
+                "annotation": "dict",
                 "description": "Dictionary of parameters with it's count, range, and type. Sorted by count."
               },
               "arguments": {
@@ -5411,13 +5411,13 @@
             },
             {
               "name": "fromUID",
-              "annotation": "<class 'bamboost.manager.ManagerFromUID'>",
+              "annotation": "bamboost.manager.ManagerFromUID",
               "description": null,
               "default": "<bamboost.manager.ManagerFromUID object>"
             },
             {
               "name": "fromName",
-              "annotation": "<class 'bamboost.manager.ManagerFromName'>",
+              "annotation": "bamboost.manager.ManagerFromName",
               "description": null,
               "default": "<bamboost.manager.ManagerFromName object>"
             },
@@ -5441,19 +5441,19 @@
             },
             {
               "name": "all_uids",
-              "annotation": "<class 'list'>",
+              "annotation": "list",
               "description": null,
               "default": ""
             },
             {
               "name": "df",
-              "annotation": "<class 'pandas.core.frame.DataFrame'>",
+              "annotation": "pandas.core.frame.DataFrame",
               "description": "View of the database and its parametric space.\n",
               "default": ""
             },
             {
               "name": "data_info",
-              "annotation": "<class 'pandas.core.frame.DataFrame'>",
+              "annotation": "pandas.core.frame.DataFrame",
               "description": "Return view of stored data for all simulations\n",
               "default": ""
             }
@@ -5463,7 +5463,7 @@
             ">>> db = Manager(\"path/to/db\")\n>>> db.df # DataFrame of the database"
           ],
           "constructor": {
-            "signature": "(\n    self,\n    path: str = None,\n    comm: MPI.Comm = MPI.COMM_WORLD,\n    uid: str = None,\n    create_if_not_exist: bool = True,\n):",
+            "signature": "(\n    self,\n    path: str = None,\n    comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>,\n    uid: str = None,\n    create_if_not_exist: bool = True\n)",
             "arguments": {
               "self": {
                 "default": null,
@@ -5472,22 +5472,22 @@
               },
               "path": {
                 "default": "None",
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x76265dfd45c0>",
-                "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                 "description": null
               },
               "uid": {
                 "default": "None",
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "create_if_not_exist": {
                 "default": "True",
-                "annotation": "<class 'bool'>",
+                "annotation": "bool",
                 "description": null
               }
             },
@@ -5508,9 +5508,9 @@
             "__getitem__": {
               "name": "__getitem__",
               "docstring": "",
-              "signature": "(self, key) -> Manager:",
+              "signature": "(self, key) -> bamboost.manager.Manager",
               "returns": {
-                "annotation": "<class 'bamboost.manager.Manager'>",
+                "annotation": "bamboost.manager.Manager",
                 "description": null
               },
               "arguments": {
@@ -5549,7 +5549,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": "(self) -> None:",
+            "signature": "(self)",
             "arguments": {
               "self": {
                 "default": null,
@@ -5574,9 +5574,9 @@
             "__getitem__": {
               "name": "__getitem__",
               "docstring": "",
-              "signature": "(self, key) -> Manager:",
+              "signature": "(self, key) -> bamboost.manager.Manager",
               "returns": {
-                "annotation": "<class 'bamboost.manager.Manager'>",
+                "annotation": "bamboost.manager.Manager",
                 "description": null
               },
               "arguments": {
@@ -5615,7 +5615,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": "(self) -> None:",
+            "signature": "(self)",
             "arguments": {
               "self": {
                 "default": null,
@@ -5656,20 +5656,20 @@
             "fromUID": {
               "name": "fromUID",
               "docstring": "Return the `Simulation` with given UID.\n",
-              "signature": "(cls, full_uid: str, *, index_database: index.IndexAPI = None) -> Self:",
+              "signature": "(full_uid: str, *, index_database: bamboost.index.IndexAPI = None) -> Self",
               "returns": {
-                "annotation": "typing.Self",
+                "annotation": "Self",
                 "description": null
               },
               "arguments": {
                 "full_uid": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "the full id (Database uid : simulation uid)"
                 },
                 "index_database": {
                   "default": "None",
-                  "annotation": "<class 'bamboost.index.IndexAPI'>",
+                  "annotation": "bamboost.index.IndexAPI",
                   "description": null
                 }
               },
@@ -5688,9 +5688,9 @@
             "__getitem__": {
               "name": "__getitem__",
               "docstring": "Direct access to HDF5 file.\n",
-              "signature": "()\ndef __getitem__(self, key) -> hdf_pointer.BasePointer:",
+              "signature": "(self, key) -> bamboost.common.hdf_pointer.BasePointer",
               "returns": {
-                "annotation": "<class 'bamboost.common.hdf_pointer.BasePointer'>",
+                "annotation": "bamboost.common.hdf_pointer.BasePointer",
                 "description": ":class:`~bamboost.common.file_handler.BasePointer`"
               },
               "arguments": {
@@ -5720,9 +5720,9 @@
             "files": {
               "name": "files",
               "docstring": "Get the path to the file.\n",
-              "signature": "(self, filename: str) -> str:",
+              "signature": "(self, filename: str) -> str",
               "returns": {
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "arguments": {
@@ -5733,7 +5733,7 @@
                 },
                 "filename": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "name of the file"
                 }
               },
@@ -5752,9 +5752,9 @@
             "show_files": {
               "name": "show_files",
               "docstring": "Show the file tree of the simulation directory.\n",
-              "signature": "(\n    self, level=-1, limit_to_directories=False, length_limit=1000, printit=True\n) -> str:",
+              "signature": "(\n    self,\n    level=-1,\n    limit_to_directories=False,\n    length_limit=1000,\n    printit=True\n) -> str",
               "returns": {
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "arguments": {
@@ -5799,7 +5799,7 @@
             "open_in_file_explorer": {
               "name": "open_in_file_explorer",
               "docstring": "Open the simulation directory. Uses `xdg-open` on linux systems.",
-              "signature": "(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -5826,7 +5826,7 @@
             "open_in_paraview": {
               "name": "open_in_paraview",
               "docstring": "Open the xdmf file in paraview.",
-              "signature": "(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -5853,9 +5853,9 @@
             "get_full_uid": {
               "name": "get_full_uid",
               "docstring": "Returns the full uid of the simulation (including the one of the database)",
-              "signature": "(self) -> str:",
+              "signature": "(self) -> str",
               "returns": {
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "arguments": {
@@ -5880,7 +5880,7 @@
             "change_status": {
               "name": "change_status",
               "docstring": "Change status of simulation.\n",
-              "signature": "(self, status: str) -> None:",
+              "signature": "(self, status: str) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -5893,7 +5893,7 @@
                 },
                 "status": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "new status"
                 }
               },
@@ -5912,7 +5912,7 @@
             "update_metadata": {
               "name": "update_metadata",
               "docstring": "Update the metadata attributes.\n",
-              "signature": "(self, update_dict: dict) -> None:",
+              "signature": "(self, update_dict: dict) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -5925,7 +5925,7 @@
                 },
                 "update_dict": {
                   "default": null,
-                  "annotation": "<class 'dict'>",
+                  "annotation": "dict",
                   "description": "dictionary to push"
                 }
               },
@@ -5944,7 +5944,7 @@
             "update_parameters": {
               "name": "update_parameters",
               "docstring": "Update the parameters dictionary.\n",
-              "signature": "(self, update_dict: dict) -> None:",
+              "signature": "(self, update_dict: dict) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -5957,7 +5957,7 @@
                 },
                 "update_dict": {
                   "default": null,
-                  "annotation": "<class 'dict'>",
+                  "annotation": "dict",
                   "description": "dictionary to push"
                 }
               },
@@ -5976,7 +5976,7 @@
             "create_xdmf_file": {
               "name": "create_xdmf_file",
               "docstring": "Create the xdmf file to read in paraview.\n",
-              "signature": "(self, fields: list = None, nb_steps: int = None) -> None:",
+              "signature": "(self, fields: list = None, nb_steps: int = None) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -5989,12 +5989,12 @@
                 },
                 "fields": {
                   "default": "None",
-                  "annotation": "<class 'list'>",
+                  "annotation": "list",
                   "description": "fields for which to write timeseries information,\nif not specified, all fields in data are written."
                 },
                 "nb_steps": {
                   "default": "None",
-                  "annotation": "<class 'int'>",
+                  "annotation": "int",
                   "description": "number of steps the simulation has"
                 }
               },
@@ -6013,7 +6013,7 @@
             "create_run_script": {
               "name": "create_run_script",
               "docstring": "Create a batch job and put it into the folder.\n",
-              "signature": "(\n    self,\n    commands: list[str],\n    euler: bool = True,\n    sbatch_kwargs: dict[str, Any] = None,\n) -> None:",
+              "signature": "(\n    self,\n    commands: list[str],\n    euler: bool = True,\n    sbatch_kwargs: dict[str, typing.Any] = None\n) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6031,7 +6031,7 @@
                 },
                 "euler": {
                   "default": "True",
-                  "annotation": "<class 'bool'>",
+                  "annotation": "bool",
                   "description": "If false, a local bash script will be written"
                 },
                 "sbatch_kwargs": {
@@ -6055,7 +6055,7 @@
             "create_batch_script": {
               "name": "create_batch_script",
               "docstring": "",
-              "signature": "(\"use `create_run_script` instead\")\ndef create_batch_script(self, *args, **kwargs):",
+              "signature": "(self, *args, **kwargs)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6092,7 +6092,7 @@
             "submit": {
               "name": "submit",
               "docstring": "Submit the job for this simulation.",
-              "signature": "(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6119,7 +6119,7 @@
             "change_note": {
               "name": "change_note",
               "docstring": "",
-              "signature": "(\"a\")\ndef change_note(self, note) -> None:",
+              "signature": "(self, note) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6151,9 +6151,9 @@
             "open": {
               "name": "open",
               "docstring": "Use this as a context manager in a `with` statement.\nPurpose: keeping the file open to directly access/edit something in the\nHDF5 file of this simulation.",
-              "signature": "(self, mode: str = \"r\", driver=None, comm=None) -> FileHandler:",
+              "signature": "(\n    self,\n    mode: str = 'r',\n    driver=None,\n    comm=None\n) -> bamboost.common.file_handler.FileHandler",
               "returns": {
-                "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                "annotation": "bamboost.common.file_handler.FileHandler",
                 "description": null
               },
               "arguments": {
@@ -6164,7 +6164,7 @@
                 },
                 "mode": {
                   "default": "r",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "file mode (see h5py docs)"
                 },
                 "driver": {
@@ -6193,9 +6193,9 @@
             "get_mesh": {
               "name": "get_mesh",
               "docstring": "Return coordinates and connectivity. Currently returns numpy arrays.\n",
-              "signature": "(\"r\")\ndef get_mesh(self, mesh_name:",
+              "signature": "(self, mesh_name: str = None) -> Tuple[numpy.ndarray, numpy.ndarray]",
               "returns": {
-                "annotation": "typing.Tuple[numpy.ndarray, numpy.ndarray]",
+                "annotation": "Tuple[numpy.ndarray, numpy.ndarray]",
                 "description": "Tuple of np.arrays (coordinates, connectivity)"
               },
               "arguments": {
@@ -6206,7 +6206,7 @@
                 },
                 "mesh_name": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "optional, name of mesh to read (default = mesh)"
                 }
               },
@@ -6225,7 +6225,7 @@
             "get_data_interpolator": {
               "name": "get_data_interpolator",
               "docstring": "Get Linear interpolator for data field at step. Uses the linked mesh.\n",
-              "signature": "(self, field: str, step: int):",
+              "signature": "(self, field: str, step: int)",
               "returns": {
                 "annotation": null,
                 "description": ":class:`scipy.interpolate.LinearNDInterpolator`"
@@ -6238,12 +6238,12 @@
                 },
                 "field": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 },
                 "step": {
                   "default": null,
-                  "annotation": "<class 'int'>",
+                  "annotation": "int",
                   "description": "step"
                 }
               },
@@ -6262,7 +6262,7 @@
             "show_h5tree": {
               "name": "show_h5tree",
               "docstring": "Print the tree inside the h5 file.",
-              "signature": "()\ndef show_h5tree(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6289,7 +6289,7 @@
             "enter_path": {
               "name": "enter_path",
               "docstring": "A context manager for changing the working directory to this simulations' path.\n\n>>> with sim.working_directory():\n>>>     ...",
-              "signature": "(self):",
+              "signature": "(self)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6317,13 +6317,13 @@
           "properties": [
             {
               "name": "uid",
-              "annotation": "<class 'str'>",
+              "annotation": "str",
               "description": null,
               "default": ""
             },
             {
               "name": "path_database",
-              "annotation": "<class 'str'>",
+              "annotation": "str",
               "description": null,
               "default": ""
             },
@@ -6335,79 +6335,79 @@
             },
             {
               "name": "path",
-              "annotation": "<class 'str'>",
+              "annotation": "str",
               "description": null,
               "default": ""
             },
             {
               "name": "h5file",
-              "annotation": "<class 'str'>",
+              "annotation": "str",
               "description": null,
               "default": ""
             },
             {
               "name": "xdmffile",
-              "annotation": "<class 'str'>",
+              "annotation": "str",
               "description": null,
               "default": ""
             },
             {
               "name": "meshes",
-              "annotation": "<class 'bamboost.accessors.meshes.MeshGroup'>",
+              "annotation": "bamboost.accessors.meshes.MeshGroup",
               "description": null,
               "default": ""
             },
             {
               "name": "data",
-              "annotation": "<class 'bamboost.accessors.fielddata.DataGroup'>",
+              "annotation": "bamboost.accessors.fielddata.DataGroup",
               "description": null,
               "default": ""
             },
             {
               "name": "globals",
-              "annotation": "<class 'bamboost.accessors.globals.GlobalGroup'>",
+              "annotation": "bamboost.accessors.globals.GlobalGroup",
               "description": null,
               "default": ""
             },
             {
               "name": "userdata",
-              "annotation": "<class 'bamboost.common.hdf_pointer.MutableGroup'>",
+              "annotation": "bamboost.common.hdf_pointer.MutableGroup",
               "description": null,
               "default": ""
             },
             {
               "name": "links",
-              "annotation": "<class 'bamboost.simulation.Links'>",
+              "annotation": "bamboost.simulation.Links",
               "description": null,
               "default": ""
             },
             {
               "name": "parameters",
-              "annotation": "typing.Dict[str, typing.Any]",
+              "annotation": "Dict[str, Any]",
               "description": null,
               "default": ""
             },
             {
               "name": "metadata",
-              "annotation": "<class 'dict'>",
+              "annotation": "dict",
               "description": null,
               "default": ""
             },
             {
               "name": "mesh",
-              "annotation": "<class 'bamboost.accessors.meshes.Mesh'>",
+              "annotation": "bamboost.accessors.meshes.Mesh",
               "description": "Return the default mesh.\n",
               "default": ""
             },
             {
               "name": "data_info",
-              "annotation": "<class 'pandas.core.frame.DataFrame'>",
+              "annotation": "pandas.core.frame.DataFrame",
               "description": "View the data stored.\n",
               "default": ""
             },
             {
               "name": "git",
-              "annotation": "<class 'dict'>",
+              "annotation": "dict",
               "description": "Get Git information.\n",
               "default": ""
             }
@@ -6415,7 +6415,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": "(\n    self,\n    uid: str,\n    path: str,\n    comm: MPI.Comm = MPI.COMM_WORLD,\n    create_if_not_exists: bool = False,\n    *,\n    _db_id: str = None,\n):",
+            "signature": "(\n    self,\n    uid: str,\n    path: str,\n    comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>,\n    create_if_not_exists: bool = False,\n    *,\n    _db_id: str = None\n)",
             "arguments": {
               "self": {
                 "default": null,
@@ -6424,27 +6424,27 @@
               },
               "uid": {
                 "default": null,
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "path": {
                 "default": null,
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x76265dfd45c0>",
-                "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                 "description": null
               },
               "create_if_not_exists": {
                 "default": "False",
-                "annotation": "<class 'bool'>",
+                "annotation": "bool",
                 "description": null
               },
               "_db_id": {
                 "default": "None",
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               }
             },
@@ -6465,9 +6465,9 @@
             "__getitem__": {
               "name": "__getitem__",
               "docstring": "Returns the linked simulation object.",
-              "signature": "(\"r\", driver=\"mpio\")\ndef __getitem__(self, key) -> Simulation:",
+              "signature": "(self, key) -> bamboost.simulation.Simulation",
               "returns": {
-                "annotation": "<class 'bamboost.simulation.Simulation'>",
+                "annotation": "bamboost.simulation.Simulation",
                 "description": null
               },
               "arguments": {
@@ -6497,7 +6497,7 @@
             "__setitem__": {
               "name": "__setitem__",
               "docstring": "Creates the link.",
-              "signature": "(self, key, newvalue):",
+              "signature": "(self, key, newvalue)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6534,9 +6534,9 @@
             "all_links": {
               "name": "all_links",
               "docstring": "",
-              "signature": "(\"r\")\ndef all_links(self) -> dict:",
+              "signature": "(self) -> dict",
               "returns": {
-                "annotation": "<class 'dict'>",
+                "annotation": "dict",
                 "description": null
               },
               "arguments": {
@@ -6627,7 +6627,7 @@
           },
           "examples": [],
           "constructor": {
-            "signature": "(self, file_handler: FileHandler) -> None:",
+            "signature": "(self, file_handler: bamboost.common.file_handler.FileHandler)",
             "arguments": {
               "self": {
                 "default": null,
@@ -6636,7 +6636,7 @@
               },
               "file_handler": {
                 "default": null,
-                "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                "annotation": "bamboost.common.file_handler.FileHandler",
                 "description": null
               }
             },
@@ -6673,9 +6673,9 @@
             "initialize": {
               "name": "initialize",
               "docstring": "Create a new file for this simlation.\nThis deletes an existing h5 file of the simulation and creates an empty new one",
-              "signature": "(self) -> SimulationWriter:",
+              "signature": "(self) -> bamboost.simulation_writer.SimulationWriter",
               "returns": {
-                "annotation": "<class 'bamboost.simulation_writer.SimulationWriter'>",
+                "annotation": "bamboost.simulation_writer.SimulationWriter",
                 "description": null
               },
               "arguments": {
@@ -6700,7 +6700,7 @@
             "add_metadata": {
               "name": "add_metadata",
               "docstring": "Add metadata to h5 file.",
-              "signature": "(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6727,7 +6727,7 @@
             "add_parameters": {
               "name": "add_parameters",
               "docstring": "Add parameters to simulation.\n",
-              "signature": "(self, parameters: dict) -> None:",
+              "signature": "(self, parameters: dict) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6740,7 +6740,7 @@
                 },
                 "parameters": {
                   "default": null,
-                  "annotation": "<class 'dict'>",
+                  "annotation": "dict",
                   "description": "Dictionary with parameters."
                 }
               },
@@ -6759,7 +6759,7 @@
             "add_mesh": {
               "name": "add_mesh",
               "docstring": "Add the mesh to file. Currently only 2d meshes.\n\nNote:\n    If you are working with FEniCS, you can use the\n    `bamboost.extensions.fenics.FenicsWriter` writer. With it you can\n    write the FEniCS mesh directly.",
-              "signature": "(\n    self, coordinates: np.ndarray, connectivity: np.ndarray, mesh_name: str = None\n) -> None:",
+              "signature": "(\n    self,\n    coordinates: numpy.ndarray,\n    connectivity: numpy.ndarray,\n    mesh_name: str = None\n) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6772,17 +6772,17 @@
                 },
                 "coordinates": {
                   "default": null,
-                  "annotation": "<class 'numpy.ndarray'>",
+                  "annotation": "numpy.ndarray",
                   "description": "Coordinates as array (nb_nodes, dim)"
                 },
                 "connectivity": {
                   "default": null,
-                  "annotation": "<class 'numpy.ndarray'>",
+                  "annotation": "numpy.ndarray",
                   "description": "Connectivity matrix (nb_cells, nb nodes per cell)"
                 },
                 "mesh_name": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "name for mesh (default = `mesh`)"
                 }
               },
@@ -6801,7 +6801,7 @@
             "add_field": {
               "name": "add_field",
               "docstring": "Add a dataset to the file. The data is stored at `data/`.\n",
-              "signature": "(\n    self,\n    name: str,\n    vector: np.array,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: Literal[\"Node\", \"Cell\"] = \"Node\",\n) -> None:",
+              "signature": "(\n    self,\n    name: str,\n    vector: <built-in function array>,\n    time: float = None,\n    mesh: str = None,\n    dtype: str = None,\n    center: Literal['Node', 'Cell'] = 'Node'\n) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6814,7 +6814,7 @@
                 },
                 "name": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "Name for the dataset"
                 },
                 "vector": {
@@ -6824,22 +6824,22 @@
                 },
                 "time": {
                   "default": "None",
-                  "annotation": "<class 'float'>",
+                  "annotation": "float",
                   "description": "Optional. time"
                 },
                 "mesh": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "Optional. Linked mesh for this data"
                 },
                 "dtype": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "Optional. Numpy style datatype, see h5py documentation,\ndefaults to the dtype of the vector."
                 },
                 "center": {
                   "default": "Node",
-                  "annotation": "typing.Literal['Node', 'Cell']",
+                  "annotation": "Literal['Node', 'Cell']",
                   "description": "Optional. Center of the data. Can be 'Node' or 'Cell'.\nDefault is 'Node'."
                 }
               },
@@ -6858,7 +6858,7 @@
             "add_fields": {
               "name": "add_fields",
               "docstring": "Add multiple fields at once.\n",
-              "signature": "(\n    self,\n    fields: Dict[str, np.ndarray | Tuple[np.ndarray, str]],\n    time: float = None,\n    mesh: str = None,\n) -> None:",
+              "signature": "(\n    self,\n    fields: Dict[str, Union[numpy.ndarray, Tuple[numpy.ndarray, str]]],\n    time: float = None,\n    mesh: str = None\n) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6871,17 +6871,17 @@
                 },
                 "fields": {
                   "default": null,
-                  "annotation": "typing.Dict[str, typing.Union[numpy.ndarray, typing.Tuple[numpy.ndarray, str]]]",
+                  "annotation": "Dict[str, Union[numpy.ndarray, Tuple[numpy.ndarray, str]]]",
                   "description": "Dictionary with fields. The value can be a tuple with the\ndata and a string \"Node\" or \"Cell\"."
                 },
                 "time": {
                   "default": "None",
-                  "annotation": "<class 'float'>",
+                  "annotation": "float",
                   "description": "Optional. time"
                 },
                 "mesh": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -6900,7 +6900,7 @@
             "add_global_field": {
               "name": "add_global_field",
               "docstring": "Add a gobal field. These are stored at `globals/` as an array in a\nsingle dataset.",
-              "signature": "(self, name: str, value: Any, dtype: str = None) -> None:",
+              "signature": "(self, name: str, value: Any, dtype: str = None) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6913,17 +6913,17 @@
                 },
                 "name": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "Name for the data"
                 },
                 "value": {
                   "default": null,
-                  "annotation": "typing.Any",
+                  "annotation": "Any",
                   "description": "Data. Can be a numpy array or a single value."
                 },
                 "dtype": {
                   "default": "None",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -6942,7 +6942,7 @@
             "add_global_fields": {
               "name": "add_global_fields",
               "docstring": "Add multiple global fields at once.\n",
-              "signature": "(self, fields: Dict[str, Any]) -> None:",
+              "signature": "(self, fields: Dict[str, Any]) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -6955,7 +6955,7 @@
                 },
                 "fields": {
                   "default": null,
-                  "annotation": "typing.Dict[str, typing.Any]",
+                  "annotation": "Dict[str, Any]",
                   "description": "Dictionary with fields"
                 }
               },
@@ -6974,7 +6974,7 @@
             "finish_step": {
               "name": "finish_step",
               "docstring": "Finish step. Adds 1 to the step counter.",
-              "signature": "(self) -> None:",
+              "signature": "(self) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7001,7 +7001,7 @@
             "finish_sim": {
               "name": "finish_sim",
               "docstring": "",
-              "signature": "(self, status: str = \"Finished\") -> None:",
+              "signature": "(self, status: str = 'Finished') -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7014,7 +7014,7 @@
                 },
                 "status": {
                   "default": "Finished",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -7033,7 +7033,7 @@
             "register_git_attributes": {
               "name": "register_git_attributes",
               "docstring": "Register git information for given repo.\n",
-              "signature": "(self, repo_path: str = \"./\") -> None:",
+              "signature": "(self, repo_path: str = './') -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7046,7 +7046,7 @@
                 },
                 "repo_path": {
                   "default": "./",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "path to git repository"
                 }
               },
@@ -7065,7 +7065,7 @@
             "copy_executable": {
               "name": "copy_executable",
               "docstring": "WILL BE REMOVED. USE COPY_FILE.\nCopy an executable to directory for reproducability.",
-              "signature": "(self, script_path: str) -> None:",
+              "signature": "(self, script_path: str) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7078,7 +7078,7 @@
                 },
                 "script_path": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "path to script"
                 }
               },
@@ -7097,7 +7097,7 @@
             "copy_file": {
               "name": "copy_file",
               "docstring": "Copy a file to the datafolder.\n",
-              "signature": "(self, source: Union[str, list], destination: str = \"\") -> None:",
+              "signature": "(self, source: Union[str, list], destination: str = '') -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7110,12 +7110,12 @@
                 },
                 "source": {
                   "default": null,
-                  "annotation": "typing.Union[str, list]",
+                  "annotation": "Union[str, list]",
                   "description": "path to file, or list of files"
                 },
                 "destination": {
                   "default": "",
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": "destination (will create intermediatory directories)"
                 }
               },
@@ -7135,7 +7135,7 @@
           "properties": [
             {
               "name": "step",
-              "annotation": "<class 'int'>",
+              "annotation": "int",
               "description": null,
               "default": ""
             }
@@ -7293,7 +7293,7 @@
           },
           "examples": [],
           "constructor": {
-            "signature": "(\n    self,\n    uid: str,\n    path: str,\n    comm: MPI.Comm = MPI.COMM_WORLD,\n    create_if_not_exists: bool = True,\n):",
+            "signature": "(\n    self,\n    uid: str,\n    path: str,\n    comm: bamboost.common._mock_mpi.MockMPI.Comm = <bamboost.common._mock_mpi.MockMPI.Comm object>,\n    create_if_not_exists: bool = True\n)",
             "arguments": {
               "self": {
                 "default": null,
@@ -7302,22 +7302,22 @@
               },
               "uid": {
                 "default": null,
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "path": {
                 "default": null,
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x76265dfd45c0>",
-                "annotation": "<class 'bamboost.common._mock_mpi.MockMPI.Comm'>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                 "description": null
               },
               "create_if_not_exists": {
                 "default": "True",
-                "annotation": "<class 'bool'>",
+                "annotation": "bool",
                 "description": null
               }
             },
@@ -7354,7 +7354,7 @@
             "write_file": {
               "name": "write_file",
               "docstring": "",
-              "signature": "(self):",
+              "signature": "(self)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7381,7 +7381,7 @@
             "write_points_cells": {
               "name": "write_points_cells",
               "docstring": "Write the mesh to the xdmf file.\n",
-              "signature": "(self, points_location: str, cells_location: str):",
+              "signature": "(self, points_location: str, cells_location: str)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7394,12 +7394,12 @@
                 },
                 "points_location": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 },
                 "cells_location": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 }
               },
@@ -7418,7 +7418,7 @@
             "add_timeseries": {
               "name": "add_timeseries",
               "docstring": "",
-              "signature": "(self, steps: int, fields: list):",
+              "signature": "(self, steps: int, fields: list)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7431,12 +7431,12 @@
                 },
                 "steps": {
                   "default": null,
-                  "annotation": "<class 'int'>",
+                  "annotation": "int",
                   "description": null
                 },
                 "fields": {
                   "default": null,
-                  "annotation": "<class 'list'>",
+                  "annotation": "list",
                   "description": null
                 }
               },
@@ -7455,7 +7455,7 @@
             "write_step": {
               "name": "write_step",
               "docstring": "Write the data array for time t.\n",
-              "signature": "(self, collection: ET.Element, fields: list, step: int):",
+              "signature": "(\n    self,\n    collection: xml.etree.ElementTree.Element,\n    fields: list,\n    step: int\n)",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7468,17 +7468,17 @@
                 },
                 "collection": {
                   "default": null,
-                  "annotation": "<class 'xml.etree.ElementTree.Element'>",
+                  "annotation": "xml.etree.ElementTree.Element",
                   "description": null
                 },
                 "fields": {
                   "default": null,
-                  "annotation": "<class 'list'>",
+                  "annotation": "list",
                   "description": null
                 },
                 "step": {
                   "default": null,
-                  "annotation": "<class 'int'>",
+                  "annotation": "int",
                   "description": null
                 }
               },
@@ -7497,7 +7497,7 @@
             "write_attribute": {
               "name": "write_attribute",
               "docstring": "Write an attribute/field.",
-              "signature": "(\n    self, grid: ET.Element, field_name: str, name: str, step: int\n) -> None:",
+              "signature": "(\n    self,\n    grid: xml.etree.ElementTree.Element,\n    field_name: str,\n    name: str,\n    step: int\n) -> None",
               "returns": {
                 "annotation": null,
                 "description": null
@@ -7510,22 +7510,22 @@
                 },
                 "grid": {
                   "default": null,
-                  "annotation": "<class 'xml.etree.ElementTree.Element'>",
+                  "annotation": "xml.etree.ElementTree.Element",
                   "description": null
                 },
                 "field_name": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 },
                 "name": {
                   "default": null,
-                  "annotation": "<class 'str'>",
+                  "annotation": "str",
                   "description": null
                 },
                 "step": {
                   "default": null,
-                  "annotation": "<class 'int'>",
+                  "annotation": "int",
                   "description": null
                 }
               },
@@ -7577,7 +7577,7 @@
           "inherits_from": {},
           "examples": [],
           "constructor": {
-            "signature": "(self, filename: str, _file: FileHandler):",
+            "signature": "(self, filename: str, _file: bamboost.common.file_handler.FileHandler)",
             "arguments": {
               "self": {
                 "default": null,
@@ -7586,12 +7586,12 @@
               },
               "filename": {
                 "default": null,
-                "annotation": "<class 'str'>",
+                "annotation": "str",
                 "description": null
               },
               "_file": {
                 "default": null,
-                "annotation": "<class 'bamboost.common.file_handler.FileHandler'>",
+                "annotation": "bamboost.common.file_handler.FileHandler",
                 "description": null
               }
             },

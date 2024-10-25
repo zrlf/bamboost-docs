@@ -1,13 +1,12 @@
 import inspect
 from textwrap import dedent
-from typing import Any, Dict
 
 import pdoc
 from docstring_parser import DocstringParam
 
 from .models import ApiClass, ApiMethod, ApiModule, ApiVariable
 from .parsers import parse_docstring
-from .utils import extract_signature, sanitize_annotation
+from .utils import sanitize_annotation 
 
 INCLUDE_METHODS = {
     "__getitem__",
@@ -15,7 +14,6 @@ INCLUDE_METHODS = {
     "__len__",
     "__iter__",
 }
-
 
 def document_method(
     method: pdoc.doc.Function, is_classmethod: bool = False
@@ -37,7 +35,8 @@ def document_method(
     method_data = {
         "name": method.name,
         "docstring": docstring["description"],
-        "signature": extract_signature(source_code) or str(signature),
+        # "signature": extract_signature(source_code) or signature,
+        "signature": str(signature),
         "returns": {
             "annotation": sanitize_annotation(signature.return_annotation),
             "description": docstring["returns"].replace("\n", " ")
@@ -137,7 +136,7 @@ def document_class(cls: pdoc.doc.Class) -> ApiClass:
     if constructor and isinstance(constructor, pdoc.doc.Function):
         constructor_docstring = parse_docstring(constructor.docstring or "")
         result["constructor"] = {
-            "signature": extract_signature(dedent(constructor.source)),
+            "signature": str(constructor.signature),
             "arguments": {
                 key: {
                     "default": str(param.default)
@@ -181,7 +180,7 @@ def document_module(module: pdoc.doc.Module) -> ApiModule:
     parsed_docstring = parse_docstring(module.docstring or "")
     slug = module.fullname.split(".")
 
-    result = {
+    result: ApiModule = {
         "name": module.name,
         "slug": slug,
         "docstring": parsed_docstring["description"].strip(),
