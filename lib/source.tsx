@@ -21,14 +21,14 @@ interface Page {
 
 const Separator = ({ title }: { title: string }) => {
   return (
-    <div className="hidden sm:block">
+    <div>
       <div
         className="relative text-foreground font-semibold z-10 mt-4"
       >
         {title}
       </div>
       <div
-        className="absolute inset-0 bg-background"
+        className="hidden lg:block absolute inset-0 bg-background"
       ></div>
     </div>
   );

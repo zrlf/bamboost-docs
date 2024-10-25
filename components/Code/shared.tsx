@@ -34,10 +34,7 @@ export const components = (
     return {
       pre: ({ ref: _ref, className: _className, style: _style, ...props }) => {
         return (
-          <CodeBlock
-            className={cn(_className, className)}
-            {...props}
-          >
+          <CodeBlock className={cn(_className, className)} {...props}>
             <Pre>{props.children}</Pre>
           </CodeBlock>
         );
@@ -45,4 +42,3 @@ export const components = (
     };
   }
 };
-

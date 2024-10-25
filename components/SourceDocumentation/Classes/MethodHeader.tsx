@@ -29,7 +29,7 @@ export default function MethodHeader({
     <>
       <div
         className={cn(
-          "flex flex-col sm:flex-row sm:justify-between sm:items-center w-full",
+          "flex flex-col sm:flex-row sm:justify-between sm:items-center",
           "bg-secondary/50 rounded-md px-4 mt-12 mb-4 border pb-2 sm:pb-0",
         )}
       >

@@ -16,7 +16,12 @@ export const Method = ({
     <Code code={data.source.code} className="my-2" />
   ) : null;
   const signature = (
-    <Code code={data.signature as string} inline noBackground />
+    <Code
+      code={data.signature as string}
+      inline
+      noBackground
+      className="whitespace-pre-line text-wrap"
+    />
   );
   const id = `${clsName}${data.name}`;
   const isClassMethod = data.props?.isClassMethod ? (
@@ -83,7 +88,12 @@ export const Constructor = ({
     <Code code={data.source.code} className="my-2" />
   ) : null;
   const signature = (
-    <Code code={data.signature as string} inline noBackground />
+    <Code
+      className="whitespace-pre-wrap overflow-x-scroll"
+      code={data.signature as string}
+      inline
+      noBackground
+    />
   );
 
   return (

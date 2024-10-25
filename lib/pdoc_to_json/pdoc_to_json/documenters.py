@@ -1,4 +1,5 @@
 import inspect
+from textwrap import dedent
 from typing import Any, Dict
 
 import pdoc
@@ -6,7 +7,7 @@ from docstring_parser import DocstringParam
 
 from .models import ApiClass, ApiMethod, ApiModule, ApiVariable
 from .parsers import parse_docstring
-from .utils import sanitize_annotation
+from .utils import extract_signature, sanitize_annotation
 
 INCLUDE_METHODS = {
     "__getitem__",
@@ -31,11 +32,12 @@ def document_method(
     """
     docstring = parse_docstring(method.docstring or "")
     signature = method.signature
+    source_code = dedent(method.source)
 
     method_data = {
         "name": method.name,
         "docstring": docstring["description"],
-        "signature": str(signature),
+        "signature": extract_signature(source_code) or str(signature),
         "returns": {
             "annotation": sanitize_annotation(signature.return_annotation),
             "description": docstring["returns"].replace("\n", " ")
@@ -53,7 +55,7 @@ def document_method(
             for key, param in signature.parameters.items()
         },
         "source": {
-            "code": method.source,
+            "code": source_code,
             "lines": method.source_lines,
         },
         "props": {
@@ -66,7 +68,8 @@ def document_method(
 
 
 def document_instance_variable(
-    variable: pdoc.doc.Variable, param_from_module_docstring: DocstringParam | None = None
+    variable: pdoc.doc.Variable,
+    param_from_module_docstring: DocstringParam | None = None,
 ) -> ApiVariable:
     """
     Document an instance variable.
@@ -134,7 +137,7 @@ def document_class(cls: pdoc.doc.Class) -> ApiClass:
     if constructor and isinstance(constructor, pdoc.doc.Function):
         constructor_docstring = parse_docstring(constructor.docstring or "")
         result["constructor"] = {
-            "signature": str(constructor.signature_without_self),
+            "signature": extract_signature(dedent(constructor.source)),
             "arguments": {
                 key: {
                     "default": str(param.default)
@@ -145,7 +148,10 @@ def document_class(cls: pdoc.doc.Class) -> ApiClass:
                 }
                 for key, param in constructor.signature.parameters.items()
             },
-            "source": {"code": constructor.source, "lines": constructor.source_lines},
+            "source": {
+                "code": dedent(constructor.source),
+                "lines": constructor.source_lines,
+            },
         }
 
     # Document methods and properties
