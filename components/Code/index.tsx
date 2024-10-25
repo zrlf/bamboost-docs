@@ -16,6 +16,8 @@ export async function Code({
   noBackground?: boolean;
   className?: string;
 }) {
+  if (!code) return null;
+  
   const codeWithPreservedBlanks = code.replace(/^\s*$/gm, " ").trimEnd();
   const out = await codeToHast(codeWithPreservedBlanks, {
     lang: "python",
