@@ -4,8 +4,12 @@ import Link from "fumadocs-core/link";
 
 export function LinkAnnotation({
   children,
+  returnNull = false,
   ...props
-}: { children: string | null } & ComponentProps<"code">) {
+}: {
+  children: string | null;
+  returnNull?: boolean;
+} & ComponentProps<"code">) {
   if (!children) {
     return null;
   }
@@ -40,6 +44,8 @@ export function LinkAnnotation({
       </code>
     );
   }
+
+  if (returnNull) return null;
 
   return <code {...props}>{filteredChildren}</code>;
 }
@@ -103,10 +109,7 @@ export function LinkifyPkg(
     }
 
     return (
-      <Link
-        href={href}
-        className="text-primary decoration-primary"
-      >
+      <Link href={href} className="text-primary decoration-primary">
         {remainder}
       </Link>
     );

@@ -48,7 +48,7 @@ const Argument = ({
       <div className="flex flex-wrap items-center">
         <h6>{name}</h6>
         <span className="mx-2">
-          <LinkAnnotation children={type} />
+          <Code code={type} inline link />
         </span>
         {defaultValue && (
           <>
