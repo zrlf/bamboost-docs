@@ -11,7 +11,7 @@ stages:
 pages:
   stage: deploy
   script:
-    - npm ci
+    - npm i
     - npm run build
     - rm -rf ./public
     - mv ./out ./public
