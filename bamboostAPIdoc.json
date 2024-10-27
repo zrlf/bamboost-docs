@@ -1172,7 +1172,7 @@
                     "description": null
                   },
                   "_comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7623710d8920>",
                     "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                     "description": null
                   }
@@ -2748,7 +2748,7 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7623710d8920>",
                     "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                     "description": null
                   },
@@ -2792,9 +2792,9 @@
                 "list": {
                   "name": "list",
                   "docstring": "List all remote servers.",
-                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x701083ecf100>)>",
+                  "signature": "(cls) -> <classmethod(<function Remote.list at 0x7623709d7100>)>",
                   "returns": {
-                    "annotation": "<classmethod(<function Remote.list at 0x701083ecf100>)>",
+                    "annotation": "<classmethod(<function Remote.list at 0x7623709d7100>)>",
                     "description": null
                   },
                   "arguments": {
@@ -3341,7 +3341,7 @@
                     "description": null
                   },
                   "comm": {
-                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                    "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7623710d8920>",
                     "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                     "description": null
                   }
@@ -5233,7 +5233,7 @@
                 "parameters": {
                   "default": "None",
                   "annotation": "dict",
-                  "description": "Parameter dictionary. If provided, the parameters will be\nchecked against the existing sims for duplication. Otherwise, they may be\nspecified later with `bamboost.simulation_writer.SimulationWriter.add_parameters`.\nNote:\n    The parameters are stored in the h5 file as attributes.\n    - If the value is a dict, it is flattened using\n      `bamboost.common.utilities.flatten_dict`.\n    - If the value is a list/array, it is stored as a dataset."
+                  "description": "Parameter dictionary. If provided, the parameters will be\nchecked against the existing sims for duplication. Otherwise, they may be\nspecified later with `bamboost.simulation_writer.SimulationWriter.add_parameters`.\n\nNote:\n    The parameters are stored in the h5 file as attributes.\n    - If the value is a dict, it is flattened using\n      `bamboost.common.utilities.flatten_dict`.\n    - If the value is a list/array, it is stored as a dataset."
                 },
                 "skip_duplicate_check": {
                   "default": "False",
@@ -5267,10 +5267,10 @@
                 }
               },
               "source": {
-                "code": "def create_simulation(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    *,\n    prefix: str = None,\n    duplicate_action: str = \"prompt\",\n    note: str = None,\n    files: list[str] = None,\n    links: dict[str, str] = None,\n) -> SimulationWriter:\n    \"\"\"Get a writer object for a new simulation. This is written for paralell use\n    as it is likely that this may be used in an executable, creating multiple runs\n    for a parametric space, which may be run in paralell.\n\n    Args:\n        uid (`str`): The name/uid for the simulation. If not specified, a random id\n            will be assigned.\n        parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n            checked against the existing sims for duplication. Otherwise, they may be\n            specified later with `bamboost.simulation_writer.SimulationWriter.add_parameters`.\n            Note:\n                The parameters are stored in the h5 file as attributes.\n                - If the value is a dict, it is flattened using\n                  `bamboost.common.utilities.flatten_dict`.\n                - If the value is a list/array, it is stored as a dataset.\n        skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n        prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n        duplicate_action (`str`): how to deal with duplicates. Replace\n            first duplicate ('r'), Create with altered uid (`c`), Create new\n            with new id (`n`), Abort (`a`) default \"prompt\" for each\n            duplicate on a case by case basis.\n        note (`str`): Note for the simulation.\n        files (`list`): List of files to copy to the simulation directory.\n        links (`dict`): Dictionary of links to other simulations.\n\n    Note:\n        The files and links are copied to the simulation directory. The files are\n        copied with the same name as the original file. The links are copied with\n        the given name.\n\n    Examples:\n        >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n\n        >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n\n    Returns:\n        A simulation writer object.\n    \"\"\"\n    if parameters and not skip_duplicate_check:\n        go_on = True\n        if self.comm.rank == 0:\n            go_on, uid = self._check_duplicate(\n                parameters, uid, duplicate_action=duplicate_action\n            )\n        self.comm.bcast((go_on, uid), root=0)\n        if not go_on:\n            print(\"Aborting by user desire...\")\n            return None\n\n    if self.comm.rank == 0:\n        if not uid:\n            uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n        if isinstance(prefix, str) and prefix != \"\":\n            uid = \"_\".join([prefix, uid])\n    uid = self.comm.bcast(uid, root=0)\n\n    try:\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n\n        # Add parameters, note, files, and links\n        if not any([parameters, note, files, links]):\n            return new_sim\n\n        with new_sim._file(\"r+\"):\n            if parameters:\n                new_sim.add_parameters(parameters)\n            if note:\n                new_sim.change_note(note)\n            if files:\n                new_sim.copy_file(files)\n            if links:\n                [\n                    new_sim.links.__setitem__(name, uid)\n                    for name, uid in links.items()\n                ]\n\n        return new_sim\n\n    except Exception as e:\n        # If any error occurs, remove the partially created simulation\n        if self.comm.rank == 0:\n            self.remove(uid)\n        raise e  # Re-raise the exception after cleanup\n",
+                "code": "def create_simulation(\n    self,\n    uid: str = None,\n    parameters: dict = None,\n    skip_duplicate_check: bool = False,\n    *,\n    prefix: str = None,\n    duplicate_action: str = \"prompt\",\n    note: str = None,\n    files: list[str] = None,\n    links: dict[str, str] = None,\n) -> SimulationWriter:\n    \"\"\"Get a writer object for a new simulation. This is written for paralell use\n    as it is likely that this may be used in an executable, creating multiple runs\n    for a parametric space, which may be run in paralell.\n\n    Args:\n        uid (`str`): The name/uid for the simulation. If not specified, a random id\n            will be assigned.\n        parameters (`dict`): Parameter dictionary. If provided, the parameters will be\n            checked against the existing sims for duplication. Otherwise, they may be\n            specified later with `bamboost.simulation_writer.SimulationWriter.add_parameters`.\n\n            Note:\n                The parameters are stored in the h5 file as attributes.\n                - If the value is a dict, it is flattened using\n                  `bamboost.common.utilities.flatten_dict`.\n                - If the value is a list/array, it is stored as a dataset.\n\n        skip_duplicate_check (`bool`): if True, the duplicate check is skipped.\n        prefix (`str`): Prefix for the uid. If not specified, no prefix is used.\n        duplicate_action (`str`): how to deal with duplicates. Replace\n            first duplicate ('r'), Create with altered uid (`c`), Create new\n            with new id (`n`), Abort (`a`) default \"prompt\" for each\n            duplicate on a case by case basis.\n        note (`str`): Note for the simulation.\n        files (`list`): List of files to copy to the simulation directory.\n        links (`dict`): Dictionary of links to other simulations.\n\n    Note:\n        The files and links are copied to the simulation directory. The files are\n        copied with the same name as the original file. The links are copied with\n        the given name.\n\n    Examples:\n        >>> db.create_simulation(parameters={\"a\": 1, \"b\": 2})\n\n        >>> db.create_simulation(uid=\"my_sim\", parameters={\"a\": 1, \"b\": 2}, prefix=\"test\")\n\n    Returns:\n        A simulation writer object.\n    \"\"\"\n    if parameters and not skip_duplicate_check:\n        go_on = True\n        if self.comm.rank == 0:\n            go_on, uid = self._check_duplicate(\n                parameters, uid, duplicate_action=duplicate_action\n            )\n        self.comm.bcast((go_on, uid), root=0)\n        if not go_on:\n            print(\"Aborting by user desire...\")\n            return None\n\n    if self.comm.rank == 0:\n        if not uid:\n            uid = uuid.uuid4().hex[:8]  # Assign random unique identifier\n        if isinstance(prefix, str) and prefix != \"\":\n            uid = \"_\".join([prefix, uid])\n    uid = self.comm.bcast(uid, root=0)\n\n    try:\n        # Create directory and h5 file\n        if self.comm.rank == 0:\n            os.makedirs(os.path.join(self.path, uid), exist_ok=True)\n            path_to_h5_file = os.path.join(self.path, uid, f\"{uid}.h5\")\n            if os.path.exists(path_to_h5_file):\n                os.remove(path_to_h5_file)\n            h5py.File(path_to_h5_file, \"a\").close()  # create file\n\n        new_sim = SimulationWriter(uid, self.path, self.comm)\n        new_sim.initialize()  # sets metadata and status\n        # add the id to the (fixed) _all_uids list\n        if hasattr(self, \"_all_uids\"):\n            self._all_uids.append(new_sim.uid)\n\n        # Add parameters, note, files, and links\n        if not any([parameters, note, files, links]):\n            return new_sim\n\n        with new_sim._file(\"r+\"):\n            if parameters:\n                new_sim.add_parameters(parameters)\n            if note:\n                new_sim.change_note(note)\n            if files:\n                new_sim.copy_file(files)\n            if links:\n                [\n                    new_sim.links.__setitem__(name, uid)\n                    for name, uid in links.items()\n                ]\n\n        return new_sim\n\n    except Exception as e:\n        # If any error occurs, remove the partially created simulation\n        if self.comm.rank == 0:\n            self.remove(uid)\n        raise e  # Re-raise the exception after cleanup\n",
                 "lines": [
                   436,
-                  542
+                  544
                 ]
               },
               "props": {
@@ -5304,8 +5304,8 @@
               "source": {
                 "code": "def remove(self, uid: str) -> None:\n    \"\"\"CAUTION, DELETING DATA. Remove the data of a simulation.\n\n    Args:\n        uid (`str`): uid\n    \"\"\"\n    shutil.rmtree(os.path.join(self.path, uid))\n    self._table.sync()\n",
                 "lines": [
-                  544,
-                  551
+                  546,
+                  553
                 ]
               },
               "props": {
@@ -5336,8 +5336,8 @@
               "source": {
                 "code": "def find(self, parameter_selection: dict[str, Any]) -> pd.DataFrame:\n    \"\"\"Find simulations with the given parameters.\n\n    The dictionary can contain callables to filter inequalities or other\n    filters.\n\n    Examples:\n        >>> db.find({\"a\": 1, \"b\": lambda x: x > 2})\n        >>> db.find({\"a\": 1, \"b\": 2})\n\n    Args:\n        parameter_selection (dict): parameter selection dictionary\n    \"\"\"\n    parameter_selection = flatten_dict(parameter_selection)\n    params = {}\n    filters = {}\n    for key, val in parameter_selection.items():\n        if callable(val):\n            filters[key] = val\n        else:\n            params[key] = val\n\n    df = self.df\n    matches = self._list_duplicates(params, df=df)\n    matches = df[df.id.isin(matches)]\n    if len(matches) == 0:\n        return matches\n\n    for key, func in filters.items():\n        matches = matches[matches[key].apply(func)]\n\n    return matches\n",
                 "lines": [
-                  553,
-                  584
+                  555,
+                  586
                 ]
               },
               "props": {
@@ -5365,8 +5365,8 @@
               "source": {
                 "code": "def global_fields_in_all(self) -> list:\n    \"\"\"Get a list of all global fields in all simulations.\n\n    Returns:\n        List of global fields\n    \"\"\"\n    fields = set()\n    for sim in self:\n        try:\n            fields.update(sim.globals.columns)\n        except KeyError:\n            continue\n\n    return fields\n",
                 "lines": [
-                  685,
-                  698
+                  687,
+                  700
                 ]
               },
               "props": {
@@ -5392,8 +5392,8 @@
               "source": {
                 "code": "def get_parameters(self) -> dict:\n    \"\"\"Get the parameters used in this database.\n\n    Returns:\n        Dictionary of parameters with it's count, range, and type. Sorted by count.\n    \"\"\"\n    parameters = dict()\n    for sim in self:\n        for key, val in sim.parameters.items():\n            if key not in parameters:\n                range = (val, val) if isinstance(val, numbers.Number) else None\n                parameters[key] = {\"range\": range, \"count\": 1, \"type\": type(val)}\n            else:\n                if isinstance(val, numbers.Number):\n                    parameters[key][\"range\"] = (\n                        min(parameters[key][\"range\"][0], val),\n                        max(parameters[key][\"range\"][1], val),\n                    )\n                parameters[key][\"count\"] += 1\n                parameters[key][\"type\"] = type(val)\n    return dict(\n        sorted(parameters.items(), key=lambda x: x[1][\"count\"], reverse=True)\n    )\n",
                 "lines": [
-                  700,
-                  722
+                  702,
+                  724
                 ]
               },
               "props": {
@@ -5476,7 +5476,7 @@
                 "description": null
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7623710d8920>",
                 "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                 "description": null
               },
@@ -6433,7 +6433,7 @@
                 "description": null
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7623710d8920>",
                 "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                 "description": null
               },
@@ -7311,7 +7311,7 @@
                 "description": null
               },
               "comm": {
-                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7010845dcad0>",
+                "default": "<bamboost.common._mock_mpi.MockMPI.Comm object at 0x7623710d8920>",
                 "annotation": "bamboost.common._mock_mpi.MockMPI.Comm",
                 "description": null
               },

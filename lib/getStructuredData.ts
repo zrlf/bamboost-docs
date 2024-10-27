@@ -1,7 +1,7 @@
-import { ModuleObj } from "@/components/SourceDocumentation/types";
+import { ModuleInterface } from "@/components/SourceDocumentation/types";
 import { StructuredData } from "fumadocs-core/mdx-plugins";
 
-export function getStructuredData(data: ModuleObj): StructuredData {
+export function getStructuredData(data: ModuleInterface): StructuredData {
   const headings: StructuredData["headings"] = [];
   const contents: StructuredData["contents"] = [];
 
@@ -16,16 +16,16 @@ export function getStructuredData(data: ModuleObj): StructuredData {
     });
   }
 
-  for (const func of data.functions) {
+  for (const func of Object.values(data.functions)) {
     headings.push({ id: func.name, content: func.name });
     if (func.docstring) {
-      contents.push({ heading: func.name, content: func.docstring });
+      contents.push({ heading: func.name, content: func.description || "" });
     }
-    if (Object.keys(func.arguments).length > 0) {
-      for (const [name, arg] of Object.entries(func.arguments)) {
+    if (func.parameters.length > 0) {
+      for (const param of func.parameters) {
         contents.push({
           heading: func.name,
-          content: [name, arg.description].join(": "),
+          content: [param.name, param.description].join(": "),
         });
       }
     }
@@ -37,49 +37,49 @@ export function getStructuredData(data: ModuleObj): StructuredData {
     }
   }
 
-  for (const cls of data.classes) {
+  for (const cls of Object.values(data.classes)) {
     headings.push({ id: cls.name, content: cls.name });
     if (cls.docstring) {
-      contents.push({ heading: cls.name, content: cls.docstring });
+      contents.push({ heading: cls.name, content: cls.description || "" });
     }
-    if (cls.properties.length > 0) {
-      for (const prop of cls.properties) {
+    if (cls.attributes.length > 0) {
+      for (const prop of cls.attributes) {
         contents.push({
           heading: cls.name,
           content: [prop.name, prop.description].join(": "),
         });
       }
     }
-    if (cls.constructor.docstring) {
+    if (cls.functions['__init__'] && cls.functions['__init__'].docstring) {
       contents.push({
         heading: cls.name,
-        content: cls.constructor.docstring,
+        content: cls.functions['__init__'].description || "",
       });
     }
 
     // Methods
-    for (const [name, method] of Object.entries(cls.methods)) {
-      if (!method) continue;
-      const id = cls.name + name;
+    for (const func of Object.values(cls.functions)) {
+      if (!func) continue;
+      const id = cls.name + func.name;
 
-      headings.push({ id: id, content: name });
-      if (method.docstring) {
-        contents.push({ heading: id, content: method.docstring });
+      headings.push({ id: id, content: func.name });
+      if (func.description) {
+        contents.push({ heading: id, content: func.description });
       }
-      if (Object.keys(method.arguments).length > 0) {
-        for (const [name, arg] of Object.entries(method.arguments)) {
-          if (name === "self") continue;
+      if (func.parameters?.length > 0) {
+        for (const param of func.parameters) {
+          if (param.name === "self") continue;
 
           contents.push({
             heading: id,
-            content: [name, arg.description].join(": "),
+            content: [param.name, param.description].join(": "),
           });
         }
       }
-      if (method.returns.description) {
+      if (func.returns?.description) {
         contents.push({
           heading: id,
-          content: method.returns.description,
+          content: func.returns.description,
         });
       }
     }

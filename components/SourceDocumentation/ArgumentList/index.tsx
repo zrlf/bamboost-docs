@@ -1,27 +1,27 @@
 import { Code } from "@/components/Code";
-import { ArgumentObj } from "../types";
+import { ParameterInterface } from "../types";
 import { LinkAnnotation } from "../annotation";
 import Markdown, { splitParagraph } from "@/components/Markdown/markdown";
 
-export const Arguments = ({ data }: { data: ArgumentObj }) => {
-  if (Object.keys(data).length === 0) {
+export const Arguments = ({ data }: { data: ParameterInterface[] }) => {
+  if (data.length === 0) {
     return null;
   }
 
-  return Object.keys(data).length === 0 ||
-    (Object.keys(data).length === 1 &&
-      Object.keys(data)[0] === "self") ? null : (
+  return data.length === 0 ||
+    (data.length === 1 &&
+      data[0].name === "self") ? null : (
     <div>
       <h5>Arguments</h5>
       <ul className="sm:ml-4 mt-0">
-        {Object.entries(data).map(
-          ([name, { annotation, description, default: defaultValue }]) =>
+        {data.map(
+          ({ name, annotation, description, value }) =>
             name !== "self" && (
               <li key={name}>
                 <Argument
                   name={name}
                   type={annotation!}
-                  defaultValue={defaultValue}
+                  defaultValue={value}
                   description={description}
                 />
               </li>

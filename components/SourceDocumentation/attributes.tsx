@@ -1,9 +1,9 @@
 import { Code } from "../Code";
 import Markdown, { splitParagraph } from "../Markdown/markdown";
 import { LinkAnnotation } from "./annotation";
-import { PropertyObj } from "./types";
+import { AttributeInterface } from "./types";
 
-export const Attributes = ({ data }: { data: PropertyObj[] }) => {
+export const Attributes = ({ data }: { data: AttributeInterface[] }) => {
   return (
     <div className="[&_p]:my-2">
       <ul className="sm:ml-4 mt-0 [&_p]:my-2">

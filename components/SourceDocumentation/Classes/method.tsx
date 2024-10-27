@@ -1,4 +1,4 @@
-import { MethodObj, ReturnObj } from "@/components/SourceDocumentation/types";
+import { FunctionInterface, MethodObj, ReturnObj } from "@/components/SourceDocumentation/types";
 import { Code } from "@/components/Code";
 import MethodHeader from "./MethodHeader";
 import Markdown from "@/components/Markdown/markdown";
@@ -81,16 +81,16 @@ export const Constructor = ({
   data,
   clsName,
 }: {
-  data: MethodObj;
+  data: FunctionInterface;
   clsName: string;
 }) => {
-  const code = data.source.code ? (
-    <Code code={data.source.code} className="my-2" />
+  const code = data.source ? (
+    <Code code={data.source} className="my-2" />
   ) : null;
   const signature = (
     <Code
       className="whitespace-pre-wrap overflow-x-scroll"
-      code={data.signature as string}
+      code={data.signature}
       inline
       noBackground
     />
@@ -107,11 +107,11 @@ export const Constructor = ({
       />
 
       <div className="sm:ml-4">
-        <Markdown input={data.docstring as string} />
-        <Arguments data={data.arguments} />
-        {data.examples && data.examples.length > 0 && (
-          <Examples examples={data.examples} />
-        )}
+        <Markdown input={data.description as string} />
+        <Arguments data={data.parameters} />
+        {/* {data.examples && data.examples.length > 0 && ( */}
+        {/*   <Examples examples={data.examples} /> */}
+        {/* )} */}
       </div>
     </>
   );
