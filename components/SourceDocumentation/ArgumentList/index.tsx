@@ -4,16 +4,16 @@ import { LinkAnnotation } from "../annotation";
 import Markdown, { splitParagraph } from "@/components/Markdown/markdown";
 
 export const Arguments = ({ data }: { data: ParameterInterface[] }) => {
+  if (!data) return null;
   if (data.length === 0) {
     return null;
   }
 
   return data.length === 0 ||
-    (data.length === 1 &&
-      data[0].name === "self") ? null : (
+    (data.length === 1 && data[0].name === "self") ? null : (
     <div>
       <h5>Arguments</h5>
-      <ul className="sm:ml-4 mt-0">
+      <ul className="sm:ml-indent2 mt-0">
         {data.map(
           ({ name, annotation, description, value }) =>
             name !== "self" && (

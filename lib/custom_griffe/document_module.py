@@ -6,7 +6,6 @@ import typing as t
 import griffe
 
 from .models import Attribute, Class, Function, Module
-
 from .simplify_docstring import simplify_docstring
 from .utils import build_signature, filter_non_imported
 
@@ -20,9 +19,14 @@ def parse_module(m: griffe.Module) -> Module:
         "description": out.description,
         "docstring": out.remainder,
         "attributes": out.attributes,
+        # "modules": {
+        #     name: parse_module(value)
+        #     for name, value in filter_non_imported(m.modules).items()
+        # },
         "modules": {
             name: parse_module(value)
-            for name, value in filter_non_imported(m.modules).items()
+            for name, value in m.modules.items()
+            if not value.is_alias
         },
         "classes": {
             name: parse_class(value)
@@ -49,6 +53,10 @@ def parse_class(c: griffe.Class) -> Class:
             name: parse_function(value) for name, value in c.functions.items()
         },
         "source": c.source,
+        "inherited_members": [
+            {"kind": member.kind, "path": member.canonical_path}
+            for member in c.inherited_members.values()
+        ],
     }
     return res
 

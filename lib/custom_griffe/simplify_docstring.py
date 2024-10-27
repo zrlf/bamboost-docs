@@ -102,7 +102,7 @@ def simplify_docstring(
             continue
 
         if sec.kind == "returns":
-            returns = sec.value
+            returns = sec.value[0]
             continue
 
         if sec.kind == "attributes":

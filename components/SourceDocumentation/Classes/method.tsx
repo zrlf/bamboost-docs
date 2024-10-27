@@ -1,4 +1,7 @@
-import { FunctionInterface, ReturnObj } from "@/components/SourceDocumentation/types";
+import {
+  FunctionInterface,
+  ReturnInterface,
+} from "@/components/SourceDocumentation/types";
 import { Code } from "@/components/Code";
 import MethodHeader from "./MethodHeader";
 import Markdown from "@/components/Markdown/markdown";
@@ -28,6 +31,7 @@ export const Method = ({
   //   <Code code="@classmethod" inline noBackground />
   // ) : undefined;
   const isClassMethod = undefined;
+  if (data.name === "remove") console.log(data.returns);
 
   return (
     <>
@@ -40,7 +44,7 @@ export const Method = ({
         isClassMethod={isClassMethod}
       />
 
-      <div className="sm:ml-4">
+      <div className="sm:ml-indent">
         <Markdown input={data.description as string} />
         <Arguments data={data.parameters} />
         {data.returns &&
@@ -53,7 +57,7 @@ export const Method = ({
   );
 };
 
-const Returns = ({ data }: { data: ReturnObj }) => {
+const Returns = ({ data }: { data: ReturnInterface }) => {
   return (
     <div>
       <h5>Returns</h5>
@@ -85,13 +89,13 @@ export const Constructor = ({
   data: FunctionInterface;
   clsName: string;
 }) => {
-  const code = data.source ? (
+  const code = data?.source ? (
     <Code code={data.source} className="my-2" />
   ) : null;
   const signature = (
     <Code
       className="whitespace-pre-wrap overflow-x-scroll"
-      code={data.signature}
+      code={data?.signature}
       inline
       noBackground
     />
@@ -100,20 +104,22 @@ export const Constructor = ({
   return (
     <>
       <MethodHeader
-        name={data.name}
+        name={data?.name}
         clsName={clsName}
         signature={signature}
         code={code}
         isConstructor
       />
 
-      <div className="sm:ml-4">
-        <Markdown input={data.description as string} />
-        <Arguments data={data.parameters} />
-        {/* {data.examples && data.examples.length > 0 && ( */}
-        {/*   <Examples examples={data.examples} /> */}
-        {/* )} */}
-      </div>
+      {data && (
+        <div className="sm:ml-4">
+          <Markdown input={data.description as string} />
+          <Arguments data={data.parameters} />
+          {/* {data.examples && data.examples.length > 0 && ( */}
+          {/*   <Examples examples={data.examples} /> */}
+          {/* )} */}
+        </div>
+      )}
     </>
   );
 };

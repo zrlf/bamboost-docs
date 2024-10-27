@@ -6,7 +6,7 @@ import { AttributeInterface } from "./types";
 export const Attributes = ({ data }: { data: AttributeInterface[] }) => {
   return (
     <div className="[&_p]:my-2">
-      <ul className="sm:ml-4 mt-0 [&_p]:my-2">
+      <ul className="sm:ml-indent2 mt-0 [&_p]:my-2">
         {data.map((property) => (
           <li key={property.name}>
             <div className="flex flex-wrap items-center">

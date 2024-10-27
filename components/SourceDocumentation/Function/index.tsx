@@ -29,7 +29,7 @@ export const Function = ({ data }: { data: FunctionInterface }) => {
   return (
     <div>
       <FunctionHeader data={data} signature={signature} code={sourceCode} />
-      <div className="sm:ml-4">
+      <div className="sm:ml-indent">
         {data.description && <Markdown input={data.description} />}
         <Arguments data={data.parameters} />
         {data.returns &&
@@ -45,7 +45,7 @@ const Returns = ({ data }: { data: ReturnInterface }) => {
   return (
     <div>
       <h5>Returns</h5>
-      <div className="ml-4">
+      <div className="ml-indent">
         <LinkAnnotation children={data.annotation} />
         <span className="ml-2">{data.description}</span>
       </div>

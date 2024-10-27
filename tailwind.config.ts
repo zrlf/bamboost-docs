@@ -18,6 +18,10 @@ export default {
   ],
   theme: {
     extend: {
+      margin: {
+        indent: "2rem",
+        indent2: "1rem",
+      },
       typography: {
         DEFAULT: {
           css: {
