@@ -35,9 +35,9 @@ export const Class = ({ data }: { data: ClassInterface }) => {
 
       {/* <InheritedMembers data={data.inherits_from} /> */}
 
-      {Object.values(data.methods).map((method) => {
-        if (!method) return null;
-        return <Method data={method} clsName={data.name} key={method.name} />;
+      {Object.values(data.functions).map((func) => {
+        if (!func) return null;
+        return <Method data={func} clsName={data.name} key={func.name} />;
       })}
     </div>
   );
