@@ -19,10 +19,6 @@ def parse_module(m: griffe.Module) -> Module:
         "description": out.description,
         "docstring": out.remainder,
         "attributes": out.attributes,
-        # "modules": {
-        #     name: parse_module(value)
-        #     for name, value in filter_non_imported(m.modules).items()
-        # },
         "modules": {
             name: parse_module(value)
             for name, value in m.modules.items()
@@ -30,11 +26,13 @@ def parse_module(m: griffe.Module) -> Module:
         },
         "classes": {
             name: parse_class(value)
-            for name, value in filter_non_imported(m.classes).items()
+            for name, value in m.classes.items()
+            if not value.is_alias
         },
         "functions": {
             name: parse_function(value)
-            for name, value in filter_non_imported(m.functions).items()
+            for name, value in m.functions.items()
+            if not value.is_alias
         },
     }
     return res
@@ -53,11 +51,14 @@ def parse_class(c: griffe.Class) -> Class:
             name: parse_function(value) for name, value in c.functions.items()
         },
         "source": c.source,
-        "inherited_members": [
-            {"kind": member.kind, "path": member.canonical_path}
-            for member in c.inherited_members.values()
-        ],
+        "inherited_members": {},
     }
+    for member in c.inherited_members.values():
+        parent_path = member.parent.path
+        member_info = {"kind": member.kind, "path": member.canonical_path}
+        if parent_path not in res["inherited_members"]:
+            res["inherited_members"][parent_path] = []
+        res["inherited_members"][parent_path].append(member_info)
     return res
 
 

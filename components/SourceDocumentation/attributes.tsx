@@ -10,23 +10,23 @@ export const Attributes = ({ data }: { data: AttributeInterface[] }) => {
         {data.map((property) => (
           <li key={property.name}>
             <div className="flex flex-wrap items-center">
-              <h6>{property.name}</h6>
+              <h6 className="font-mono">{property.name}</h6>
               {property.annotation && (
                 <span className="ml-2">
                   <LinkAnnotation children={property.annotation} />
                 </span>
               )}
-              {property.default && (
+              {property.value && (
                 <>
                   <span className="ml-2">=</span>
                   <span className="ml-2">
-                    <Code code={property.default} inline />
+                    <Code code={property.value} inline />
                   </span>
                 </>
               )}
             </div>
             {property.description && (
-              <Markdown input={splitParagraph(property.description)} />
+              <Markdown input={property.description} />
             )}
           </li>
         ))}

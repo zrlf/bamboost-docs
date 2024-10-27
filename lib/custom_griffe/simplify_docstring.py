@@ -102,7 +102,12 @@ def simplify_docstring(
             continue
 
         if sec.kind == "returns":
-            returns = sec.value[0]
+            returns: griffe.DocstringReturn = sec.value[0]
+            returns.annotation = (
+                returns.annotation.canonical_path
+                if isinstance(returns.annotation, griffe.Expr)
+                else returns.annotation
+            )
             continue
 
         if sec.kind == "attributes":

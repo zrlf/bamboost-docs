@@ -60,7 +60,7 @@ export function getStructuredData(data: ModuleInterface): StructuredData {
     // Methods
     for (const func of Object.values(cls.functions)) {
       if (!func) continue;
-      const id = cls.name + func.name;
+      const id = `${cls.name}.${func.name}`;
 
       headings.push({ id: id, content: func.name });
       if (func.description) {

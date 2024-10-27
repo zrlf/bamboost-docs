@@ -19,6 +19,7 @@ interface ClassInterface {
   attributes: AttributeInterface[];
   functions: { [key: string]: FunctionInterface };
   source: string;
+  inherited_members: { [key: string]: { kind: string; path: string }[] };
 }
 
 interface FunctionInterface {
@@ -36,7 +37,7 @@ interface AttributeInterface {
   name: string;
   annotation: string | null;
   description: string | null;
-  default: string | null;
+  value: string | null;
 }
 
 interface SectionInterface {

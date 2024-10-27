@@ -8,6 +8,7 @@ import fuma from "fumadocs-ui/mdx";
 
 export const Module = ({ data }: { data: ModuleInterface }) => {
   let cards = null;
+
   if (Object.keys(data.modules).length > 0) {
     cards = (
       <Cards>
@@ -27,6 +28,7 @@ export const Module = ({ data }: { data: ModuleInterface }) => {
       </Cards>
     );
   }
+
   return (
     <div>
       {data.description && <Markdown input={data.description} />}

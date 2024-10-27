@@ -26,7 +26,7 @@ export const Method = ({
       className="whitespace-pre-line text-wrap"
     />
   );
-  const id = `${clsName}${data.name}`;
+  const id = `${clsName}.${data.name}`;
   // const isClassMethod = data.props?.isClassMethod ? (
   //   <Code code="@classmethod" inline noBackground />
   // ) : undefined;
@@ -34,7 +34,7 @@ export const Method = ({
   if (data.name === "remove") console.log(data.returns);
 
   return (
-    <>
+    <div className="mt-14">
       <MethodHeader
         name={data.name}
         clsName={clsName}
@@ -45,7 +45,7 @@ export const Method = ({
       />
 
       <div className="sm:ml-indent">
-        <Markdown input={data.description as string} />
+        {data.description && <Markdown input={data.description} />}
         <Arguments data={data.parameters} />
         {data.returns &&
           (data.returns.annotation || data.returns.description) && (
@@ -53,7 +53,7 @@ export const Method = ({
           )}
         {/* {data.examples.length > 0 && <Examples examples={data.examples} />} */}
       </div>
-    </>
+    </div>
   );
 };
 
@@ -102,24 +102,13 @@ export const Constructor = ({
   );
 
   return (
-    <>
+    <div>
       <MethodHeader
-        name={data?.name}
         clsName={clsName}
         signature={signature}
         code={code}
         isConstructor
       />
-
-      {data && (
-        <div className="sm:ml-4">
-          <Markdown input={data.description as string} />
-          <Arguments data={data.parameters} />
-          {/* {data.examples && data.examples.length > 0 && ( */}
-          {/*   <Examples examples={data.examples} /> */}
-          {/* )} */}
-        </div>
-      )}
-    </>
+    </div>
   );
 };

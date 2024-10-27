@@ -7,7 +7,7 @@ import { TOCItemType } from "fumadocs-core/server";
 import { StructuredData } from "fumadocs-core/mdx-plugins";
 import { getStructuredData } from "./getStructuredData";
 import { createElement } from "react";
-import {icons} from "lucide-react";
+import { icons } from "lucide-react";
 
 interface Page {
   slug: string[];
@@ -22,14 +22,10 @@ interface Page {
 const Separator = ({ title }: { title: string }) => {
   return (
     <div>
-      <div
-        className="relative text-foreground font-semibold z-10 mt-4"
-      >
+      <div className="relative text-foreground font-semibold z-[1] lg:mt-4">
         {title}
       </div>
-      <div
-        className="hidden lg:block absolute inset-0 bg-background"
-      ></div>
+      <div className="hidden lg:block absolute inset-0 bg-background"></div>
     </div>
   );
 };
@@ -52,7 +48,11 @@ function createTOC(module: ModuleInterface): TOCItemType[] {
       url: "#functions",
     });
     Object.values(module.functions).forEach((func) => {
-      headers.push({ title: func.name, depth: 2, url: `#${func.name}` });
+      headers.push({
+        title: <div className="toc-func">{func.name}</div>,
+        depth: 2,
+        url: `#${func.name}`,
+      });
     });
   }
 
@@ -63,9 +63,17 @@ function createTOC(module: ModuleInterface): TOCItemType[] {
       url: "#classes",
     });
     Object.values(module.classes).forEach((cls) => {
-      headers.push({ title: cls.name, depth: 2, url: `#${cls.name}` });
+      headers.push({
+        title: <div className="toc-class">{cls.name}</div>,
+        depth: 2,
+        url: `#${cls.name}`,
+      });
       Object.keys(cls.functions).forEach((method) => {
-        headers.push({ title: method, depth: 3, url: `#${cls.name}${method}` });
+        headers.push({
+          title: <div className="toc-meth">{method}</div>,
+          depth: 3,
+          url: `#${cls.name}.${method}`,
+        });
       });
     });
   }
@@ -103,7 +111,7 @@ export function createAPISource(): Source<{
       // We're at the root __init__ module
       pages.push({
         slug: path,
-        title: `bamboost @${currentData.attributes.find(a => a.name === "__version__")?.default}`,
+        title: `bamboost @${currentData.attributes.find((a) => a.name === "__version__")?.default}`,
         path: path.join("/"),
         description: currentData.description || "",
         toc: createTOC(currentData),
@@ -137,9 +145,9 @@ export const docSource = loader({
   baseUrl: "/docs",
   icon(icon) {
     if (!icon) {
-      return
+      return;
     }
-    if (icon in icons) return createElement(icons[icon as keyof typeof icons])
+    if (icon in icons) return createElement(icons[icon as keyof typeof icons]);
   },
   source: createMDXSource(docs, meta),
 });

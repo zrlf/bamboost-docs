@@ -18,6 +18,11 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        class: "hsl(var(--class))",
+        meth: "hsl(var(--meth))",
+        func: "hsl(var(--func))",
+      },
       margin: {
         indent: "2rem",
         indent2: "1rem",

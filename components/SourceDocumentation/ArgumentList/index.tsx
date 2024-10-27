@@ -1,7 +1,7 @@
 import { Code } from "@/components/Code";
 import { ParameterInterface } from "../types";
 import { LinkAnnotation } from "../annotation";
-import Markdown, { splitParagraph } from "@/components/Markdown/markdown";
+import Markdown from "@/components/Markdown/markdown";
 
 export const Arguments = ({ data }: { data: ParameterInterface[] }) => {
   if (!data) return null;
@@ -46,7 +46,7 @@ const Argument = ({
   return (
     <div className="[&_p]:my-2">
       <div className="flex flex-wrap items-center">
-        <h6>{name}</h6>
+        <h6 className="font-mono">{name}</h6>
         <span className="mx-2">
           <Code code={type} inline link />
         </span>
@@ -59,7 +59,7 @@ const Argument = ({
           </>
         )}
       </div>
-      {description && <Markdown input={splitParagraph(description)} />}
+      {description && <Markdown input={description} />}
     </div>
   );
 };
