@@ -1,16 +1,16 @@
 "use client";
 import { useState } from "react";
-import { MethodObj } from "../types";
 import FumaComponents from "fumadocs-ui/mdx";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FunctionInterface } from "../types";
 
 export const FunctionHeader = ({
   data,
   signature,
   code,
 }: {
-  data: MethodObj;
+  data: FunctionInterface;
   signature: JSX.Element;
   code: JSX.Element;
 }) => {
@@ -21,13 +21,14 @@ export const FunctionHeader = ({
       <div
         className={cn(
           "flex flex-col sm:flex-row sm:justify-between w-full sm:items-center",
-          "bg-secondary/50 rounded-md px-4 mt-12 border pb-2 sm:pb-0",
+          "bg-secondary/50 rounded-md px-4 mt-12 pb-2 sm:pb-0",
+          "border-l-primary/50 border-l-4"
         )}
       >
-        <FumaComponents.h3 id={data.name} className="my-2">
+        <FumaComponents.h4 id={data.name} className="my-2 font-mono">
           {data.name}
-          {signature}
-        </FumaComponents.h3>
+          <span className="ml-2 leading-relaxed">{signature}</span>
+        </FumaComponents.h4>
         <button
           className="text-xs border px-2 py-1 rounded size-fit text-muted-foreground text-nowrap"
           onClick={() => setSourceCodeVisible(!sourceCodeVisible)}

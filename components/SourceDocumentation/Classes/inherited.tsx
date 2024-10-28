@@ -4,30 +4,26 @@ import { useState } from "react";
 import { LinkAnnotation } from "../annotation";
 import {
   ArrowDownCircleIcon,
-  ChevronDown,
-  ChevronDownCircle,
-  ChevronDownCircleIcon,
-  LucideChevronDownCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import fuma from "fumadocs-ui/mdx";
+import { ClassInterface } from "../types";
 
 export const InheritedMembers = ({
   data,
 }: {
-  data: { [key: string]: { module: string; members: string[][] } };
+  data: ClassInterface["inherited_members"];
 }) => {
   return (
     <div>
       {Object.keys(data).length > 0 && (
         <>
-          <fuma.h4 className="relative mt-12">Inherits</fuma.h4>
+          <h5 className="relative mt-12 mb-2">Inherits</h5>
           <div className="space-y-8">
-            {Object.entries(data).map(([cls, { module, members }]) => (
+            {Object.entries(data).map(([parent, members]) => (
               <InheritedFromClass
-                key={cls}
-                module={module}
-                cls={cls}
+                key={parent}
+                module={parent}
+                cls={parent}
                 members={members}
               />
             ))}
@@ -45,7 +41,7 @@ const InheritedFromClass = ({
 }: {
   module: string;
   cls: string;
-  members: string[][];
+  members: ClassInterface["inherited_members"][string];
 }) => {
   const [isOpened, setIsOpened] = useState(false);
 
@@ -71,10 +67,10 @@ const InheritedFromClass = ({
         )}
       >
         <ul className={cn("space-y-0 my-2 overflow-auto list-inside")}>
-          {members.map(([type, name], index) => (
-            <li key={index} className="my-0">
+          {members.map(({kind, path}) => (
+            <li key={path} className="my-0">
               <LinkAnnotation>
-                {`${cls}.${name}` + (type == "function" ? "()" : "")}
+                {path + (kind == "function" ? "()" : "")}
               </LinkAnnotation>
             </li>
           ))}

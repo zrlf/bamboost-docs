@@ -30,22 +30,20 @@ export default function MethodHeader({
       <div
         className={cn(
           "flex flex-col sm:flex-row sm:justify-between sm:items-center",
-          "bg-secondary/50 rounded-md px-4 mt-20 mb-4 border pb-2 sm:pb-0",
+          "bg-secondary/50 rounded-md px-4 mb-4 pb-2 sm:pb-0",
+          "border-l-class/50 border-l-4"
         )}
       >
         <div className="">
           {isClassMethod}
           <FumaComponents.h4
             id={id}
-            className={cn(isClassMethod ? "my-2 mt-0" : "my-2")}
+            className={cn(isClassMethod ? "my-2 mt-0" : "my-2", "font-mono")}
           >
-            {isConstructor && (
-              <span className="text-foreground mr-2">Constructor:</span>
-            )}
             {clsName && (
               <span
                 className={cn(
-                  "text-muted-foreground text-base",
+                  "text-muted-foreground/80 text-base",
                   isConstructor && "text-foreground",
                 )}
               >
@@ -53,10 +51,10 @@ export default function MethodHeader({
               </span>
             )}
             {clsName && name && (
-              <span className="text-muted-foreground mx-1">.</span>
+              <span className="text-muted-foreground/80">.</span>
             )}
-            {name}
-            {signature}
+            <span className="">{name}</span>
+            <span className="ml-2 leading-relaxed">{signature}</span>
           </FumaComponents.h4>
         </div>
 

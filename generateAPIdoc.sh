@@ -1,6 +1,6 @@
 # Install package
-pip install ./lib/pdoc_to_json
+pip install griffe
 
 # Generate API docs
-# Output: ./bamboostAPIdoc.json
-python ./lib/generateBamboostApiDocs.py
+# Output: ./api.json
+python ./lib/bamboost_to_json.py

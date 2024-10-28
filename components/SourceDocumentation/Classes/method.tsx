@@ -1,19 +1,23 @@
-import { MethodObj, ReturnObj } from "@/components/SourceDocumentation/types";
+import {
+  FunctionInterface,
+  ReturnInterface,
+} from "@/components/SourceDocumentation/types";
 import { Code } from "@/components/Code";
 import MethodHeader from "./MethodHeader";
 import Markdown from "@/components/Markdown/markdown";
 import { Arguments } from "@/components/SourceDocumentation/ArgumentList";
 import { LinkAnnotation } from "../annotation";
+import { DocstringSections } from "@/components/Markdown/DocstringSections";
 
 export const Method = ({
   data,
   clsName,
 }: {
-  data: MethodObj;
+  data: FunctionInterface;
   clsName: string;
 }) => {
-  const code = data.source.code ? (
-    <Code code={data.source.code} className="my-2" />
+  const code = data.source ? (
+    <Code code={data.source} className="my-2" />
   ) : null;
   const signature = (
     <Code
@@ -23,13 +27,11 @@ export const Method = ({
       className="whitespace-pre-line text-wrap"
     />
   );
-  const id = `${clsName}${data.name}`;
-  const isClassMethod = data.props?.isClassMethod ? (
-    <Code code="@classmethod" inline noBackground />
-  ) : undefined;
+  const id = `${clsName}.${data.name}`;
+  const isClassMethod = undefined;
 
   return (
-    <>
+    <div className="mt-14">
       <MethodHeader
         name={data.name}
         clsName={clsName}
@@ -39,39 +41,32 @@ export const Method = ({
         isClassMethod={isClassMethod}
       />
 
-      <div className="sm:ml-4">
-        <Markdown input={data.docstring as string} />
-        <Arguments data={data.arguments} />
+      <div className="sm:ml-indent space-y-6">
+        {data.description && <Markdown input={data.description} />}
+        <Arguments data={data.parameters} />
         {data.returns &&
           (data.returns.annotation || data.returns.description) && (
             <Returns data={data.returns} />
           )}
-        {data.examples.length > 0 && <Examples examples={data.examples} />}
-      </div>
-    </>
-  );
-};
 
-const Returns = ({ data }: { data: ReturnObj }) => {
-  return (
-    <div>
-      <h5>Returns</h5>
-      <div className="ml-4">
-        <LinkAnnotation children={data.annotation} />
-        <span className="ml-2">{data.description}</span>
+        {data.docstring.length > 0 && (
+          <>
+            {/* <div className="w-full h-px bg-border"></div> */}
+            <DocstringSections sections={data.docstring} />
+          </>
+        )}
       </div>
     </div>
   );
 };
 
-const Examples = ({ examples }: { examples: string[] }) => {
+const Returns = ({ data }: { data: ReturnInterface }) => {
   return (
     <div>
-      <h5>Examples</h5>
-      <div className="ml-4">
-        {examples.map((example, i) => (
-          <Code key={i} code={example} className="my-2 py-2 [&_*]:py-0" />
-        ))}
+      <h5>Returns</h5>
+      <div className="ml-indent2">
+        <LinkAnnotation children={data.annotation} />
+        <span className="ml-2">{data.description}</span>
       </div>
     </div>
   );
@@ -81,38 +76,29 @@ export const Constructor = ({
   data,
   clsName,
 }: {
-  data: MethodObj;
+  data: FunctionInterface;
   clsName: string;
 }) => {
-  const code = data.source.code ? (
-    <Code code={data.source.code} className="my-2" />
+  const code = data?.source ? (
+    <Code code={data.source} className="my-2" />
   ) : null;
   const signature = (
     <Code
       className="whitespace-pre-wrap overflow-x-scroll"
-      code={data.signature as string}
+      code={data?.signature}
       inline
       noBackground
     />
   );
 
   return (
-    <>
+    <div>
       <MethodHeader
-        name={data.name}
         clsName={clsName}
         signature={signature}
         code={code}
         isConstructor
       />
-
-      <div className="sm:ml-4">
-        <Markdown input={data.docstring as string} />
-        <Arguments data={data.arguments} />
-        {data.examples && data.examples.length > 0 && (
-          <Examples examples={data.examples} />
-        )}
-      </div>
-    </>
+    </div>
   );
 };
