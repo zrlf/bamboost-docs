@@ -1,5 +1,5 @@
 import { Code } from "../Code";
-import Markdown, { splitParagraph } from "../Markdown/markdown";
+import Markdown from "../Markdown/markdown";
 import { LinkAnnotation } from "./annotation";
 import { AttributeInterface } from "./types";
 

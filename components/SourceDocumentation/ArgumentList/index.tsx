@@ -1,6 +1,5 @@
 import { Code } from "@/components/Code";
 import { ParameterInterface } from "../types";
-import { LinkAnnotation } from "../annotation";
 import Markdown from "@/components/Markdown/markdown";
 import { DocstringSections } from "@/components/Markdown/DocstringSections";
 

@@ -28,9 +28,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "components/Markdown/plugins/customBlockquote.js",
-    "components/Markdown/plugins/customBlockquote.js"
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

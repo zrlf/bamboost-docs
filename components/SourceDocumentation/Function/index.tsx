@@ -1,5 +1,5 @@
-import { FunctionInterface, ReturnInterface, ModuleInterface } from "../types";
-import Markdown, { splitParagraph } from "../../Markdown/markdown";
+import { FunctionInterface, ReturnInterface } from "../types";
+import Markdown from "../../Markdown/markdown";
 import { FunctionHeader } from "./FunctionHeader";
 import { Code } from "../../Code";
 import { Arguments } from "../ArgumentList";
