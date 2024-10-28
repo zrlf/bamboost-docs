@@ -21,7 +21,8 @@ export const FunctionHeader = ({
       <div
         className={cn(
           "flex flex-col sm:flex-row sm:justify-between w-full sm:items-center",
-          "bg-secondary/50 rounded-md px-4 mt-12 border pb-2 sm:pb-0",
+          "bg-secondary/50 rounded-md px-4 mt-12 pb-2 sm:pb-0",
+          "border-l-primary/50 border-l-4"
         )}
       >
         <FumaComponents.h4 id={data.name} className="my-2 font-mono">

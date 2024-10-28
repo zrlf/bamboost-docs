@@ -14,7 +14,7 @@ export const Arguments = ({ data }: { data: ParameterInterface[] }) => {
     (data.length === 1 && data[0].name === "self") ? null : (
     <div>
       <h5>Arguments</h5>
-      <ul className="sm:ml-indent2 mt-0">
+      <ul className="ml-indent2 mt-0">
         {data.map(
           ({ name, annotation, description, value }) =>
             name !== "self" && (

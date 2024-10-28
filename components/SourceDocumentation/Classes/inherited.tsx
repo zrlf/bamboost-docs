@@ -6,7 +6,6 @@ import {
   ArrowDownCircleIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import fuma from "fumadocs-ui/mdx";
 import { ClassInterface } from "../types";
 
 export const InheritedMembers = ({

@@ -1,7 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Card } from "fumadocs-ui/components/card";
-import { CircleHelp, FileQuestion } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 

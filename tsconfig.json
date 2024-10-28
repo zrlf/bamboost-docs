@@ -24,6 +24,13 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Markdown/plugins/customBlockquote.js", "components/Markdown/plugins/customBlockquote.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "components/Markdown/plugins/customBlockquote.js",
+    "components/Markdown/plugins/customBlockquote.js"
+  ],
   "exclude": ["node_modules"]
 }
