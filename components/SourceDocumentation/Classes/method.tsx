@@ -7,6 +7,7 @@ import MethodHeader from "./MethodHeader";
 import Markdown from "@/components/Markdown/markdown";
 import { Arguments } from "@/components/SourceDocumentation/ArgumentList";
 import { LinkAnnotation } from "../annotation";
+import { DocstringSections } from "@/components/Markdown/DocstringSections";
 
 export const Method = ({
   data,
@@ -27,11 +28,7 @@ export const Method = ({
     />
   );
   const id = `${clsName}.${data.name}`;
-  // const isClassMethod = data.props?.isClassMethod ? (
-  //   <Code code="@classmethod" inline noBackground />
-  // ) : undefined;
   const isClassMethod = undefined;
-  if (data.name === "remove") console.log(data.returns);
 
   return (
     <div className="mt-14">
@@ -44,14 +41,20 @@ export const Method = ({
         isClassMethod={isClassMethod}
       />
 
-      <div className="sm:ml-indent">
+      <div className="sm:ml-indent space-y-6">
         {data.description && <Markdown input={data.description} />}
         <Arguments data={data.parameters} />
         {data.returns &&
           (data.returns.annotation || data.returns.description) && (
             <Returns data={data.returns} />
           )}
-        {/* {data.examples.length > 0 && <Examples examples={data.examples} />} */}
+
+        {data.docstring.length > 0 && (
+          <>
+            {/* <div className="w-full h-px bg-border"></div> */}
+            <DocstringSections sections={data.docstring} />
+          </>
+        )}
       </div>
     </div>
   );
@@ -61,22 +64,9 @@ const Returns = ({ data }: { data: ReturnInterface }) => {
   return (
     <div>
       <h5>Returns</h5>
-      <div className="ml-4">
+      <div className="ml-indent2">
         <LinkAnnotation children={data.annotation} />
         <span className="ml-2">{data.description}</span>
-      </div>
-    </div>
-  );
-};
-
-const Examples = ({ examples }: { examples: string[] }) => {
-  return (
-    <div>
-      <h5>Examples</h5>
-      <div className="ml-4">
-        {examples.map((example, i) => (
-          <Code key={i} code={example} className="my-2 py-2 [&_*]:py-0" />
-        ))}
       </div>
     </div>
   );

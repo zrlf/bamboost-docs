@@ -6,18 +6,31 @@ import { apiSource } from "@/lib/source";
 export default function Layout({ children }: { children: ReactNode }) {
   // I manually add a separator to the page tree
   const treeChildren = apiSource.pageTree.children;
-  const version = apiSource.getPage([""])?.data.data?.version;
+
+  const version = apiSource
+    .getPage([""])
+    ?.data.data?.attributes.find((attr) => attr.name === "__version__")?.value;
+
   const modifiedTreeChildren: [] = [];
+
   for (const child of treeChildren) {
     const isRoot = child.name?.toString().startsWith("bamboost");
 
     if (isRoot) {
       child.name = "bamboost";
-      
+
       // @ts-expect-error
       modifiedTreeChildren.push({
         type: "separator",
-        name: `Version: ${version}`,
+        // name: `Version: ${version?.replaceAll('\'', '')}`,
+        name: (
+          <span>
+            Version:{" "}
+            <code className="bg-muted p-1 rounded border">
+              {version?.replaceAll("'", "")}
+            </code>
+          </span>
+        ),
       });
       // @ts-expect-error
       modifiedTreeChildren.push(child);

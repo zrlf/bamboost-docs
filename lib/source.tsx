@@ -8,6 +8,7 @@ import { StructuredData } from "fumadocs-core/mdx-plugins";
 import { getStructuredData } from "./getStructuredData";
 import { createElement } from "react";
 import { icons } from "lucide-react";
+import { excludeModules } from "@/constants";
 
 interface Page {
   slug: string[];
@@ -88,30 +89,34 @@ export function createAPISource(): Source<{
 
   function traverse(currentData: ModuleInterface, path: string[]) {
     if (path.length > 0 && currentData.name) {
-      function handlePageNamedIndex(slugIn: string[]) {
-        if (slugIn[slugIn.length - 1] === "index") {
-          return [...slugIn.slice(0, -1), "index_"];
-        } else {
-          return Object.keys(currentData.modules).length > 0
-            ? [...slugIn, "index"]
-            : slugIn;
+      function addPage(currentData: ModuleInterface, path: string[]) {
+        function handlePageNamedIndex(slugIn: string[]) {
+          if (slugIn[slugIn.length - 1] === "index") {
+            return [...slugIn.slice(0, -1), "index_"];
+          } else {
+            return Object.keys(currentData.modules).length > 0
+              ? [...slugIn, "index"]
+              : slugIn;
+          }
         }
+        const slug = handlePageNamedIndex(path);
+        pages.push({
+          slug,
+          title: currentData.name,
+          path: slug.join("/"),
+          description: currentData.description?.split("\n\n")[0],
+          toc: createTOC(currentData),
+          structuredData: getStructuredData(currentData),
+          data: currentData,
+        });
       }
-      const slug = handlePageNamedIndex(path);
-      pages.push({
-        slug,
-        title: currentData.name,
-        path: slug.join("/"),
-        description: currentData.description?.split("\n\n")[0],
-        toc: createTOC(currentData),
-        structuredData: getStructuredData(currentData),
-        data: currentData,
-      });
+      if (!excludeModules.includes(currentData.path))
+        addPage(currentData, path);
     } else {
       // We're at the root __init__ module
       pages.push({
         slug: path,
-        title: `bamboost @${currentData.attributes.find((a) => a.name === "__version__")?.default}`,
+        title: `bamboost @${currentData.attributes.find((a) => a.name === "__version__")?.value?.replaceAll("'", "")}`,
         path: path.join("/"),
         description: currentData.description || "",
         toc: createTOC(currentData),

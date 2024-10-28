@@ -48,6 +48,7 @@ def simplify_docstring(
                 "value": attr.value,
             }
             for attr in parent.attributes.values()
+            if (not attr.is_alias or attr.name == "__version__")  # exclude aliased attributes (except __version__)
         ]
 
     if not doc:
@@ -87,7 +88,14 @@ def simplify_docstring(
             params_list = []
             for param in parent.parameters:
                 if param.name in map:
-                    params_list.append(map[param.name])
+                    docstring = map[param.name]
+                    try:
+                        docstring.description = griffe.parse_google(
+                            griffe.Docstring(docstring.description)
+                        )
+                    except AttributeError:
+                        pass
+                    params_list.append(docstring)
                 else:
                     params_list.append(
                         {
@@ -114,6 +122,10 @@ def simplify_docstring(
             map = {i.name: i for i in sec.value}
             attributes_list = []
             for attr in parent.attributes.values():
+                # exclude aliased attributes
+                if attr.is_alias:
+                    continue
+
                 if attr.name in map:
                     attr_item: dict = map[attr.name].as_dict()
                     attr_item.update({"value": attr.value})

@@ -2,6 +2,7 @@ import { Code } from "@/components/Code";
 import { ParameterInterface } from "../types";
 import { LinkAnnotation } from "../annotation";
 import Markdown from "@/components/Markdown/markdown";
+import { DocstringSections } from "@/components/Markdown/DocstringSections";
 
 export const Arguments = ({ data }: { data: ParameterInterface[] }) => {
   if (!data) return null;
@@ -44,7 +45,7 @@ const Argument = ({
   description: string | null;
 }) => {
   return (
-    <div className="[&_p]:my-2">
+    <div className="[&_p:not(.not-prose)]:my-2">
       <div className="flex flex-wrap items-center">
         <h6 className="font-mono">{name}</h6>
         <span className="mx-2">
@@ -59,7 +60,12 @@ const Argument = ({
           </>
         )}
       </div>
-      {description && <Markdown input={description} />}
+      {description &&
+        (typeof description == "string" ? (
+          <Markdown input={description} />
+        ) : (
+          <DocstringSections sections={description} />
+        ))}
     </div>
   );
 };

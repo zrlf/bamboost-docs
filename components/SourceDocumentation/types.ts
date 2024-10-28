@@ -3,7 +3,7 @@ interface ModuleInterface {
   path: string;
   filepaths: string;
   description: string | null;
-  docstring: SectionInterface[] | null;
+  docstring: DocstringSection[] | null;
   modules: { [key: string]: ModuleInterface };
   attributes: AttributeInterface[];
   classes: { [key: string]: ClassInterface };
@@ -14,7 +14,7 @@ interface ClassInterface {
   name: string;
   path: string;
   description: string | null;
-  docstring: SectionInterface[] | null;
+  docstring: DocstringSection[] | null;
   parameters: ParameterInterface[];
   attributes: AttributeInterface[];
   functions: { [key: string]: FunctionInterface };
@@ -27,7 +27,7 @@ interface FunctionInterface {
   path: string;
   signature: string;
   description: string | null;
-  docstring: SectionInterface[] | null;
+  docstring: DocstringSection[];
   parameters: ParameterInterface[];
   returns: ReturnInterface;
   source: string;
@@ -40,11 +40,28 @@ interface AttributeInterface {
   value: string | null;
 }
 
-interface SectionInterface {
-  kind: string;
-  value: any;
-  title?: string;
-}
+type DocstringSection =
+  | {
+      kind: "text";
+      value: string;
+    }
+  | {
+      kind: "code";
+      value: string;
+      title?: string;
+    }
+  | {
+      kind: "admonition";
+      value: {
+        annotation: string;
+        description: string;
+      };
+      title: string;
+    }
+  | {
+      kind: "examples";
+      value: [string, string][];
+    };
 
 interface ParameterInterface {
   name: string;
@@ -64,7 +81,7 @@ export type {
   ClassInterface,
   FunctionInterface,
   AttributeInterface,
-  SectionInterface,
+  DocstringSection,
   ParameterInterface,
   ReturnInterface,
 };

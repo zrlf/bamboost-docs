@@ -12,7 +12,7 @@ export default {
   ],
   presets: [
     createPreset({
-      preset: "default",
+      preset: "vitepress",
       addGlobalColors: true,
     }),
   ],

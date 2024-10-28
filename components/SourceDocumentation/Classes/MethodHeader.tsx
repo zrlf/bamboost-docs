@@ -1,7 +1,7 @@
 "use client";
 import FumaComponents from "fumadocs-ui/mdx";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, RectangleEllipsis } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MethodHeaderProps {
@@ -30,7 +30,8 @@ export default function MethodHeader({
       <div
         className={cn(
           "flex flex-col sm:flex-row sm:justify-between sm:items-center",
-          "bg-secondary/50 rounded-md px-4 mb-4 border pb-2 sm:pb-0",
+          "bg-secondary/50 rounded-md px-4 mb-4 pb-2 sm:pb-0",
+          "border-l-primary/50 border-l-4"
         )}
       >
         <div className="">

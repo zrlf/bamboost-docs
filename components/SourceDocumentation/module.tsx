@@ -5,6 +5,8 @@ import { Functions } from "./Function";
 import { Attributes } from "./attributes";
 import { ModuleInterface } from "./types";
 import fuma from "fumadocs-ui/mdx";
+import { excludeModules } from "@/constants";
+import { DocstringSections } from "../Markdown/DocstringSections";
 
 export const Module = ({ data }: { data: ModuleInterface }) => {
   let cards = null;
@@ -13,6 +15,7 @@ export const Module = ({ data }: { data: ModuleInterface }) => {
     cards = (
       <Cards>
         {Object.values(data.modules).map((module) => {
+          if (excludeModules.includes(module.path)) return null;
           const sanitizedSlug = module.path.split(".")
             .slice(1)
             .map((slug) => slug.replace("index", "index_"));
@@ -32,6 +35,8 @@ export const Module = ({ data }: { data: ModuleInterface }) => {
   return (
     <div>
       {data.description && <Markdown input={data.description} />}
+
+      {data.docstring && <DocstringSections sections={data.docstring} />}
 
       {cards}
 

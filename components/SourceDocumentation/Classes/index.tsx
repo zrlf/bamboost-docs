@@ -5,10 +5,11 @@ import fuma from "fumadocs-ui/mdx";
 import { InheritedMembers } from "./inherited";
 import Markdown from "@/components/Markdown/markdown";
 import { Arguments } from "../ArgumentList";
+import { DocstringSections } from "@/components/Markdown/DocstringSections";
 
 export const Classes = ({ data }: { data: ClassInterface[] }) => {
   return (
-    <div>
+    <div className="space-y-20">
       {data.map((cls) => (
         <Class key={cls.name} data={cls} />
       ))}
@@ -37,6 +38,8 @@ export const Class = ({ data }: { data: ClassInterface }) => {
           <Attributes data={data.attributes} />
         </>
       )}
+
+      {data.docstring && <DocstringSections sections={data.docstring} />}
 
       <InheritedMembers data={data.inherited_members} />
 

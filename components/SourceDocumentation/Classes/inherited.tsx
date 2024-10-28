@@ -18,7 +18,7 @@ export const InheritedMembers = ({
     <div>
       {Object.keys(data).length > 0 && (
         <>
-          <fuma.h4 className="relative mt-12">Inherits</fuma.h4>
+          <h5 className="relative mt-12 mb-2">Inherits</h5>
           <div className="space-y-8">
             {Object.entries(data).map(([parent, members]) => (
               <InheritedFromClass
