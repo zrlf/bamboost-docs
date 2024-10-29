@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
-import { ALL_MODULES, API_PATH, PKG_NAME } from "@/constants";
 import Link from "fumadocs-core/link";
+import { sources } from "@/lib/source.api";
 
 export function LinkAnnotation({
   children,
@@ -14,7 +14,7 @@ export function LinkAnnotation({
     return null;
   }
 
-  const cleanedChildren = children.replace(/[^a-zA-Z0-9,._\[\]()= ]/g, "");
+  const cleanedChildren = children;
 
   // Remove any occurrence of class, func, etc.
   const filteredChildren = cleanedChildren
@@ -23,7 +23,11 @@ export function LinkAnnotation({
 
   // Find the part of the string that starts with 'bamboost.'
   const match = filteredChildren.match(
-    new RegExp(`${PKG_NAME}\\.[a-zA-Z0-9._]+`),
+    new RegExp(
+      `(${Object.values(sources)
+        .map((source) => source.pkgName)
+        .join("|")})\\.[a-zA-Z0-9._]+`,
+    ),
   );
 
   if (match) {
@@ -61,16 +65,18 @@ export function LinkifyPkg(
   input: string,
   markdown: boolean = false,
 ): React.ReactNode | string {
-  const prefix = `${PKG_NAME}.`;
-
-  // 1. Check if the input starts with 'bamboost.'
-  if (!input.startsWith(prefix)) {
-    // Do nothing if the prefix doesn't match
+  const matchingPackage = Object.values(sources).find((source) =>
+    input.startsWith(`${source.pkgName}.`),
+  );
+  if (!matchingPackage) {
+    // Do nothing if no matching package prefix is found
     return `${input}`;
   }
 
-  // 2. Remove the prefix
-  const afterPrefix = input.slice(prefix.length); // Remove 'bamboost.'
+  const prefix = `${matchingPackage.pkgName}.`;
+
+  // Remove the prefix
+  const afterPrefix = input.slice(prefix.length);
 
   // 3. Split the remaining string into segments
   const parts = afterPrefix.split(".");
@@ -80,7 +86,7 @@ export function LinkifyPkg(
   let matchedLength = 0;
 
   // 4. Iterate through ALL_SLUGS to find the longest matching slug
-  for (const slugPath of ALL_MODULES) {
+  for (const slugPath of matchingPackage.allSlugs) {
     const slugLength = slugPath.length;
 
     // Extract the corresponding segments from the input
@@ -102,7 +108,7 @@ export function LinkifyPkg(
   if (matchedSlug) {
     const remainderSegments = parts.slice(matchedLength);
     const remainder = remainderSegments.join(".");
-    const href = `${API_PATH}/${matchedSlug.join("/").replace("index", "index_")}#${remainderSegments.join(".")}`;
+    const href = `${matchingPackage.baseUrl}/${matchedSlug.join("/").replace("index", "index_")}#${remainderSegments.join(".")}`;
 
     if (markdown) {
       return `[${remainder}](${href})`;

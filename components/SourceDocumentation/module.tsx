@@ -8,7 +8,7 @@ import fuma from "fumadocs-ui/mdx";
 import { excludeModules } from "@/constants";
 import { DocstringSections } from "../Markdown/DocstringSections";
 
-export const Module = ({ data }: { data: ModuleInterface }) => {
+export const Module = ({ data, baseUrl = "apidocs" }: { data: ModuleInterface, baseUrl?: string }) => {
   let cards = null;
 
   if (Object.keys(data.modules).length > 0) {
@@ -24,7 +24,7 @@ export const Module = ({ data }: { data: ModuleInterface }) => {
               key={module.name}
               title={module.name}
               description={module.description}
-              href={`/apidocs/${sanitizedSlug.join("/")}`}
+              href={`/${baseUrl}/${sanitizedSlug.join("/")}`}
             />
           );
         })}

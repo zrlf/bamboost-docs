@@ -13,6 +13,7 @@ class Module(t.TypedDict):
     modules: t.Dict[str, Module]
     classes: t.Dict[str, Class]
     functions: t.Dict[str, Function]
+    version: t.Optional[str]
 
 
 class Class(t.TypedDict):

@@ -35,7 +35,7 @@ export const Class = ({ data }: { data: ClassInterface }) => {
         {data.attributes.length > 0 && (
           <>
             <h5>Attributes</h5>
-            <Attributes data={data.attributes} />
+            <Attributes data={data.attributes} parent={data.name}/>
           </>
         )}
 

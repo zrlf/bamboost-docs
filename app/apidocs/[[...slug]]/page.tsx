@@ -1,18 +1,16 @@
-import { apiSource } from "@/lib/source";
+import { sources } from "@/lib/source.api";
 import type { Metadata } from "next";
-import {
-  DocsPage,
-  DocsBody,
-  DocsTitle,
-} from "fumadocs-ui/page";
+import { DocsPage, DocsBody, DocsTitle } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
 import { Module } from "@/components/SourceDocumentation/module";
+
+const source = sources.bamboost;
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
 }) {
   const params = await props.params;
-  const page = apiSource.getPage(params.slug);
+  const page = source.getPage(params.slug);
   if (!page) notFound();
 
   return (
@@ -30,14 +28,14 @@ export default async function Page(props: {
 }
 
 export async function generateStaticParams() {
-  return apiSource.generateParams();
+  return source.generateParams();
 }
 
 export async function generateMetadata(props: {
   params: Promise<{ slug?: string[] }>;
 }) {
   const params = await props.params;
-  const page = apiSource.getPage(params.slug);
+  const page = source.getPage(params.slug);
   if (!page) notFound();
 
   return {

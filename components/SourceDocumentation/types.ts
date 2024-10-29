@@ -1,13 +1,13 @@
 interface ModuleInterface {
   name: string;
   path: string;
-  filepaths: string;
   description: string | null;
   docstring: DocstringSection[] | null;
   modules: { [key: string]: ModuleInterface };
   attributes: AttributeInterface[];
   classes: { [key: string]: ClassInterface };
   functions: { [key: string]: FunctionInterface };
+  version?: string;
 }
 
 interface ClassInterface {
@@ -61,13 +61,17 @@ type DocstringSection =
   | {
       kind: "examples";
       value: [string, string][];
+    }
+  | {
+      kind: string;
+      value: any;
     };
 
 interface ParameterInterface {
   name: string;
   annotation: string | null;
-  description: string | null;
-  value: string | null;
+  description: string | DocstringSection[] | null;
+  value?: string | null;
 }
 
 interface ReturnInterface {

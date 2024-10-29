@@ -1,13 +1,10 @@
 from __future__ import annotations
 
-import json
-import typing as t
-
 import griffe
 
-from .models import Attribute, Class, Function, Module
+from .models import Class, Function, Module
 from .simplify_docstring import simplify_docstring
-from .utils import build_signature, filter_non_imported
+from .utils import build_signature
 
 
 def parse_module(m: griffe.Module) -> Module:
@@ -35,6 +32,12 @@ def parse_module(m: griffe.Module) -> Module:
             if not value.is_alias
         },
     }
+    if m.is_package:
+        try:
+            res["version"] = m.attributes.get("__version__").value.strip("'")
+        except AttributeError:
+            res["version"] = "unknown"
+
     return res
 
 

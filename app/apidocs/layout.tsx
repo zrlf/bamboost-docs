@@ -1,15 +1,13 @@
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import type { ReactNode } from "react";
 import { baseOptions } from "../layout.config";
-import { apiSource } from "@/lib/source";
+import { sources } from "@/lib/source.api";
+
+const source = sources.bamboost;
 
 export default function Layout({ children }: { children: ReactNode }) {
   // I manually add a separator to the page tree
-  const treeChildren = apiSource.pageTree.children;
-
-  const version = apiSource
-    .getPage([""])
-    ?.data.data?.attributes.find((attr) => attr.name === "__version__")?.value;
+  const treeChildren = source.pageTree.children;
 
   const modifiedTreeChildren: [] = [];
 
@@ -27,7 +25,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <span>
             Version:{" "}
             <code className="bg-muted p-1 rounded border">
-              {version?.replaceAll("'", "")}
+              {source.version?.replaceAll("'", "")}
             </code>
           </span>
         ),
