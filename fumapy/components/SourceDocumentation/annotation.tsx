@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
 import Link from "fumadocs-core/link";
-import { sources } from "@/lib/source.api";
+import { sources } from "@/fumapy/lib/source.api";
 
 export function LinkAnnotation({
   children,

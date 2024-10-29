@@ -21,6 +21,11 @@ export default function Layout({
           url: "/apidocs",
           active: "nested-url",
         },
+        {
+          text: "TUI Reference",
+          url: "/api-tui",
+          active: "nested-url",
+        },
       ]}
     >
       {children}

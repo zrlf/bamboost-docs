@@ -1,11 +1,11 @@
 import { Constructor, Method } from "./method";
-import { Attributes } from "@/components/SourceDocumentation/attributes";
-import { ClassInterface } from "@/components/SourceDocumentation/types";
+import { Attributes } from "@/fumapy/components/SourceDocumentation/attributes";
+import { ClassInterface } from "@/fumapy/components/SourceDocumentation/types";
 import fuma from "fumadocs-ui/mdx";
 import { Bases } from "./inherited";
-import Markdown from "@/components/Markdown/markdown";
+import Markdown from "@/fumapy/components/Markdown/markdown";
 import { Arguments } from "../ArgumentList";
-import { DocstringSections } from "@/components/Markdown/DocstringSections";
+import { DocstringSections } from "@/fumapy/components/Markdown/DocstringSections";
 
 export const Classes = ({ data }: { data: ClassInterface[] }) => {
   return (

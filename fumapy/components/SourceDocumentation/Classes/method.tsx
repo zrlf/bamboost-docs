@@ -1,13 +1,13 @@
 import {
   FunctionInterface,
   ReturnInterface,
-} from "@/components/SourceDocumentation/types";
-import { Code } from "@/components/Code";
+} from "@/fumapy/components/SourceDocumentation/types";
+import { Code } from "@/fumapy/components/Code";
 import MethodHeader from "./MethodHeader";
-import Markdown from "@/components/Markdown/markdown";
-import { Arguments } from "@/components/SourceDocumentation/ArgumentList";
+import Markdown from "@/fumapy/components/Markdown/markdown";
+import { Arguments } from "@/fumapy/components/SourceDocumentation/ArgumentList";
 import { LinkAnnotation } from "../annotation";
-import { DocstringSections } from "@/components/Markdown/DocstringSections";
+import { DocstringSections } from "@/fumapy/components/Markdown/DocstringSections";
 import { Returns } from "../Function";
 
 export const Method = ({

@@ -4,7 +4,7 @@ import { FunctionHeader } from "./FunctionHeader";
 import { Code } from "../../Code";
 import { Arguments } from "../ArgumentList";
 import { LinkAnnotation } from "../annotation";
-import { DocstringSections } from "@/components/Markdown/DocstringSections";
+import { DocstringSections } from "@/fumapy/components/Markdown/DocstringSections";
 
 export const Functions = ({ data }: { data: FunctionInterface[] }) => {
   return (

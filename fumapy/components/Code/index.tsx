@@ -2,9 +2,9 @@ import { Fragment } from "react";
 import { codeToHast } from "shiki/bundle/web";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { jsx, jsxs } from "react/jsx-runtime";
-import { shikiTheme } from "@/constants";
 import { components } from "./shared";
 import { LinkAnnotation } from "../SourceDocumentation/annotation";
+import config from "@/fumapy.config";
 
 export async function Code({
   code,
@@ -26,10 +26,7 @@ export async function Code({
   }
 
   const codeWithPreservedBlanks = code.replace(/^\s*$/gm, " ").trimEnd();
-  const out = await codeToHast(codeWithPreservedBlanks, {
-    lang: "python",
-    themes: { ...shikiTheme },
-  });
+  const out = await codeToHast(codeWithPreservedBlanks, config.shiki);
 
   const nodes = toJsxRuntime(out, {
     Fragment,

@@ -11,6 +11,7 @@
   :root {
     --primary: 118 32% 35%;
     --primary-2: var(--rose);
+    --primary-tui: 210 70% 40%;
     --func: 118 32% 35%;
     --class: 359 68% 30%;
     --meth: 210 70% 40%;
@@ -18,19 +19,20 @@
     .route-docs {
       --primary: var(--primary-2);
     }
+
+    .route-tui {
+      --primary: var(--primary-tui);
+    }
   }
 
   .dark {
     /* --accent-foreground: 217 92% 76%; */
     --primary: var(--green);
     --primary-2: var(--rose);
+    --primary-tui: 210 70% 70%;
     --func: 83 34% 63%;
     --class: 359 68% 70%;
     --meth: 210 70% 70%;
-
-    .route-docs {
-      --primary: var(--primary-2);
-    }
   }
 
   h5 {

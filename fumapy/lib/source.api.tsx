@@ -16,10 +16,14 @@ const sources = Object.fromEntries(
       baseUrl: source.baseUrl,
       pkgName: data.name,
       version: data.version,
+      options: source.options,
+
     };
 
     return [key, newSource];
   }),
 );
+
+export type Source = typeof sources[keyof typeof sources];
 
 export { sources };

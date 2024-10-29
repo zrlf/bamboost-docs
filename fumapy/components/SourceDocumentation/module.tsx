@@ -5,18 +5,21 @@ import { Functions } from "./Function";
 import { Attributes } from "./attributes";
 import { ModuleInterface } from "./types";
 import fuma from "fumadocs-ui/mdx";
-import { excludeModules } from "@/constants";
 import { DocstringSections } from "../Markdown/DocstringSections";
+import { sources } from "@/fumapy/lib/source.api";
+import config from "@/fumapy.config";
 
-export const Module = ({ data, baseUrl = "apidocs" }: { data: ModuleInterface, baseUrl?: string }) => {
+export const Module = ({ data }: { data: ModuleInterface }) => {
   let cards = null;
 
   if (Object.keys(data.modules).length > 0) {
     cards = (
       <Cards>
         {Object.values(data.modules).map((module) => {
-          if (excludeModules.includes(module.path)) return null;
-          const sanitizedSlug = module.path.split(".")
+          if (config.excludeModules.includes(module.path)) return null;
+          const baseUrl = sources[module.path.split(".")[0]].baseUrl;
+          const sanitizedSlug = module.path
+            .split(".")
             .slice(1)
             .map((slug) => slug.replace("index", "index_"));
           return (
@@ -24,7 +27,7 @@ export const Module = ({ data, baseUrl = "apidocs" }: { data: ModuleInterface, b
               key={module.name}
               title={module.name}
               description={module.description}
-              href={`/${baseUrl}/${sanitizedSlug.join("/")}`}
+              href={`${baseUrl}/${sanitizedSlug.join("/")}`}
             />
           );
         })}

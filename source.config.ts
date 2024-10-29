@@ -1,8 +1,8 @@
 import { defineDocs, defineConfig, GlobalConfig } from "fumadocs-mdx/config";
 import { rehypeCode } from "fumadocs-core/mdx-plugins";
-import { shikiTheme } from "./constants";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import fumapyOptions from "./fumapy.config";
 
 export const { docs, meta } = defineDocs({
   dir: "content/docs",
@@ -10,7 +10,11 @@ export const { docs, meta } = defineDocs({
 
 const config: GlobalConfig = {
   mdxOptions: {
-    rehypePlugins: [rehypeKatex, [rehypeCode, { themes: { ...shikiTheme } }]],
+    rehypePlugins: [
+      rehypeKatex,
+      // @ts-ignore
+      [rehypeCode, { themes: fumapyOptions.shiki.themes }],
+    ],
     remarkPlugins: [remarkMath],
   },
 };

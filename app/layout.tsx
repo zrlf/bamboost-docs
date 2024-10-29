@@ -19,8 +19,9 @@ export default function Layout({ children }: { children: ReactNode }) {
               allowClear: true,
               type: "static",
               tags: [
-                { name: "API", value: "apidocs" },
+                { name: "API", value: "api-bamboost" },
                 { name: "Documentation", value: "docs" },
+                { name: "TUI", value: "api-bamboostcli" },
               ],
             },
           }}

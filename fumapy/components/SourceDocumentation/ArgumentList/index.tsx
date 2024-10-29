@@ -1,7 +1,7 @@
-import { Code } from "@/components/Code";
+import { Code } from "@/fumapy/components/Code";
 import { ParameterInterface } from "../types";
-import Markdown from "@/components/Markdown/markdown";
-import { DocstringSections } from "@/components/Markdown/DocstringSections";
+import Markdown from "@/fumapy/components/Markdown/markdown";
+import { DocstringSections } from "@/fumapy/components/Markdown/DocstringSections";
 
 export const Arguments = ({ data }: { data: ParameterInterface[] }) => {
   if (!data) return null;

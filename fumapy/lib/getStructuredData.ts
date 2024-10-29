@@ -1,4 +1,4 @@
-import { ModuleInterface } from "@/components/SourceDocumentation/types";
+import { ModuleInterface } from "@/fumapy/components/SourceDocumentation/types";
 import { StructuredData } from "fumadocs-core/mdx-plugins";
 
 export function getStructuredData(data: ModuleInterface): StructuredData {
