@@ -2,7 +2,7 @@ import { Constructor, Method } from "./method";
 import { Attributes } from "@/components/SourceDocumentation/attributes";
 import { ClassInterface } from "@/components/SourceDocumentation/types";
 import fuma from "fumadocs-ui/mdx";
-import { InheritedMembers } from "./inherited";
+import { Bases } from "./inherited";
 import Markdown from "@/components/Markdown/markdown";
 import { Arguments } from "../ArgumentList";
 import { DocstringSections } from "@/components/Markdown/DocstringSections";
@@ -41,7 +41,9 @@ export const Class = ({ data }: { data: ClassInterface }) => {
 
       {data.docstring && <DocstringSections sections={data.docstring} />}
 
-      <InheritedMembers data={data.inherited_members} />
+      {Object.keys(data.inherited_members).length > 0 && (
+        <Bases data={data.inherited_members} />
+      )}
 
       {Object.values(data.functions).map((func) => {
         if (!func) return null;

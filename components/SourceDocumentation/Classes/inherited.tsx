@@ -2,51 +2,41 @@
 
 import { useState } from "react";
 import { LinkAnnotation } from "../annotation";
-import {
-  ArrowDownCircleIcon,
-} from "lucide-react";
+import { ArrowDownCircleIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ClassInterface } from "../types";
 
-export const InheritedMembers = ({
+export const Bases = ({
   data,
 }: {
   data: ClassInterface["inherited_members"];
 }) => {
   return (
     <div>
-      {Object.keys(data).length > 0 && (
-        <>
-          <h5 className="relative mt-12 mb-2">Inherits</h5>
-          <div className="space-y-8">
-            {Object.entries(data).map(([parent, members]) => (
-              <InheritedFromClass
-                key={parent}
-                module={parent}
-                cls={parent}
-                members={members}
-              />
-            ))}
-          </div>
-        </>
-      )}
+      <h5 className="relative mb-2">Bases</h5>
+      <div className="space-y-6 sm:columns-2">
+        {Object.entries(data).map(([parent, members]) => (
+          <Base key={parent} cls={parent} members={members} />
+        ))}
+      </div>
     </div>
   );
 };
 
-const InheritedFromClass = ({
-  module,
+const Base = ({
   cls,
   members,
 }: {
-  module: string;
   cls: string;
   members: ClassInterface["inherited_members"][string];
 }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
-    <div className={cn("relative border rounded", !isOpened && "cursor-pointer")} onClick={() => setIsOpened(true)}>
+    <div
+      className={cn("relative border rounded", !isOpened && "cursor-pointer")}
+      onClick={() => setIsOpened(true)}
+    >
       <div
         className={cn(
           "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-sm text-muted-foreground",
@@ -63,11 +53,11 @@ const InheritedFromClass = ({
         className={cn(
           "overflow-auto max-h-96 transition-all",
           !isOpened &&
-            "max-h-20 overflow-hidden after:absolute after:bottom-0 after:left-0 after:right-0 after:h-20 after:bg-gradient-to-t after:from-background after:to-transparent",
+            "min-h-20 max-h-20 overflow-hidden after:absolute after:bottom-0 after:left-0 after:right-0 after:h-20 after:bg-gradient-to-t after:from-background after:to-transparent",
         )}
       >
         <ul className={cn("space-y-0 my-2 overflow-auto list-inside")}>
-          {members.map(({kind, path}) => (
+          {members.map(({ kind, path }) => (
             <li key={path} className="my-0">
               <LinkAnnotation>
                 {path + (kind == "function" ? "()" : "")}

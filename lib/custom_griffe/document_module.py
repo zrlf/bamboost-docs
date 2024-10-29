@@ -48,13 +48,15 @@ def parse_class(c: griffe.Class) -> Class:
         "attributes": out.attributes,
         "docstring": out.remainder,
         "functions": {
-            name: parse_function(value) for name, value in c.functions.items()
+            name: parse_function(value)
+            for name, value in c.functions.items()
+            if not value.is_alias
         },
         "source": c.source,
         "inherited_members": {},
     }
     for member in c.inherited_members.values():
-        parent_path = member.parent.path
+        parent_path = ".".join(member.canonical_path.split(".")[:-1])
         member_info = {"kind": member.kind, "path": member.canonical_path}
         if parent_path not in res["inherited_members"]:
             res["inherited_members"][parent_path] = []
