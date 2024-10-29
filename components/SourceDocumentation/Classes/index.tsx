@@ -19,37 +19,40 @@ export const Classes = ({ data }: { data: ClassInterface[] }) => {
 
 export const Class = ({ data }: { data: ClassInterface }) => {
   return (
-    <div>
-      <fuma.h2 id={data.name} className="class">
-        {data.name}
-      </fuma.h2>
+    <div className="space-y-14">
+      <div className="space-y-6">
+        <fuma.h2 id={data.name} className="class">
+          {data.name}
+        </fuma.h2>
+        <Constructor data={data.functions["__init__"]} clsName={data.name} />
 
-      <Constructor data={data.functions["__init__"]} clsName={data.name} />
+        {data.description && <Markdown input={data.description} />}
 
-      {data.description && <Markdown input={data.description} />}
+        {data.functions["__init__"]?.parameters && (
+          <Arguments data={data.functions["__init__"].parameters} />
+        )}
 
-      {data.functions["__init__"]?.parameters && (
-        <Arguments data={data.functions["__init__"].parameters} />
-      )}
+        {data.attributes.length > 0 && (
+          <>
+            <h5>Attributes</h5>
+            <Attributes data={data.attributes} />
+          </>
+        )}
 
-      {data.attributes.length > 0 && (
-        <>
-          <h5>Attributes</h5>
-          <Attributes data={data.attributes} />
-        </>
-      )}
+        {data.docstring && <DocstringSections sections={data.docstring} />}
 
-      {data.docstring && <DocstringSections sections={data.docstring} />}
+        {Object.keys(data.inherited_members).length > 0 && (
+          <Bases data={data.inherited_members} />
+        )}
+      </div>
 
-      {Object.keys(data.inherited_members).length > 0 && (
-        <Bases data={data.inherited_members} />
-      )}
-
-      {Object.values(data.functions).map((func) => {
-        if (!func) return null;
-        if (func.name === "__init__") return null;
-        return <Method data={func} clsName={data.name} key={func.name} />;
-      })}
+      <div className="space-y-14">
+        {Object.values(data.functions).map((func) => {
+          if (!func) return null;
+          if (func.name === "__init__") return null;
+          return <Method data={func} clsName={data.name} key={func.name} />;
+        })}
+      </div>
     </div>
   );
 };

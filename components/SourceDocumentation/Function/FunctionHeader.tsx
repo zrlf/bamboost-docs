@@ -21,13 +21,12 @@ export const FunctionHeader = ({
       <div
         className={cn(
           "flex flex-col sm:flex-row sm:justify-between w-full sm:items-center",
-          "bg-secondary/50 rounded-md px-4 mt-12 pb-2 sm:pb-0",
-          "border-l-primary/50 border-l-4"
+          "bg-secondary rounded-md px-4 mt-12 pb-2 sm:pb-0",
         )}
       >
-        <FumaComponents.h4 id={data.name} className="my-2 font-mono">
-          {data.name}
-          <span className="ml-2 leading-relaxed">{signature}</span>
+        <FumaComponents.h4 id={data.name} className="my-2">
+          <span>{data.name}</span>
+          <span className="ml-2 leading-relaxed break-all">{signature}</span>
         </FumaComponents.h4>
         <button
           className="text-xs border px-2 py-1 rounded size-fit text-muted-foreground text-nowrap"

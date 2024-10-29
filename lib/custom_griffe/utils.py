@@ -25,9 +25,14 @@ def build_signature(func: griffe.Function) -> str:
                     s += "*, "
                 keyword_only = True
 
-        s += p.name
-        if p.default is not None:
-            s += f" = {p.default}"
+        if p.kind == griffe.ParameterKind.var_keyword:
+            s += f"**{p.name}"
+        elif p.kind == griffe.ParameterKind.var_positional:
+            s += f"*{p.name}"
+        else:
+            s += p.name
+            if p.default is not None:
+                s += f" = {p.default}"
 
     s += ")"
     if func.returns:

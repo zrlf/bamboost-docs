@@ -20,18 +20,22 @@ export type CalloutProps = Omit<
 
 export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
   ({ className, children, title, type = "info", icon, ...props }, ref) => {
+    const leftBorderColor = false;
+
     return (
       <div
         ref={ref}
         className={cn(
           "my-6 flex flex-row gap-2 rounded-lg bg-fd-card p-3 text-sm text-fd-card-foreground shadow-md",
-          {
-            info: "border-l-blue-500/50 !border-l-4",
-            tip: "border-l-green-500/50 !border-l-4",
-            warn: "border-l-orange-500/50 !border-l-4",
-            error: "border-l-red-500/50 !border-l-4",
-            note: "border-l-blue-500/50 !border-l-4",
-          }[type],
+          leftBorderColor
+            ? {
+                info: "border-l-blue-500/50 !border-l-4",
+                tip: "border-l-green-500/50 !border-l-4",
+                warn: "border-l-orange-500/50 !border-l-4",
+                error: "border-l-red-500/50 !border-l-4",
+                note: "border-l-blue-500/50 !border-l-4",
+              }[type]
+            : "border",
           className,
         )}
         {...props}

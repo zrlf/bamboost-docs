@@ -8,6 +8,7 @@ import Markdown from "@/components/Markdown/markdown";
 import { Arguments } from "@/components/SourceDocumentation/ArgumentList";
 import { LinkAnnotation } from "../annotation";
 import { DocstringSections } from "@/components/Markdown/DocstringSections";
+import { Returns } from "../Function";
 
 export const Method = ({
   data,
@@ -31,7 +32,7 @@ export const Method = ({
   const isClassMethod = undefined;
 
   return (
-    <div className="mt-14">
+    <div className="">
       <MethodHeader
         name={data.name}
         clsName={clsName}
@@ -55,18 +56,6 @@ export const Method = ({
             <DocstringSections sections={data.docstring} />
           </>
         )}
-      </div>
-    </div>
-  );
-};
-
-const Returns = ({ data }: { data: ReturnInterface }) => {
-  return (
-    <div>
-      <h5>Returns</h5>
-      <div className="ml-indent2">
-        <LinkAnnotation children={data.annotation} />
-        <span className="ml-2">{data.description}</span>
       </div>
     </div>
   );

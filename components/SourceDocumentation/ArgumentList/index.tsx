@@ -46,7 +46,7 @@ const Argument = ({
   return (
     <div className="[&_p:not(.not-prose)]:my-2">
       <div className="flex flex-wrap items-center">
-        <h6 className="font-mono">{name}</h6>
+        <span className="font-bold">{name}</span>
         <span className="mx-2">
           <Code code={type} inline link />
         </span>
@@ -59,12 +59,15 @@ const Argument = ({
           </>
         )}
       </div>
-      {description &&
-        (typeof description == "string" ? (
-          <Markdown input={description} />
-        ) : (
-          <DocstringSections sections={description} />
-        ))}
+      {description && (
+        <div className="sm:ml-indent2">
+          {typeof description == "string" ? (
+            <Markdown input={description} />
+          ) : (
+            <DocstringSections sections={description} />
+          )}
+        </div>
+      )}
     </div>
   );
 };

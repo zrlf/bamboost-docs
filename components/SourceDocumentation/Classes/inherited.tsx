@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 import { LinkAnnotation } from "../annotation";
 import { ArrowDownCircleIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,12 @@ export const Bases = ({
   return (
     <div>
       <h5 className="relative mb-2">Bases</h5>
-      <div className="space-y-6 sm:columns-2">
+      <div
+        className={cn(
+          "space-y-6",
+          Object.keys(data).length > 1 && "sm:columns-2",
+        )}
+      >
         {Object.entries(data).map(([parent, members]) => (
           <Base key={parent} cls={parent} members={members} />
         ))}
@@ -26,16 +31,23 @@ export const Bases = ({
 const Base = ({
   cls,
   members,
+  className,
+  ...props
 }: {
   cls: string;
   members: ClassInterface["inherited_members"][string];
-}) => {
+} & ComponentProps<"div">) => {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
     <div
-      className={cn("relative border rounded", !isOpened && "cursor-pointer")}
+      className={cn(
+        "relative border rounded",
+        !isOpened && "cursor-pointer",
+        className,
+      )}
       onClick={() => setIsOpened(true)}
+      {...props}
     >
       <div
         className={cn(

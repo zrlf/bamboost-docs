@@ -832,7 +832,7 @@
                 "__new__": {
                   "name": "__new__",
                   "path": "bamboost.extensions.remote_manager.Remote.__new__",
-                  "signature": "(cls, args = (), kwargs = {})",
+                  "signature": "(cls, *args, **kwargs)",
                   "description": "Override the __new__ method to avoid the singleton pattern of IndexAPI.",
                   "parameters": [
                     {
@@ -4087,1650 +4087,6 @@
         }
       }
     },
-    "index": {
-      "name": "index",
-      "path": "bamboost.index",
-      "filepath": "/home/florez/work/code/bamboost/bamboost/index.py",
-      "description": "Module to manage the database index and its ID's.",
-      "docstring": [],
-      "attributes": [
-        {
-          "name": "__all__",
-          "annotation": null,
-          "description": null,
-          "value": "['Null', 'IndexAPI', 'DatabaseTable', 'Entry', 'find', 'get_uid_from_path', 'get_known_paths', 'uid2', 'DatabaseNotFoundError', 'THREAD_SAFE', 'CONVERT_ARRAYS', 'PREFIX', 'DOT_REPLACEMENT']"
-        },
-        {
-          "name": "log",
-          "annotation": null,
-          "description": null,
-          "value": "BAMBOOST_LOGGER.getChild(__name__.split('.')[-1])"
-        },
-        {
-          "name": "PREFIX",
-          "annotation": null,
-          "description": null,
-          "value": "'.BAMBOOST-'"
-        },
-        {
-          "name": "DOT_REPLACEMENT",
-          "annotation": null,
-          "description": null,
-          "value": "'DOT'"
-        },
-        {
-          "name": "_comm",
-          "annotation": null,
-          "description": null,
-          "value": "MPI.COMM_WORLD"
-        },
-        {
-          "name": "THREAD_SAFE",
-          "annotation": null,
-          "description": "if True, the index is thread safe",
-          "value": "False"
-        },
-        {
-          "name": "CONVERT_ARRAYS",
-          "annotation": null,
-          "description": "if True, convert numpy arrays to lists",
-          "value": "True"
-        },
-        {
-          "name": "Error",
-          "annotation": null,
-          "description": null,
-          "value": "sql.sqlite3.Error"
-        }
-      ],
-      "modules": {},
-      "classes": {
-        "DatabaseNotFoundError": {
-          "name": "DatabaseNotFoundError",
-          "path": "bamboost.index.DatabaseNotFoundError",
-          "description": "Exception raised when a database is not found in the index.",
-          "parameters": [],
-          "attributes": [],
-          "docstring": [],
-          "functions": {},
-          "source": "class DatabaseNotFoundError(Exception):\n    \"\"\"Exception raised when a database is not found in the index.\"\"\"\n\n    pass",
-          "inherited_members": {}
-        },
-        "Null": {
-          "name": "Null",
-          "path": "bamboost.index.Null",
-          "description": "Null object to replace API classes for off-root processes.",
-          "parameters": [],
-          "attributes": [],
-          "docstring": [],
-          "functions": {
-            "__getattr__": {
-              "name": "__getattr__",
-              "path": "bamboost.index.Null.__getattr__",
-              "signature": "(self, _)",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "_",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": null,
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __getattr__(self, _):\n    return self"
-            },
-            "__bool__": {
-              "name": "__bool__",
-              "path": "bamboost.index.Null.__bool__",
-              "signature": "(self)",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": null,
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __bool__(self):\n    # Allows the instance to behave like `None` in boolean contexts\n    return False"
-            },
-            "__call__": {
-              "name": "__call__",
-              "path": "bamboost.index.Null.__call__",
-              "signature": "(self, args = (), kwargs = {})",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "args",
-                  "annotation": null,
-                  "description": null,
-                  "value": "()"
-                },
-                {
-                  "name": "kwargs",
-                  "annotation": null,
-                  "description": null,
-                  "value": "{}"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": null,
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __call__(self, *args, **kwargs):\n    # Allows the instance to be called like a function\n    return self"
-            },
-            "__getitem__": {
-              "name": "__getitem__",
-              "path": "bamboost.index.Null.__getitem__",
-              "signature": "(self, _)",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "_",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": null,
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __getitem__(self, _):\n    return self"
-            },
-            "__enter__": {
-              "name": "__enter__",
-              "path": "bamboost.index.Null.__enter__",
-              "signature": "(self, args = (), kwargs = {})",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "args",
-                  "annotation": null,
-                  "description": null,
-                  "value": "()"
-                },
-                {
-                  "name": "kwargs",
-                  "annotation": null,
-                  "description": null,
-                  "value": "{}"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": null,
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __enter__(self, *args, **kwargs):\n    return self"
-            },
-            "__exit__": {
-              "name": "__exit__",
-              "path": "bamboost.index.Null.__exit__",
-              "signature": "(self, args = (), kwargs = {})",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "args",
-                  "annotation": null,
-                  "description": null,
-                  "value": "()"
-                },
-                {
-                  "name": "kwargs",
-                  "annotation": null,
-                  "description": null,
-                  "value": "{}"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": null,
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __exit__(self, *args, **kwargs):\n    return False"
-            }
-          },
-          "source": "class Null:\n    \"\"\"Null object to replace API classes for off-root processes.\"\"\"\n\n    def __getattr__(self, _):\n        return self\n\n    def __bool__(self):\n        # Allows the instance to behave like `None` in boolean contexts\n        return False\n\n    def __call__(self, *args, **kwargs):\n        # Allows the instance to be called like a function\n        return self\n\n    def __getitem__(self, _):\n        return self\n\n    def __enter__(self, *args, **kwargs):\n        return self\n\n    def __exit__(self, *args, **kwargs):\n        return False",
-          "inherited_members": {}
-        },
-        "IndexAPI": {
-          "name": "IndexAPI",
-          "path": "bamboost.index.IndexAPI",
-          "description": "SQLite database to store database ID, path lookup. As well as the table for\neach database. Location: `~/.local/share/bamboost/bamboost.db`.\nSingleton pattern.",
-          "parameters": [
-            {
-              "name": "self",
-              "annotation": null,
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "_file",
-              "annotation": "str",
-              "description": [
-                {
-                  "kind": "text",
-                  "value": "path to the database file"
-                }
-              ],
-              "value": "None"
-            },
-            {
-              "name": "convert_arrays",
-              "annotation": "bool",
-              "description": [
-                {
-                  "kind": "text",
-                  "value": "Defaults to True. If False, when reading from the database,\nlists with tag ARRAY are not converted back to numpy arrays but\nremain a standard list."
-                }
-              ],
-              "value": "None"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "_instances",
-              "annotation": null,
-              "description": null,
-              "value": "{}"
-            },
-            {
-              "name": "_initialized",
-              "annotation": null,
-              "description": null,
-              "value": "True"
-            }
-          ],
-          "docstring": [],
-          "functions": {
-            "__new__": {
-              "name": "__new__",
-              "path": "bamboost.index.IndexAPI.__new__",
-              "signature": "(cls, *, _file = None, kwargs = {}) -> bamboost.index.IndexAPI",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "cls",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "_file",
-                  "annotation": "str",
-                  "description": null,
-                  "value": "None"
-                },
-                {
-                  "name": "kwargs",
-                  "annotation": null,
-                  "description": null,
-                  "value": "{}"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "bamboost.index.IndexAPI",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __new__(cls, *, _file: str = None, **kwargs) -> IndexAPI:\n    if THREAD_SAFE:\n        return super().__new__(cls)\n\n    if _comm.rank != 0:\n        return Null()\n\n    _file = _file or paths[\"DATABASE_FILE\"]\n    if _file not in cls._instances:\n        cls._instances[_file] = super().__new__(cls)\n    return cls._instances[_file]"
-            },
-            "__init__": {
-              "name": "__init__",
-              "path": "bamboost.index.IndexAPI.__init__",
-              "signature": "(self, *, _file = None, convert_arrays = None)",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "_file",
-                  "annotation": "str",
-                  "description": null,
-                  "value": "None"
-                },
-                {
-                  "name": "convert_arrays",
-                  "annotation": "bool",
-                  "description": null,
-                  "value": "None"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": null,
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __init__(self, *, _file: str = None, convert_arrays: bool = None):\n    convert_arrays = (\n        convert_arrays if convert_arrays is not None else CONVERT_ARRAYS\n    )\n    if hasattr(self, \"_initialized\"):\n        return\n    _file = _file or paths[\"DATABASE_FILE\"]\n    super().__init__(file=_file, convert_arrays=convert_arrays)\n    self.create_index_table()\n    self.clean()\n    self._initialized = True"
-            },
-            "ThreadSafe": {
-              "name": "ThreadSafe",
-              "path": "bamboost.index.IndexAPI.ThreadSafe",
-              "signature": "(cls, args = (), kwargs = {}) -> bamboost.index.IndexAPI",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "cls",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "args",
-                  "annotation": null,
-                  "description": null,
-                  "value": "()"
-                },
-                {
-                  "name": "kwargs",
-                  "annotation": null,
-                  "description": null,
-                  "value": "{}"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "bamboost.index.IndexAPI",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@classmethod\ndef ThreadSafe(cls, *args, **kwargs) -> IndexAPI:\n    instance = super().__new__(cls)\n    instance.__init__(*args, **kwargs)\n    return instance"
-            },
-            "__repr__": {
-              "name": "__repr__",
-              "path": "bamboost.index.IndexAPI.__repr__",
-              "signature": "(self) -> str",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "str",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __repr__(self) -> str:\n    return self.read_table().__repr__()"
-            },
-            "_repr_html_": {
-              "name": "_repr_html_",
-              "path": "bamboost.index.IndexAPI._repr_html_",
-              "signature": "(self) -> str",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "str",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def _repr_html_(self) -> str:\n    return self.read_table()._repr_html_()"
-            },
-            "__getitem__": {
-              "name": "__getitem__",
-              "path": "bamboost.index.IndexAPI.__getitem__",
-              "signature": "(self, id) -> bamboost.index.DatabaseTable",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "id",
-                  "annotation": "str",
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "bamboost.index.DatabaseTable",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __getitem__(self, id: str) -> DatabaseTable:\n    return DatabaseTable(id, _index=self)"
-            },
-            "_ipython_key_completions_": {
-              "name": "_ipython_key_completions_",
-              "path": "bamboost.index.IndexAPI._ipython_key_completions_",
-              "signature": "(self) -> list",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "list",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def _ipython_key_completions_(self) -> list:\n    return self.read_table().id.tolist()"
-            },
-            "create_index_table": {
-              "name": "create_index_table",
-              "path": "bamboost.index.IndexAPI.create_index_table",
-              "signature": "(self) -> None",
-              "description": "Create the index table if it does not exist.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "None",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef create_index_table(self) -> None:\n    \"\"\"Create the index table if it does not exist.\"\"\"\n    self._cursor.execute(\n        \"\"\"CREATE TABLE IF NOT EXISTS dbindex (id TEXT PRIMARY KEY, path TEXT)\"\"\"\n    )"
-            },
-            "get_database_table": {
-              "name": "get_database_table",
-              "path": "bamboost.index.IndexAPI.get_database_table",
-              "signature": "(self, id) -> bamboost.index.DatabaseTable",
-              "description": "Get the table of a database.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "id",
-                  "annotation": "str",
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "bamboost.index.DatabaseTable",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def get_database_table(self, id: str) -> DatabaseTable:\n    \"\"\"Get the table of a database.\n\n    Args:\n        - id (str): ID of the database\n    \"\"\"\n    return DatabaseTable(id, _index=self)"
-            },
-            "read_table": {
-              "name": "read_table",
-              "path": "bamboost.index.IndexAPI.read_table",
-              "signature": "(self, args = (), kwargs = {}) -> pandas.DataFrame",
-              "description": "Read the index table.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "args",
-                  "annotation": null,
-                  "description": null,
-                  "value": "()"
-                },
-                {
-                  "name": "kwargs",
-                  "annotation": null,
-                  "description": null,
-                  "value": "{}"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "pandas.DataFrame",
-                "description": "pd.DataFrame: index table"
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef read_table(self, *args, **kwargs) -> pd.DataFrame:\n    \"\"\"Read the index table.\n\n    Returns:\n        pd.DataFrame: index table\n    \"\"\"\n    return pd.read_sql_query(\"SELECT * FROM dbindex\", self._conn, *args, **kwargs)"
-            },
-            "fetch": {
-              "name": "fetch",
-              "path": "bamboost.index.IndexAPI.fetch",
-              "signature": "(self, query, args = (), kwargs = {}) -> pandas.DataFrame",
-              "description": "Query the index table.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "query",
-                  "annotation": "str",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "query string"
-                    }
-                  ]
-                },
-                {
-                  "name": "args",
-                  "annotation": null,
-                  "description": null,
-                  "value": "()"
-                },
-                {
-                  "name": "kwargs",
-                  "annotation": null,
-                  "description": null,
-                  "value": "{}"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "pandas.DataFrame",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef fetch(self, query: str, *args, **kwargs) -> pd.DataFrame:\n    \"\"\"Query the index table.\n\n    Args:\n        query (str): query string\n    \"\"\"\n    self._cursor.execute(query, *args, **kwargs)\n    return self._cursor.fetchall()"
-            },
-            "get_path": {
-              "name": "get_path",
-              "path": "bamboost.index.IndexAPI.get_path",
-              "signature": "(self, id) -> str",
-              "description": "Get the path of a database from its ID.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "id",
-                  "annotation": "str",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "ID of the database"
-                    }
-                  ]
-                }
-              ],
-              "returns": {
-                "name": "str",
-                "annotation": "str",
-                "description": "path of the database"
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef get_path(self, id: str) -> str:\n    \"\"\"Get the path of a database from its ID.\n\n    Args:\n        id (str): ID of the database\n\n    Returns:\n        str: path of the database\n    \"\"\"\n    self._cursor.execute(\"SELECT path FROM dbindex WHERE id=?\", (id,))\n    path_db = self._cursor.fetchone()\n    if path_db and _check_path(id, path_db[0]):\n        return path_db[0]\n\n    # if path is wrong, try to find it\n    for root_dir in get_known_paths():\n        res = find(id, root_dir)\n        if res:\n            path = os.path.dirname(res[0])\n            self.insert_path(id, path)\n            return path\n\n    # last resort, check home\n    res = find(id, paths[\"HOME\"])\n    if res:\n        path = os.path.dirname(res[0])\n        self.insert_path(id, path)\n        return path\n\n    raise FileNotFoundError(f\"Database {id} not found on system.\")"
-            },
-            "insert_path": {
-              "name": "insert_path",
-              "path": "bamboost.index.IndexAPI.insert_path",
-              "signature": "(self, id, path) -> None",
-              "description": "Insert a database path into the index.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "id",
-                  "annotation": "str",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "ID of the database"
-                    }
-                  ]
-                },
-                {
-                  "name": "path",
-                  "annotation": "str",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "path of the database"
-                    }
-                  ]
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "None",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef insert_path(self, id: str, path: str) -> None:\n    \"\"\"Insert a database path into the index.\n\n    Args:\n        id (str): ID of the database\n        path (str): path of the database\n    \"\"\"\n    path = os.path.abspath(path)\n    self._cursor.execute(\"INSERT OR REPLACE INTO dbindex VALUES (?, ?)\", (id, path))"
-            },
-            "get_id": {
-              "name": "get_id",
-              "path": "bamboost.index.IndexAPI.get_id",
-              "signature": "(self, path) -> str",
-              "description": "Get the ID of a database from its path.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "path",
-                  "annotation": "str",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "path of the database"
-                    }
-                  ]
-                }
-              ],
-              "returns": {
-                "name": "str",
-                "annotation": "str",
-                "description": "ID of the database"
-              },
-              "docstring": [
-                {
-                  "kind": "raises",
-                  "value": [
-                    {
-                      "annotation": "DatabaseNotFoundError",
-                      "description": "if the database is not found in the index"
-                    }
-                  ]
-                }
-              ],
-              "source": "@sql.with_connection\ndef get_id(self, path: str) -> str:\n    \"\"\"Get the ID of a database from its path.\n\n    Args:\n        path (str): path of the database\n\n    Returns:\n        str: ID of the database\n\n    Raises:\n        DatabaseNotFoundError: if the database is not found in the index\n    \"\"\"\n    path = os.path.abspath(path)\n    self._cursor.execute(\"SELECT id FROM dbindex WHERE path=?\", (path,))\n    fetched = self._cursor.fetchone()\n    if fetched is None:\n        raise DatabaseNotFoundError(f\"Database at {path} not found in index.\")\n    return fetched[0]"
-            },
-            "scan_known_paths": {
-              "name": "scan_known_paths",
-              "path": "bamboost.index.IndexAPI.scan_known_paths",
-              "signature": "(self) -> dict",
-              "description": "Scan known paths for databases and update the index.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "dict",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef scan_known_paths(self) -> dict:\n    \"\"\"Scan known paths for databases and update the index.\"\"\"\n    for path in get_known_paths():\n        completed_process = subprocess.run(\n            [\"find\", path, \"-iname\", f\"{PREFIX}*\", \"-not\", \"-path\", r\"*/\\.git/*\"],\n            capture_output=True,\n        )\n        databases_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n        for database in databases_found:\n            name = os.path.basename(database)\n            id = name.split(\"-\")[1]\n            self.insert_path(id, os.path.dirname(database))"
-            },
-            "commit_once": {
-              "name": "commit_once",
-              "path": "bamboost.index.IndexAPI.commit_once",
-              "signature": "(self, func) -> typing.Callable",
-              "description": "Decorator to bundle changes to a single commit.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "func",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "typing.Callable",
-                "description": null
-              },
-              "docstring": [
-                {
-                  "kind": "admonition",
-                  "value": {
-                    "annotation": "example",
-                    "description": ">>> @Index.commit_once\n>>> def create_a_bunch_of_simulations():\n>>>     for i in range(1000):\n>>>         db.create_simulation(parameters={...})\n>>>\n>>> create_a_bunch_of_simulations()"
-                  },
-                  "title": "Example"
-                }
-              ],
-              "source": "def commit_once(self, func) -> Callable:\n    \"\"\"Decorator to bundle changes to a single commit.\n\n    Example:\n        >>> @Index.commit_once\n        >>> def create_a_bunch_of_simulations():\n        >>>     for i in range(1000):\n        >>>         db.create_simulation(parameters={...})\n        >>>\n        >>> create_a_bunch_of_simulations()\n    \"\"\"\n\n    def wrapper(*args, **kwargs):\n        with self.open(ensure_commit=True):\n            return func(*args, **kwargs)\n\n    return wrapper"
-            },
-            "clean": {
-              "name": "clean",
-              "path": "bamboost.index.IndexAPI.clean",
-              "signature": "(self, purge = False) -> bamboost.index.IndexAPI",
-              "description": "Clean the index from wrong paths.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "purge",
-                  "annotation": "bool",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "Also deletes the table of unmatching uid/path pairs. Defaults to False."
-                    }
-                  ],
-                  "value": "False"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "bamboost.index.IndexAPI",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef clean(self, purge: bool = False) -> IndexAPI:\n    \"\"\"Clean the index from wrong paths.\n\n    Args:\n        purge (bool, optional): Also deletes the table of unmatching uid/path pairs. Defaults to False.\n    \"\"\"\n    index = self._cursor.execute(\"SELECT id, path FROM dbindex\").fetchall()\n    for id, path in index:\n        if not _check_path(id, path):\n            self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n\n    if purge:\n        # all tables starting with db_ are tables of databases\n        all_tables = self._cursor.execute(\n            \"SELECT name FROM sqlite_master WHERE type='table'\"\n        ).fetchall()\n        id_list_tables = {\n            i[0].split(\"_\")[1] for i in all_tables if i[0].startswith(\"db_\")\n        }\n        id_list = self._cursor.execute(\"SELECT id FROM dbindex\").fetchall()\n\n        for id in id_list_tables:\n            if id not in id_list:\n                self._cursor.execute(f\"DROP TABLE db_{id}\")\n                self._cursor.execute(f\"DROP TABLE db_{id}_t\")\n\n    return self"
-            },
-            "drop_path": {
-              "name": "drop_path",
-              "path": "bamboost.index.IndexAPI.drop_path",
-              "signature": "(self, id) -> None",
-              "description": "Drop a path from the index.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "id",
-                  "annotation": "str",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "ID of the database"
-                    }
-                  ]
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "None",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef drop_path(self, id: str) -> None:\n    \"\"\"Drop a path from the index.\n\n    Args:\n        id (str): ID of the database\n    \"\"\"\n    self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))"
-            },
-            "check_path": {
-              "name": "check_path",
-              "path": "bamboost.index.IndexAPI.check_path",
-              "signature": "(self, id, path) -> bool",
-              "description": "Check if path is going to the correct database.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "id",
-                  "annotation": "str",
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "path",
-                  "annotation": "str",
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "bool",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def check_path(self, id: str, path: str) -> bool:\n    \"\"\"Check if path is going to the correct database.\"\"\"\n    return _check_path(id, path)"
-            }
-          },
-          "source": "class IndexAPI(sql.SQLiteHandler):\n    \"\"\"SQLite database to store database ID, path lookup. As well as the table for\n    each database. Location: `~/.local/share/bamboost/bamboost.db`.\n    Singleton pattern.\n\n    Args:\n        _file: path to the database file\n        convert_arrays: Defaults to True. If False, when reading from the database,\n            lists with tag ARRAY are not converted back to numpy arrays but\n            remain a standard list.\n    \"\"\"\n\n    _instances = {}\n\n    def __new__(cls, *, _file: str = None, **kwargs) -> IndexAPI:\n        if THREAD_SAFE:\n            return super().__new__(cls)\n\n        if _comm.rank != 0:\n            return Null()\n\n        _file = _file or paths[\"DATABASE_FILE\"]\n        if _file not in cls._instances:\n            cls._instances[_file] = super().__new__(cls)\n        return cls._instances[_file]\n\n    def __init__(self, *, _file: str = None, convert_arrays: bool = None):\n        convert_arrays = (\n            convert_arrays if convert_arrays is not None else CONVERT_ARRAYS\n        )\n        if hasattr(self, \"_initialized\"):\n            return\n        _file = _file or paths[\"DATABASE_FILE\"]\n        super().__init__(file=_file, convert_arrays=convert_arrays)\n        self.create_index_table()\n        self.clean()\n        self._initialized = True\n\n    @classmethod\n    def ThreadSafe(cls, *args, **kwargs) -> IndexAPI:\n        instance = super().__new__(cls)\n        instance.__init__(*args, **kwargs)\n        return instance\n\n    def __repr__(self) -> str:\n        return self.read_table().__repr__()\n\n    def _repr_html_(self) -> str:\n        return self.read_table()._repr_html_()\n\n    def __getitem__(self, id: str) -> DatabaseTable:\n        return DatabaseTable(id, _index=self)\n\n    def _ipython_key_completions_(self) -> list:\n        return self.read_table().id.tolist()\n\n    @sql.with_connection\n    def create_index_table(self) -> None:\n        \"\"\"Create the index table if it does not exist.\"\"\"\n        self._cursor.execute(\n            \"\"\"CREATE TABLE IF NOT EXISTS dbindex (id TEXT PRIMARY KEY, path TEXT)\"\"\"\n        )\n\n    def get_database_table(self, id: str) -> DatabaseTable:\n        \"\"\"Get the table of a database.\n\n        Args:\n            - id (str): ID of the database\n        \"\"\"\n        return DatabaseTable(id, _index=self)\n\n    @sql.with_connection\n    def read_table(self, *args, **kwargs) -> pd.DataFrame:\n        \"\"\"Read the index table.\n\n        Returns:\n            pd.DataFrame: index table\n        \"\"\"\n        return pd.read_sql_query(\"SELECT * FROM dbindex\", self._conn, *args, **kwargs)\n\n    @sql.with_connection\n    def fetch(self, query: str, *args, **kwargs) -> pd.DataFrame:\n        \"\"\"Query the index table.\n\n        Args:\n            query (str): query string\n        \"\"\"\n        self._cursor.execute(query, *args, **kwargs)\n        return self._cursor.fetchall()\n\n    @sql.with_connection\n    def get_path(self, id: str) -> str:\n        \"\"\"Get the path of a database from its ID.\n\n        Args:\n            id (str): ID of the database\n\n        Returns:\n            str: path of the database\n        \"\"\"\n        self._cursor.execute(\"SELECT path FROM dbindex WHERE id=?\", (id,))\n        path_db = self._cursor.fetchone()\n        if path_db and _check_path(id, path_db[0]):\n            return path_db[0]\n\n        # if path is wrong, try to find it\n        for root_dir in get_known_paths():\n            res = find(id, root_dir)\n            if res:\n                path = os.path.dirname(res[0])\n                self.insert_path(id, path)\n                return path\n\n        # last resort, check home\n        res = find(id, paths[\"HOME\"])\n        if res:\n            path = os.path.dirname(res[0])\n            self.insert_path(id, path)\n            return path\n\n        raise FileNotFoundError(f\"Database {id} not found on system.\")\n\n    @sql.with_connection\n    def insert_path(self, id: str, path: str) -> None:\n        \"\"\"Insert a database path into the index.\n\n        Args:\n            id (str): ID of the database\n            path (str): path of the database\n        \"\"\"\n        path = os.path.abspath(path)\n        self._cursor.execute(\"INSERT OR REPLACE INTO dbindex VALUES (?, ?)\", (id, path))\n\n    @sql.with_connection\n    def get_id(self, path: str) -> str:\n        \"\"\"Get the ID of a database from its path.\n\n        Args:\n            path (str): path of the database\n\n        Returns:\n            str: ID of the database\n\n        Raises:\n            DatabaseNotFoundError: if the database is not found in the index\n        \"\"\"\n        path = os.path.abspath(path)\n        self._cursor.execute(\"SELECT id FROM dbindex WHERE path=?\", (path,))\n        fetched = self._cursor.fetchone()\n        if fetched is None:\n            raise DatabaseNotFoundError(f\"Database at {path} not found in index.\")\n        return fetched[0]\n\n    @sql.with_connection\n    def scan_known_paths(self) -> dict:\n        \"\"\"Scan known paths for databases and update the index.\"\"\"\n        for path in get_known_paths():\n            completed_process = subprocess.run(\n                [\"find\", path, \"-iname\", f\"{PREFIX}*\", \"-not\", \"-path\", r\"*/\\.git/*\"],\n                capture_output=True,\n            )\n            databases_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n            for database in databases_found:\n                name = os.path.basename(database)\n                id = name.split(\"-\")[1]\n                self.insert_path(id, os.path.dirname(database))\n\n    def commit_once(self, func) -> Callable:\n        \"\"\"Decorator to bundle changes to a single commit.\n\n        Example:\n            >>> @Index.commit_once\n            >>> def create_a_bunch_of_simulations():\n            >>>     for i in range(1000):\n            >>>         db.create_simulation(parameters={...})\n            >>>\n            >>> create_a_bunch_of_simulations()\n        \"\"\"\n\n        def wrapper(*args, **kwargs):\n            with self.open(ensure_commit=True):\n                return func(*args, **kwargs)\n\n        return wrapper\n\n    @sql.with_connection\n    def clean(self, purge: bool = False) -> IndexAPI:\n        \"\"\"Clean the index from wrong paths.\n\n        Args:\n            purge (bool, optional): Also deletes the table of unmatching uid/path pairs. Defaults to False.\n        \"\"\"\n        index = self._cursor.execute(\"SELECT id, path FROM dbindex\").fetchall()\n        for id, path in index:\n            if not _check_path(id, path):\n                self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n\n        if purge:\n            # all tables starting with db_ are tables of databases\n            all_tables = self._cursor.execute(\n                \"SELECT name FROM sqlite_master WHERE type='table'\"\n            ).fetchall()\n            id_list_tables = {\n                i[0].split(\"_\")[1] for i in all_tables if i[0].startswith(\"db_\")\n            }\n            id_list = self._cursor.execute(\"SELECT id FROM dbindex\").fetchall()\n\n            for id in id_list_tables:\n                if id not in id_list:\n                    self._cursor.execute(f\"DROP TABLE db_{id}\")\n                    self._cursor.execute(f\"DROP TABLE db_{id}_t\")\n\n        return self\n\n    @sql.with_connection\n    def drop_path(self, id: str) -> None:\n        \"\"\"Drop a path from the index.\n\n        Args:\n            id (str): ID of the database\n        \"\"\"\n        self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n\n    def check_path(self, id: str, path: str) -> bool:\n        \"\"\"Check if path is going to the correct database.\"\"\"\n        return _check_path(id, path)",
-          "inherited_members": {
-            "bamboost._sqlite_database.SQLiteHandler": [
-              {
-                "kind": "attribute",
-                "path": "bamboost._sqlite_database.SQLiteHandler.file"
-              },
-              {
-                "kind": "attribute",
-                "path": "bamboost._sqlite_database.SQLiteHandler._conn"
-              },
-              {
-                "kind": "attribute",
-                "path": "bamboost._sqlite_database.SQLiteHandler._cursor"
-              },
-              {
-                "kind": "attribute",
-                "path": "bamboost._sqlite_database.SQLiteHandler._is_open"
-              },
-              {
-                "kind": "attribute",
-                "path": "bamboost._sqlite_database.SQLiteHandler._lock_stack"
-              },
-              {
-                "kind": "function",
-                "path": "bamboost._sqlite_database.SQLiteHandler.connect"
-              },
-              {
-                "kind": "function",
-                "path": "bamboost._sqlite_database.SQLiteHandler.close"
-              },
-              {
-                "kind": "function",
-                "path": "bamboost._sqlite_database.SQLiteHandler.commit"
-              },
-              {
-                "kind": "function",
-                "path": "bamboost._sqlite_database.SQLiteHandler.open"
-              }
-            ]
-          }
-        },
-        "DatabaseTable": {
-          "name": "DatabaseTable",
-          "path": "bamboost.index.DatabaseTable",
-          "description": "Class to manage the table of a database. Multiton pattern. One table per\ndatabase.",
-          "parameters": [
-            {
-              "name": "self",
-              "annotation": null,
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "id",
-              "annotation": "str",
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "_index",
-              "annotation": "IndexAPI",
-              "description": null,
-              "value": "None"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "_instances",
-              "annotation": null,
-              "description": null,
-              "value": "{}"
-            },
-            {
-              "name": "id",
-              "annotation": null,
-              "description": null,
-              "value": "id"
-            },
-            {
-              "name": "_entries",
-              "annotation": null,
-              "description": null,
-              "value": "{}"
-            },
-            {
-              "name": "_initialized",
-              "annotation": null,
-              "description": null,
-              "value": "True"
-            },
-            {
-              "name": "_index",
-              "annotation": null,
-              "description": null,
-              "value": "_index if _index is not None else IndexAPI()"
-            },
-            {
-              "name": "path",
-              "annotation": null,
-              "description": null,
-              "value": "self._index.get_path(self.id)"
-            },
-            {
-              "name": "tablename_db",
-              "annotation": null,
-              "description": null,
-              "value": "f'db_{self.id}'"
-            },
-            {
-              "name": "tablename_update_times",
-              "annotation": null,
-              "description": null,
-              "value": "f'db_{self.id}_t'"
-            }
-          ],
-          "docstring": [],
-          "functions": {
-            "__new__": {
-              "name": "__new__",
-              "path": "bamboost.index.DatabaseTable.__new__",
-              "signature": "(cls, id, args = (), kwargs = {}) -> bamboost.index.DatabaseTable",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "cls",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "id",
-                  "annotation": "str",
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "args",
-                  "annotation": null,
-                  "description": null,
-                  "value": "()"
-                },
-                {
-                  "name": "kwargs",
-                  "annotation": null,
-                  "description": null,
-                  "value": "{}"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "bamboost.index.DatabaseTable",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __new__(cls, id: str, *args, **kwargs) -> DatabaseTable:\n    if _comm.rank != 0:\n        return Null()\n\n    if id not in cls._instances:\n        cls._instances[id] = super().__new__(cls)\n    return cls._instances[id]"
-            },
-            "__init__": {
-              "name": "__init__",
-              "path": "bamboost.index.DatabaseTable.__init__",
-              "signature": "(self, id, *, _index = None)",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "id",
-                  "annotation": "str",
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "_index",
-                  "annotation": "IndexAPI",
-                  "description": null,
-                  "value": "None"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": null,
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __init__(self, id: str, *, _index: IndexAPI = None):\n    if hasattr(self, \"_initialized\"):\n        return\n\n    self.id = id\n    self._entries = {}\n    self._initialized = True\n    self._index = _index if _index is not None else IndexAPI()\n    self.path = self._index.get_path(self.id)\n    self.tablename_db = f\"db_{self.id}\"\n    self.tablename_update_times = f\"db_{self.id}_t\"\n    self.create_database_table()"
-            },
-            "__getattr__": {
-              "name": "__getattr__",
-              "path": "bamboost.index.DatabaseTable.__getattr__",
-              "signature": "(self, name)",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "name",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": null,
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __getattr__(self, name):\n    if name in {\n        \"_conn\",\n        \"_cursor\",\n        \"open\",\n        \"close\",\n        \"commit\",\n        \"_is_open\",\n        \"commit_once\",\n    }:\n        return getattr(self._index, name)\n    return self.__getattribute__(name)"
-            },
-            "read_table": {
-              "name": "read_table",
-              "path": "bamboost.index.DatabaseTable.read_table",
-              "signature": "(self) -> pandas.DataFrame",
-              "description": "Read the table of the database.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "pandas.DataFrame",
-                "description": "pd.DataFrame: table of the database"
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef read_table(self) -> pd.DataFrame:\n    \"\"\"Read the table of the database.\n\n    Returns:\n        pd.DataFrame: table of the database\n    \"\"\"\n    df = pd.read_sql_query(f\"SELECT * FROM {self.tablename_db}\", self._conn)\n    # drop \"hidden\" columns which start with _\n    df = df.loc[:, ~df.columns.str.startswith(\"_\")]\n    df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n    return df"
-            },
-            "read_entry": {
-              "name": "read_entry",
-              "path": "bamboost.index.DatabaseTable.read_entry",
-              "signature": "(self, entry_id) -> pandas.Series",
-              "description": "Read an entry from the database.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "entry_id",
-                  "annotation": "str",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "ID of the entry"
-                    }
-                  ]
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "pandas.Series",
-                "description": "pd.Series: entry from the database"
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef read_entry(self, entry_id: str) -> pd.Series:\n    \"\"\"Read an entry from the database.\n\n    Args:\n        entry_id (str): ID of the entry\n\n    Returns:\n        pd.Series: entry from the database\n    \"\"\"\n    self._cursor.execute(\n        f\"SELECT * FROM {self.tablename_db} WHERE id=?\", (entry_id,)\n    )\n    series = pd.Series(*self._cursor.fetchall())\n    series.index = [description[0] for description in self._cursor.description]\n    series.rename(index=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n    return series"
-            },
-            "read_column": {
-              "name": "read_column",
-              "path": "bamboost.index.DatabaseTable.read_column",
-              "signature": "(self, columns = ()) -> pandas.DataFrame",
-              "description": "Read columns from the database.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "columns",
-                  "annotation": "str",
-                  "description": null,
-                  "value": "()"
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "pandas.DataFrame",
-                "description": "pd.DataFrame: columns from the database"
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef read_column(self, *columns: str) -> pd.DataFrame:\n    \"\"\"Read columns from the database.\n\n    Args:\n        *columns (list): columns to read\n\n    Returns:\n        pd.DataFrame: columns from the database\n    \"\"\"\n    self._cursor.execute(f\"SELECT {', '.join(columns)} FROM {self.tablename_db}\")\n    df = pd.DataFrame.from_records(self._cursor.fetchall(), columns=columns)\n    df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n    return df"
-            },
-            "drop_table": {
-              "name": "drop_table",
-              "path": "bamboost.index.DatabaseTable.drop_table",
-              "signature": "(self) -> None",
-              "description": "Drop the table of the database.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "None",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef drop_table(self) -> None:\n    \"\"\"Drop the table of the database.\"\"\"\n    self._cursor.execute(f\"DROP TABLE {self.tablename_db}\")\n    self._cursor.execute(f\"DROP TABLE {self.tablename_update_times}\")"
-            },
-            "create_database_table": {
-              "name": "create_database_table",
-              "path": "bamboost.index.DatabaseTable.create_database_table",
-              "signature": "(self) -> None",
-              "description": "Create a table for a database.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "None",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef create_database_table(self) -> None:\n    \"\"\"Create a table for a database.\"\"\"\n    self._cursor.execute(\n        f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_db} \n            (id TEXT PRIMARY KEY NOT NULL, time_stamp DATETIME, notes TEXT, processors INTEGER)\n        \"\"\"\n    )\n    self._cursor.execute(\n        f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_update_times} (id TEXT PRIMARY KEY,\n            update_time DATETIME)\n        \"\"\"\n    )"
-            },
-            "update_entry": {
-              "name": "update_entry",
-              "path": "bamboost.index.DatabaseTable.update_entry",
-              "signature": "(self, entry_id, data) -> None",
-              "description": "Update an entry in the database.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "entry_id",
-                  "annotation": "str",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "ID of the entry"
-                    }
-                  ]
-                },
-                {
-                  "name": "data",
-                  "annotation": "dict",
-                  "description": [
-                    {
-                      "kind": "text",
-                      "value": "data to update"
-                    }
-                  ]
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "None",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef update_entry(self, entry_id: str, data: dict) -> None:\n    \"\"\"Update an entry in the database.\n\n    Args:\n        entry_id (str): ID of the entry\n        data (dict): data to update\n    \"\"\"\n    # return if data is empty\n    if not data:\n        return\n\n    # get columns of table\n    self._cursor.execute(f\"PRAGMA table_info({self.tablename_db})\")\n    cols = self._cursor.fetchall()\n\n    # replace dots in keys\n    for key in list(data.keys()):\n        new_key = key.replace(\".\", DOT_REPLACEMENT)\n        new_key = _remove_illegal_column_characters(new_key)\n        if new_key != key:\n            data[new_key] = data.pop(key)\n\n    # check if columns exist\n    for key, val in data.items():\n        # key = key.replace(\".\", DOT_REPLACEMENT)\n        # key = _remove_illegal_column_characters(key)\n        if any(key == column[1] for column in cols):\n            continue\n        dtype = sql.get_sqlite_column_type(val)\n        self._cursor.execute(\n            f\"ALTER TABLE {self.tablename_db} ADD COLUMN [{key}] {dtype}\"\n        )\n\n    # insert data into table\n    data.pop(\"id\", None)\n\n    keys = \", \".join([f\"[{key}]\" for key in data.keys()])\n    values = \", \".join([f\":{key}\" for key in data.keys()])\n    updates = \", \".join([f\"[{key}] = excluded.[{key}]\" for key in data.keys()])\n\n    query = f\"\"\"\n    INSERT INTO {self.tablename_db} (id, {keys})\n    VALUES (:id, {values})\n    ON CONFLICT(id) DO UPDATE SET\n    {updates}\n    \"\"\"\n    data[\"id\"] = entry_id\n    self._cursor.execute(query, data)\n\n    # update update time\n    self._cursor.execute(\n        f\"INSERT OR REPLACE INTO {self.tablename_update_times} VALUES (?, ?)\",\n        (entry_id, time()),\n    )"
-            },
-            "sync": {
-              "name": "sync",
-              "path": "bamboost.index.DatabaseTable.sync",
-              "signature": "(self) -> None",
-              "description": "Sync the table with the file system.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "None",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef sync(self) -> None:\n    \"\"\"Sync the table with the file system.\"\"\"\n    all_ids_fs = set(\n        [\n            i\n            for i in os.listdir(self.path)\n            if os.path.isdir(os.path.join(self.path, i))\n        ]\n    )\n\n    self._cursor.execute(\n        f\"SELECT id, update_time FROM {self.tablename_update_times}\"\n    )\n\n    for id, last_up_time in self._cursor.fetchall():\n        # remove entries that do not exist on the file system\n        if id not in all_ids_fs:\n            self._cursor.execute(\n                f\"DELETE FROM {self.tablename_db} WHERE id=?\", (id,)\n            )\n            self._cursor.execute(\n                f\"DELETE FROM {self.tablename_update_times} WHERE id=?\", (id,)\n            )\n            continue\n\n        # update entries that have been modified\n        all_ids_fs.remove(id)\n        if self.entry(id).mtime > last_up_time:\n            self.update_entry(id, self.entry(id).get_all_metadata())\n\n    # add new entries\n    for id in all_ids_fs:\n        self.update_entry(id, self.entry(id).get_all_metadata())"
-            },
-            "entry": {
-              "name": "entry",
-              "path": "bamboost.index.DatabaseTable.entry",
-              "signature": "(self, entry_id) -> bamboost.index.Entry",
-              "description": "Get the Entry object of an entry.\nMultiton pattern. One Entry per entry.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "entry_id",
-                  "annotation": "str",
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "bamboost.index.Entry",
-                "description": null
-              },
-              "docstring": [],
-              "source": "@sql.with_connection\ndef entry(self, entry_id: str) -> Entry:\n    \"\"\"Get the Entry object of an entry.\n    Multiton pattern. One Entry per entry.\n    \"\"\"\n    if entry_id not in self._entries:\n        self._entries[entry_id] = Entry(entry_id, self.path)\n    return self._entries[entry_id]"
-            }
-          },
-          "source": "class DatabaseTable:\n    \"\"\"\n    Class to manage the table of a database. Multiton pattern. One table per\n    database.\n    \"\"\"\n\n    _instances = {}\n\n    def __new__(cls, id: str, *args, **kwargs) -> DatabaseTable:\n        if _comm.rank != 0:\n            return Null()\n\n        if id not in cls._instances:\n            cls._instances[id] = super().__new__(cls)\n        return cls._instances[id]\n\n    def __init__(self, id: str, *, _index: IndexAPI = None):\n        if hasattr(self, \"_initialized\"):\n            return\n\n        self.id = id\n        self._entries = {}\n        self._initialized = True\n        self._index = _index if _index is not None else IndexAPI()\n        self.path = self._index.get_path(self.id)\n        self.tablename_db = f\"db_{self.id}\"\n        self.tablename_update_times = f\"db_{self.id}_t\"\n        self.create_database_table()\n\n    def __getattr__(self, name):\n        if name in {\n            \"_conn\",\n            \"_cursor\",\n            \"open\",\n            \"close\",\n            \"commit\",\n            \"_is_open\",\n            \"commit_once\",\n        }:\n            return getattr(self._index, name)\n        return self.__getattribute__(name)\n\n    # ---------------------\n    # Database table functions\n    # ---------------------\n    @sql.with_connection\n    def read_table(self) -> pd.DataFrame:\n        \"\"\"Read the table of the database.\n\n        Returns:\n            pd.DataFrame: table of the database\n        \"\"\"\n        df = pd.read_sql_query(f\"SELECT * FROM {self.tablename_db}\", self._conn)\n        # drop \"hidden\" columns which start with _\n        df = df.loc[:, ~df.columns.str.startswith(\"_\")]\n        df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return df\n\n    @sql.with_connection\n    def read_entry(self, entry_id: str) -> pd.Series:\n        \"\"\"Read an entry from the database.\n\n        Args:\n            entry_id (str): ID of the entry\n\n        Returns:\n            pd.Series: entry from the database\n        \"\"\"\n        self._cursor.execute(\n            f\"SELECT * FROM {self.tablename_db} WHERE id=?\", (entry_id,)\n        )\n        series = pd.Series(*self._cursor.fetchall())\n        series.index = [description[0] for description in self._cursor.description]\n        series.rename(index=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return series\n\n    @sql.with_connection\n    def read_column(self, *columns: str) -> pd.DataFrame:\n        \"\"\"Read columns from the database.\n\n        Args:\n            *columns (list): columns to read\n\n        Returns:\n            pd.DataFrame: columns from the database\n        \"\"\"\n        self._cursor.execute(f\"SELECT {', '.join(columns)} FROM {self.tablename_db}\")\n        df = pd.DataFrame.from_records(self._cursor.fetchall(), columns=columns)\n        df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return df\n\n    @sql.with_connection\n    def drop_table(self) -> None:\n        \"\"\"Drop the table of the database.\"\"\"\n        self._cursor.execute(f\"DROP TABLE {self.tablename_db}\")\n        self._cursor.execute(f\"DROP TABLE {self.tablename_update_times}\")\n\n    @sql.with_connection\n    def create_database_table(self) -> None:\n        \"\"\"Create a table for a database.\"\"\"\n        self._cursor.execute(\n            f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_db} \n                (id TEXT PRIMARY KEY NOT NULL, time_stamp DATETIME, notes TEXT, processors INTEGER)\n            \"\"\"\n        )\n        self._cursor.execute(\n            f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_update_times} (id TEXT PRIMARY KEY,\n                update_time DATETIME)\n            \"\"\"\n        )\n\n    @sql.with_connection\n    def update_entry(self, entry_id: str, data: dict) -> None:\n        \"\"\"Update an entry in the database.\n\n        Args:\n            entry_id (str): ID of the entry\n            data (dict): data to update\n        \"\"\"\n        # return if data is empty\n        if not data:\n            return\n\n        # get columns of table\n        self._cursor.execute(f\"PRAGMA table_info({self.tablename_db})\")\n        cols = self._cursor.fetchall()\n\n        # replace dots in keys\n        for key in list(data.keys()):\n            new_key = key.replace(\".\", DOT_REPLACEMENT)\n            new_key = _remove_illegal_column_characters(new_key)\n            if new_key != key:\n                data[new_key] = data.pop(key)\n\n        # check if columns exist\n        for key, val in data.items():\n            # key = key.replace(\".\", DOT_REPLACEMENT)\n            # key = _remove_illegal_column_characters(key)\n            if any(key == column[1] for column in cols):\n                continue\n            dtype = sql.get_sqlite_column_type(val)\n            self._cursor.execute(\n                f\"ALTER TABLE {self.tablename_db} ADD COLUMN [{key}] {dtype}\"\n            )\n\n        # insert data into table\n        data.pop(\"id\", None)\n\n        keys = \", \".join([f\"[{key}]\" for key in data.keys()])\n        values = \", \".join([f\":{key}\" for key in data.keys()])\n        updates = \", \".join([f\"[{key}] = excluded.[{key}]\" for key in data.keys()])\n\n        query = f\"\"\"\n        INSERT INTO {self.tablename_db} (id, {keys})\n        VALUES (:id, {values})\n        ON CONFLICT(id) DO UPDATE SET\n        {updates}\n        \"\"\"\n        data[\"id\"] = entry_id\n        self._cursor.execute(query, data)\n\n        # update update time\n        self._cursor.execute(\n            f\"INSERT OR REPLACE INTO {self.tablename_update_times} VALUES (?, ?)\",\n            (entry_id, time()),\n        )\n\n    @sql.with_connection\n    def sync(self) -> None:\n        \"\"\"Sync the table with the file system.\"\"\"\n        all_ids_fs = set(\n            [\n                i\n                for i in os.listdir(self.path)\n                if os.path.isdir(os.path.join(self.path, i))\n            ]\n        )\n\n        self._cursor.execute(\n            f\"SELECT id, update_time FROM {self.tablename_update_times}\"\n        )\n\n        for id, last_up_time in self._cursor.fetchall():\n            # remove entries that do not exist on the file system\n            if id not in all_ids_fs:\n                self._cursor.execute(\n                    f\"DELETE FROM {self.tablename_db} WHERE id=?\", (id,)\n                )\n                self._cursor.execute(\n                    f\"DELETE FROM {self.tablename_update_times} WHERE id=?\", (id,)\n                )\n                continue\n\n            # update entries that have been modified\n            all_ids_fs.remove(id)\n            if self.entry(id).mtime > last_up_time:\n                self.update_entry(id, self.entry(id).get_all_metadata())\n\n        # add new entries\n        for id in all_ids_fs:\n            self.update_entry(id, self.entry(id).get_all_metadata())\n\n    @sql.with_connection\n    def entry(self, entry_id: str) -> Entry:\n        \"\"\"Get the Entry object of an entry.\n        Multiton pattern. One Entry per entry.\n        \"\"\"\n        if entry_id not in self._entries:\n            self._entries[entry_id] = Entry(entry_id, self.path)\n        return self._entries[entry_id]",
-          "inherited_members": {}
-        },
-        "Entry": {
-          "name": "Entry",
-          "path": "bamboost.index.Entry",
-          "description": "Simulation entry in a database.\nSimplified version of the Simulation class in the simulation module.",
-          "parameters": [
-            {
-              "name": "self",
-              "annotation": null,
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "id",
-              "annotation": "str",
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "path",
-              "annotation": "str",
-              "description": null,
-              "value": null
-            }
-          ],
-          "attributes": [
-            {
-              "name": "id",
-              "annotation": null,
-              "description": null,
-              "value": "id"
-            },
-            {
-              "name": "path",
-              "annotation": null,
-              "description": null,
-              "value": "path"
-            },
-            {
-              "name": "h5file",
-              "annotation": null,
-              "description": null,
-              "value": "os.path.join(self.path, self.id, f'{self.id}.h5')"
-            },
-            {
-              "name": "metadata",
-              "annotation": "dict",
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "parameters",
-              "annotation": "dict",
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "mtime",
-              "annotation": "float",
-              "description": null,
-              "value": null
-            }
-          ],
-          "docstring": [],
-          "functions": {
-            "__init__": {
-              "name": "__init__",
-              "path": "bamboost.index.Entry.__init__",
-              "signature": "(self, id, path) -> None",
-              "description": null,
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "id",
-                  "annotation": "str",
-                  "description": null,
-                  "value": null
-                },
-                {
-                  "name": "path",
-                  "annotation": "str",
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "None",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def __init__(self, id: str, path: str) -> None:\n    self.id = id\n    self.path = path\n    self.h5file = os.path.join(self.path, self.id, f\"{self.id}.h5\")"
-            },
-            "get_all_metadata": {
-              "name": "get_all_metadata",
-              "path": "bamboost.index.Entry.get_all_metadata",
-              "signature": "(self) -> dict",
-              "description": "Get all metadata of the entry.",
-              "parameters": [
-                {
-                  "name": "self",
-                  "annotation": null,
-                  "description": null,
-                  "value": null
-                }
-              ],
-              "returns": {
-                "name": "",
-                "annotation": "dict",
-                "description": null
-              },
-              "docstring": [],
-              "source": "def get_all_metadata(self) -> dict:\n    \"\"\"Get all metadata of the entry.\"\"\"\n    return {**self.metadata, **self.parameters}"
-            }
-          },
-          "source": "@dataclass\nclass Entry:\n    \"\"\"Simulation entry in a database.\n    Simplified version of the Simulation class in the simulation module.\n    \"\"\"\n\n    def __init__(self, id: str, path: str) -> None:\n        self.id = id\n        self.path = path\n        self.h5file = os.path.join(self.path, self.id, f\"{self.id}.h5\")\n\n    @property\n    def metadata(self) -> dict:\n        \"\"\"Get the metadata of the entry.\"\"\"\n        with open_h5file(self.h5file, \"r\") as file:\n            return dict(file.attrs)\n\n    @property\n    def parameters(self) -> dict:\n        \"\"\"Get the parameters of the entry.\"\"\"\n        tmp_dict = dict()\n        with open_h5file(self.h5file, \"r\") as file:\n            try:\n                tmp_dict.update(file[\"parameters\"].attrs)\n                for key in file[\"parameters\"].keys():\n                    tmp_dict.update({key: file[f\"parameters/{key}\"][()]})\n            except KeyError:\n                pass\n\n        return tmp_dict\n\n    def get_all_metadata(self) -> dict:\n        \"\"\"Get all metadata of the entry.\"\"\"\n        return {**self.metadata, **self.parameters}\n\n    @property\n    def mtime(self) -> float:\n        \"\"\"Get the modification time of the entry.\"\"\"\n        return os.path.getmtime(self.h5file)",
-          "inherited_members": {}
-        }
-      },
-      "functions": {
-        "find": {
-          "name": "find",
-          "path": "bamboost.index.find",
-          "signature": "(uid, root_dir) -> list",
-          "description": "Find the database with UID under given root_dir.",
-          "parameters": [
-            {
-              "name": "uid",
-              "annotation": null,
-              "description": [
-                {
-                  "kind": "text",
-                  "value": "UID to search for"
-                }
-              ]
-            },
-            {
-              "name": "root_dir",
-              "annotation": null,
-              "description": [
-                {
-                  "kind": "text",
-                  "value": "root directory for search"
-                }
-              ]
-            }
-          ],
-          "returns": {
-            "name": "",
-            "annotation": "list",
-            "description": null
-          },
-          "docstring": [],
-          "source": "def find(uid, root_dir) -> list:\n    \"\"\"Find the database with UID under given root_dir.\n\n    Args:\n        uid: UID to search for\n        root_dir: root directory for search\n    \"\"\"\n    if os.name == \"posix\":\n        paths = _find_posix(uid, root_dir)\n    else:\n        paths = _find_python(uid, root_dir)\n    if len(paths) > 1:\n        log.warning(f\"Multiple paths found for UID {uid}:\\n{paths}\")\n    return paths"
-        },
-        "get_uid_from_path": {
-          "name": "get_uid_from_path",
-          "path": "bamboost.index.get_uid_from_path",
-          "signature": "(path) -> str",
-          "description": "Returns the UID found in the specified path.",
-          "parameters": [
-            {
-              "name": "path",
-              "annotation": "str",
-              "description": null,
-              "value": null
-            }
-          ],
-          "returns": {
-            "name": "",
-            "annotation": "str",
-            "description": null
-          },
-          "docstring": [],
-          "source": "def get_uid_from_path(path: str) -> str:\n    \"\"\"Returns the UID found in the specified path.\"\"\"\n    for file in os.listdir(path):\n        if file.startswith(\".BAMBOOST\"):\n            return file.split(\"-\")[1]\n    raise FileNotFoundError(\"No UID file found at specified path.\")"
-        },
-        "get_known_paths": {
-          "name": "get_known_paths",
-          "path": "bamboost.index.get_known_paths",
-          "signature": "() -> list",
-          "description": null,
-          "parameters": [],
-          "returns": {
-            "name": "",
-            "annotation": "list",
-            "description": null
-          },
-          "docstring": [],
-          "source": "def get_known_paths() -> list:\n    return config[\"index\"].get(\"paths\", [])"
-        },
-        "_find_posix": {
-          "name": "_find_posix",
-          "path": "bamboost.index._find_posix",
-          "signature": "(uid, root_dir) -> list",
-          "description": "Find function using system `find` on linux.",
-          "parameters": [
-            {
-              "name": "uid",
-              "annotation": null,
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "root_dir",
-              "annotation": null,
-              "description": null,
-              "value": null
-            }
-          ],
-          "returns": {
-            "name": "",
-            "annotation": "list",
-            "description": null
-          },
-          "docstring": [],
-          "source": "def _find_posix(uid, root_dir) -> list:\n    \"\"\"Find function using system `find` on linux.\"\"\"\n    completed_process = subprocess.run(\n        [\"find\", root_dir, \"-iname\", uid2(uid), \"-not\", \"-path\", r\"*/\\.git/*\"],\n        capture_output=True,\n    )\n    paths_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n    return paths_found"
-        },
-        "_find_python": {
-          "name": "_find_python",
-          "path": "bamboost.index._find_python",
-          "signature": "(uid, root_dir) -> list",
-          "description": "Some find function for Windows or other if `find` is not working.\n\nTODO: to be implemented",
-          "parameters": [
-            {
-              "name": "uid",
-              "annotation": null,
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "root_dir",
-              "annotation": null,
-              "description": null,
-              "value": null
-            }
-          ],
-          "returns": {
-            "name": "",
-            "annotation": "list",
-            "description": null
-          },
-          "docstring": [],
-          "source": "def _find_python(uid, root_dir) -> list:\n    \"\"\"Some find function for Windows or other if `find` is not working.\n\n    TODO: to be implemented\n    \"\"\"\n    pass"
-        },
-        "uid2": {
-          "name": "uid2",
-          "path": "bamboost.index.uid2",
-          "signature": "(uid) -> str",
-          "description": null,
-          "parameters": [
-            {
-              "name": "uid",
-              "annotation": null,
-              "description": null,
-              "value": null
-            }
-          ],
-          "returns": {
-            "name": "",
-            "annotation": "str",
-            "description": null
-          },
-          "docstring": [],
-          "source": "def uid2(uid) -> str:\n    return f\"{PREFIX}{uid}\""
-        },
-        "_check_path": {
-          "name": "_check_path",
-          "path": "bamboost.index._check_path",
-          "signature": "(uid, path) -> bool",
-          "description": "Check if path is going to the correct database",
-          "parameters": [
-            {
-              "name": "uid",
-              "annotation": "str",
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "path",
-              "annotation": "str",
-              "description": null,
-              "value": null
-            }
-          ],
-          "returns": {
-            "name": "",
-            "annotation": "bool",
-            "description": null
-          },
-          "docstring": [],
-          "source": "def _check_path(uid: str, path: str) -> bool:\n    \"\"\"Check if path is going to the correct database\"\"\"\n    if not os.path.exists(path):\n        return False\n    if f\"{PREFIX}{uid}\" in os.listdir(path):\n        return True\n    return False"
-        },
-        "_remove_illegal_column_characters": {
-          "name": "_remove_illegal_column_characters",
-          "path": "bamboost.index._remove_illegal_column_characters",
-          "signature": "(key) -> str",
-          "description": "Remove illegal characters in sqlite column names from a string.",
-          "parameters": [
-            {
-              "name": "key",
-              "annotation": "str",
-              "description": [
-                {
-                  "kind": "text",
-                  "value": "key to clean"
-                }
-              ]
-            }
-          ],
-          "returns": {
-            "name": "",
-            "annotation": "str",
-            "description": null
-          },
-          "docstring": [
-            {
-              "kind": "text",
-              "value": "Removes all content in parenthesis and replaces dashes with underscores."
-            }
-          ],
-          "source": "def _remove_illegal_column_characters(key: str) -> str:\n    \"\"\"Remove illegal characters in sqlite column names from a string.\n\n    Args:\n        key (str): key to clean\n\n    Removes all content in parenthesis and replaces dashes with underscores.\n    \"\"\"\n    import re\n\n    # clean from parenthesis\n    key = re.sub(r\"[()]\", \"\", re.sub(r\"\\(.*?\\)\", \"\", key))\n    # clean from dashes\n    key = re.sub(r\"-\", \"_\", key)\n    return key"
-        }
-      }
-    },
     "simulation": {
       "name": "simulation",
       "path": "bamboost.simulation",
@@ -6749,7 +5105,7 @@
             "create_batch_script": {
               "name": "create_batch_script",
               "path": "bamboost.simulation.Simulation.create_batch_script",
-              "signature": "(self, args = (), kwargs = {})",
+              "signature": "(self, *args, **kwargs)",
               "description": null,
               "parameters": [
                 {
@@ -8279,6 +6635,1654 @@
       },
       "functions": {}
     },
+    "index": {
+      "name": "index",
+      "path": "bamboost.index",
+      "filepath": "/home/florez/work/code/bamboost/bamboost/index.py",
+      "description": "Module to manage the database index and its ID's.",
+      "docstring": [],
+      "attributes": [
+        {
+          "name": "__all__",
+          "annotation": null,
+          "description": null,
+          "value": "['Null', 'IndexAPI', 'DatabaseTable', 'Entry', 'find', 'get_uid_from_path', 'get_known_paths', 'uid2', 'DatabaseNotFoundError', 'THREAD_SAFE', 'CONVERT_ARRAYS', 'PREFIX', 'DOT_REPLACEMENT']"
+        },
+        {
+          "name": "log",
+          "annotation": null,
+          "description": null,
+          "value": "BAMBOOST_LOGGER.getChild(__name__.split('.')[-1])"
+        },
+        {
+          "name": "PREFIX",
+          "annotation": null,
+          "description": null,
+          "value": "'.BAMBOOST-'"
+        },
+        {
+          "name": "DOT_REPLACEMENT",
+          "annotation": null,
+          "description": null,
+          "value": "'DOT'"
+        },
+        {
+          "name": "_comm",
+          "annotation": null,
+          "description": null,
+          "value": "MPI.COMM_WORLD"
+        },
+        {
+          "name": "THREAD_SAFE",
+          "annotation": null,
+          "description": "if True, the index is thread safe",
+          "value": "False"
+        },
+        {
+          "name": "CONVERT_ARRAYS",
+          "annotation": null,
+          "description": "if True, convert numpy arrays to lists",
+          "value": "True"
+        },
+        {
+          "name": "Error",
+          "annotation": null,
+          "description": null,
+          "value": "sql.sqlite3.Error"
+        }
+      ],
+      "modules": {},
+      "classes": {
+        "DatabaseNotFoundError": {
+          "name": "DatabaseNotFoundError",
+          "path": "bamboost.index.DatabaseNotFoundError",
+          "description": "Exception raised when a database is not found in the index.",
+          "parameters": [],
+          "attributes": [],
+          "docstring": [],
+          "functions": {},
+          "source": "class DatabaseNotFoundError(Exception):\n    \"\"\"Exception raised when a database is not found in the index.\"\"\"\n\n    pass",
+          "inherited_members": {}
+        },
+        "Null": {
+          "name": "Null",
+          "path": "bamboost.index.Null",
+          "description": "Null object to replace API classes for off-root processes.",
+          "parameters": [],
+          "attributes": [],
+          "docstring": [],
+          "functions": {
+            "__getattr__": {
+              "name": "__getattr__",
+              "path": "bamboost.index.Null.__getattr__",
+              "signature": "(self, _)",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "_",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": null,
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __getattr__(self, _):\n    return self"
+            },
+            "__bool__": {
+              "name": "__bool__",
+              "path": "bamboost.index.Null.__bool__",
+              "signature": "(self)",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": null,
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __bool__(self):\n    # Allows the instance to behave like `None` in boolean contexts\n    return False"
+            },
+            "__call__": {
+              "name": "__call__",
+              "path": "bamboost.index.Null.__call__",
+              "signature": "(self, *args, **kwargs)",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "args",
+                  "annotation": null,
+                  "description": null,
+                  "value": "()"
+                },
+                {
+                  "name": "kwargs",
+                  "annotation": null,
+                  "description": null,
+                  "value": "{}"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": null,
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __call__(self, *args, **kwargs):\n    # Allows the instance to be called like a function\n    return self"
+            },
+            "__getitem__": {
+              "name": "__getitem__",
+              "path": "bamboost.index.Null.__getitem__",
+              "signature": "(self, _)",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "_",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": null,
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __getitem__(self, _):\n    return self"
+            },
+            "__enter__": {
+              "name": "__enter__",
+              "path": "bamboost.index.Null.__enter__",
+              "signature": "(self, *args, **kwargs)",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "args",
+                  "annotation": null,
+                  "description": null,
+                  "value": "()"
+                },
+                {
+                  "name": "kwargs",
+                  "annotation": null,
+                  "description": null,
+                  "value": "{}"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": null,
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __enter__(self, *args, **kwargs):\n    return self"
+            },
+            "__exit__": {
+              "name": "__exit__",
+              "path": "bamboost.index.Null.__exit__",
+              "signature": "(self, *args, **kwargs)",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "args",
+                  "annotation": null,
+                  "description": null,
+                  "value": "()"
+                },
+                {
+                  "name": "kwargs",
+                  "annotation": null,
+                  "description": null,
+                  "value": "{}"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": null,
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __exit__(self, *args, **kwargs):\n    return False"
+            }
+          },
+          "source": "class Null:\n    \"\"\"Null object to replace API classes for off-root processes.\"\"\"\n\n    def __getattr__(self, _):\n        return self\n\n    def __bool__(self):\n        # Allows the instance to behave like `None` in boolean contexts\n        return False\n\n    def __call__(self, *args, **kwargs):\n        # Allows the instance to be called like a function\n        return self\n\n    def __getitem__(self, _):\n        return self\n\n    def __enter__(self, *args, **kwargs):\n        return self\n\n    def __exit__(self, *args, **kwargs):\n        return False",
+          "inherited_members": {}
+        },
+        "IndexAPI": {
+          "name": "IndexAPI",
+          "path": "bamboost.index.IndexAPI",
+          "description": "SQLite database to store database ID, path lookup. As well as the table for\neach database. Location: `~/.local/share/bamboost/bamboost.db`.\nSingleton pattern.",
+          "parameters": [
+            {
+              "name": "self",
+              "annotation": null,
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "_file",
+              "annotation": "str",
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "path to the database file"
+                }
+              ],
+              "value": "None"
+            },
+            {
+              "name": "convert_arrays",
+              "annotation": "bool",
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "Defaults to True. If False, when reading from the database,\nlists with tag ARRAY are not converted back to numpy arrays but\nremain a standard list."
+                }
+              ],
+              "value": "None"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "_instances",
+              "annotation": null,
+              "description": null,
+              "value": "{}"
+            },
+            {
+              "name": "_initialized",
+              "annotation": null,
+              "description": null,
+              "value": "True"
+            }
+          ],
+          "docstring": [],
+          "functions": {
+            "__new__": {
+              "name": "__new__",
+              "path": "bamboost.index.IndexAPI.__new__",
+              "signature": "(cls, *, _file = None, **kwargs) -> bamboost.index.IndexAPI",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "cls",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "_file",
+                  "annotation": "str",
+                  "description": null,
+                  "value": "None"
+                },
+                {
+                  "name": "kwargs",
+                  "annotation": null,
+                  "description": null,
+                  "value": "{}"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "bamboost.index.IndexAPI",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __new__(cls, *, _file: str = None, **kwargs) -> IndexAPI:\n    if THREAD_SAFE:\n        return super().__new__(cls)\n\n    if _comm.rank != 0:\n        return Null()\n\n    _file = _file or paths[\"DATABASE_FILE\"]\n    if _file not in cls._instances:\n        cls._instances[_file] = super().__new__(cls)\n    return cls._instances[_file]"
+            },
+            "__init__": {
+              "name": "__init__",
+              "path": "bamboost.index.IndexAPI.__init__",
+              "signature": "(self, *, _file = None, convert_arrays = None)",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "_file",
+                  "annotation": "str",
+                  "description": null,
+                  "value": "None"
+                },
+                {
+                  "name": "convert_arrays",
+                  "annotation": "bool",
+                  "description": null,
+                  "value": "None"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": null,
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __init__(self, *, _file: str = None, convert_arrays: bool = None):\n    convert_arrays = (\n        convert_arrays if convert_arrays is not None else CONVERT_ARRAYS\n    )\n    if hasattr(self, \"_initialized\"):\n        return\n    _file = _file or paths[\"DATABASE_FILE\"]\n    super().__init__(file=_file, convert_arrays=convert_arrays)\n    self.create_index_table()\n    self.clean()\n    self._initialized = True"
+            },
+            "ThreadSafe": {
+              "name": "ThreadSafe",
+              "path": "bamboost.index.IndexAPI.ThreadSafe",
+              "signature": "(cls, *args, **kwargs) -> bamboost.index.IndexAPI",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "cls",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "args",
+                  "annotation": null,
+                  "description": null,
+                  "value": "()"
+                },
+                {
+                  "name": "kwargs",
+                  "annotation": null,
+                  "description": null,
+                  "value": "{}"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "bamboost.index.IndexAPI",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@classmethod\ndef ThreadSafe(cls, *args, **kwargs) -> IndexAPI:\n    instance = super().__new__(cls)\n    instance.__init__(*args, **kwargs)\n    return instance"
+            },
+            "__repr__": {
+              "name": "__repr__",
+              "path": "bamboost.index.IndexAPI.__repr__",
+              "signature": "(self) -> str",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "str",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __repr__(self) -> str:\n    return self.read_table().__repr__()"
+            },
+            "_repr_html_": {
+              "name": "_repr_html_",
+              "path": "bamboost.index.IndexAPI._repr_html_",
+              "signature": "(self) -> str",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "str",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def _repr_html_(self) -> str:\n    return self.read_table()._repr_html_()"
+            },
+            "__getitem__": {
+              "name": "__getitem__",
+              "path": "bamboost.index.IndexAPI.__getitem__",
+              "signature": "(self, id) -> bamboost.index.DatabaseTable",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "id",
+                  "annotation": "str",
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "bamboost.index.DatabaseTable",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __getitem__(self, id: str) -> DatabaseTable:\n    return DatabaseTable(id, _index=self)"
+            },
+            "_ipython_key_completions_": {
+              "name": "_ipython_key_completions_",
+              "path": "bamboost.index.IndexAPI._ipython_key_completions_",
+              "signature": "(self) -> list",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "list",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def _ipython_key_completions_(self) -> list:\n    return self.read_table().id.tolist()"
+            },
+            "create_index_table": {
+              "name": "create_index_table",
+              "path": "bamboost.index.IndexAPI.create_index_table",
+              "signature": "(self) -> None",
+              "description": "Create the index table if it does not exist.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "None",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef create_index_table(self) -> None:\n    \"\"\"Create the index table if it does not exist.\"\"\"\n    self._cursor.execute(\n        \"\"\"CREATE TABLE IF NOT EXISTS dbindex (id TEXT PRIMARY KEY, path TEXT)\"\"\"\n    )"
+            },
+            "get_database_table": {
+              "name": "get_database_table",
+              "path": "bamboost.index.IndexAPI.get_database_table",
+              "signature": "(self, id) -> bamboost.index.DatabaseTable",
+              "description": "Get the table of a database.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "id",
+                  "annotation": "str",
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "bamboost.index.DatabaseTable",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def get_database_table(self, id: str) -> DatabaseTable:\n    \"\"\"Get the table of a database.\n\n    Args:\n        - id (str): ID of the database\n    \"\"\"\n    return DatabaseTable(id, _index=self)"
+            },
+            "read_table": {
+              "name": "read_table",
+              "path": "bamboost.index.IndexAPI.read_table",
+              "signature": "(self, *args, **kwargs) -> pandas.DataFrame",
+              "description": "Read the index table.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "args",
+                  "annotation": null,
+                  "description": null,
+                  "value": "()"
+                },
+                {
+                  "name": "kwargs",
+                  "annotation": null,
+                  "description": null,
+                  "value": "{}"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "pandas.DataFrame",
+                "description": "pd.DataFrame: index table"
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef read_table(self, *args, **kwargs) -> pd.DataFrame:\n    \"\"\"Read the index table.\n\n    Returns:\n        pd.DataFrame: index table\n    \"\"\"\n    return pd.read_sql_query(\"SELECT * FROM dbindex\", self._conn, *args, **kwargs)"
+            },
+            "fetch": {
+              "name": "fetch",
+              "path": "bamboost.index.IndexAPI.fetch",
+              "signature": "(self, query, *args, **kwargs) -> pandas.DataFrame",
+              "description": "Query the index table.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "query",
+                  "annotation": "str",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "query string"
+                    }
+                  ]
+                },
+                {
+                  "name": "args",
+                  "annotation": null,
+                  "description": null,
+                  "value": "()"
+                },
+                {
+                  "name": "kwargs",
+                  "annotation": null,
+                  "description": null,
+                  "value": "{}"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "pandas.DataFrame",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef fetch(self, query: str, *args, **kwargs) -> pd.DataFrame:\n    \"\"\"Query the index table.\n\n    Args:\n        query (str): query string\n    \"\"\"\n    self._cursor.execute(query, *args, **kwargs)\n    return self._cursor.fetchall()"
+            },
+            "get_path": {
+              "name": "get_path",
+              "path": "bamboost.index.IndexAPI.get_path",
+              "signature": "(self, id) -> str",
+              "description": "Get the path of a database from its ID.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "id",
+                  "annotation": "str",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "ID of the database"
+                    }
+                  ]
+                }
+              ],
+              "returns": {
+                "name": "str",
+                "annotation": "str",
+                "description": "path of the database"
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef get_path(self, id: str) -> str:\n    \"\"\"Get the path of a database from its ID.\n\n    Args:\n        id (str): ID of the database\n\n    Returns:\n        str: path of the database\n    \"\"\"\n    self._cursor.execute(\"SELECT path FROM dbindex WHERE id=?\", (id,))\n    path_db = self._cursor.fetchone()\n    if path_db and _check_path(id, path_db[0]):\n        return path_db[0]\n\n    # if path is wrong, try to find it\n    for root_dir in get_known_paths():\n        res = find(id, root_dir)\n        if res:\n            path = os.path.dirname(res[0])\n            self.insert_path(id, path)\n            return path\n\n    # last resort, check home\n    res = find(id, paths[\"HOME\"])\n    if res:\n        path = os.path.dirname(res[0])\n        self.insert_path(id, path)\n        return path\n\n    raise FileNotFoundError(f\"Database {id} not found on system.\")"
+            },
+            "insert_path": {
+              "name": "insert_path",
+              "path": "bamboost.index.IndexAPI.insert_path",
+              "signature": "(self, id, path) -> None",
+              "description": "Insert a database path into the index.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "id",
+                  "annotation": "str",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "ID of the database"
+                    }
+                  ]
+                },
+                {
+                  "name": "path",
+                  "annotation": "str",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "path of the database"
+                    }
+                  ]
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "None",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef insert_path(self, id: str, path: str) -> None:\n    \"\"\"Insert a database path into the index.\n\n    Args:\n        id (str): ID of the database\n        path (str): path of the database\n    \"\"\"\n    path = os.path.abspath(path)\n    self._cursor.execute(\"INSERT OR REPLACE INTO dbindex VALUES (?, ?)\", (id, path))"
+            },
+            "get_id": {
+              "name": "get_id",
+              "path": "bamboost.index.IndexAPI.get_id",
+              "signature": "(self, path) -> str",
+              "description": "Get the ID of a database from its path.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "path",
+                  "annotation": "str",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "path of the database"
+                    }
+                  ]
+                }
+              ],
+              "returns": {
+                "name": "str",
+                "annotation": "str",
+                "description": "ID of the database"
+              },
+              "docstring": [
+                {
+                  "kind": "raises",
+                  "value": [
+                    {
+                      "annotation": "DatabaseNotFoundError",
+                      "description": "if the database is not found in the index"
+                    }
+                  ]
+                }
+              ],
+              "source": "@sql.with_connection\ndef get_id(self, path: str) -> str:\n    \"\"\"Get the ID of a database from its path.\n\n    Args:\n        path (str): path of the database\n\n    Returns:\n        str: ID of the database\n\n    Raises:\n        DatabaseNotFoundError: if the database is not found in the index\n    \"\"\"\n    path = os.path.abspath(path)\n    self._cursor.execute(\"SELECT id FROM dbindex WHERE path=?\", (path,))\n    fetched = self._cursor.fetchone()\n    if fetched is None:\n        raise DatabaseNotFoundError(f\"Database at {path} not found in index.\")\n    return fetched[0]"
+            },
+            "scan_known_paths": {
+              "name": "scan_known_paths",
+              "path": "bamboost.index.IndexAPI.scan_known_paths",
+              "signature": "(self) -> dict",
+              "description": "Scan known paths for databases and update the index.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "dict",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef scan_known_paths(self) -> dict:\n    \"\"\"Scan known paths for databases and update the index.\"\"\"\n    for path in get_known_paths():\n        completed_process = subprocess.run(\n            [\"find\", path, \"-iname\", f\"{PREFIX}*\", \"-not\", \"-path\", r\"*/\\.git/*\"],\n            capture_output=True,\n        )\n        databases_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n        for database in databases_found:\n            name = os.path.basename(database)\n            id = name.split(\"-\")[1]\n            self.insert_path(id, os.path.dirname(database))"
+            },
+            "commit_once": {
+              "name": "commit_once",
+              "path": "bamboost.index.IndexAPI.commit_once",
+              "signature": "(self, func) -> typing.Callable",
+              "description": "Decorator to bundle changes to a single commit.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "func",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "typing.Callable",
+                "description": null
+              },
+              "docstring": [
+                {
+                  "kind": "admonition",
+                  "value": {
+                    "annotation": "example",
+                    "description": ">>> @Index.commit_once\n>>> def create_a_bunch_of_simulations():\n>>>     for i in range(1000):\n>>>         db.create_simulation(parameters={...})\n>>>\n>>> create_a_bunch_of_simulations()"
+                  },
+                  "title": "Example"
+                }
+              ],
+              "source": "def commit_once(self, func) -> Callable:\n    \"\"\"Decorator to bundle changes to a single commit.\n\n    Example:\n        >>> @Index.commit_once\n        >>> def create_a_bunch_of_simulations():\n        >>>     for i in range(1000):\n        >>>         db.create_simulation(parameters={...})\n        >>>\n        >>> create_a_bunch_of_simulations()\n    \"\"\"\n\n    def wrapper(*args, **kwargs):\n        with self.open(ensure_commit=True):\n            return func(*args, **kwargs)\n\n    return wrapper"
+            },
+            "clean": {
+              "name": "clean",
+              "path": "bamboost.index.IndexAPI.clean",
+              "signature": "(self, purge = False) -> bamboost.index.IndexAPI",
+              "description": "Clean the index from wrong paths.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "purge",
+                  "annotation": "bool",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "Also deletes the table of unmatching uid/path pairs. Defaults to False."
+                    }
+                  ],
+                  "value": "False"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "bamboost.index.IndexAPI",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef clean(self, purge: bool = False) -> IndexAPI:\n    \"\"\"Clean the index from wrong paths.\n\n    Args:\n        purge (bool, optional): Also deletes the table of unmatching uid/path pairs. Defaults to False.\n    \"\"\"\n    index = self._cursor.execute(\"SELECT id, path FROM dbindex\").fetchall()\n    for id, path in index:\n        if not _check_path(id, path):\n            self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n\n    if purge:\n        # all tables starting with db_ are tables of databases\n        all_tables = self._cursor.execute(\n            \"SELECT name FROM sqlite_master WHERE type='table'\"\n        ).fetchall()\n        id_list_tables = {\n            i[0].split(\"_\")[1] for i in all_tables if i[0].startswith(\"db_\")\n        }\n        id_list = self._cursor.execute(\"SELECT id FROM dbindex\").fetchall()\n\n        for id in id_list_tables:\n            if id not in id_list:\n                self._cursor.execute(f\"DROP TABLE db_{id}\")\n                self._cursor.execute(f\"DROP TABLE db_{id}_t\")\n\n    return self"
+            },
+            "drop_path": {
+              "name": "drop_path",
+              "path": "bamboost.index.IndexAPI.drop_path",
+              "signature": "(self, id) -> None",
+              "description": "Drop a path from the index.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "id",
+                  "annotation": "str",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "ID of the database"
+                    }
+                  ]
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "None",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef drop_path(self, id: str) -> None:\n    \"\"\"Drop a path from the index.\n\n    Args:\n        id (str): ID of the database\n    \"\"\"\n    self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))"
+            },
+            "check_path": {
+              "name": "check_path",
+              "path": "bamboost.index.IndexAPI.check_path",
+              "signature": "(self, id, path) -> bool",
+              "description": "Check if path is going to the correct database.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "id",
+                  "annotation": "str",
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "path",
+                  "annotation": "str",
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "bool",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def check_path(self, id: str, path: str) -> bool:\n    \"\"\"Check if path is going to the correct database.\"\"\"\n    return _check_path(id, path)"
+            }
+          },
+          "source": "class IndexAPI(sql.SQLiteHandler):\n    \"\"\"SQLite database to store database ID, path lookup. As well as the table for\n    each database. Location: `~/.local/share/bamboost/bamboost.db`.\n    Singleton pattern.\n\n    Args:\n        _file: path to the database file\n        convert_arrays: Defaults to True. If False, when reading from the database,\n            lists with tag ARRAY are not converted back to numpy arrays but\n            remain a standard list.\n    \"\"\"\n\n    _instances = {}\n\n    def __new__(cls, *, _file: str = None, **kwargs) -> IndexAPI:\n        if THREAD_SAFE:\n            return super().__new__(cls)\n\n        if _comm.rank != 0:\n            return Null()\n\n        _file = _file or paths[\"DATABASE_FILE\"]\n        if _file not in cls._instances:\n            cls._instances[_file] = super().__new__(cls)\n        return cls._instances[_file]\n\n    def __init__(self, *, _file: str = None, convert_arrays: bool = None):\n        convert_arrays = (\n            convert_arrays if convert_arrays is not None else CONVERT_ARRAYS\n        )\n        if hasattr(self, \"_initialized\"):\n            return\n        _file = _file or paths[\"DATABASE_FILE\"]\n        super().__init__(file=_file, convert_arrays=convert_arrays)\n        self.create_index_table()\n        self.clean()\n        self._initialized = True\n\n    @classmethod\n    def ThreadSafe(cls, *args, **kwargs) -> IndexAPI:\n        instance = super().__new__(cls)\n        instance.__init__(*args, **kwargs)\n        return instance\n\n    def __repr__(self) -> str:\n        return self.read_table().__repr__()\n\n    def _repr_html_(self) -> str:\n        return self.read_table()._repr_html_()\n\n    def __getitem__(self, id: str) -> DatabaseTable:\n        return DatabaseTable(id, _index=self)\n\n    def _ipython_key_completions_(self) -> list:\n        return self.read_table().id.tolist()\n\n    @sql.with_connection\n    def create_index_table(self) -> None:\n        \"\"\"Create the index table if it does not exist.\"\"\"\n        self._cursor.execute(\n            \"\"\"CREATE TABLE IF NOT EXISTS dbindex (id TEXT PRIMARY KEY, path TEXT)\"\"\"\n        )\n\n    def get_database_table(self, id: str) -> DatabaseTable:\n        \"\"\"Get the table of a database.\n\n        Args:\n            - id (str): ID of the database\n        \"\"\"\n        return DatabaseTable(id, _index=self)\n\n    @sql.with_connection\n    def read_table(self, *args, **kwargs) -> pd.DataFrame:\n        \"\"\"Read the index table.\n\n        Returns:\n            pd.DataFrame: index table\n        \"\"\"\n        return pd.read_sql_query(\"SELECT * FROM dbindex\", self._conn, *args, **kwargs)\n\n    @sql.with_connection\n    def fetch(self, query: str, *args, **kwargs) -> pd.DataFrame:\n        \"\"\"Query the index table.\n\n        Args:\n            query (str): query string\n        \"\"\"\n        self._cursor.execute(query, *args, **kwargs)\n        return self._cursor.fetchall()\n\n    @sql.with_connection\n    def get_path(self, id: str) -> str:\n        \"\"\"Get the path of a database from its ID.\n\n        Args:\n            id (str): ID of the database\n\n        Returns:\n            str: path of the database\n        \"\"\"\n        self._cursor.execute(\"SELECT path FROM dbindex WHERE id=?\", (id,))\n        path_db = self._cursor.fetchone()\n        if path_db and _check_path(id, path_db[0]):\n            return path_db[0]\n\n        # if path is wrong, try to find it\n        for root_dir in get_known_paths():\n            res = find(id, root_dir)\n            if res:\n                path = os.path.dirname(res[0])\n                self.insert_path(id, path)\n                return path\n\n        # last resort, check home\n        res = find(id, paths[\"HOME\"])\n        if res:\n            path = os.path.dirname(res[0])\n            self.insert_path(id, path)\n            return path\n\n        raise FileNotFoundError(f\"Database {id} not found on system.\")\n\n    @sql.with_connection\n    def insert_path(self, id: str, path: str) -> None:\n        \"\"\"Insert a database path into the index.\n\n        Args:\n            id (str): ID of the database\n            path (str): path of the database\n        \"\"\"\n        path = os.path.abspath(path)\n        self._cursor.execute(\"INSERT OR REPLACE INTO dbindex VALUES (?, ?)\", (id, path))\n\n    @sql.with_connection\n    def get_id(self, path: str) -> str:\n        \"\"\"Get the ID of a database from its path.\n\n        Args:\n            path (str): path of the database\n\n        Returns:\n            str: ID of the database\n\n        Raises:\n            DatabaseNotFoundError: if the database is not found in the index\n        \"\"\"\n        path = os.path.abspath(path)\n        self._cursor.execute(\"SELECT id FROM dbindex WHERE path=?\", (path,))\n        fetched = self._cursor.fetchone()\n        if fetched is None:\n            raise DatabaseNotFoundError(f\"Database at {path} not found in index.\")\n        return fetched[0]\n\n    @sql.with_connection\n    def scan_known_paths(self) -> dict:\n        \"\"\"Scan known paths for databases and update the index.\"\"\"\n        for path in get_known_paths():\n            completed_process = subprocess.run(\n                [\"find\", path, \"-iname\", f\"{PREFIX}*\", \"-not\", \"-path\", r\"*/\\.git/*\"],\n                capture_output=True,\n            )\n            databases_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n            for database in databases_found:\n                name = os.path.basename(database)\n                id = name.split(\"-\")[1]\n                self.insert_path(id, os.path.dirname(database))\n\n    def commit_once(self, func) -> Callable:\n        \"\"\"Decorator to bundle changes to a single commit.\n\n        Example:\n            >>> @Index.commit_once\n            >>> def create_a_bunch_of_simulations():\n            >>>     for i in range(1000):\n            >>>         db.create_simulation(parameters={...})\n            >>>\n            >>> create_a_bunch_of_simulations()\n        \"\"\"\n\n        def wrapper(*args, **kwargs):\n            with self.open(ensure_commit=True):\n                return func(*args, **kwargs)\n\n        return wrapper\n\n    @sql.with_connection\n    def clean(self, purge: bool = False) -> IndexAPI:\n        \"\"\"Clean the index from wrong paths.\n\n        Args:\n            purge (bool, optional): Also deletes the table of unmatching uid/path pairs. Defaults to False.\n        \"\"\"\n        index = self._cursor.execute(\"SELECT id, path FROM dbindex\").fetchall()\n        for id, path in index:\n            if not _check_path(id, path):\n                self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n\n        if purge:\n            # all tables starting with db_ are tables of databases\n            all_tables = self._cursor.execute(\n                \"SELECT name FROM sqlite_master WHERE type='table'\"\n            ).fetchall()\n            id_list_tables = {\n                i[0].split(\"_\")[1] for i in all_tables if i[0].startswith(\"db_\")\n            }\n            id_list = self._cursor.execute(\"SELECT id FROM dbindex\").fetchall()\n\n            for id in id_list_tables:\n                if id not in id_list:\n                    self._cursor.execute(f\"DROP TABLE db_{id}\")\n                    self._cursor.execute(f\"DROP TABLE db_{id}_t\")\n\n        return self\n\n    @sql.with_connection\n    def drop_path(self, id: str) -> None:\n        \"\"\"Drop a path from the index.\n\n        Args:\n            id (str): ID of the database\n        \"\"\"\n        self._cursor.execute(\"DELETE FROM dbindex WHERE id=?\", (id,))\n\n    def check_path(self, id: str, path: str) -> bool:\n        \"\"\"Check if path is going to the correct database.\"\"\"\n        return _check_path(id, path)",
+          "inherited_members": {
+            "bamboost._sqlite_database.SQLiteHandler": [
+              {
+                "kind": "attribute",
+                "path": "bamboost._sqlite_database.SQLiteHandler.file"
+              },
+              {
+                "kind": "attribute",
+                "path": "bamboost._sqlite_database.SQLiteHandler._conn"
+              },
+              {
+                "kind": "attribute",
+                "path": "bamboost._sqlite_database.SQLiteHandler._cursor"
+              },
+              {
+                "kind": "attribute",
+                "path": "bamboost._sqlite_database.SQLiteHandler._is_open"
+              },
+              {
+                "kind": "attribute",
+                "path": "bamboost._sqlite_database.SQLiteHandler._lock_stack"
+              },
+              {
+                "kind": "function",
+                "path": "bamboost._sqlite_database.SQLiteHandler.connect"
+              },
+              {
+                "kind": "function",
+                "path": "bamboost._sqlite_database.SQLiteHandler.close"
+              },
+              {
+                "kind": "function",
+                "path": "bamboost._sqlite_database.SQLiteHandler.commit"
+              },
+              {
+                "kind": "function",
+                "path": "bamboost._sqlite_database.SQLiteHandler.open"
+              }
+            ]
+          }
+        },
+        "DatabaseTable": {
+          "name": "DatabaseTable",
+          "path": "bamboost.index.DatabaseTable",
+          "description": "Class to manage the table of a database. Multiton pattern. One table per\ndatabase.",
+          "parameters": [
+            {
+              "name": "self",
+              "annotation": null,
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "id",
+              "annotation": "str",
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "_index",
+              "annotation": "IndexAPI",
+              "description": null,
+              "value": "None"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "_instances",
+              "annotation": null,
+              "description": null,
+              "value": "{}"
+            },
+            {
+              "name": "id",
+              "annotation": null,
+              "description": null,
+              "value": "id"
+            },
+            {
+              "name": "_entries",
+              "annotation": null,
+              "description": null,
+              "value": "{}"
+            },
+            {
+              "name": "_initialized",
+              "annotation": null,
+              "description": null,
+              "value": "True"
+            },
+            {
+              "name": "_index",
+              "annotation": null,
+              "description": null,
+              "value": "_index if _index is not None else IndexAPI()"
+            },
+            {
+              "name": "path",
+              "annotation": null,
+              "description": null,
+              "value": "self._index.get_path(self.id)"
+            },
+            {
+              "name": "tablename_db",
+              "annotation": null,
+              "description": null,
+              "value": "f'db_{self.id}'"
+            },
+            {
+              "name": "tablename_update_times",
+              "annotation": null,
+              "description": null,
+              "value": "f'db_{self.id}_t'"
+            }
+          ],
+          "docstring": [],
+          "functions": {
+            "__new__": {
+              "name": "__new__",
+              "path": "bamboost.index.DatabaseTable.__new__",
+              "signature": "(cls, id, *args, **kwargs) -> bamboost.index.DatabaseTable",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "cls",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "id",
+                  "annotation": "str",
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "args",
+                  "annotation": null,
+                  "description": null,
+                  "value": "()"
+                },
+                {
+                  "name": "kwargs",
+                  "annotation": null,
+                  "description": null,
+                  "value": "{}"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "bamboost.index.DatabaseTable",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __new__(cls, id: str, *args, **kwargs) -> DatabaseTable:\n    if _comm.rank != 0:\n        return Null()\n\n    if id not in cls._instances:\n        cls._instances[id] = super().__new__(cls)\n    return cls._instances[id]"
+            },
+            "__init__": {
+              "name": "__init__",
+              "path": "bamboost.index.DatabaseTable.__init__",
+              "signature": "(self, id, *, _index = None)",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "id",
+                  "annotation": "str",
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "_index",
+                  "annotation": "IndexAPI",
+                  "description": null,
+                  "value": "None"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": null,
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __init__(self, id: str, *, _index: IndexAPI = None):\n    if hasattr(self, \"_initialized\"):\n        return\n\n    self.id = id\n    self._entries = {}\n    self._initialized = True\n    self._index = _index if _index is not None else IndexAPI()\n    self.path = self._index.get_path(self.id)\n    self.tablename_db = f\"db_{self.id}\"\n    self.tablename_update_times = f\"db_{self.id}_t\"\n    self.create_database_table()"
+            },
+            "__getattr__": {
+              "name": "__getattr__",
+              "path": "bamboost.index.DatabaseTable.__getattr__",
+              "signature": "(self, name)",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "name",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": null,
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __getattr__(self, name):\n    if name in {\n        \"_conn\",\n        \"_cursor\",\n        \"open\",\n        \"close\",\n        \"commit\",\n        \"_is_open\",\n        \"commit_once\",\n    }:\n        return getattr(self._index, name)\n    return self.__getattribute__(name)"
+            },
+            "read_table": {
+              "name": "read_table",
+              "path": "bamboost.index.DatabaseTable.read_table",
+              "signature": "(self) -> pandas.DataFrame",
+              "description": "Read the table of the database.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "pandas.DataFrame",
+                "description": "pd.DataFrame: table of the database"
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef read_table(self) -> pd.DataFrame:\n    \"\"\"Read the table of the database.\n\n    Returns:\n        pd.DataFrame: table of the database\n    \"\"\"\n    df = pd.read_sql_query(f\"SELECT * FROM {self.tablename_db}\", self._conn)\n    # drop \"hidden\" columns which start with _\n    df = df.loc[:, ~df.columns.str.startswith(\"_\")]\n    df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n    return df"
+            },
+            "read_entry": {
+              "name": "read_entry",
+              "path": "bamboost.index.DatabaseTable.read_entry",
+              "signature": "(self, entry_id) -> pandas.Series",
+              "description": "Read an entry from the database.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "entry_id",
+                  "annotation": "str",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "ID of the entry"
+                    }
+                  ]
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "pandas.Series",
+                "description": "pd.Series: entry from the database"
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef read_entry(self, entry_id: str) -> pd.Series:\n    \"\"\"Read an entry from the database.\n\n    Args:\n        entry_id (str): ID of the entry\n\n    Returns:\n        pd.Series: entry from the database\n    \"\"\"\n    self._cursor.execute(\n        f\"SELECT * FROM {self.tablename_db} WHERE id=?\", (entry_id,)\n    )\n    series = pd.Series(*self._cursor.fetchall())\n    series.index = [description[0] for description in self._cursor.description]\n    series.rename(index=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n    return series"
+            },
+            "read_column": {
+              "name": "read_column",
+              "path": "bamboost.index.DatabaseTable.read_column",
+              "signature": "(self, *columns) -> pandas.DataFrame",
+              "description": "Read columns from the database.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "columns",
+                  "annotation": "str",
+                  "description": null,
+                  "value": "()"
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "pandas.DataFrame",
+                "description": "pd.DataFrame: columns from the database"
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef read_column(self, *columns: str) -> pd.DataFrame:\n    \"\"\"Read columns from the database.\n\n    Args:\n        *columns (list): columns to read\n\n    Returns:\n        pd.DataFrame: columns from the database\n    \"\"\"\n    self._cursor.execute(f\"SELECT {', '.join(columns)} FROM {self.tablename_db}\")\n    df = pd.DataFrame.from_records(self._cursor.fetchall(), columns=columns)\n    df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n    return df"
+            },
+            "drop_table": {
+              "name": "drop_table",
+              "path": "bamboost.index.DatabaseTable.drop_table",
+              "signature": "(self) -> None",
+              "description": "Drop the table of the database.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "None",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef drop_table(self) -> None:\n    \"\"\"Drop the table of the database.\"\"\"\n    self._cursor.execute(f\"DROP TABLE {self.tablename_db}\")\n    self._cursor.execute(f\"DROP TABLE {self.tablename_update_times}\")"
+            },
+            "create_database_table": {
+              "name": "create_database_table",
+              "path": "bamboost.index.DatabaseTable.create_database_table",
+              "signature": "(self) -> None",
+              "description": "Create a table for a database.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "None",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef create_database_table(self) -> None:\n    \"\"\"Create a table for a database.\"\"\"\n    self._cursor.execute(\n        f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_db} \n            (id TEXT PRIMARY KEY NOT NULL, time_stamp DATETIME, notes TEXT, processors INTEGER)\n        \"\"\"\n    )\n    self._cursor.execute(\n        f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_update_times} (id TEXT PRIMARY KEY,\n            update_time DATETIME)\n        \"\"\"\n    )"
+            },
+            "update_entry": {
+              "name": "update_entry",
+              "path": "bamboost.index.DatabaseTable.update_entry",
+              "signature": "(self, entry_id, data) -> None",
+              "description": "Update an entry in the database.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "entry_id",
+                  "annotation": "str",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "ID of the entry"
+                    }
+                  ]
+                },
+                {
+                  "name": "data",
+                  "annotation": "dict",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "data to update"
+                    }
+                  ]
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "None",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef update_entry(self, entry_id: str, data: dict) -> None:\n    \"\"\"Update an entry in the database.\n\n    Args:\n        entry_id (str): ID of the entry\n        data (dict): data to update\n    \"\"\"\n    # return if data is empty\n    if not data:\n        return\n\n    # get columns of table\n    self._cursor.execute(f\"PRAGMA table_info({self.tablename_db})\")\n    cols = self._cursor.fetchall()\n\n    # replace dots in keys\n    for key in list(data.keys()):\n        new_key = key.replace(\".\", DOT_REPLACEMENT)\n        new_key = _remove_illegal_column_characters(new_key)\n        if new_key != key:\n            data[new_key] = data.pop(key)\n\n    # check if columns exist\n    for key, val in data.items():\n        # key = key.replace(\".\", DOT_REPLACEMENT)\n        # key = _remove_illegal_column_characters(key)\n        if any(key == column[1] for column in cols):\n            continue\n        dtype = sql.get_sqlite_column_type(val)\n        self._cursor.execute(\n            f\"ALTER TABLE {self.tablename_db} ADD COLUMN [{key}] {dtype}\"\n        )\n\n    # insert data into table\n    data.pop(\"id\", None)\n\n    keys = \", \".join([f\"[{key}]\" for key in data.keys()])\n    values = \", \".join([f\":{key}\" for key in data.keys()])\n    updates = \", \".join([f\"[{key}] = excluded.[{key}]\" for key in data.keys()])\n\n    query = f\"\"\"\n    INSERT INTO {self.tablename_db} (id, {keys})\n    VALUES (:id, {values})\n    ON CONFLICT(id) DO UPDATE SET\n    {updates}\n    \"\"\"\n    data[\"id\"] = entry_id\n    self._cursor.execute(query, data)\n\n    # update update time\n    self._cursor.execute(\n        f\"INSERT OR REPLACE INTO {self.tablename_update_times} VALUES (?, ?)\",\n        (entry_id, time()),\n    )"
+            },
+            "sync": {
+              "name": "sync",
+              "path": "bamboost.index.DatabaseTable.sync",
+              "signature": "(self) -> None",
+              "description": "Sync the table with the file system.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "None",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef sync(self) -> None:\n    \"\"\"Sync the table with the file system.\"\"\"\n    all_ids_fs = set(\n        [\n            i\n            for i in os.listdir(self.path)\n            if os.path.isdir(os.path.join(self.path, i))\n        ]\n    )\n\n    self._cursor.execute(\n        f\"SELECT id, update_time FROM {self.tablename_update_times}\"\n    )\n\n    for id, last_up_time in self._cursor.fetchall():\n        # remove entries that do not exist on the file system\n        if id not in all_ids_fs:\n            self._cursor.execute(\n                f\"DELETE FROM {self.tablename_db} WHERE id=?\", (id,)\n            )\n            self._cursor.execute(\n                f\"DELETE FROM {self.tablename_update_times} WHERE id=?\", (id,)\n            )\n            continue\n\n        # update entries that have been modified\n        all_ids_fs.remove(id)\n        if self.entry(id).mtime > last_up_time:\n            self.update_entry(id, self.entry(id).get_all_metadata())\n\n    # add new entries\n    for id in all_ids_fs:\n        self.update_entry(id, self.entry(id).get_all_metadata())"
+            },
+            "entry": {
+              "name": "entry",
+              "path": "bamboost.index.DatabaseTable.entry",
+              "signature": "(self, entry_id) -> bamboost.index.Entry",
+              "description": "Get the Entry object of an entry.\nMultiton pattern. One Entry per entry.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "entry_id",
+                  "annotation": "str",
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "bamboost.index.Entry",
+                "description": null
+              },
+              "docstring": [],
+              "source": "@sql.with_connection\ndef entry(self, entry_id: str) -> Entry:\n    \"\"\"Get the Entry object of an entry.\n    Multiton pattern. One Entry per entry.\n    \"\"\"\n    if entry_id not in self._entries:\n        self._entries[entry_id] = Entry(entry_id, self.path)\n    return self._entries[entry_id]"
+            }
+          },
+          "source": "class DatabaseTable:\n    \"\"\"\n    Class to manage the table of a database. Multiton pattern. One table per\n    database.\n    \"\"\"\n\n    _instances = {}\n\n    def __new__(cls, id: str, *args, **kwargs) -> DatabaseTable:\n        if _comm.rank != 0:\n            return Null()\n\n        if id not in cls._instances:\n            cls._instances[id] = super().__new__(cls)\n        return cls._instances[id]\n\n    def __init__(self, id: str, *, _index: IndexAPI = None):\n        if hasattr(self, \"_initialized\"):\n            return\n\n        self.id = id\n        self._entries = {}\n        self._initialized = True\n        self._index = _index if _index is not None else IndexAPI()\n        self.path = self._index.get_path(self.id)\n        self.tablename_db = f\"db_{self.id}\"\n        self.tablename_update_times = f\"db_{self.id}_t\"\n        self.create_database_table()\n\n    def __getattr__(self, name):\n        if name in {\n            \"_conn\",\n            \"_cursor\",\n            \"open\",\n            \"close\",\n            \"commit\",\n            \"_is_open\",\n            \"commit_once\",\n        }:\n            return getattr(self._index, name)\n        return self.__getattribute__(name)\n\n    # ---------------------\n    # Database table functions\n    # ---------------------\n    @sql.with_connection\n    def read_table(self) -> pd.DataFrame:\n        \"\"\"Read the table of the database.\n\n        Returns:\n            pd.DataFrame: table of the database\n        \"\"\"\n        df = pd.read_sql_query(f\"SELECT * FROM {self.tablename_db}\", self._conn)\n        # drop \"hidden\" columns which start with _\n        df = df.loc[:, ~df.columns.str.startswith(\"_\")]\n        df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return df\n\n    @sql.with_connection\n    def read_entry(self, entry_id: str) -> pd.Series:\n        \"\"\"Read an entry from the database.\n\n        Args:\n            entry_id (str): ID of the entry\n\n        Returns:\n            pd.Series: entry from the database\n        \"\"\"\n        self._cursor.execute(\n            f\"SELECT * FROM {self.tablename_db} WHERE id=?\", (entry_id,)\n        )\n        series = pd.Series(*self._cursor.fetchall())\n        series.index = [description[0] for description in self._cursor.description]\n        series.rename(index=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return series\n\n    @sql.with_connection\n    def read_column(self, *columns: str) -> pd.DataFrame:\n        \"\"\"Read columns from the database.\n\n        Args:\n            *columns (list): columns to read\n\n        Returns:\n            pd.DataFrame: columns from the database\n        \"\"\"\n        self._cursor.execute(f\"SELECT {', '.join(columns)} FROM {self.tablename_db}\")\n        df = pd.DataFrame.from_records(self._cursor.fetchall(), columns=columns)\n        df.rename(columns=lambda x: x.replace(DOT_REPLACEMENT, \".\"), inplace=True)\n        return df\n\n    @sql.with_connection\n    def drop_table(self) -> None:\n        \"\"\"Drop the table of the database.\"\"\"\n        self._cursor.execute(f\"DROP TABLE {self.tablename_db}\")\n        self._cursor.execute(f\"DROP TABLE {self.tablename_update_times}\")\n\n    @sql.with_connection\n    def create_database_table(self) -> None:\n        \"\"\"Create a table for a database.\"\"\"\n        self._cursor.execute(\n            f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_db} \n                (id TEXT PRIMARY KEY NOT NULL, time_stamp DATETIME, notes TEXT, processors INTEGER)\n            \"\"\"\n        )\n        self._cursor.execute(\n            f\"\"\"CREATE TABLE IF NOT EXISTS {self.tablename_update_times} (id TEXT PRIMARY KEY,\n                update_time DATETIME)\n            \"\"\"\n        )\n\n    @sql.with_connection\n    def update_entry(self, entry_id: str, data: dict) -> None:\n        \"\"\"Update an entry in the database.\n\n        Args:\n            entry_id (str): ID of the entry\n            data (dict): data to update\n        \"\"\"\n        # return if data is empty\n        if not data:\n            return\n\n        # get columns of table\n        self._cursor.execute(f\"PRAGMA table_info({self.tablename_db})\")\n        cols = self._cursor.fetchall()\n\n        # replace dots in keys\n        for key in list(data.keys()):\n            new_key = key.replace(\".\", DOT_REPLACEMENT)\n            new_key = _remove_illegal_column_characters(new_key)\n            if new_key != key:\n                data[new_key] = data.pop(key)\n\n        # check if columns exist\n        for key, val in data.items():\n            # key = key.replace(\".\", DOT_REPLACEMENT)\n            # key = _remove_illegal_column_characters(key)\n            if any(key == column[1] for column in cols):\n                continue\n            dtype = sql.get_sqlite_column_type(val)\n            self._cursor.execute(\n                f\"ALTER TABLE {self.tablename_db} ADD COLUMN [{key}] {dtype}\"\n            )\n\n        # insert data into table\n        data.pop(\"id\", None)\n\n        keys = \", \".join([f\"[{key}]\" for key in data.keys()])\n        values = \", \".join([f\":{key}\" for key in data.keys()])\n        updates = \", \".join([f\"[{key}] = excluded.[{key}]\" for key in data.keys()])\n\n        query = f\"\"\"\n        INSERT INTO {self.tablename_db} (id, {keys})\n        VALUES (:id, {values})\n        ON CONFLICT(id) DO UPDATE SET\n        {updates}\n        \"\"\"\n        data[\"id\"] = entry_id\n        self._cursor.execute(query, data)\n\n        # update update time\n        self._cursor.execute(\n            f\"INSERT OR REPLACE INTO {self.tablename_update_times} VALUES (?, ?)\",\n            (entry_id, time()),\n        )\n\n    @sql.with_connection\n    def sync(self) -> None:\n        \"\"\"Sync the table with the file system.\"\"\"\n        all_ids_fs = set(\n            [\n                i\n                for i in os.listdir(self.path)\n                if os.path.isdir(os.path.join(self.path, i))\n            ]\n        )\n\n        self._cursor.execute(\n            f\"SELECT id, update_time FROM {self.tablename_update_times}\"\n        )\n\n        for id, last_up_time in self._cursor.fetchall():\n            # remove entries that do not exist on the file system\n            if id not in all_ids_fs:\n                self._cursor.execute(\n                    f\"DELETE FROM {self.tablename_db} WHERE id=?\", (id,)\n                )\n                self._cursor.execute(\n                    f\"DELETE FROM {self.tablename_update_times} WHERE id=?\", (id,)\n                )\n                continue\n\n            # update entries that have been modified\n            all_ids_fs.remove(id)\n            if self.entry(id).mtime > last_up_time:\n                self.update_entry(id, self.entry(id).get_all_metadata())\n\n        # add new entries\n        for id in all_ids_fs:\n            self.update_entry(id, self.entry(id).get_all_metadata())\n\n    @sql.with_connection\n    def entry(self, entry_id: str) -> Entry:\n        \"\"\"Get the Entry object of an entry.\n        Multiton pattern. One Entry per entry.\n        \"\"\"\n        if entry_id not in self._entries:\n            self._entries[entry_id] = Entry(entry_id, self.path)\n        return self._entries[entry_id]",
+          "inherited_members": {}
+        },
+        "Entry": {
+          "name": "Entry",
+          "path": "bamboost.index.Entry",
+          "description": "Simulation entry in a database.\nSimplified version of the Simulation class in the simulation module.",
+          "parameters": [
+            {
+              "name": "self",
+              "annotation": null,
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "id",
+              "annotation": "str",
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "path",
+              "annotation": "str",
+              "description": null,
+              "value": null
+            }
+          ],
+          "attributes": [
+            {
+              "name": "id",
+              "annotation": null,
+              "description": null,
+              "value": "id"
+            },
+            {
+              "name": "path",
+              "annotation": null,
+              "description": null,
+              "value": "path"
+            },
+            {
+              "name": "h5file",
+              "annotation": null,
+              "description": null,
+              "value": "os.path.join(self.path, self.id, f'{self.id}.h5')"
+            },
+            {
+              "name": "metadata",
+              "annotation": "dict",
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "parameters",
+              "annotation": "dict",
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "mtime",
+              "annotation": "float",
+              "description": null,
+              "value": null
+            }
+          ],
+          "docstring": [],
+          "functions": {
+            "__init__": {
+              "name": "__init__",
+              "path": "bamboost.index.Entry.__init__",
+              "signature": "(self, id, path) -> None",
+              "description": null,
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "id",
+                  "annotation": "str",
+                  "description": null,
+                  "value": null
+                },
+                {
+                  "name": "path",
+                  "annotation": "str",
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "None",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def __init__(self, id: str, path: str) -> None:\n    self.id = id\n    self.path = path\n    self.h5file = os.path.join(self.path, self.id, f\"{self.id}.h5\")"
+            },
+            "get_all_metadata": {
+              "name": "get_all_metadata",
+              "path": "bamboost.index.Entry.get_all_metadata",
+              "signature": "(self) -> dict",
+              "description": "Get all metadata of the entry.",
+              "parameters": [
+                {
+                  "name": "self",
+                  "annotation": null,
+                  "description": null,
+                  "value": null
+                }
+              ],
+              "returns": {
+                "name": "",
+                "annotation": "dict",
+                "description": null
+              },
+              "docstring": [],
+              "source": "def get_all_metadata(self) -> dict:\n    \"\"\"Get all metadata of the entry.\"\"\"\n    return {**self.metadata, **self.parameters}"
+            }
+          },
+          "source": "@dataclass\nclass Entry:\n    \"\"\"Simulation entry in a database.\n    Simplified version of the Simulation class in the simulation module.\n    \"\"\"\n\n    def __init__(self, id: str, path: str) -> None:\n        self.id = id\n        self.path = path\n        self.h5file = os.path.join(self.path, self.id, f\"{self.id}.h5\")\n\n    @property\n    def metadata(self) -> dict:\n        \"\"\"Get the metadata of the entry.\"\"\"\n        with open_h5file(self.h5file, \"r\") as file:\n            return dict(file.attrs)\n\n    @property\n    def parameters(self) -> dict:\n        \"\"\"Get the parameters of the entry.\"\"\"\n        tmp_dict = dict()\n        with open_h5file(self.h5file, \"r\") as file:\n            try:\n                tmp_dict.update(file[\"parameters\"].attrs)\n                for key in file[\"parameters\"].keys():\n                    tmp_dict.update({key: file[f\"parameters/{key}\"][()]})\n            except KeyError:\n                pass\n\n        return tmp_dict\n\n    def get_all_metadata(self) -> dict:\n        \"\"\"Get all metadata of the entry.\"\"\"\n        return {**self.metadata, **self.parameters}\n\n    @property\n    def mtime(self) -> float:\n        \"\"\"Get the modification time of the entry.\"\"\"\n        return os.path.getmtime(self.h5file)",
+          "inherited_members": {}
+        }
+      },
+      "functions": {
+        "find": {
+          "name": "find",
+          "path": "bamboost.index.find",
+          "signature": "(uid, root_dir) -> list",
+          "description": "Find the database with UID under given root_dir.",
+          "parameters": [
+            {
+              "name": "uid",
+              "annotation": null,
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "UID to search for"
+                }
+              ]
+            },
+            {
+              "name": "root_dir",
+              "annotation": null,
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "root directory for search"
+                }
+              ]
+            }
+          ],
+          "returns": {
+            "name": "",
+            "annotation": "list",
+            "description": null
+          },
+          "docstring": [],
+          "source": "def find(uid, root_dir) -> list:\n    \"\"\"Find the database with UID under given root_dir.\n\n    Args:\n        uid: UID to search for\n        root_dir: root directory for search\n    \"\"\"\n    if os.name == \"posix\":\n        paths = _find_posix(uid, root_dir)\n    else:\n        paths = _find_python(uid, root_dir)\n    if len(paths) > 1:\n        log.warning(f\"Multiple paths found for UID {uid}:\\n{paths}\")\n    return paths"
+        },
+        "get_uid_from_path": {
+          "name": "get_uid_from_path",
+          "path": "bamboost.index.get_uid_from_path",
+          "signature": "(path) -> str",
+          "description": "Returns the UID found in the specified path.",
+          "parameters": [
+            {
+              "name": "path",
+              "annotation": "str",
+              "description": null,
+              "value": null
+            }
+          ],
+          "returns": {
+            "name": "",
+            "annotation": "str",
+            "description": null
+          },
+          "docstring": [],
+          "source": "def get_uid_from_path(path: str) -> str:\n    \"\"\"Returns the UID found in the specified path.\"\"\"\n    for file in os.listdir(path):\n        if file.startswith(\".BAMBOOST\"):\n            return file.split(\"-\")[1]\n    raise FileNotFoundError(\"No UID file found at specified path.\")"
+        },
+        "get_known_paths": {
+          "name": "get_known_paths",
+          "path": "bamboost.index.get_known_paths",
+          "signature": "() -> list",
+          "description": null,
+          "parameters": [],
+          "returns": {
+            "name": "",
+            "annotation": "list",
+            "description": null
+          },
+          "docstring": [],
+          "source": "def get_known_paths() -> list:\n    return config[\"index\"].get(\"paths\", [])"
+        },
+        "_find_posix": {
+          "name": "_find_posix",
+          "path": "bamboost.index._find_posix",
+          "signature": "(uid, root_dir) -> list",
+          "description": "Find function using system `find` on linux.",
+          "parameters": [
+            {
+              "name": "uid",
+              "annotation": null,
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "root_dir",
+              "annotation": null,
+              "description": null,
+              "value": null
+            }
+          ],
+          "returns": {
+            "name": "",
+            "annotation": "list",
+            "description": null
+          },
+          "docstring": [],
+          "source": "def _find_posix(uid, root_dir) -> list:\n    \"\"\"Find function using system `find` on linux.\"\"\"\n    completed_process = subprocess.run(\n        [\"find\", root_dir, \"-iname\", uid2(uid), \"-not\", \"-path\", r\"*/\\.git/*\"],\n        capture_output=True,\n    )\n    paths_found = completed_process.stdout.decode(\"utf-8\").splitlines()\n    return paths_found"
+        },
+        "_find_python": {
+          "name": "_find_python",
+          "path": "bamboost.index._find_python",
+          "signature": "(uid, root_dir) -> list",
+          "description": "Some find function for Windows or other if `find` is not working.\n\nTODO: to be implemented",
+          "parameters": [
+            {
+              "name": "uid",
+              "annotation": null,
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "root_dir",
+              "annotation": null,
+              "description": null,
+              "value": null
+            }
+          ],
+          "returns": {
+            "name": "",
+            "annotation": "list",
+            "description": null
+          },
+          "docstring": [],
+          "source": "def _find_python(uid, root_dir) -> list:\n    \"\"\"Some find function for Windows or other if `find` is not working.\n\n    TODO: to be implemented\n    \"\"\"\n    pass"
+        },
+        "uid2": {
+          "name": "uid2",
+          "path": "bamboost.index.uid2",
+          "signature": "(uid) -> str",
+          "description": null,
+          "parameters": [
+            {
+              "name": "uid",
+              "annotation": null,
+              "description": null,
+              "value": null
+            }
+          ],
+          "returns": {
+            "name": "",
+            "annotation": "str",
+            "description": null
+          },
+          "docstring": [],
+          "source": "def uid2(uid) -> str:\n    return f\"{PREFIX}{uid}\""
+        },
+        "_check_path": {
+          "name": "_check_path",
+          "path": "bamboost.index._check_path",
+          "signature": "(uid, path) -> bool",
+          "description": "Check if path is going to the correct database",
+          "parameters": [
+            {
+              "name": "uid",
+              "annotation": "str",
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "path",
+              "annotation": "str",
+              "description": null,
+              "value": null
+            }
+          ],
+          "returns": {
+            "name": "",
+            "annotation": "bool",
+            "description": null
+          },
+          "docstring": [],
+          "source": "def _check_path(uid: str, path: str) -> bool:\n    \"\"\"Check if path is going to the correct database\"\"\"\n    if not os.path.exists(path):\n        return False\n    if f\"{PREFIX}{uid}\" in os.listdir(path):\n        return True\n    return False"
+        },
+        "_remove_illegal_column_characters": {
+          "name": "_remove_illegal_column_characters",
+          "path": "bamboost.index._remove_illegal_column_characters",
+          "signature": "(key) -> str",
+          "description": "Remove illegal characters in sqlite column names from a string.",
+          "parameters": [
+            {
+              "name": "key",
+              "annotation": "str",
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "key to clean"
+                }
+              ]
+            }
+          ],
+          "returns": {
+            "name": "",
+            "annotation": "str",
+            "description": null
+          },
+          "docstring": [
+            {
+              "kind": "admonition",
+              "value": {
+                "annotation": "notes",
+                "description": "Removes all content in parenthesis and replaces dashes with underscores."
+              },
+              "title": "Notes"
+            }
+          ],
+          "source": "def _remove_illegal_column_characters(key: str) -> str:\n    \"\"\"Remove illegal characters in sqlite column names from a string.\n\n    Args:\n        key (str): key to clean\n\n    Notes:\n        Removes all content in parenthesis and replaces dashes with underscores.\n    \"\"\"\n    import re\n\n    # clean from parenthesis\n    key = re.sub(r\"[()]\", \"\", re.sub(r\"\\(.*?\\)\", \"\", key))\n    # clean from dashes\n    key = re.sub(r\"-\", \"_\", key)\n    return key"
+        }
+      }
+    },
     "accessors": {
       "name": "accessors",
       "path": "bamboost.accessors",
@@ -8532,7 +8536,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboost.accessors.meshes.MeshGroup.__init__",
-                  "signature": "(self, file_handler, path_to_data = '/Mesh/0', _default_mesh = 'mesh', kwargs = {}) -> None",
+                  "signature": "(self, file_handler, path_to_data = '/Mesh/0', _default_mesh = 'mesh', **kwargs) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -8917,7 +8921,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboost.accessors.fielddata.DataGroup.__init__",
-                  "signature": "(self, file_handler, meshes, path_to_data = '/data', kwargs = {}) -> None",
+                  "signature": "(self, file_handler, meshes, path_to_data = '/data', **kwargs) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -9304,7 +9308,7 @@
                 "at_step": {
                   "name": "at_step",
                   "path": "bamboost.accessors.fielddata.FieldData.at_step",
-                  "signature": "(self, steps = ()) -> numpy.ndarray",
+                  "signature": "(self, *steps) -> numpy.ndarray",
                   "description": "Direct access to data at step. Does not require the virtual dataset.",
                   "parameters": [
                     {
@@ -11221,7 +11225,7 @@
                 "__exit__": {
                   "name": "__exit__",
                   "path": "bamboost.common.file_handler.FileHandler.__exit__",
-                  "signature": "(self, args = ())",
+                  "signature": "(self, *args)",
                   "description": null,
                   "parameters": [
                     {

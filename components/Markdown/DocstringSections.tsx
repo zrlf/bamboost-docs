@@ -38,9 +38,22 @@ export const DocstringSections = ({
         return <pre key={key}>{section.value}</pre>;
 
       case "admonition":
-        const type = resolveAdmonitionType(section.value.annotation.toLowerCase());
+        const type = resolveAdmonitionType(
+          section.value.annotation.toLowerCase(),
+        );
         const infoAnnotations = ["note", "info", "warn", "tip", "error"];
         const parsedContent = renderMarkdown(section.value.description);
+
+        if (type === "notes") {
+          return (
+            <div key={key}>
+              <h5>Notes</h5>
+              <div className="ml-indent2 [&_p]:my-2">
+                {renderMarkdown(section.value.description)}
+              </div>
+            </div>
+          );
+        }
 
         if (infoAnnotations.includes(type)) {
           return (
