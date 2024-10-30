@@ -1,9 +1,22 @@
+"use client";
 import { ReactNode } from "react";
-import { Source } from "../lib/source.api";
 import { baseOptions } from "@/app/layout.config";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import { sources } from "../lib/source.api";
+import { usePathname } from "next/navigation";
 
-export default function getLayout(source: Source) {
+export default function Layout({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const firstSlug = pathname.split("/")[1];
+
+  const source = Object.values(sources).find((source) => {
+    return source.baseUrl === firstSlug;
+  });
+
+  if (!source) {
+    return null;
+  }
+
   // I manually add a separator to the page tree
   const treeChildren = source.pageTree.children;
 
@@ -40,9 +53,9 @@ export default function getLayout(source: Source) {
       modifiedTreeChildren.push(child);
     }
   }
-  const newPageTree = { name: "bamboost", children: modifiedTreeChildren };
+  const newPageTree = { name: source.pkgName, children: modifiedTreeChildren };
 
-  return ({ children }: { children: ReactNode }) => (
+  return (
     <DocsLayout
       containerProps={source.options}
       tree={newPageTree}

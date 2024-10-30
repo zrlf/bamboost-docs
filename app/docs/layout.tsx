@@ -6,7 +6,11 @@ import "katex/dist/katex.css";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <DocsLayout containerProps={{className: "route-docs"}} tree={docSource.pageTree} {...baseOptions}>
+    <DocsLayout
+      containerProps={{ className: "route-docs" }}
+      tree={docSource.pageTree}
+      {...baseOptions}
+    >
       {children}
     </DocsLayout>
   );

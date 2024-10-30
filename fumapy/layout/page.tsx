@@ -1,15 +1,21 @@
-import { Source } from "@/fumapy/lib/source.api";
 import type { Metadata } from "next";
-import { DocsPage, DocsBody, DocsTitle } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
+import { DocsPage, DocsBody, DocsTitle } from "fumadocs-ui/page";
 import { Module } from "@/fumapy/components/SourceDocumentation/module";
+import { sources } from "@/fumapy/lib/source.api";
 
-export default function usePage(source: Source) {
+export default function useApiPage() {
   return {
-    default: async function Page(props: { params: Promise<{ slug?: string[] }> }) {
+    Page: async function Page(props: {
+      params: Promise<{ slug?: string[] }>;
+    }) {
       const params = await props.params;
-      const page = source.getPage(params.slug);
-      if (!page) notFound();
+      const source = Object.values(sources).find((source) => {
+        return params.slug ? source.baseUrl === params.slug[0] : false;
+      });
+      if (!source) return notFound();
+      const page = source.getPage(params.slug?.slice(1));
+      if (!page) return notFound();
 
       return (
         <DocsPage
@@ -26,19 +32,26 @@ export default function usePage(source: Source) {
     },
 
     generateStaticParams: async function generateStaticParams() {
-      return source.generateParams();
+      const res = Object.values(sources).flatMap((source) =>
+        source
+          .generateParams()
+          .map(({ slug }) => ({ slug: [source.baseUrl, ...slug] })),
+      );
+      return res;
     },
 
     generateMetadata: async function generateMetadata(props: {
       params: Promise<{ slug?: string[] }>;
     }) {
       const params = await props.params;
-      const page = source.getPage(params.slug);
-      if (!page) notFound();
+      const source = Object.values(sources).find((source) => {
+        return params.slug ? source.baseUrl === params.slug[0] : false;
+      });
+      const page = source?.getPage(params.slug);
 
       return {
-        title: page.data.title,
-        description: page.data.description,
+        title: page?.data.title,
+        description: page?.data.description,
       } satisfies Metadata;
     },
   };

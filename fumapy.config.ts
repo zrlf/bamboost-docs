@@ -1,10 +1,9 @@
-import { ModuleInterface } from "./fumapy/components/SourceDocumentation/types";
 import { BundledTheme, CodeToHastOptions, BundledLanguage } from "shiki";
 
 interface Source {
   baseUrl: string;
   title: string;
-  sourceFile: ModuleInterface;
+  pkgName: string;
   options?: Record<string, any>;
 }
 
@@ -27,17 +26,17 @@ const config: Config = {
   excludeModules: ["bamboost._version"],
   sources: {
     bamboost: {
-      baseUrl: "/apidocs",
+      baseUrl: "apidocs",
       title: "API Reference",
-      sourceFile: require("@/api.json"),
+      pkgName: "bamboost",
       options: {
         className: "route-api",
       },
     },
     bamboostcli: {
-      baseUrl: "/api-tui",
+      baseUrl: "api-tui",
       title: "API TUI",
-      sourceFile: require("@/api-tui.json"),
+      pkgName: "bamboostcli",
       options: {
         className: "route-tui",
       },

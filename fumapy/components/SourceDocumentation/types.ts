@@ -65,6 +65,7 @@ type DocstringSection =
   | {
       kind: string;
       value: any;
+      title?: string;
     };
 
 interface ParameterInterface {

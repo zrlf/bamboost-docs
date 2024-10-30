@@ -1,5 +1,5 @@
 import { Code } from "@/fumapy/components/Code";
-import { ParameterInterface } from "../types";
+import { DocstringSection, ParameterInterface } from "../types";
 import Markdown from "@/fumapy/components/Markdown/markdown";
 import { DocstringSections } from "@/fumapy/components/Markdown/DocstringSections";
 
@@ -40,8 +40,8 @@ const Argument = ({
 }: {
   name: string;
   type: string;
-  defaultValue: string | null;
-  description: string | null;
+  defaultValue: string | null | undefined;
+  description: string | DocstringSection[] | null;
 }) => {
   return (
     <div className="[&_p:not(.not-prose)]:my-2">

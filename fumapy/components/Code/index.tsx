@@ -11,12 +11,14 @@ export async function Code({
   inline = false,
   noBackground = false,
   link = false,
+  handleNewLine = false,
   className,
 }: {
   code: string;
   inline?: boolean;
   noBackground?: boolean;
   link?: boolean;
+  handleNewLine?: boolean;
   className?: string;
 }) {
   if (!code) return null;
@@ -25,7 +27,11 @@ export async function Code({
     if (linkedCode !== null) return linkedCode;
   }
 
-  const codeWithPreservedBlanks = code.replace(/^\s*$/gm, " ").trimEnd();
+  let codeWithPreservedBlanks = code.replace(/^\s*$/gm, " ").trimEnd();
+  // handle new line characters \n
+  if (handleNewLine) {
+    codeWithPreservedBlanks = codeWithPreservedBlanks.replace(/\\n/g, "\n");
+  }
   const out = await codeToHast(codeWithPreservedBlanks, config.shiki);
 
   const nodes = toJsxRuntime(out, {

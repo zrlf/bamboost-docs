@@ -52,7 +52,6 @@ export const Method = ({
 
         {data.docstring.length > 0 && (
           <>
-            {/* <div className="w-full h-px bg-border"></div> */}
             <DocstringSections sections={data.docstring} />
           </>
         )}
@@ -79,6 +78,7 @@ export const Constructor = ({
       noBackground
     />
   );
+  const id = data ? `${clsName}.${data.name}` : clsName;
 
   return (
     <div>
@@ -87,6 +87,7 @@ export const Constructor = ({
         signature={signature}
         code={code}
         isConstructor
+        id={id}
       />
     </div>
   );

@@ -70,6 +70,16 @@ export default function HomePage() {
           </Card>
         </div>
       </div>
+      <p className="text-muted-foreground/50 mt-10 text-sm">
+        Also, here is the link{" "}
+        <Link
+          href="/api-tui"
+          className="text-[hsl(var(--primary-tui))] font-semibold underline"
+        >
+          /api-tui
+        </Link>{" "}
+        to the source documentation of the terminal user interface.
+      </p>
     </main>
   );
 }

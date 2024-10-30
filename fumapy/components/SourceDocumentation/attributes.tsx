@@ -17,8 +17,7 @@ export const Attributes = ({
           <li
             key={property.name}
             id={parent ? `${parent}.${property.name}` : property.name}
-            // this is to make the anchor links shifted down by 20
-            className="before:content-[''] before:block before:h-32 before:-mt-32 before:invisible"
+            className="scroll-m-28"
           >
             <div className="flex flex-wrap items-center">
               <h6 className="font-mono">{property.name}</h6>
@@ -31,7 +30,10 @@ export const Attributes = ({
                 <>
                   <span className="ml-2">=</span>
                   <span className="ml-2">
-                    <Code code={property.value} inline />
+                    <Code
+                      code={property.value}
+                      inline
+                    />
                   </span>
                 </>
               )}

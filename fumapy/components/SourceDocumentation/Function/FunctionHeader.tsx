@@ -26,7 +26,7 @@ export const FunctionHeader = ({
       >
         <FumaComponents.h4 id={data.name} className="my-2">
           <span>{data.name}</span>
-          <span className="ml-2 leading-relaxed break-all">{signature}</span>
+          <span className="ml-2 leading-relaxed">{signature}</span>
         </FumaComponents.h4>
         <button
           className="text-xs border px-2 py-1 rounded size-fit text-muted-foreground text-nowrap"

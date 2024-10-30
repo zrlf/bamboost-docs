@@ -1,5 +1,4 @@
 "use client";
-import FumaComponents from "fumadocs-ui/mdx";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -36,26 +35,26 @@ export default function MethodHeader({
       >
         <div className="">
           {isClassMethod}
-          <FumaComponents.h4
-            id={id}
-            className={cn(isClassMethod ? "my-2 mt-0" : "my-2", "")}
-          >
-            {clsName && (
-              <span
-                className={cn(
-                  "text-muted-foreground/80 text-base",
-                  isConstructor && "text-foreground",
-                )}
-              >
-                {clsName}
-              </span>
-            )}
-            {clsName && name && (
-              <span className="text-muted-foreground/80 mx-0.5">.</span>
-            )}
-            <span className="font-bold">{name}</span>
-            <span className="leading-relaxed break-all">{signature}</span>
-          </FumaComponents.h4>
+          <h4 id={id} className={cn(isClassMethod ? "my-2 mt-0" : "my-2", "scroll-m-28")}>
+            <a href={`#${id}`} className="not-prose">
+              {clsName && (
+                <span
+                  className={cn(
+                    "text-muted-foreground/80 text-base",
+                    isConstructor && "text-foreground",
+                  )}
+                >
+                  {clsName}
+                </span>
+              )}
+              {clsName && name && (
+                <span className="text-muted-foreground/80 mx-0.5">.</span>
+              )}
+              <span className="font-bold">{name}</span>
+            </a>
+
+            <span className="leading-relaxed">{signature}</span>
+          </h4>
         </div>
 
         {code && (

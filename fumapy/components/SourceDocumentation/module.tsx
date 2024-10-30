@@ -27,7 +27,7 @@ export const Module = ({ data }: { data: ModuleInterface }) => {
               key={module.name}
               title={module.name}
               description={module.description}
-              href={`${baseUrl}/${sanitizedSlug.join("/")}`}
+              href={`/${baseUrl}/${sanitizedSlug.join("/")}`}
             />
           );
         })}

@@ -108,7 +108,7 @@ export function LinkifyPkg(
   if (matchedSlug) {
     const remainderSegments = parts.slice(matchedLength);
     const remainder = remainderSegments.join(".");
-    const href = `${matchingPackage.baseUrl}/${matchedSlug.join("/").replace("index", "index_")}#${remainderSegments.join(".")}`;
+    const href = `/${matchingPackage.baseUrl}/${matchedSlug.join("/").replace("index", "index_")}#${remainderSegments.join(".")}`;
 
     if (markdown) {
       return `[${remainder}](${href})`;
