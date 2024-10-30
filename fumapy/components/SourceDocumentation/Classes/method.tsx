@@ -1,14 +1,11 @@
-import {
-  FunctionInterface,
-  ReturnInterface,
-} from "@/fumapy/components/SourceDocumentation/types";
+import { FunctionInterface } from "@/fumapy/components/SourceDocumentation/types";
 import { Code } from "@/fumapy/components/Code";
 import MethodHeader from "./MethodHeader";
 import Markdown from "@/fumapy/components/Markdown/markdown";
 import { Arguments } from "@/fumapy/components/SourceDocumentation/ArgumentList";
-import { LinkAnnotation } from "../annotation";
 import { DocstringSections } from "@/fumapy/components/Markdown/DocstringSections";
 import { Returns } from "../Function";
+import { cn } from "@/fumapy/lib/utils";
 
 export const Method = ({
   data,
@@ -29,18 +26,28 @@ export const Method = ({
     />
   );
   const id = `${clsName}.${data.name}`;
-  const isClassMethod = undefined;
+
+  const header = (
+    <div className="my-2">
+      <a href={`#${id}`} className="not-prose" id={id}>
+        {clsName && (
+          <span className={cn("text-muted-foreground/80 text-base font-semibold")}>
+            {clsName}
+          </span>
+        )}
+        {clsName && data.name && (
+          <span className="text-muted-foreground/80 mx-0.5">.</span>
+        )}
+        <span className="font-bold text-foreground">{data.name}</span>
+      </a>
+
+      <span className="leading-relaxed italic">{signature}</span>
+    </div>
+  );
 
   return (
     <div className="">
-      <MethodHeader
-        name={data.name}
-        clsName={clsName}
-        signature={signature}
-        code={code}
-        id={id}
-        isClassMethod={isClassMethod}
-      />
+      <MethodHeader header={header} code={code} />
 
       <div className="sm:ml-indent space-y-6">
         {data.description && <Markdown input={data.description} />}
@@ -79,16 +86,23 @@ export const Constructor = ({
     />
   );
   const id = data ? `${clsName}.${data.name}` : clsName;
+  const header = (
+    <div className="my-2">
+      <a
+        href={`#${id}`}
+        className="not-prose text-muted-foreground font-bold"
+        id={id}
+      >
+        {clsName}
+      </a>
+
+      <span className="leading-relaxed italic">{signature}</span>
+    </div>
+  );
 
   return (
     <div>
-      <MethodHeader
-        clsName={clsName}
-        signature={signature}
-        code={code}
-        isConstructor
-        id={id}
-      />
+      <MethodHeader header={header} code={code} />
     </div>
   );
 };

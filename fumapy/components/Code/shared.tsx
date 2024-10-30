@@ -1,7 +1,7 @@
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 import { Components } from "hast-util-to-jsx-runtime";
 import { CSSProperties } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/fumapy/lib/utils";
 
 export const components = (
   inline: boolean,

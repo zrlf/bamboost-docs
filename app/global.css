@@ -35,9 +35,13 @@
     --meth: 210 70% 70%;
   }
 
+  :target {
+    @apply scroll-mt-28;
+  }
+
   h5 {
-    @apply text-base font-bold text-muted-foreground;
-    @apply mt-4;
+    @apply text-base px-2 font-bold text-muted-foreground;
+    @apply mt-6;
   }
 
   h6 {
@@ -45,6 +49,7 @@
   }
 
   .divider {
+    @apply flex gap-2 items-center;
     @apply relative pb-2 text-lg !text-muted-foreground;
     @apply after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border;
   }

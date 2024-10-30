@@ -3,7 +3,7 @@
 import { ComponentProps, useState } from "react";
 import { LinkAnnotation } from "../annotation";
 import { ArrowDownCircleIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/fumapy/lib/utils";
 import { ClassInterface } from "../types";
 
 export const Bases = ({
@@ -16,7 +16,7 @@ export const Bases = ({
       <h5 className="relative mb-2">Bases</h5>
       <div
         className={cn(
-          "space-y-6",
+          "space-y-6 sm:ml-indent",
           Object.keys(data).length > 1 && "sm:columns-2",
         )}
       >

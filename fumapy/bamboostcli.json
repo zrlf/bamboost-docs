@@ -417,7 +417,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboostcli.keybinds.Keybind.__init__",
-              "signature": "(self, name, key, func, description = '', aliases = list(), group = None, obj = None) -> None",
+              "signature": "(self, name, key, func, description='', aliases=list(), group=None, obj=None) -> None",
               "description": null,
               "parameters": [
                 {
@@ -554,7 +554,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboostcli.keybinds.Keybindings.__init__",
-              "signature": "(self, obj, *, group = None) -> None",
+              "signature": "(self, obj, *, group=None) -> None",
               "description": null,
               "parameters": [
                 {
@@ -644,7 +644,7 @@
             "new": {
               "name": "new",
               "path": "bamboostcli.keybinds.Keybindings.new",
-              "signature": "(self, name, key, func, description = '', aliases = None) -> bamboostcli.keybinds.Keybindings",
+              "signature": "(self, name, key, func, description='', aliases=None) -> Keybindings",
               "description": "Add a new keybinding to the keybindings table.\n\nAdds a new keybinding with default values for the group and object.",
               "parameters": [
                 {
@@ -775,7 +775,7 @@
             "merge": {
               "name": "merge",
               "path": "bamboostcli.keybinds.Keybindings.merge",
-              "signature": "(self, other, group = None) -> None",
+              "signature": "(self, other, group=None) -> None",
               "description": "Merge the keybindings of another Keybindings object into this one.",
               "parameters": [
                 {
@@ -886,7 +886,7 @@
             "__getitem__": {
               "name": "__getitem__",
               "path": "bamboostcli.keybinds.Keybindings.__getitem__",
-              "signature": "(self, key) -> bamboostcli.keybinds.Keybind",
+              "signature": "(self, key) -> Keybind",
               "description": "Get a Keybind by name.",
               "parameters": [
                 {
@@ -973,7 +973,7 @@
             "__iter__": {
               "name": "__iter__",
               "path": "bamboostcli.keybinds.Keybindings.__iter__",
-              "signature": "(self) -> typing.Generator",
+              "signature": "(self) -> Generator",
               "description": "Iterate over the Keybinds stored here.",
               "parameters": [
                 {
@@ -1096,7 +1096,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboostcli.keybinds.KeyIndicatorWidget.__init__",
-              "signature": "(self, main_loop, bottom_w, text = '')",
+              "signature": "(self, main_loop, bottom_w, text='')",
               "description": null,
               "parameters": [
                 {
@@ -1752,7 +1752,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboostcli.common.Spinner.__init__",
-              "signature": "(self, attr_map = None, focus_map = None, **kwargs)",
+              "signature": "(self, attr_map=None, focus_map=None, **kwargs)",
               "description": null,
               "parameters": [
                 {
@@ -1851,7 +1851,7 @@
             "update_spinner": {
               "name": "update_spinner",
               "path": "bamboostcli.common.Spinner.update_spinner",
-              "signature": "(self, loop, user_data = None)",
+              "signature": "(self, loop, user_data=None)",
               "description": null,
               "parameters": [
                 {
@@ -1884,7 +1884,7 @@
             "start": {
               "name": "start",
               "path": "bamboostcli.common.Spinner.start",
-              "signature": "(self) -> bamboostcli.common.Spinner",
+              "signature": "(self) -> Spinner",
               "description": null,
               "parameters": [
                 {
@@ -1905,7 +1905,7 @@
             "stop": {
               "name": "stop",
               "path": "bamboostcli.common.Spinner.stop",
-              "signature": "(self) -> bamboostcli.common.Spinner",
+              "signature": "(self) -> Spinner",
               "description": null,
               "parameters": [
                 {
@@ -1932,7 +1932,7 @@
         "redirect_stdout": {
           "name": "redirect_stdout",
           "path": "bamboostcli.common.redirect_stdout",
-          "signature": "(new_stdout = 'devnull')",
+          "signature": "(new_stdout='devnull')",
           "description": null,
           "parameters": [
             {
@@ -1953,7 +1953,7 @@
         "redirect_allout": {
           "name": "redirect_allout",
           "path": "bamboostcli.common.redirect_allout",
-          "signature": "(new_stdout = 'devnull')",
+          "signature": "(new_stdout='devnull')",
           "description": null,
           "parameters": [
             {
@@ -2000,7 +2000,7 @@
         "enter_main_loop": {
           "name": "enter_main_loop",
           "path": "bamboostcli.app.enter_main_loop",
-          "signature": "(widget, screen = None)",
+          "signature": "(widget, screen=None)",
           "description": null,
           "parameters": [
             {
@@ -2412,7 +2412,7 @@
                 "_update_popup": {
                   "name": "_update_popup",
                   "path": "bamboostcli.widgets.autocomplete_edit.AutocompleteEdit._update_popup",
-                  "signature": "(self, force_show = False) -> None",
+                  "signature": "(self, force_show=False) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -2559,7 +2559,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.autocomplete_edit.AutocompleteContainer.render",
-                  "signature": "(self, size, focus = False) -> urwid.CompositeCanvas",
+                  "signature": "(self, size, focus=False) -> urwid.CompositeCanvas",
                   "description": null,
                   "parameters": [
                     {
@@ -2703,7 +2703,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboostcli.widgets.command_line.CommandLine.__init__",
-                  "signature": "(self, parser, *args, *, caption = ':', prefix = '', **kwargs)",
+                  "signature": "(self, parser, *args, *, caption=':', prefix='', **kwargs)",
                   "description": null,
                   "parameters": [
                     {
@@ -2942,7 +2942,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.custom_widgets.SelectionIcon.render",
-                  "signature": "(self, size, focus = False)",
+                  "signature": "(self, size, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -3049,7 +3049,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboostcli.widgets.custom_widgets.cListBox.__init__",
-                  "signature": "(self, *args, *, wrap = False, keymap_jk = False, **kwargs)",
+                  "signature": "(self, *args, *, wrap=False, keymap_jk=False, **kwargs)",
                   "description": null,
                   "parameters": [
                     {
@@ -3181,7 +3181,7 @@
                 "keypress": {
                   "name": "keypress",
                   "path": "bamboostcli.widgets.custom_widgets.cListBox.keypress",
-                  "signature": "(self, size, key) -> typing.Union",
+                  "signature": "(self, size, key) -> Union",
                   "description": null,
                   "parameters": [
                     {
@@ -3264,7 +3264,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboostcli.widgets.custom_widgets.cEdit.__init__",
-                  "signature": "(self, *args, *, callback = None, **kwargs)",
+                  "signature": "(self, *args, *, callback=None, **kwargs)",
                   "description": null,
                   "parameters": [
                     {
@@ -3303,7 +3303,7 @@
                 "keypress": {
                   "name": "keypress",
                   "path": "bamboostcli.widgets.custom_widgets.cEdit.keypress",
-                  "signature": "(self, size, key) -> typing.Union",
+                  "signature": "(self, size, key) -> Union",
                   "description": null,
                   "parameters": [
                     {
@@ -3786,7 +3786,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboostcli.widgets.custom_widgets.cActionItem.__init__",
-                  "signature": "(self, content, callback = None) -> None",
+                  "signature": "(self, content, callback=None) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -3873,7 +3873,7 @@
                 "callback": {
                   "name": "callback",
                   "path": "bamboostcli.widgets.custom_widgets.cActionItem.callback",
-                  "signature": "(self) -> typing.Callable",
+                  "signature": "(self) -> Callable",
                   "description": null,
                   "parameters": [
                     {
@@ -3927,7 +3927,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.custom_widgets.cActionItem.render",
-                  "signature": "(self, size, focus = False)",
+                  "signature": "(self, size, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -3960,7 +3960,7 @@
                 "_render_column": {
                   "name": "_render_column",
                   "path": "bamboostcli.widgets.custom_widgets.cActionItem._render_column",
-                  "signature": "(self, i, text, focus = False)",
+                  "signature": "(self, i, text, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -4118,7 +4118,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboostcli.widgets.custom_widgets.cListBoxSelectionCharacter.__init__",
-                  "signature": "(self, items, attr_map = None, focus_map = None, always_in_focus = False, headers = None, *args, **kwargs)",
+                  "signature": "(self, items, attr_map=None, focus_map=None, always_in_focus=False, headers=None, *args, **kwargs)",
                   "description": null,
                   "parameters": [
                     {
@@ -4181,7 +4181,7 @@
                 "keypress": {
                   "name": "keypress",
                   "path": "bamboostcli.widgets.custom_widgets.cListBoxSelectionCharacter.keypress",
-                  "signature": "(self, size, key) -> typing.Union",
+                  "signature": "(self, size, key) -> Union",
                   "description": null,
                   "parameters": [
                     {
@@ -4214,7 +4214,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.custom_widgets.cListBoxSelectionCharacter.render",
-                  "signature": "(self, size, focus) -> typing.Tuple",
+                  "signature": "(self, size, focus) -> Tuple",
                   "description": null,
                   "parameters": [
                     {
@@ -4854,7 +4854,7 @@
                 "keypress": {
                   "name": "keypress",
                   "path": "bamboostcli.widgets.index.IndexRemote.keypress",
-                  "signature": "(self, size, key) -> typing.Union",
+                  "signature": "(self, size, key) -> Union",
                   "description": null,
                   "parameters": [
                     {
@@ -4991,7 +4991,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboostcli.widgets.rounded_line_box.cRoundedLineBox.__init__",
-                  "signature": "(self, *args, *, attr_map = None, focus_map = None, **kwargs)",
+                  "signature": "(self, *args, *, attr_map=None, focus_map=None, **kwargs)",
                   "description": null,
                   "parameters": [
                     {
@@ -5211,7 +5211,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.table.ColumnsAlwaysFocused.render",
-                  "signature": "(self, size, focus = False)",
+                  "signature": "(self, size, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -5309,7 +5309,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.table.SelectionIcon.render",
-                  "signature": "(self, size, focus = False)",
+                  "signature": "(self, size, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -5407,7 +5407,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.table.ColumnFocusIndicator.render",
-                  "signature": "(self, size, focus = False)",
+                  "signature": "(self, size, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -5625,7 +5625,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.table.Table.render",
-                  "signature": "(self, size, focus = False)",
+                  "signature": "(self, size, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -5658,7 +5658,7 @@
                 "loc": {
                   "name": "loc",
                   "path": "bamboostcli.widgets.table.Table.loc",
-                  "signature": "(self, id) -> bamboostcli.widgets.table.RowEntry",
+                  "signature": "(self, id) -> RowEntry",
                   "description": null,
                   "parameters": [
                     {
@@ -5718,7 +5718,7 @@
                 "_get_column_sizes": {
                   "name": "_get_column_sizes",
                   "path": "bamboostcli.widgets.table.Table._get_column_sizes",
-                  "signature": "(self, df, max_column_width = 30) -> dict",
+                  "signature": "(self, df, max_column_width=30) -> dict",
                   "description": "Calculate the maximum width of each column in the DataFrame. This is used to set\nthe width of each cell in the table. The maximum width is calculated by taking the\nlength of the column name and the length of the longest entry in the column.",
                   "parameters": [
                     {
@@ -5772,7 +5772,7 @@
                 "_get_entry_in_focus": {
                   "name": "_get_entry_in_focus",
                   "path": "bamboostcli.widgets.table.Table._get_entry_in_focus",
-                  "signature": "(self) -> numpy.record",
+                  "signature": "(self) -> np.record",
                   "description": "Returns the column name of the column in focus.",
                   "parameters": [
                     {
@@ -6508,7 +6508,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.table.RowEntry.render",
-                  "signature": "(self, size, focus = False)",
+                  "signature": "(self, size, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -6562,7 +6562,7 @@
                 "_get_color_coding": {
                   "name": "_get_color_coding",
                   "path": "bamboostcli.widgets.table.RowEntry._get_color_coding",
-                  "signature": "(self, record, columns) -> typing.Tuple",
+                  "signature": "(self, record, columns) -> Tuple",
                   "description": "Returns the attribute and focus maps for the given record and columns.",
                   "parameters": [
                     {
@@ -6764,7 +6764,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.widgets.table.RowHeader.render",
-                  "signature": "(self, size, focus = False)",
+                  "signature": "(self, size, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -6868,7 +6868,7 @@
                 "__new__": {
                   "name": "__new__",
                   "path": "bamboostcli.widgets.table.CellHeader.__new__",
-                  "signature": "(cls, column, width, table) -> bamboostcli.widgets.table.CellHeader",
+                  "signature": "(cls, column, width, table) -> CellHeader",
                   "description": null,
                   "parameters": [
                     {
@@ -6919,7 +6919,7 @@
                 "__new__": {
                   "name": "__new__",
                   "path": "bamboostcli.widgets.table.CellEntry.__new__",
-                  "signature": "(cls, column, value, width) -> bamboostcli.widgets.table.CellEntry",
+                  "signature": "(cls, column, value, width) -> CellEntry",
                   "description": null,
                   "parameters": [
                     {
@@ -7001,7 +7001,7 @@
                 "render": {
                   "name": "render",
                   "path": "bamboostcli.pages.hdfview.FocusedList.render",
-                  "signature": "(self, size, focus = False)",
+                  "signature": "(self, size, focus=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -7090,7 +7090,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboostcli.pages.hdfview.AttrsList.__init__",
-                  "signature": "(self, parent, attr_map = None, focus_map = None)",
+                  "signature": "(self, parent, attr_map=None, focus_map=None)",
                   "description": null,
                   "parameters": [
                     {
@@ -7129,7 +7129,7 @@
                 "update": {
                   "name": "update",
                   "path": "bamboostcli.pages.hdfview.AttrsList.update",
-                  "signature": "(self, key = '')",
+                  "signature": "(self, key='')",
                   "description": null,
                   "parameters": [
                     {
@@ -7156,7 +7156,7 @@
                 "_get_action_items": {
                   "name": "_get_action_items",
                   "path": "bamboostcli.pages.hdfview.AttrsList._get_action_items",
-                  "signature": "(self, key = '')",
+                  "signature": "(self, key='')",
                   "description": null,
                   "parameters": [
                     {
@@ -7427,7 +7427,7 @@
                 "open_file": {
                   "name": "open_file",
                   "path": "bamboostcli.pages.hdfview.HDFView.open_file",
-                  "signature": "(self, mode = 'r')",
+                  "signature": "(self, mode='r')",
                   "description": null,
                   "parameters": [
                     {
@@ -7481,7 +7481,7 @@
                 "get_items": {
                   "name": "get_items",
                   "path": "bamboostcli.pages.hdfview.HDFView.get_items",
-                  "signature": "(self, dir = None)",
+                  "signature": "(self, dir=None)",
                   "description": null,
                   "parameters": [
                     {
@@ -7508,7 +7508,7 @@
                 "set_preview": {
                   "name": "set_preview",
                   "path": "bamboostcli.pages.hdfview.HDFView.set_preview",
-                  "signature": "(self, key = None)",
+                  "signature": "(self, key=None)",
                   "description": null,
                   "parameters": [
                     {
@@ -7640,7 +7640,7 @@
                 "move_focus": {
                   "name": "move_focus",
                   "path": "bamboostcli.pages.hdfview.HDFView.move_focus",
-                  "signature": "(self, backwards = False)",
+                  "signature": "(self, backwards=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -7709,7 +7709,7 @@
                 "execute_command": {
                   "name": "execute_command",
                   "path": "bamboostcli.pages.hdfview.HDFView.execute_command",
-                  "signature": "(self, command = None) -> None",
+                  "signature": "(self, command=None) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -8672,7 +8672,7 @@
                 "id_to_stdout": {
                   "name": "id_to_stdout",
                   "path": "bamboostcli.pages.db.Database.id_to_stdout",
-                  "signature": "(self, id = None) -> None",
+                  "signature": "(self, id=None) -> None",
                   "description": "Print the full ID of the selected simulation to stdout.",
                   "parameters": [
                     {
@@ -8783,7 +8783,7 @@
                 "enter_command_line": {
                   "name": "enter_command_line",
                   "path": "bamboostcli.pages.db.Database.enter_command_line",
-                  "signature": "(self, *args, *, caption = None, prefix = None, container = None, **kwargs) -> None",
+                  "signature": "(self, *args, *, caption=None, prefix=None, container=None, **kwargs) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -8834,7 +8834,7 @@
                 "_search": {
                   "name": "_search",
                   "path": "bamboostcli.pages.db.Database._search",
-                  "signature": "(self, text) -> typing.Generator",
+                  "signature": "(self, text) -> Generator",
                   "description": null,
                   "parameters": [
                     {

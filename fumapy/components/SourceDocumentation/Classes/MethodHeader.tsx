@@ -1,26 +1,16 @@
 "use client";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/fumapy/lib/utils";
 
 interface MethodHeaderProps {
-  name?: string;
-  clsName?: string;
-  signature: JSX.Element;
   code: JSX.Element | null;
-  id?: string;
-  isClassMethod?: JSX.Element;
-  isConstructor?: boolean;
+  header: ReactNode,
 }
 
 export default function MethodHeader({
-  name,
-  clsName,
-  signature,
   code,
-  id,
-  isClassMethod,
-  isConstructor,
+  header,
 }: MethodHeaderProps) {
   const [sourceCodeVisible, setSourceCodeVisible] = useState(false);
 
@@ -29,33 +19,11 @@ export default function MethodHeader({
       <div
         className={cn(
           "flex flex-col sm:flex-row sm:justify-between sm:items-center",
-          "bg-secondary rounded-md px-4 mb-4 pb-2 sm:pb-0",
-          // "border-l-class/50 border-l-4",
+          "px-4 mb-4 pb-2 sm:pb-0",
+          "bg-secondary rounded",
         )}
       >
-        <div className="">
-          {isClassMethod}
-          <h4 id={id} className={cn(isClassMethod ? "my-2 mt-0" : "my-2", "scroll-m-28")}>
-            <a href={`#${id}`} className="not-prose">
-              {clsName && (
-                <span
-                  className={cn(
-                    "text-muted-foreground/80 text-base",
-                    isConstructor && "text-foreground",
-                  )}
-                >
-                  {clsName}
-                </span>
-              )}
-              {clsName && name && (
-                <span className="text-muted-foreground/80 mx-0.5">.</span>
-              )}
-              <span className="font-bold">{name}</span>
-            </a>
-
-            <span className="leading-relaxed">{signature}</span>
-          </h4>
-        </div>
+        {header}
 
         {code && (
           <button

@@ -1,3 +1,4 @@
+import { cn } from "@/fumapy/lib/utils";
 import { Code } from "../Code";
 import Markdown from "../Markdown/markdown";
 import { LinkAnnotation } from "./annotation";
@@ -6,23 +7,26 @@ import { AttributeInterface } from "./types";
 export const Attributes = ({
   data,
   parent,
+  noTitle = false,
 }: {
   data: AttributeInterface[];
   parent?: string;
+  noTitle?: boolean;
 }) => {
   return (
-    <div className="[&_p]:my-2">
-      <ul className="sm:ml-indent2 mt-0 [&_p]:my-2">
+    <div>
+      {!noTitle && <h5>Attributes:</h5>}
+      <ul className={cn("mt-0 [&_p]:my-2", noTitle ? "ml-0 px-0 list-none" : "ml-indent")}>
         {data.map((property) => (
           <li
             key={property.name}
             id={parent ? `${parent}.${property.name}` : property.name}
-            className="scroll-m-28"
           >
             <div className="flex flex-wrap items-center">
-              <h6 className="font-mono">{property.name}</h6>
+              <span className="font-bold">{property.name}</span>
               {property.annotation && (
                 <span className="ml-2">
+                  <span className="font-bold mr-2">:</span>
                   <LinkAnnotation children={property.annotation} />
                 </span>
               )}
@@ -30,15 +34,16 @@ export const Attributes = ({
                 <>
                   <span className="ml-2">=</span>
                   <span className="ml-2">
-                    <Code
-                      code={property.value}
-                      inline
-                    />
+                    <Code code={property.value} inline />
                   </span>
                 </>
               )}
             </div>
-            {property.description && <Markdown input={property.description} />}
+            {property.description && (
+              <div className="sm:ml-indent">
+                <Markdown input={property.description} />
+              </div>
+            )}
           </li>
         ))}
       </ul>

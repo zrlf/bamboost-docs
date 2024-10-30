@@ -32,12 +32,12 @@ def build_signature(func: griffe.Function) -> str:
         else:
             s += p.name
             if p.default is not None:
-                s += f" = {p.default}"
+                s += f"={p.default}"
 
     s += ")"
     if func.returns:
         try:
-            s += f" -> {func.returns.canonical_path}"
+            s += f" -> {func.returns.path}"
         except AttributeError:
             s += f" -> {func.returns}"
 

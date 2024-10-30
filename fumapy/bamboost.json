@@ -204,7 +204,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboost.extensions.fenics.FenicsWriter.__init__",
-                  "signature": "(self, uid, path, comm = MPI.COMM_WORLD, create_if_not_exists = False)",
+                  "signature": "(self, uid, path, comm=MPI.COMM_WORLD, create_if_not_exists=False)",
                   "description": null,
                   "parameters": [
                     {
@@ -249,7 +249,7 @@
                 "add_field": {
                   "name": "add_field",
                   "path": "bamboost.extensions.fenics.FenicsWriter.add_field",
-                  "signature": "(self, name, func, time = None, mesh = None, dtype = None, center = 'Node') -> None",
+                  "signature": "(self, name, func, time=None, mesh=None, dtype=None, center='Node') -> None",
                   "description": "Add a dataset to the file. The data is stored at `data/`.",
                   "parameters": [
                     {
@@ -334,7 +334,7 @@
                 "_dump_fenics_field": {
                   "name": "_dump_fenics_field",
                   "path": "bamboost.extensions.fenics.FenicsWriter._dump_fenics_field",
-                  "signature": "(self, location, field, dtype = None, center = 'Node') -> None",
+                  "signature": "(self, location, field, dtype=None, center='Node') -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -379,7 +379,7 @@
                 "_get_global_dofs": {
                   "name": "_get_global_dofs",
                   "path": "bamboost.extensions.fenics.FenicsWriter._get_global_dofs",
-                  "signature": "(self, func) -> bamboost.extensions.fenics.FenicsWriter.FenicsFieldInformation",
+                  "signature": "(self, func) -> FenicsFieldInformation",
                   "description": "Get global dofs for a given function.",
                   "parameters": [
                     {
@@ -406,7 +406,7 @@
                 "_get_global_dofs_cell_data": {
                   "name": "_get_global_dofs_cell_data",
                   "path": "bamboost.extensions.fenics.FenicsWriter._get_global_dofs_cell_data",
-                  "signature": "(self, func) -> bamboost.extensions.fenics.FenicsWriter.FenicsFieldInformation",
+                  "signature": "(self, func) -> FenicsFieldInformation",
                   "description": "Get global dofs for a given function.",
                   "parameters": [
                     {
@@ -433,7 +433,7 @@
                 "add_mesh": {
                   "name": "add_mesh",
                   "path": "bamboost.extensions.fenics.FenicsWriter.add_mesh",
-                  "signature": "(self, mesh, mesh_name = None) -> None",
+                  "signature": "(self, mesh, mesh_name=None) -> None",
                   "description": "Add the mesh to file using fe.HDF5File. I can't figure out how to\nextract the local mesh data in correct order when running in parallel.",
                   "parameters": [
                     {
@@ -865,7 +865,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboost.extensions.remote_manager.Remote.__init__",
-                  "signature": "(self, remote_name, skip_update = False, *, home_path = None) -> None",
+                  "signature": "(self, remote_name, skip_update=False, *, home_path=None) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -904,7 +904,7 @@
                 "list": {
                   "name": "list",
                   "path": "bamboost.extensions.remote_manager.Remote.list",
-                  "signature": "(cls) -> bamboost.extensions.remote_manager.Remote.list",
+                  "signature": "(cls) -> list",
                   "description": "List all remote servers.",
                   "parameters": [
                     {
@@ -925,7 +925,7 @@
                 "_ipython_key_completions_": {
                   "name": "_ipython_key_completions_",
                   "path": "bamboost.extensions.remote_manager.Remote._ipython_key_completions_",
-                  "signature": "(self) -> bamboost.extensions.remote_manager.Remote.list",
+                  "signature": "(self) -> list",
                   "description": null,
                   "parameters": [
                     {
@@ -946,7 +946,7 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "path": "bamboost.extensions.remote_manager.Remote.__getitem__",
-                  "signature": "(self, id) -> bamboost.extensions.remote_manager.RemoteManager",
+                  "signature": "(self, id) -> RemoteManager",
                   "description": "Return a `RemoteManager` for the given id.",
                   "parameters": [
                     {
@@ -994,7 +994,7 @@
                 "get_manager": {
                   "name": "get_manager",
                   "path": "bamboost.extensions.remote_manager.Remote.get_manager",
-                  "signature": "(self, id, skip_update = False) -> bamboost.extensions.remote_manager.RemoteManager",
+                  "signature": "(self, id, skip_update=False) -> RemoteManager",
                   "description": null,
                   "parameters": [
                     {
@@ -1395,7 +1395,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboost.extensions.remote_manager.RemoteManager.__init__",
-                  "signature": "(self, id, remote, comm = MPI.COMM_WORLD) -> None",
+                  "signature": "(self, id, remote, comm=MPI.COMM_WORLD) -> None",
                   "description": "params\nskip_update: if True, does not lookup the new database on the remote:",
                   "parameters": [
                     {
@@ -1476,7 +1476,7 @@
                 "get_view": {
                   "name": "get_view",
                   "path": "bamboost.extensions.remote_manager.RemoteManager.get_view",
-                  "signature": "(self, include_linked_sims = False) -> pandas.DataFrame",
+                  "signature": "(self, include_linked_sims=False) -> pd.DataFrame",
                   "description": null,
                   "parameters": [
                     {
@@ -1503,7 +1503,7 @@
                 "sim": {
                   "name": "sim",
                   "path": "bamboost.extensions.remote_manager.RemoteManager.sim",
-                  "signature": "(self, uid, return_writer = False)",
+                  "signature": "(self, uid, return_writer=False)",
                   "description": "Return simulation object.",
                   "parameters": [
                     {
@@ -1541,7 +1541,7 @@
                 "_rsync": {
                   "name": "_rsync",
                   "path": "bamboost.extensions.remote_manager.RemoteManager._rsync",
-                  "signature": "(self, uid = None) -> subprocess.Popen",
+                  "signature": "(self, uid=None) -> subprocess.Popen",
                   "description": "Transfer data using rsync. This method is called by the `rsync`.\nIt returns the subprocess.Popen object.",
                   "parameters": [
                     {
@@ -1573,7 +1573,7 @@
                 "rsync": {
                   "name": "rsync",
                   "path": "bamboost.extensions.remote_manager.RemoteManager.rsync",
-                  "signature": "(self, uid = None) -> bamboost.extensions.remote_manager.RemoteManager",
+                  "signature": "(self, uid=None) -> RemoteManager",
                   "description": "Transfer data using rsync. Wait for the process to finish and return\nself.",
                   "parameters": [
                     {
@@ -1771,7 +1771,7 @@
                 "sync": {
                   "name": "sync",
                   "path": "bamboost.extensions.remote_manager.RemoteSimulation.sync",
-                  "signature": "(self) -> bamboost.extensions.remote_manager.RemoteSimulation",
+                  "signature": "(self) -> RemoteSimulation",
                   "description": "Sync the simulation data with the remote server.",
                   "parameters": [
                     {
@@ -2061,7 +2061,7 @@
             "get_lock_and_open_function": {
               "name": "get_lock_and_open_function",
               "path": "bamboost.extensions.use_locking.get_lock_and_open_function",
-              "signature": "(lock_type) -> collections.abc.Callable",
+              "signature": "(lock_type) -> Callable",
               "description": "Returns a function that locks and opens an HDF5 file with the specified\nlock type.\n\nThe returned function acquires a lock on the lock file and opens the HDF5\nfile, returning both the opened HDF5 file object and the lock file object.\n\nThe returned function takes the following parameters:\n\n| Argument  | Description                                                                 |\n|-----------|-----------------------------------------------------------------------------|\n| file      | The path to the HDF5 file to open.                                          |\n| lock_file | The path to the lock file.                                                  |\n| mode      | The mode to open the file in (e.g., 'r', 'w', 'a').                         |\n| driver    | The HDF5 driver to use (e.g., 'mpio' for MPI-IO).                           |\n| comm      | The MPI communicator (only used with 'mpio' driver).                        |",
               "parameters": [
                 {
@@ -2121,7 +2121,7 @@
             "get_open_method": {
               "name": "get_open_method",
               "path": "bamboost.extensions.use_locking.get_open_method",
-              "signature": "(lock_type) -> collections.abc.Callable",
+              "signature": "(lock_type) -> Callable",
               "description": null,
               "parameters": [
                 {
@@ -2359,7 +2359,7 @@
         "_load_config_file": {
           "name": "_load_config_file",
           "path": "bamboost._config._load_config_file",
-          "signature": "(file = None)",
+          "signature": "(file=None)",
           "description": "Load the config file from the user's config directory.\n\nIf the config file does not exist, a copy of the example config file will\nbe created.",
           "parameters": [
             {
@@ -2463,7 +2463,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboost.simulation_writer.SimulationWriter.__init__",
-              "signature": "(self, uid, path, comm = MPI.COMM_WORLD, create_if_not_exists = True)",
+              "signature": "(self, uid, path, comm=MPI.COMM_WORLD, create_if_not_exists=True)",
               "description": null,
               "parameters": [
                 {
@@ -2568,7 +2568,7 @@
             "initialize": {
               "name": "initialize",
               "path": "bamboost.simulation_writer.SimulationWriter.initialize",
-              "signature": "(self) -> bamboost.simulation_writer.SimulationWriter",
+              "signature": "(self) -> SimulationWriter",
               "description": "Create a new file for this simlation.\nThis deletes an existing h5 file of the simulation and creates an empty new one",
               "parameters": [
                 {
@@ -2641,7 +2641,7 @@
             "add_mesh": {
               "name": "add_mesh",
               "path": "bamboost.simulation_writer.SimulationWriter.add_mesh",
-              "signature": "(self, coordinates, connectivity, mesh_name = None) -> None",
+              "signature": "(self, coordinates, connectivity, mesh_name=None) -> None",
               "description": "Add the mesh to file. Currently only 2d meshes.",
               "parameters": [
                 {
@@ -2693,7 +2693,7 @@
             "add_field": {
               "name": "add_field",
               "path": "bamboost.simulation_writer.SimulationWriter.add_field",
-              "signature": "(self, name, vector, time = None, mesh = None, dtype = None, center = 'Node') -> None",
+              "signature": "(self, name, vector, time=None, mesh=None, dtype=None, center='Node') -> None",
               "description": "Add a dataset to the file. The data is stored at `data/`.",
               "parameters": [
                 {
@@ -2778,7 +2778,7 @@
             "_dump_array": {
               "name": "_dump_array",
               "path": "bamboost.simulation_writer.SimulationWriter._dump_array",
-              "signature": "(self, location, arr, dtype = None) -> None",
+              "signature": "(self, location, arr, dtype=None) -> None",
               "description": "Dump an array to the file. Correctly patch together multi-rank arrays.",
               "parameters": [
                 {
@@ -2830,7 +2830,7 @@
             "add_fields": {
               "name": "add_fields",
               "path": "bamboost.simulation_writer.SimulationWriter.add_fields",
-              "signature": "(self, fields, time = None, mesh = None) -> None",
+              "signature": "(self, fields, time=None, mesh=None) -> None",
               "description": "Add multiple fields at once.",
               "parameters": [
                 {
@@ -2878,7 +2878,7 @@
             "add_global_field": {
               "name": "add_global_field",
               "path": "bamboost.simulation_writer.SimulationWriter.add_global_field",
-              "signature": "(self, name, value, dtype = None) -> None",
+              "signature": "(self, name, value, dtype=None) -> None",
               "description": "Add a gobal field. These are stored at `globals/` as an array in a\nsingle dataset.",
               "parameters": [
                 {
@@ -2925,7 +2925,7 @@
             "_dump_global_data": {
               "name": "_dump_global_data",
               "path": "bamboost.simulation_writer.SimulationWriter._dump_global_data",
-              "signature": "(self, location, value, step, dtype = None) -> None",
+              "signature": "(self, location, value, step, dtype=None) -> None",
               "description": "Dump a global value / array to the file at location `location`.",
               "parameters": [
                 {
@@ -3035,7 +3035,7 @@
             "finish_sim": {
               "name": "finish_sim",
               "path": "bamboost.simulation_writer.SimulationWriter.finish_sim",
-              "signature": "(self, status = 'Finished') -> None",
+              "signature": "(self, status='Finished') -> None",
               "description": null,
               "parameters": [
                 {
@@ -3062,7 +3062,7 @@
             "register_git_attributes": {
               "name": "register_git_attributes",
               "path": "bamboost.simulation_writer.SimulationWriter.register_git_attributes",
-              "signature": "(self, repo_path = './') -> None",
+              "signature": "(self, repo_path='./') -> None",
               "description": "Register git information for given repo.",
               "parameters": [
                 {
@@ -3125,7 +3125,7 @@
             "copy_file": {
               "name": "copy_file",
               "path": "bamboost.simulation_writer.SimulationWriter.copy_file",
-              "signature": "(self, source, destination = '') -> None",
+              "signature": "(self, source, destination='') -> None",
               "description": "Copy a file to the datafolder.",
               "parameters": [
                 {
@@ -3501,7 +3501,7 @@
             "_pretty_print": {
               "name": "_pretty_print",
               "path": "bamboost.xdmf.XDMFWriter._pretty_print",
-              "signature": "(self, elem, level = 0)",
+              "signature": "(self, elem, level=0)",
               "description": null,
               "parameters": [
                 {
@@ -3849,7 +3849,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboost._sqlite_database.SQLiteHandler.__init__",
-              "signature": "(self, file, _comm = MPI.COMM_WORLD, convert_arrays = True) -> None",
+              "signature": "(self, file, _comm=MPI.COMM_WORLD, convert_arrays=True) -> None",
               "description": null,
               "parameters": [
                 {
@@ -3888,7 +3888,7 @@
             "connect": {
               "name": "connect",
               "path": "bamboost._sqlite_database.SQLiteHandler.connect",
-              "signature": "(self) -> typing_extensions.Self",
+              "signature": "(self) -> Self",
               "description": null,
               "parameters": [
                 {
@@ -3909,7 +3909,7 @@
             "close": {
               "name": "close",
               "path": "bamboost._sqlite_database.SQLiteHandler.close",
-              "signature": "(self, *, force = False, ensure_commit = False) -> typing_extensions.Self",
+              "signature": "(self, *, force=False, ensure_commit=False) -> Self",
               "description": null,
               "parameters": [
                 {
@@ -3963,7 +3963,7 @@
             "open": {
               "name": "open",
               "path": "bamboost._sqlite_database.SQLiteHandler.open",
-              "signature": "(self, *, force_close = False, ensure_commit = False) -> typing.Generator",
+              "signature": "(self, *, force_close=False, ensure_commit=False) -> Generator",
               "description": "The open method is used as a context manager.",
               "parameters": [
                 {
@@ -4046,7 +4046,7 @@
         "_register_sqlite_converters": {
           "name": "_register_sqlite_converters",
           "path": "bamboost._sqlite_database._register_sqlite_converters",
-          "signature": "(convert_arrays = True)",
+          "signature": "(convert_arrays=True)",
           "description": null,
           "parameters": [
             {
@@ -4181,7 +4181,7 @@
             "__getitem__": {
               "name": "__getitem__",
               "path": "bamboost.simulation.Links.__getitem__",
-              "signature": "(self, key) -> bamboost.simulation.Simulation",
+              "signature": "(self, key) -> Simulation",
               "description": "Returns the linked simulation object.",
               "parameters": [
                 {
@@ -4599,7 +4599,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboost.simulation.Simulation.__init__",
-              "signature": "(self, uid, path, comm = MPI.COMM_WORLD, create_if_not_exists = False, *, _db_id = None)",
+              "signature": "(self, uid, path, comm=MPI.COMM_WORLD, create_if_not_exists=False, *, _db_id=None)",
               "description": null,
               "parameters": [
                 {
@@ -4650,7 +4650,7 @@
             "fromUID": {
               "name": "fromUID",
               "path": "bamboost.simulation.Simulation.fromUID",
-              "signature": "(cls, full_uid, *, index_database = None) -> typing_extensions.Self",
+              "signature": "(cls, full_uid, *, index_database=None) -> Self",
               "description": "Return the `Simulation` with given UID.",
               "parameters": [
                 {
@@ -4687,7 +4687,7 @@
             "__getitem__": {
               "name": "__getitem__",
               "path": "bamboost.simulation.Simulation.__getitem__",
-              "signature": "(self, key) -> bamboost.common.hdf_pointer.BasePointer",
+              "signature": "(self, key) -> hdf_pointer.BasePointer",
               "description": "Direct access to HDF5 file.",
               "parameters": [
                 {
@@ -4793,7 +4793,7 @@
             "show_files": {
               "name": "show_files",
               "path": "bamboost.simulation.Simulation.show_files",
-              "signature": "(self, level = -1, limit_to_directories = False, length_limit = 1000, printit = True) -> str",
+              "signature": "(self, level=-1, limit_to_directories=False, length_limit=1000, printit=True) -> str",
               "description": "Show the file tree of the simulation directory.",
               "parameters": [
                 {
@@ -5009,7 +5009,7 @@
             "create_xdmf_file": {
               "name": "create_xdmf_file",
               "path": "bamboost.simulation.Simulation.create_xdmf_file",
-              "signature": "(self, fields = None, nb_steps = None) -> None",
+              "signature": "(self, fields=None, nb_steps=None) -> None",
               "description": "Create the xdmf file to read in paraview.",
               "parameters": [
                 {
@@ -5052,7 +5052,7 @@
             "create_run_script": {
               "name": "create_run_script",
               "path": "bamboost.simulation.Simulation.create_run_script",
-              "signature": "(self, commands, euler = True, sbatch_kwargs = None) -> None",
+              "signature": "(self, commands, euler=True, sbatch_kwargs=None) -> None",
               "description": "Create a batch job and put it into the folder.",
               "parameters": [
                 {
@@ -5186,7 +5186,7 @@
             "open": {
               "name": "open",
               "path": "bamboost.simulation.Simulation.open",
-              "signature": "(self, mode = 'r', driver = None, comm = None) -> bamboost.common.file_handler.FileHandler",
+              "signature": "(self, mode='r', driver=None, comm=None) -> FileHandler",
               "description": "Use this as a context manager in a `with` statement.\nPurpose: keeping the file open to directly access/edit something in the\nHDF5 file of this simulation.",
               "parameters": [
                 {
@@ -5240,7 +5240,7 @@
             "get_mesh": {
               "name": "get_mesh",
               "path": "bamboost.simulation.Simulation.get_mesh",
-              "signature": "(self, mesh_name = None) -> typing.Tuple",
+              "signature": "(self, mesh_name=None) -> Tuple",
               "description": "Return coordinates and connectivity. Currently returns numpy arrays.",
               "parameters": [
                 {
@@ -5502,7 +5502,7 @@
             "__getitem__": {
               "name": "__getitem__",
               "path": "bamboost.manager.ManagerFromUID.__getitem__",
-              "signature": "(self, key) -> bamboost.manager.Manager",
+              "signature": "(self, key) -> Manager",
               "description": null,
               "parameters": [
                 {
@@ -5597,7 +5597,7 @@
             "__getitem__": {
               "name": "__getitem__",
               "path": "bamboost.manager.ManagerFromName.__getitem__",
-              "signature": "(self, key) -> bamboost.manager.Manager",
+              "signature": "(self, key) -> Manager",
               "description": null,
               "parameters": [
                 {
@@ -5759,7 +5759,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboost.manager.Manager.__init__",
-              "signature": "(self, path = None, comm = MPI.COMM_WORLD, uid = None, create_if_not_exist = True)",
+              "signature": "(self, path=None, comm=MPI.COMM_WORLD, uid=None, create_if_not_exist=True)",
               "description": null,
               "parameters": [
                 {
@@ -5804,7 +5804,7 @@
             "__getitem__": {
               "name": "__getitem__",
               "path": "bamboost.manager.Manager.__getitem__",
-              "signature": "(self, key) -> bamboost.simulation.Simulation",
+              "signature": "(self, key) -> Simulation",
               "description": "Returns the simulation in the specified row of the dataframe.",
               "parameters": [
                 {
@@ -5882,7 +5882,7 @@
             "__iter__": {
               "name": "__iter__",
               "path": "bamboost.manager.Manager.__iter__",
-              "signature": "(self) -> typing.Generator",
+              "signature": "(self) -> Generator",
               "description": null,
               "parameters": [
                 {
@@ -5993,7 +5993,7 @@
             "_get_parameters_for_uid": {
               "name": "_get_parameters_for_uid",
               "path": "bamboost.manager.Manager._get_parameters_for_uid",
-              "signature": "(self, uid, include_linked_sims = False) -> dict",
+              "signature": "(self, uid, include_linked_sims=False) -> dict",
               "description": "Get the parameters for a given uid.",
               "parameters": [
                 {
@@ -6035,7 +6035,7 @@
             "get_view": {
               "name": "get_view",
               "path": "bamboost.manager.Manager.get_view",
-              "signature": "(self, include_linked_sims = False) -> pandas.DataFrame",
+              "signature": "(self, include_linked_sims=False) -> pd.DataFrame",
               "description": "View of the database and its parametric space. Read from the sql\ndatabase. If `include_linked_sims` is True, the individual h5 files are\nscanned.",
               "parameters": [
                 {
@@ -6077,7 +6077,7 @@
             "get_view_from_hdf_files": {
               "name": "get_view_from_hdf_files",
               "path": "bamboost.manager.Manager.get_view_from_hdf_files",
-              "signature": "(self, include_linked_sims = False) -> pandas.DataFrame",
+              "signature": "(self, include_linked_sims=False) -> pd.DataFrame",
               "description": "View of the database and its parametric space. Read from the h5\nfiles metadata.",
               "parameters": [
                 {
@@ -6109,7 +6109,7 @@
             "sim": {
               "name": "sim",
               "path": "bamboost.manager.Manager.sim",
-              "signature": "(self, uid, return_writer = False, writer_type = SimulationWriter) -> bamboost.simulation.Simulation",
+              "signature": "(self, uid, return_writer=False, writer_type=SimulationWriter) -> Simulation",
               "description": "Get an existing simulation with uid. Same as accessing with `db[uid]` directly.",
               "parameters": [
                 {
@@ -6162,7 +6162,7 @@
             "sims": {
               "name": "sims",
               "path": "bamboost.manager.Manager.sims",
-              "signature": "(self, select = None, sort = None, reverse = False, exclude = None, return_writer = False) -> list",
+              "signature": "(self, select=None, sort=None, reverse=False, exclude=None, return_writer=False) -> list",
               "description": "Get all simulations in a list. Optionally, get all simulations matching the\ngiven selection using pandas.",
               "parameters": [
                 {
@@ -6248,7 +6248,7 @@
             "create_simulation": {
               "name": "create_simulation",
               "path": "bamboost.manager.Manager.create_simulation",
-              "signature": "(self, uid = None, parameters = None, skip_duplicate_check = False, *, prefix = None, duplicate_action = 'prompt', note = None, files = None, links = None) -> bamboost.simulation_writer.SimulationWriter",
+              "signature": "(self, uid=None, parameters=None, skip_duplicate_check=False, *, prefix=None, duplicate_action='prompt', note=None, files=None, links=None) -> SimulationWriter",
               "description": "Get a writer object for a new simulation. This is written for paralell use\nas it is likely that this may be used in an executable, creating multiple runs\nfor a parametric space, which may be run in paralell.",
               "parameters": [
                 {
@@ -6418,7 +6418,7 @@
             "find": {
               "name": "find",
               "path": "bamboost.manager.Manager.find",
-              "signature": "(self, parameter_selection) -> pandas.DataFrame",
+              "signature": "(self, parameter_selection) -> pd.DataFrame",
               "description": "Find simulations with the given parameters.\n\nThe dictionary can contain callables to filter inequalities or other\nfilters.",
               "parameters": [
                 {
@@ -6459,7 +6459,7 @@
             "_list_duplicates": {
               "name": "_list_duplicates",
               "path": "bamboost.manager.Manager._list_duplicates",
-              "signature": "(self, parameters, *, df = None) -> list",
+              "signature": "(self, parameters, *, df=None) -> list",
               "description": "List ids of duplicates of the given parameters.",
               "parameters": [
                 {
@@ -6501,7 +6501,7 @@
             "_check_duplicate": {
               "name": "_check_duplicate",
               "path": "bamboost.manager.Manager._check_duplicate",
-              "signature": "(self, parameters, uid, duplicate_action = 'prompt') -> tuple",
+              "signature": "(self, parameters, uid, duplicate_action='prompt') -> tuple",
               "description": "Checking whether the parameters dictionary exists already.\nMay need to be improved...",
               "parameters": [
                 {
@@ -6943,7 +6943,7 @@
             "__new__": {
               "name": "__new__",
               "path": "bamboost.index.IndexAPI.__new__",
-              "signature": "(cls, *, _file = None, **kwargs) -> bamboost.index.IndexAPI",
+              "signature": "(cls, *, _file=None, **kwargs) -> IndexAPI",
               "description": null,
               "parameters": [
                 {
@@ -6976,7 +6976,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboost.index.IndexAPI.__init__",
-              "signature": "(self, *, _file = None, convert_arrays = None)",
+              "signature": "(self, *, _file=None, convert_arrays=None)",
               "description": null,
               "parameters": [
                 {
@@ -7009,7 +7009,7 @@
             "ThreadSafe": {
               "name": "ThreadSafe",
               "path": "bamboost.index.IndexAPI.ThreadSafe",
-              "signature": "(cls, *args, **kwargs) -> bamboost.index.IndexAPI",
+              "signature": "(cls, *args, **kwargs) -> IndexAPI",
               "description": null,
               "parameters": [
                 {
@@ -7084,7 +7084,7 @@
             "__getitem__": {
               "name": "__getitem__",
               "path": "bamboost.index.IndexAPI.__getitem__",
-              "signature": "(self, id) -> bamboost.index.DatabaseTable",
+              "signature": "(self, id) -> DatabaseTable",
               "description": null,
               "parameters": [
                 {
@@ -7153,7 +7153,7 @@
             "get_database_table": {
               "name": "get_database_table",
               "path": "bamboost.index.IndexAPI.get_database_table",
-              "signature": "(self, id) -> bamboost.index.DatabaseTable",
+              "signature": "(self, id) -> DatabaseTable",
               "description": "Get the table of a database.",
               "parameters": [
                 {
@@ -7180,7 +7180,7 @@
             "read_table": {
               "name": "read_table",
               "path": "bamboost.index.IndexAPI.read_table",
-              "signature": "(self, *args, **kwargs) -> pandas.DataFrame",
+              "signature": "(self, *args, **kwargs) -> pd.DataFrame",
               "description": "Read the index table.",
               "parameters": [
                 {
@@ -7213,7 +7213,7 @@
             "fetch": {
               "name": "fetch",
               "path": "bamboost.index.IndexAPI.fetch",
-              "signature": "(self, query, *args, **kwargs) -> pandas.DataFrame",
+              "signature": "(self, query, *args, **kwargs) -> pd.DataFrame",
               "description": "Query the index table.",
               "parameters": [
                 {
@@ -7390,7 +7390,7 @@
             "commit_once": {
               "name": "commit_once",
               "path": "bamboost.index.IndexAPI.commit_once",
-              "signature": "(self, func) -> typing.Callable",
+              "signature": "(self, func) -> Callable",
               "description": "Decorator to bundle changes to a single commit.",
               "parameters": [
                 {
@@ -7426,7 +7426,7 @@
             "clean": {
               "name": "clean",
               "path": "bamboost.index.IndexAPI.clean",
-              "signature": "(self, purge = False) -> bamboost.index.IndexAPI",
+              "signature": "(self, purge=False) -> IndexAPI",
               "description": "Clean the index from wrong paths.",
               "parameters": [
                 {
@@ -7641,7 +7641,7 @@
             "__new__": {
               "name": "__new__",
               "path": "bamboost.index.DatabaseTable.__new__",
-              "signature": "(cls, id, *args, **kwargs) -> bamboost.index.DatabaseTable",
+              "signature": "(cls, id, *args, **kwargs) -> DatabaseTable",
               "description": null,
               "parameters": [
                 {
@@ -7680,7 +7680,7 @@
             "__init__": {
               "name": "__init__",
               "path": "bamboost.index.DatabaseTable.__init__",
-              "signature": "(self, id, *, _index = None)",
+              "signature": "(self, id, *, _index=None)",
               "description": null,
               "parameters": [
                 {
@@ -7740,7 +7740,7 @@
             "read_table": {
               "name": "read_table",
               "path": "bamboost.index.DatabaseTable.read_table",
-              "signature": "(self) -> pandas.DataFrame",
+              "signature": "(self) -> pd.DataFrame",
               "description": "Read the table of the database.",
               "parameters": [
                 {
@@ -7761,7 +7761,7 @@
             "read_entry": {
               "name": "read_entry",
               "path": "bamboost.index.DatabaseTable.read_entry",
-              "signature": "(self, entry_id) -> pandas.Series",
+              "signature": "(self, entry_id) -> pd.Series",
               "description": "Read an entry from the database.",
               "parameters": [
                 {
@@ -7792,7 +7792,7 @@
             "read_column": {
               "name": "read_column",
               "path": "bamboost.index.DatabaseTable.read_column",
-              "signature": "(self, *columns) -> pandas.DataFrame",
+              "signature": "(self, *columns) -> pd.DataFrame",
               "description": "Read columns from the database.",
               "parameters": [
                 {
@@ -7923,7 +7923,7 @@
             "entry": {
               "name": "entry",
               "path": "bamboost.index.DatabaseTable.entry",
-              "signature": "(self, entry_id) -> bamboost.index.Entry",
+              "signature": "(self, entry_id) -> Entry",
               "description": "Get the Entry object of an entry.\nMultiton pattern. One Entry per entry.",
               "parameters": [
                 {
@@ -8536,7 +8536,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboost.accessors.meshes.MeshGroup.__init__",
-                  "signature": "(self, file_handler, path_to_data = '/Mesh/0', _default_mesh = 'mesh', **kwargs) -> None",
+                  "signature": "(self, file_handler, path_to_data='/Mesh/0', _default_mesh='mesh', **kwargs) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -8581,7 +8581,7 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "path": "bamboost.accessors.meshes.MeshGroup.__getitem__",
-                  "signature": "(self, key) -> bamboost.accessors.meshes.Mesh",
+                  "signature": "(self, key) -> Mesh",
                   "description": null,
                   "parameters": [
                     {
@@ -8750,7 +8750,7 @@
                 "get_tuple": {
                   "name": "get_tuple",
                   "path": "bamboost.accessors.meshes.Mesh.get_tuple",
-                  "signature": "(self) -> typing.Tuple",
+                  "signature": "(self) -> Tuple",
                   "description": null,
                   "parameters": [
                     {
@@ -8921,7 +8921,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboost.accessors.fielddata.DataGroup.__init__",
-                  "signature": "(self, file_handler, meshes, path_to_data = '/data', **kwargs) -> None",
+                  "signature": "(self, file_handler, meshes, path_to_data='/data', **kwargs) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -8966,7 +8966,7 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "path": "bamboost.accessors.fielddata.DataGroup.__getitem__",
-                  "signature": "(self, key) -> bamboost.accessors.fielddata.FieldData",
+                  "signature": "(self, key) -> FieldData",
                   "description": null,
                   "parameters": [
                     {
@@ -8993,7 +8993,7 @@
                 "__iter__": {
                   "name": "__iter__",
                   "path": "bamboost.accessors.fielddata.DataGroup.__iter__",
-                  "signature": "(self) -> typing.Generator",
+                  "signature": "(self) -> Generator",
                   "description": null,
                   "parameters": [
                     {
@@ -9218,7 +9218,7 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "path": "bamboost.accessors.fielddata.FieldData.__getitem__",
-                  "signature": "(self, key) -> numpy.ndarray",
+                  "signature": "(self, key) -> np.ndarray",
                   "description": null,
                   "parameters": [
                     {
@@ -9308,7 +9308,7 @@
                 "at_step": {
                   "name": "at_step",
                   "path": "bamboost.accessors.fielddata.FieldData.at_step",
-                  "signature": "(self, *steps) -> numpy.ndarray",
+                  "signature": "(self, *steps) -> np.ndarray",
                   "description": "Direct access to data at step. Does not require the virtual dataset.",
                   "parameters": [
                     {
@@ -9778,7 +9778,7 @@
                 "new_pointer": {
                   "name": "new_pointer",
                   "path": "bamboost.common.hdf_pointer.BasePointer.new_pointer",
-                  "signature": "(cls, file_handler, path_to_data) -> bamboost.common.hdf_pointer.BasePointer",
+                  "signature": "(cls, file_handler, path_to_data) -> BasePointer",
                   "description": "Returns a new pointer object.",
                   "parameters": [
                     {
@@ -9865,7 +9865,7 @@
                 "__getattr__": {
                   "name": "__getattr__",
                   "path": "bamboost.common.hdf_pointer.BasePointer.__getattr__",
-                  "signature": "(self, __name) -> typing.Any",
+                  "signature": "(self, __name) -> Any",
                   "description": "Any attribute request is sent to the h5py object the pointer points to.",
                   "parameters": [
                     {
@@ -10088,7 +10088,7 @@
                 "extract_attrs": {
                   "name": "extract_attrs",
                   "path": "bamboost.common.hdf_pointer.Group.extract_attrs",
-                  "signature": "(self, variant = 'all') -> dict",
+                  "signature": "(self, variant='all') -> dict",
                   "description": "Extract the attributes of all members of the group.",
                   "parameters": [
                     {
@@ -10265,7 +10265,7 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "path": "bamboost.common.hdf_pointer.MutableGroup.__getitem__",
-                  "signature": "(self, key) -> typing.Any",
+                  "signature": "(self, key) -> Any",
                   "description": "Used to access datasets (:class:`~bamboost.common.hdf_pointer.Dataset`)\nor groups inside this group (:class:`~bamboost.common.hdf_pointer.MutableGroup`)",
                   "parameters": [
                     {
@@ -10383,7 +10383,7 @@
                 "add_dataset": {
                   "name": "add_dataset",
                   "path": "bamboost.common.hdf_pointer.MutableGroup.add_dataset",
-                  "signature": "(self, name, vector, attrs = None, dtype = None) -> None",
+                  "signature": "(self, name, vector, attrs=None, dtype=None) -> None",
                   "description": "Add a dataset to the group. Error is thrown if attempting to overwrite\nwith different shape than before. If same shape, data is overwritten\n(this is inherited from h5py -> require_dataset)",
                   "parameters": [
                     {
@@ -10446,7 +10446,7 @@
                 "require_group": {
                   "name": "require_group",
                   "path": "bamboost.common.hdf_pointer.MutableGroup.require_group",
-                  "signature": "(self, name) -> bamboost.common.hdf_pointer.MutableGroup",
+                  "signature": "(self, name) -> MutableGroup",
                   "description": "Add a new group to the current group. If exists, return existing.",
                   "parameters": [
                     {
@@ -10735,7 +10735,7 @@
             "flatten_dict": {
               "name": "flatten_dict",
               "path": "bamboost.common.utilities.flatten_dict",
-              "signature": "(dictionary, parent_key = '', seperator = '.')",
+              "signature": "(dictionary, parent_key='', seperator='.')",
               "description": null,
               "parameters": [
                 {
@@ -10768,7 +10768,7 @@
             "unflatten_dict": {
               "name": "unflatten_dict",
               "path": "bamboost.common.utilities.unflatten_dict",
-              "signature": "(dictionary, seperator = '.')",
+              "signature": "(dictionary, seperator='.')",
               "description": null,
               "parameters": [
                 {
@@ -10795,7 +10795,7 @@
             "tree": {
               "name": "tree",
               "path": "bamboost.common.utilities.tree",
-              "signature": "(dir_path, level = -1, limit_to_directories = False, length_limit = 1000)",
+              "signature": "(dir_path, level=-1, limit_to_directories=False, length_limit=1000)",
               "description": "Given a directory Path object print a visual tree structure",
               "parameters": [
                 {
@@ -10834,7 +10834,7 @@
             "h5_tree": {
               "name": "h5_tree",
               "path": "bamboost.common.utilities.h5_tree",
-              "signature": "(val, pre = '')",
+              "signature": "(val, pre='')",
               "description": null,
               "parameters": [
                 {
@@ -10861,7 +10861,7 @@
             "show_differences": {
               "name": "show_differences",
               "path": "bamboost.common.utilities.show_differences",
-              "signature": "(df) -> pandas.DataFrame",
+              "signature": "(df) -> pd.DataFrame",
               "description": "This function takes a pandas DataFrame as input and returns a modified\nDataFrame that shows only the columns which have differences.\n\nThe function first creates a copy of the input DataFrame to work with. It\nthen iterates over each column in the DataFrame and tries to calculate the\nnumber of unique values in that column. If successful, it adds the column\nname and number of unique values to a list of good results. If there is an\nerror, it attempts to apply json.dumps to the column and then calculate the\nnumber of unique values again. If this is successful, it also adds the\ncolumn name and number of unique values to the list of good results. If\nthere is still an error, it adds the column name and the error to a list of\nerrors.\n\nAfter processing all columns, the function removes any columns that had\nerrors from the DataFrame. It then sets the index of the DataFrame to 'id'\nand filters out any columns that have only one unique value. The modified\nDataFrame is then returned.",
               "parameters": [
                 {
@@ -10907,7 +10907,7 @@
             "parse_job_arguments": {
               "name": "parse_job_arguments",
               "path": "bamboost.common.utilities.parse_job_arguments",
-              "signature": "() -> bamboost.common.utilities.JobArguments",
+              "signature": "() -> JobArguments",
               "description": "Parse command-line arguments for submitting a job to a bamboost database.",
               "parameters": [],
               "returns": {
@@ -10921,7 +10921,7 @@
             "parse_script_arguments": {
               "name": "parse_script_arguments",
               "path": "bamboost.common.utilities.parse_script_arguments",
-              "signature": "() -> bamboost.common.utilities.ScriptArguments",
+              "signature": "() -> ScriptArguments",
               "description": "Parse command-line arguments for a script using the bamboost system.",
               "parameters": [],
               "returns": {
@@ -11051,7 +11051,7 @@
                 "__init__": {
                   "name": "__init__",
                   "path": "bamboost.common.file_handler.FileHandler.__init__",
-                  "signature": "(self, file_name, _comm = mpi.MPI.COMM_WORLD) -> None",
+                  "signature": "(self, file_name, _comm=mpi.MPI.COMM_WORLD) -> None",
                   "description": null,
                   "parameters": [
                     {
@@ -11084,7 +11084,7 @@
                 "__call__": {
                   "name": "__call__",
                   "path": "bamboost.common.file_handler.FileHandler.__call__",
-                  "signature": "(self, mode = 'r', driver = None, comm = None) -> bamboost.common.file_handler.FileHandler",
+                  "signature": "(self, mode='r', driver=None, comm=None) -> FileHandler",
                   "description": "Used to set the options for file opening.\nExample: `with sim._file('a', driver='mpio') as file:`",
                   "parameters": [
                     {
@@ -11123,7 +11123,7 @@
                 "__getitem__": {
                   "name": "__getitem__",
                   "path": "bamboost.common.file_handler.FileHandler.__getitem__",
-                  "signature": "(self, key) -> typing.Any",
+                  "signature": "(self, key) -> Any",
                   "description": null,
                   "parameters": [
                     {
@@ -11177,7 +11177,7 @@
                 "__getattr__": {
                   "name": "__getattr__",
                   "path": "bamboost.common.file_handler.FileHandler.__getattr__",
-                  "signature": "(self, __name) -> typing.Any",
+                  "signature": "(self, __name) -> Any",
                   "description": null,
                   "parameters": [
                     {
@@ -11252,7 +11252,7 @@
                 "open": {
                   "name": "open",
                   "path": "bamboost.common.file_handler.FileHandler.open",
-                  "signature": "(self, mode = 'r', driver = None, comm = None)",
+                  "signature": "(self, mode='r', driver=None, comm=None)",
                   "description": null,
                   "parameters": [
                     {
@@ -11312,7 +11312,7 @@
                 "change_file_mode": {
                   "name": "change_file_mode",
                   "path": "bamboost.common.file_handler.FileHandler.change_file_mode",
-                  "signature": "(self, mode, driver = None, comm = None)",
+                  "signature": "(self, mode, driver=None, comm=None)",
                   "description": null,
                   "parameters": [
                     {
@@ -11357,7 +11357,7 @@
             "open_h5file": {
               "name": "open_h5file",
               "path": "bamboost.common.file_handler.open_h5file",
-              "signature": "(file, mode, driver = None, comm = None)",
+              "signature": "(file, mode, driver=None, comm=None)",
               "description": "Open h5 file. Waiting if file is not available.",
               "parameters": [
                 {
@@ -11414,7 +11414,7 @@
             "with_file_open": {
               "name": "with_file_open",
               "path": "bamboost.common.file_handler.with_file_open",
-              "signature": "(mode = 'r', driver = None, comm = None)",
+              "signature": "(mode='r', driver=None, comm=None)",
               "description": "Open the file (`self._file`) before function\nClose the file after the function call\n\nWorks on classes containing the member `_file` of type :class:`~bamboost.common.file_handler.FileHandler`",
               "parameters": [
                 {

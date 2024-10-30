@@ -1,14 +1,14 @@
 import { FunctionInterface, ReturnInterface } from "../types";
 import Markdown from "../../Markdown/markdown";
-import { FunctionHeader } from "./FunctionHeader";
 import { Code } from "../../Code";
 import { Arguments } from "../ArgumentList";
 import { LinkAnnotation } from "../annotation";
 import { DocstringSections } from "@/fumapy/components/Markdown/DocstringSections";
+import MethodHeader from "../Classes/MethodHeader";
 
 export const Functions = ({ data }: { data: FunctionInterface[] }) => {
   return (
-    <div>
+    <div className="space-y-14">
       {data.map((func) => {
         return <Function key={func.name} data={func} />;
       })}
@@ -27,9 +27,19 @@ export const Function = ({ data }: { data: FunctionInterface }) => {
     />
   );
 
+  const header = (
+    <div className="my-2">
+      <a href={`#${data.name}`} className="not-prose" id={data.name}>
+        <span className="font-bold">{data.name}</span>
+      </a>
+
+      <span className="leading-relaxed italic">{signature}</span>
+    </div>
+  );
+
   return (
     <div>
-      <FunctionHeader data={data} signature={signature} code={sourceCode} />
+      <MethodHeader code={sourceCode} header={header}/>
 
       <div className="sm:ml-indent space-y-6">
         {data.description && <Markdown input={data.description} />}

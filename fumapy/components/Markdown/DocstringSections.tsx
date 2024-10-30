@@ -76,7 +76,7 @@ export const DocstringSections = ({
         const examples = section.value;
         return (
           <div key={key}>
-            <h5>Examples</h5>
+            <h5>Examples:</h5>
             <div className="ml-indent2">
               {examples.map(([_kind, value]: [any, any], i: any) => (
                 <Code key={i} code={value} className="my-2 py-2 [&_*]:py-0" />

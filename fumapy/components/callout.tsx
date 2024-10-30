@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/fumapy/lib/utils";
 import { AlertTriangle, CircleX, Info, Lightbulb } from "lucide-react";
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 

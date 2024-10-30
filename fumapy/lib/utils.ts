@@ -1,4 +1,10 @@
 import { ModuleInterface } from "@/fumapy/components/SourceDocumentation/types";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 /**
  * Retrieves all possible slugs from a nested structure.

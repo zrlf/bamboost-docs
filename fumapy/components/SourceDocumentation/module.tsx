@@ -8,6 +8,7 @@ import fuma from "fumadocs-ui/mdx";
 import { DocstringSections } from "../Markdown/DocstringSections";
 import { sources } from "@/fumapy/lib/source.api";
 import config from "@/fumapy.config";
+import { TableOfContents } from "lucide-react";
 
 export const Module = ({ data }: { data: ModuleInterface }) => {
   let cards = null;
@@ -45,27 +46,30 @@ export const Module = ({ data }: { data: ModuleInterface }) => {
 
       {data.attributes.length > 0 && (
         <>
-          <fuma.h2 className="divider" id="attributes">
+          <h2 className="divider" id="attributes">
+            <TableOfContents />
             Attributes
-          </fuma.h2>
-          <Attributes data={data.attributes} />
+          </h2>
+          <Attributes data={data.attributes} noTitle />
         </>
       )}
 
       {Object.keys(data.functions).length > 0 && (
         <>
-          <fuma.h2 className="divider" id="functions">
+          <h2 className="divider" id="functions">
+            <TableOfContents />
             Functions
-          </fuma.h2>
+          </h2>
           <Functions data={Object.values(data.functions)} />
         </>
       )}
 
       {Object.values(data.classes).length > 0 && (
         <>
-          <fuma.h2 className="divider" id="classes">
+          <h2 className="divider" id="classes">
+            <TableOfContents />
             Classes
-          </fuma.h2>
+          </h2>
           <Classes data={Object.values(data.classes)} />
         </>
       )}

@@ -65,6 +65,7 @@ function createTOC(module: ModuleInterface): TOCItemType[] {
         url: `#${cls.name}`,
       });
       Object.keys(cls.functions).forEach((method) => {
+        if (method === "__init__") return;
         headers.push({
           title: <div className="toc-meth">{method}</div>,
           depth: 3,

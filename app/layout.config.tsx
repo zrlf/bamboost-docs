@@ -1,15 +1,12 @@
-import { cn } from "@/lib/utils";
 import { RootToggle } from "fumadocs-ui/components/layout/root-toggle";
 import { DocsLayoutProps } from "fumadocs-ui/layouts/docs";
 import { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import {
   BookOpenText,
-  Copyright,
   Gitlab,
   Library,
   Terminal,
 } from "lucide-react";
-import { createElement } from "react";
 
 /**
  * Shared layout configurations
@@ -38,17 +35,6 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
     },
   ],
   sidebar: {
-    // footer: (
-    //   <div
-    //     className={cn(
-    //       "w-full flex gap-1 p-2 items-center justify-center",
-    //       "text-xs font-light text-muted-foreground/50",
-    //     )}
-    //   >
-    //     <Copyright size={"0.8rem"} strokeWidth="1.0" />
-    //     2024, cmbm research
-    //   </div>
-    // ),
     banner: (
       <RootToggle
         options={[
