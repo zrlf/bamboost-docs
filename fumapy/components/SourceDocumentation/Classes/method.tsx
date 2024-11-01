@@ -29,7 +29,7 @@ export const Method = ({
 
   const header = (
     <div className="my-2">
-      <a href={`#${id}`} className="not-prose" id={id}>
+      <a href={`#${id}`} className="not-prose scroll-mt-28" id={id}>
         {clsName && (
           <span className={cn("text-muted-foreground/80 text-base font-semibold")}>
             {clsName}

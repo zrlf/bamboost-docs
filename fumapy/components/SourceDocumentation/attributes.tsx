@@ -21,6 +21,7 @@ export const Attributes = ({
           <li
             key={property.name}
             id={parent ? `${parent}.${property.name}` : property.name}
+            className="scroll-mt-28"
           >
             <div className="flex flex-wrap items-center">
               <span className="font-bold">{property.name}</span>

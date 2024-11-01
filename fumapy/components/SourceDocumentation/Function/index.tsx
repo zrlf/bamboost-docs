@@ -29,7 +29,7 @@ export const Function = ({ data }: { data: FunctionInterface }) => {
 
   const header = (
     <div className="my-2">
-      <a href={`#${data.name}`} className="not-prose" id={data.name}>
+      <a href={`#${data.name}`} className="not-prose scroll-mt-28" id={data.name}>
         <span className="font-bold">{data.name}</span>
       </a>
 
