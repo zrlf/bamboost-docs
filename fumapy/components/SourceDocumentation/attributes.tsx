@@ -1,8 +1,8 @@
 import { cn } from "@/fumapy/lib/utils";
 import { Code } from "../Code";
-import Markdown from "../Markdown/markdown";
 import { LinkAnnotation } from "./annotation";
 import { AttributeInterface } from "./types";
+import { DocstringSections } from "../Markdown/DocstringSections";
 
 export const Attributes = ({
   data,
@@ -41,7 +41,7 @@ export const Attributes = ({
             </div>
             {property.description && (
               <div className="sm:ml-indent">
-                <Markdown input={property.description} />
+                <DocstringSections sections={property.description} />
               </div>
             )}
           </li>

@@ -545,7 +545,12 @@
             {
               "name": "key_indicator_widget",
               "annotation": "KeyIndicatorWidget",
-              "description": null,
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "Return the key indicator widget.\n\nIf a keychain is pressed, the key indicator prints the current keychain\nto the top right of the screen."
+                }
+              ],
               "value": null
             }
           ],
@@ -1482,6 +1487,80 @@
         }
       }
     },
+    "app": {
+      "name": "app",
+      "path": "bamboostcli.app",
+      "filepath": "/home/florez/work/code/hdftui/bamboostcli/app.py",
+      "description": null,
+      "docstring": [],
+      "attributes": [],
+      "modules": {},
+      "classes": {},
+      "functions": {
+        "main": {
+          "name": "main",
+          "path": "bamboostcli.app.main",
+          "signature": "()",
+          "description": null,
+          "parameters": [],
+          "returns": {
+            "name": "",
+            "annotation": null,
+            "description": null
+          },
+          "docstring": [],
+          "source": "def main():\n    if not sys.stdin.isatty():\n        path = input()\n        sys.stdin = open(\"/dev/tty\", \"r\")\n    else:\n        parser = argparse.ArgumentParser(description=\"bamboostcli\")\n        parser.add_argument(\n            \"-v\",\n            \"--version\",\n            action=\"version\",\n            version=f\"bamboost {bamboost.__version__}; bamboostcli {__version__}\",\n        )\n        parser.add_argument(\n            \"-r\", \"--remote\", action=\"store_true\", help=\"Directly open default remote database.\"\n        )\n        parser.add_argument(\n            \"-l\", \"--locking\", action=\"store_true\", help=\"Enable custom locking of h5 files.\"\n        )\n        parser.add_argument(\"path\", nargs=\"?\", help=\"Path to directly open a bamboost database.\")\n        args = parser.parse_args()\n        path = args.path\n\n        if args.locking:\n            from bamboost.extensions.use_locking import use_locking\n\n            use_locking(\"exclusive\")\n\n    if sys.stdout.isatty():\n        Caller.OUTPIPE = False\n    else:\n        Caller.OUTPIPE = True\n\n    if args.remote:\n        first_remote = Remote.list()[0]\n        remote_index = IndexRemote(remote=Remote(first_remote, skip_update=True))\n        ui = cPopup(\n            remote_index,\n            title=f\"Remote databases [{first_remote}] - ctrl + r to fetch index\",\n        )\n        enter_main_loop(ui)\n        return\n\n    if path is not None:\n        # Filter the databases which have the given path as a parent\n        # If only 1 database is found, open it directly\n        # If multiple databases are found, show a list of them\n\n        path = os.path.abspath(path)\n        index = IndexAPI().fetch(\"SELECT id, path FROM dbindex\")\n        candidates = {\n            id: str(Path(val).relative_to(Path(path)))\n            for id, val in index\n            if Path(path) in [*Path(val).parents, Path(val)]\n        }\n\n        if len(candidates) == 1:\n            id = next(iter(candidates))\n            ui = Database(id, bamboost.Manager(uid=id))\n            enter_main_loop(ui)\n            return\n\n        if len(candidates) > 1:\n\n            def cb(action_item: cActionItem):\n                id = action_item.content[0]\n                ui = Database(id, bamboost.Manager(uid=id))\n                Caller.widget_stack.pop()\n                Caller.enter_widget(ui)\n\n            items = [cActionItem(candidate, callback=cb) for candidate in candidates.items()]\n            ui = cPopup(\n                cListBoxSelectionCharacter(\n                    items, attr_map={0: \"5\", 1: \"8\"}, focus_map={0: \"5-bold\", 1: \"8-bold\"}\n                ),\n                height=len(candidates),\n                title=\"Select a database\",\n            )\n            enter_main_loop(ui)\n            return\n\n    enter_main_loop(WelcomeUI().frame)"
+        },
+        "enter_main_loop": {
+          "name": "enter_main_loop",
+          "path": "bamboostcli.app.enter_main_loop",
+          "signature": "(widget, screen=None)",
+          "description": null,
+          "parameters": [
+            {
+              "name": "widget",
+              "annotation": null,
+              "description": null,
+              "value": null
+            },
+            {
+              "name": "screen",
+              "annotation": null,
+              "description": null,
+              "value": "None"
+            }
+          ],
+          "returns": {
+            "name": "",
+            "annotation": null,
+            "description": null
+          },
+          "docstring": [],
+          "source": "def enter_main_loop(widget, screen=None):\n    screen = urwid.raw_display.Screen(input=sys.stdin, output=sys.stderr)\n    Caller.main_loop = urwid.MainLoop(widget, palette, unhandled_input=exit, screen=screen)\n    Caller.main_loop.handle_mouse = True\n    Caller.main_loop.screen.set_terminal_properties(colors=256)\n    Caller.widget_stack.append(widget)\n    Caller.main_loop.run()"
+        },
+        "exit": {
+          "name": "exit",
+          "path": "bamboostcli.app.exit",
+          "signature": "(key)",
+          "description": null,
+          "parameters": [
+            {
+              "name": "key",
+              "annotation": null,
+              "description": null,
+              "value": null
+            }
+          ],
+          "returns": {
+            "name": "",
+            "annotation": null,
+            "description": null
+          },
+          "docstring": [],
+          "source": "def exit(key):\n    if key == \"q\":\n        Caller.exit_widget()\n    elif key == \"Q\":\n        raise urwid.ExitMainLoop()"
+        }
+      }
+    },
     "common": {
       "name": "common",
       "path": "bamboostcli.common",
@@ -1534,7 +1613,12 @@
         {
           "name": "palette",
           "annotation": "list",
-          "description": null,
+          "description": [
+            {
+              "kind": "text",
+              "value": "list: A list of tuples defining the color palette for the application.\n\nThere are color variants for the standard 16 colors (denoted as C below).\nC: just the color\nC-bold: the color with bold text\nC-reverse: the color as background and black text\nC-reverse-bold: the color as background with bold black text\nC-on-white: the color with white background\nC-bold-on-white: the color with bold text and white background"
+            }
+          ],
           "value": "[]"
         }
       ],
@@ -1548,14 +1632,24 @@
           "attributes": [
             {
               "name": "widget_stack",
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "A list of widgets that are currently in the stack."
+                }
+              ],
               "annotation": null,
-              "description": "A list of widgets that are currently in the stack.",
               "value": "[]"
             },
             {
               "name": "main_loop",
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "The main loop of the urwid application."
+                }
+              ],
               "annotation": "urwid.MainLoop",
-              "description": "The main loop of the urwid application.",
               "value": "None"
             }
           ],
@@ -1635,20 +1729,35 @@
           "attributes": [
             {
               "name": "keybinds",
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "Parsed dictionary of the [keybinds] table from the config\nfile."
+                }
+              ],
               "annotation": "dict",
-              "description": "Parsed dictionary of the [keybinds] table from the config\nfile.",
               "value": "{}"
             },
             {
               "name": "theme",
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "The theme to use for the application. (Not used yet)"
+                }
+              ],
               "annotation": "str",
-              "description": "The theme to use for the application. (Not used yet)",
               "value": "'default'"
             },
             {
               "name": "custom_functions",
+              "description": [
+                {
+                  "kind": "text",
+                  "value": "A namespace for custom functions defined in the\ncustom functions file."
+                }
+              ],
               "annotation": "dict",
-              "description": "A namespace for custom functions defined in the\ncustom functions file.",
               "value": "{}"
             },
             {
@@ -1970,80 +2079,6 @@
           },
           "docstring": [],
           "source": "@contextmanager\ndef redirect_allout(new_stdout=\"devnull\"):\n    if new_stdout == \"devnull\":\n        new_stdout = open(os.devnull, \"w\")\n    original_stdout = sys.stdout\n    original_stderr = sys.stderr\n    sys.stdout = new_stdout\n    sys.stderr = new_stdout\n    try:\n        yield None\n    finally:\n        new_stdout.close()\n        sys.stdout = original_stdout\n        sys.stderr = original_stderr"
-        }
-      }
-    },
-    "app": {
-      "name": "app",
-      "path": "bamboostcli.app",
-      "filepath": "/home/florez/work/code/hdftui/bamboostcli/app.py",
-      "description": null,
-      "docstring": [],
-      "attributes": [],
-      "modules": {},
-      "classes": {},
-      "functions": {
-        "main": {
-          "name": "main",
-          "path": "bamboostcli.app.main",
-          "signature": "()",
-          "description": null,
-          "parameters": [],
-          "returns": {
-            "name": "",
-            "annotation": null,
-            "description": null
-          },
-          "docstring": [],
-          "source": "def main():\n    if not sys.stdin.isatty():\n        path = input()\n        sys.stdin = open(\"/dev/tty\", \"r\")\n    else:\n        parser = argparse.ArgumentParser(description=\"bamboostcli\")\n        parser.add_argument(\n            \"-v\",\n            \"--version\",\n            action=\"version\",\n            version=f\"bamboost {bamboost.__version__}; bamboostcli {__version__}\",\n        )\n        parser.add_argument(\n            \"-r\", \"--remote\", action=\"store_true\", help=\"Directly open default remote database.\"\n        )\n        parser.add_argument(\n            \"-l\", \"--locking\", action=\"store_true\", help=\"Enable custom locking of h5 files.\"\n        )\n        parser.add_argument(\"path\", nargs=\"?\", help=\"Path to directly open a bamboost database.\")\n        args = parser.parse_args()\n        path = args.path\n\n        if args.locking:\n            from bamboost.extensions.use_locking import use_locking\n\n            use_locking(\"exclusive\")\n\n    if sys.stdout.isatty():\n        Caller.OUTPIPE = False\n    else:\n        Caller.OUTPIPE = True\n\n    if args.remote:\n        first_remote = Remote.list()[0]\n        remote_index = IndexRemote(remote=Remote(first_remote, skip_update=True))\n        ui = cPopup(\n            remote_index,\n            title=f\"Remote databases [{first_remote}] - ctrl + r to fetch index\",\n        )\n        enter_main_loop(ui)\n        return\n\n    if path is not None:\n        # Filter the databases which have the given path as a parent\n        # If only 1 database is found, open it directly\n        # If multiple databases are found, show a list of them\n\n        path = os.path.abspath(path)\n        index = IndexAPI().fetch(\"SELECT id, path FROM dbindex\")\n        candidates = {\n            id: str(Path(val).relative_to(Path(path)))\n            for id, val in index\n            if Path(path) in [*Path(val).parents, Path(val)]\n        }\n\n        if len(candidates) == 1:\n            id = next(iter(candidates))\n            ui = Database(id, bamboost.Manager(uid=id))\n            enter_main_loop(ui)\n            return\n\n        if len(candidates) > 1:\n\n            def cb(action_item: cActionItem):\n                id = action_item.content[0]\n                ui = Database(id, bamboost.Manager(uid=id))\n                Caller.widget_stack.pop()\n                Caller.enter_widget(ui)\n\n            items = [cActionItem(candidate, callback=cb) for candidate in candidates.items()]\n            ui = cPopup(\n                cListBoxSelectionCharacter(\n                    items, attr_map={0: \"5\", 1: \"8\"}, focus_map={0: \"5-bold\", 1: \"8-bold\"}\n                ),\n                height=len(candidates),\n                title=\"Select a database\",\n            )\n            enter_main_loop(ui)\n            return\n\n    enter_main_loop(WelcomeUI().frame)"
-        },
-        "enter_main_loop": {
-          "name": "enter_main_loop",
-          "path": "bamboostcli.app.enter_main_loop",
-          "signature": "(widget, screen=None)",
-          "description": null,
-          "parameters": [
-            {
-              "name": "widget",
-              "annotation": null,
-              "description": null,
-              "value": null
-            },
-            {
-              "name": "screen",
-              "annotation": null,
-              "description": null,
-              "value": "None"
-            }
-          ],
-          "returns": {
-            "name": "",
-            "annotation": null,
-            "description": null
-          },
-          "docstring": [],
-          "source": "def enter_main_loop(widget, screen=None):\n    screen = urwid.raw_display.Screen(input=sys.stdin, output=sys.stderr)\n    Caller.main_loop = urwid.MainLoop(widget, palette, unhandled_input=exit, screen=screen)\n    Caller.main_loop.handle_mouse = True\n    Caller.main_loop.screen.set_terminal_properties(colors=256)\n    Caller.widget_stack.append(widget)\n    Caller.main_loop.run()"
-        },
-        "exit": {
-          "name": "exit",
-          "path": "bamboostcli.app.exit",
-          "signature": "(key)",
-          "description": null,
-          "parameters": [
-            {
-              "name": "key",
-              "annotation": null,
-              "description": null,
-              "value": null
-            }
-          ],
-          "returns": {
-            "name": "",
-            "annotation": null,
-            "description": null
-          },
-          "docstring": [],
-          "source": "def exit(key):\n    if key == \"q\":\n        Caller.exit_widget()\n    elif key == \"Q\":\n        raise urwid.ExitMainLoop()"
         }
       }
     },
@@ -2681,20 +2716,35 @@
                 },
                 {
                   "name": "options",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "some options for the command line"
+                    }
+                  ],
                   "annotation": null,
-                  "description": "some options for the command line",
                   "value": "{'caption': caption, 'prefix': prefix}"
                 },
                 {
                   "name": "parser",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "The parser to use for the command line"
+                    }
+                  ],
                   "annotation": null,
-                  "description": "The parser to use for the command line",
                   "value": "parser"
                 },
                 {
                   "name": "suggestions",
+                  "description": [
+                    {
+                      "kind": "text",
+                      "value": "The current suggestions for the command line"
+                    }
+                  ],
                   "annotation": "Iterable",
-                  "description": "The current suggestions for the command line",
                   "value": null
                 }
               ],

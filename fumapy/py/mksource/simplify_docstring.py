@@ -44,11 +44,13 @@ def simplify_docstring(
             {
                 "name": attr.name,
                 "annotation": attr.annotation,
-                "description": None,
+                "description": attr.docstring.parsed if attr.docstring else None,
                 "value": attr.value,
             }
             for attr in parent.attributes.values()
-            if (not attr.is_alias or attr.name == "__version__")  # exclude aliased attributes (except __version__)
+            if (
+                not attr.is_alias or attr.name == "__version__"
+            )  # exclude aliased attributes (except __version__)
         ]
 
     if not doc:
@@ -127,15 +129,30 @@ def simplify_docstring(
                     continue
 
                 if attr.name in map:
-                    attr_item: dict = map[attr.name].as_dict()
-                    attr_item.update({"value": attr.value})
+                    attr_in_docstring: dict = map[attr.name]
+                    attr_item: dict = {
+                        "name": attr_in_docstring.name,
+                        "description": None,
+                        "annotation": attr_in_docstring.annotation,
+                        "value": attr.value,
+                    }
+
+                    try:
+                        attr_item["description"] = griffe.parse_google(
+                            griffe.Docstring(attr_in_docstring.description)
+                        )
+                    except AttributeError:
+                        pass
+
                     attributes_list.append(attr_item)
                 else:
                     attributes_list.append(
                         {
                             "name": attr.name,
                             "annotation": attr.annotation,
-                            "description": None,
+                            "description": attr.docstring.parsed
+                            if attr.docstring
+                            else None,
                             "value": attr.value,
                         }
                     )

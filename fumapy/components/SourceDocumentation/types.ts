@@ -36,7 +36,7 @@ interface FunctionInterface {
 interface AttributeInterface {
   name: string;
   annotation: string | null;
-  description: string | null;
+  description: DocstringSection[] | null;
   value: string | null;
 }
 
