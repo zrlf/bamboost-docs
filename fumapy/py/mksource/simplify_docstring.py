@@ -1,4 +1,5 @@
 import typing as t
+from dataclasses import asdict
 
 import griffe
 
@@ -34,7 +35,10 @@ def simplify_docstring(
             "annotation": (
                 parent.returns
                 if isinstance(parent.returns, (str, type(None)))
-                else parent.returns.canonical_path
+                else "".join(
+                    elem if isinstance(elem, str) else elem.canonical_path
+                    for elem in parent.returns.iterate(flat=True)
+                )
             ),
             "description": None,
         }

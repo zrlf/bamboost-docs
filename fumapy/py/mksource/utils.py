@@ -36,10 +36,7 @@ def build_signature(func: griffe.Function) -> str:
 
     s += ")"
     if func.returns:
-        try:
-            s += f" -> {func.returns.path}"
-        except AttributeError:
-            s += f" -> {func.returns}"
+        s += f" -> {func.returns}"
 
     return s
 

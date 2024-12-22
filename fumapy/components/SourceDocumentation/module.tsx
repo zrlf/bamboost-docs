@@ -1,14 +1,13 @@
+import config from "@/fumapy.config";
+import { sources } from "@/fumapy/lib/source.api";
 import { Card, Cards } from "fumadocs-ui/components/card";
+import { TableOfContents } from "lucide-react";
+import { DocstringSections } from "../Markdown/DocstringSections";
 import Markdown from "../Markdown/markdown";
 import { Classes } from "./Classes";
 import { Functions } from "./Function";
 import { Attributes } from "./attributes";
 import { ModuleInterface } from "./types";
-import fuma from "fumadocs-ui/mdx";
-import { DocstringSections } from "../Markdown/DocstringSections";
-import { sources } from "@/fumapy/lib/source.api";
-import config from "@/fumapy.config";
-import { TableOfContents } from "lucide-react";
 
 export const Module = ({ data }: { data: ModuleInterface }) => {
   let cards = null;
@@ -42,7 +41,7 @@ export const Module = ({ data }: { data: ModuleInterface }) => {
 
       {data.docstring && <DocstringSections sections={data.docstring} />}
 
-      {cards}
+      <div className="mt-indent">{cards}</div>
 
       {data.attributes.length > 0 && (
         <>
