@@ -1,5 +1,3 @@
-# This file is part of the mksource package.
-#
 # Created: 2024-10-30
 # Author: Flavio Lorez
 
@@ -8,7 +6,6 @@ import json
 import os
 
 import griffe
-
 from mksource import CustomEncoder, parse_module
 
 DOCSTRING_TYPE = "google"
@@ -20,7 +17,11 @@ if __name__ == "__main__":
         "module", type=str, help="The module to generate documentation for"
     )
     parser.add_argument(
-        "--dir", "-d", type=str, default=".", help="The directory to save the documentation in"
+        "--dir",
+        "-d",
+        type=str,
+        default=".",
+        help="The directory to save the documentation in",
     )
     args = parser.parse_args()
 
