@@ -1,4 +1,4 @@
-import { createPreset } from "fumadocs-ui/tailwind-plugin";
+// import { createPreset } from "fumadocs-ui/tailwind-plugin";
 import { Config } from "tailwindcss";
 
 export default {
@@ -10,12 +10,6 @@ export default {
     "./node_modules/fumadocs-ui/dist/**/*.js",
     "./lib/source.tsx",
     "./fumapy/**/*.{ts,tsx}",
-  ],
-  presets: [
-    createPreset({
-      preset: "vitepress",
-      addGlobalColors: true,
-    }),
   ],
   theme: {
     extend: {
