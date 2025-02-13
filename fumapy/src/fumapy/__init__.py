@@ -3,7 +3,8 @@ import json
 import os
 
 import griffe
-from mksource import CustomEncoder, parse_module
+
+from .mksource import CustomEncoder, parse_module
 
 DOCSTRING_TYPE = "google"
 STORE_SOURCE = True

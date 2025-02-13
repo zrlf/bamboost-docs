@@ -7,7 +7,7 @@ import { ModuleInterface } from "../components/SourceDocumentation/types";
 const sources = Object.fromEntries(
     Object.entries(config.sources).map(([key, source]) => {
         // const data = source.sourceFile;
-        const data: ModuleInterface = require(`../${source.pkgName}.json`);
+        const data: ModuleInterface = require(`./${source.pkgName}.json`);
 
         // Recursive function to find and sort the methods of a class
         // @ts-ignore
