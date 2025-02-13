@@ -1,6 +1,3 @@
-# Created: 2024-10-30
-# Author: Flavio Lorez
-
 import argparse
 import json
 import os
@@ -11,7 +8,24 @@ from mksource import CustomEncoder, parse_module
 DOCSTRING_TYPE = "google"
 STORE_SOURCE = True
 
-if __name__ == "__main__":
+
+def generate() -> None:
+    """Generate Python API documentation for a specified module.
+
+    This function parses command-line arguments, loads the specified module,
+    parses its content, and saves the generated API documentation as a JSON file.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        argparse.ArgumentTypeError: If invalid arguments are provided.
+        FileNotFoundError: If the specified module or output directory doesn't exist.
+        PermissionError: If there's no write permission for the output directory.
+    """
     parser = argparse.ArgumentParser(description="Generate python API documentation")
     parser.add_argument(
         "module", type=str, help="The module to generate documentation for"
@@ -34,3 +48,7 @@ if __name__ == "__main__":
 
     with open(os.path.join(args.dir, api_filename), "w") as file:
         json.dump(pkg, file, cls=CustomEncoder, indent=2, full=True)
+
+
+if __name__ == "__main__":
+    generate()
