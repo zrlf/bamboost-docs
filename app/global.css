@@ -1,38 +1,68 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "../node_modules/fumadocs-ui/css/vitepress.css";
+@import "fumadocs-ui/css/preset.css";
 
-:root {
-  --rose: 359 68% 70%;
-  --green: 83 34% 63%;
+@source '../node_modules/fumadocs-ui/dist/**/*.js';
+@source '../content/**/*.{md,mdx}';
+@source '../fumapy/**/*.{ts,tsx}';
+
+/* Theme Variables */
+@theme {
+  /* Fumadocs colors mapping */
+  --color-primary: var(--color-fd-primary);
+  --color-primary-foreground: var(--color-fd-primary-foreground);
+  --color-secondary: var(--color-fd-secondary);
+  --color-secondary-foreground: var(--color-fd-secondary-foreground);
+  --color-accent: var(--color-fd-accent);
+  --color-accent-foreground: var(--color-fd-accent-foreground);
+  --color-muted: var(--color-fd-muted);
+  --color-muted-foreground: var(--color-fd-muted-foreground);
+  --color-border: var(--color-fd-border);
+  --color-background: var(--color-fd-background);
+  --color-card: var(--color-fd-card);
+  --color-card-foreground: var(--color-fd-card-foreground);
+  --color-popover: var(--color-fd-popover);
+  --color-popover-foreground: var(--color-fd-popover-foreground);
+  --color-ring: var(--color-fd-ring);
+
+  /* Own color utilities */
+  --color-func: var(--tc-green);
+  --color-class: var(--tc-rose);
+  --color-meth: var(--tc-blue);
+
+  --margin-indent: 2rem;
+  --margin-indent2: 1rem;
 }
 
+:root {
+  --tc-rose: hsl(359, 68%, 40%);
+  --tc-green: hsl(118, 32%, 35%);
+  --tc-blue: hsl(210, 70%, 30%);
+
+  --color-fd-primary: var(--tc-green);
+}
+
+.dark {
+  --tc-rose: hsl(359, 68%, 74%);
+  --tc-green: hsl(83, 34%, 63%);
+  --tc-blue: hsl(210, 70%, 70%);
+}
+
+/* Theming for Routes */
+.route-docs {
+  --color-fd-primary: var(--tc-rose);
+}
+
+.route-tui {
+  --color-fd-primary: var(--tc-blue);
+}
+
+/* Base Layer Adjustments */
 @layer base {
-  :root {
-    --primary: 118 32% 35%;
-    --primary-2: var(--rose);
-    --primary-tui: 210 70% 40%;
-    --func: 118 32% 35%;
-    --class: 359 68% 30%;
-    --meth: 210 70% 40%;
 
-    .route-docs {
-      --primary: var(--primary-2);
-    }
-
-    .route-tui {
-      --primary: var(--primary-tui);
-    }
-  }
-
-  .dark {
-    /* --accent-foreground: 217 92% 76%; */
-    --primary: var(--green);
-    --primary-2: var(--rose);
-    --primary-tui: 210 70% 70%;
-    --func: 83 34% 63%;
-    --class: 359 68% 70%;
-    --meth: 210 70% 70%;
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 
   :target {
@@ -40,8 +70,7 @@
   }
 
   h5 {
-    @apply text-base px-2 font-bold text-muted-foreground;
-    @apply mt-6;
+    @apply text-base px-2 font-bold text-muted-foreground mt-6;
   }
 
   h6 {
@@ -49,36 +78,41 @@
   }
 
   .divider {
-    @apply flex gap-2 items-center;
-    @apply relative pb-2 text-lg !text-muted-foreground;
+    @apply flex gap-2 items-center relative pb-2 text-lg text-muted-foreground;
     @apply after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border;
-  }
-
-  .class {
-    &::before {
-      content: "class";
-      @apply bg-class/10 text-class/70 rounded p-1 text-[0.7em];
-    }
   }
 }
 
+/* Code Styling */
 html.dark .shiki,
 html.dark .shiki span {
-  /* @apply bg-secondary/50; */
   color: var(--shiki-dark) !important;
+}
+
+/* Table of Contents Labels */
+.toc-func::before,
+.toc-class::before,
+.toc-meth::before {
+  @apply text-xs rounded-sm p-1 mr-1;
 }
 
 .toc-func::before {
   content: "func";
-  @apply text-xs bg-func/10 text-func/70 rounded p-1 mr-1;
+  @apply bg-func/10 text-func/70;
 }
 
 .toc-class::before {
   content: "class";
-  @apply text-xs bg-class/10 text-class/70 rounded p-1 mr-1;
+  @apply bg-class/10 text-class/70;
 }
 
 .toc-meth::before {
   content: "meth";
-  @apply text-xs bg-meth/10 text-meth/70 rounded p-1 mr-1;
+  @apply bg-meth/10 text-meth/70;
+}
+
+/* Class Label */
+.class::before {
+  content: "class";
+  @apply bg-class/10 text-class/70 rounded-sm p-1 text-[0.7em];
 }

@@ -35,7 +35,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         name: (
           <span>
             Version:{" "}
-            <code className="bg-muted p-1 rounded border">
+            <code className="bg-muted p-1 rounded-sm border">
               {source.version?.replaceAll("'", "")}
             </code>
           </span>

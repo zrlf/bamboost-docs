@@ -50,9 +50,9 @@ export default function HomePage() {
       <div className="mx-4">
         <div
           className={cn(
-            "container max-w-2xl p-px relative bg-gradient-to-br from-primary to-primary via-transparent rounded-[calc(0.5rem+1px)]",
+            "container max-w-2xl p-px relative bg-linear-to-br from-primary to-primary via-transparent rounded-[calc(0.5rem+1px)]",
             "transition-all duration-500 ease-in-out",
-            "before:content-[''] before:-z-10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-primary before:to-primary before:via-transparent before:blur-lg",
+            "before:content-[''] before:-z-10 before:absolute before:inset-0 before:bg-linear-to-br before:from-primary before:to-primary before:via-transparent before:blur-lg",
             "brightness-90 hover:brightness-125 cursor-pointer",
             showTagline ? "max-h-60 opacity-100" : "max-h-0 opacity-0",
           )}
