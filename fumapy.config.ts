@@ -21,7 +21,7 @@ const config: Config = {
     shiki: {
         lang: "python",
         themes: {
-            dark: "everforest-dark",
+            dark: "vitesse-dark",
             light: "github-light",
         },
     },

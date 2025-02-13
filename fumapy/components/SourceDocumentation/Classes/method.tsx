@@ -1,11 +1,11 @@
-import { FunctionInterface } from "@/fumapy/components/SourceDocumentation/types";
 import { Code } from "@/fumapy/components/Code";
-import MethodHeader from "./MethodHeader";
+import { DocstringSections } from "@/fumapy/components/Markdown/DocstringSections";
 import Markdown from "@/fumapy/components/Markdown/markdown";
 import { Arguments } from "@/fumapy/components/SourceDocumentation/ArgumentList";
-import { DocstringSections } from "@/fumapy/components/Markdown/DocstringSections";
-import { Returns } from "../Function";
+import { FunctionInterface } from "@/fumapy/components/SourceDocumentation/types";
 import { cn } from "@/fumapy/lib/utils";
+import { Returns } from "../Function";
+import MethodHeader from "./MethodHeader";
 
 export const Method = ({
   data,
@@ -15,7 +15,7 @@ export const Method = ({
   clsName: string;
 }) => {
   const code = data.source ? (
-    <Code code={data.source} className="my-2" />
+    <Code code={data.source} />
   ) : null;
   const signature = (
     <Code
@@ -31,7 +31,9 @@ export const Method = ({
     <div className="my-2">
       <a href={`#${id}`} className="not-prose scroll-mt-28" id={id}>
         {clsName && (
-          <span className={cn("text-muted-foreground/80 text-base font-semibold")}>
+          <span
+            className={cn("text-muted-foreground/80 text-base font-semibold")}
+          >
             {clsName}
           </span>
         )}

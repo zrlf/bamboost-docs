@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { DocsPage, DocsBody, DocsTitle } from "fumadocs-ui/page";
 import { Module } from "@/fumapy/components/SourceDocumentation/module";
 import { sources } from "@/fumapy/lib/source.api";
-import Link from "next/link";
-import { Braces } from "lucide-react";
-import { Fragment } from "react";
+import { DocsBody, DocsPage, DocsTitle } from "fumadocs-ui/page";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export default function useApiPage() {
   return {
@@ -31,7 +28,9 @@ export default function useApiPage() {
           tableOfContent={{ style: "clerk", single: false }}
           breadcrumb={{ full: true, includeRoot: true }}
         >
-          <DocsTitle>{page.data.data?.path || page.data.title}</DocsTitle>
+          <DocsTitle className="w-full break-words">
+            {page.data.data?.path || page.data.title}
+          </DocsTitle>
 
           <div className="text-muted-foreground">
             Source:{" "}

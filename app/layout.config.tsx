@@ -44,7 +44,7 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
             icon: (
               <BookOpenText
                 size={24}
-                className="text-[hsl(var(--primary-2))]"
+                className="text-[var(--tc-rose)]"
               />
             ),
             url: "/docs",
@@ -53,14 +53,14 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
             title: "API",
             description: "API reference",
             url: "/apidocs",
-            icon: <Library size={24} className="text-[hsl(var(--primary))]" />,
+            icon: <Library size={24} className="text-[var(--tc-green)]" />,
           },
           {
             title: "TUI",
             description: "API reference for the terminal user interface",
             url: "/api-tui",
             icon: (
-              <Terminal size={24} className="text-[hsl(var(--primary-tui))]" />
+              <Terminal size={24} className="text-[var(--tc-blue)]" />
             ),
           },
         ]}

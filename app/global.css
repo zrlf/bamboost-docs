@@ -1,13 +1,14 @@
 @import "tailwindcss";
 @import "../node_modules/fumadocs-ui/css/vitepress.css";
 @import "fumadocs-ui/css/preset.css";
+@import "../fumapy/css/preset.css";
 
 @source '../node_modules/fumadocs-ui/dist/**/*.js';
 @source '../content/**/*.{md,mdx}';
 @source '../fumapy/**/*.{ts,tsx}';
 
 /* Theme Variables */
-@theme {
+@theme inline {
   /* Fumadocs colors mapping */
   --color-primary: var(--color-fd-primary);
   --color-primary-foreground: var(--color-fd-primary-foreground);
@@ -26,16 +27,23 @@
   --color-ring: var(--color-fd-ring);
 
   /* Own color utilities */
-  --color-func: var(--tc-green);
-  --color-class: var(--tc-rose);
-  --color-meth: var(--tc-blue);
+  --color-route-api: var(--tc-green);
+  --color-route-docs: var(--tc-rose);
+  --color-route-tui: var(--tc-blue);
 
+  /* Fumadocs Python API package colors */
+  --color-fdpy-func: var(--tc-green);
+  --color-fdpy-class: var(--tc-rose);
+  --color-fdpy-meth: var(--tc-blue);
+}
+
+@theme {
   --margin-indent: 2rem;
   --margin-indent2: 1rem;
 }
 
 :root {
-  --tc-rose: hsl(359, 68%, 40%);
+  --tc-rose: hsl(359, 68%, 60%);
   --tc-green: hsl(118, 32%, 35%);
   --tc-blue: hsl(210, 70%, 30%);
 
@@ -43,17 +51,31 @@
 }
 
 .dark {
-  --tc-rose: hsl(359, 68%, 74%);
+  --tc-rose: hsl(359, 78%, 77%);
   --tc-green: hsl(83, 34%, 63%);
   --tc-blue: hsl(210, 70%, 70%);
+
+  & body {
+    --top-color: color-mix(in srgb,
+        var(--color-fd-background),
+        var(--color-fd-primary) 10%);
+    background-image: linear-gradient(var(--top-color) 0%,
+        transparent 30rem,
+        transparent);
+    background-repeat: no-repeat;
+  }
 }
 
 /* Theming for Routes */
-.route-docs {
+[data-route="docs"] {
   --color-fd-primary: var(--tc-rose);
 }
 
-.route-tui {
+[data-route="apidocs"] {
+  --color-fd-primary: var(--tc-green);
+}
+
+[data-route="api-tui"] {
   --color-fd-primary: var(--tc-blue);
 }
 
@@ -87,32 +109,4 @@
 html.dark .shiki,
 html.dark .shiki span {
   color: var(--shiki-dark) !important;
-}
-
-/* Table of Contents Labels */
-.toc-func::before,
-.toc-class::before,
-.toc-meth::before {
-  @apply text-xs rounded-sm p-1 mr-1;
-}
-
-.toc-func::before {
-  content: "func";
-  @apply bg-func/10 text-func/70;
-}
-
-.toc-class::before {
-  content: "class";
-  @apply bg-class/10 text-class/70;
-}
-
-.toc-meth::before {
-  content: "meth";
-  @apply bg-meth/10 text-meth/70;
-}
-
-/* Class Label */
-.class::before {
-  content: "class";
-  @apply bg-class/10 text-class/70 rounded-sm p-1 text-[0.7em];
 }
