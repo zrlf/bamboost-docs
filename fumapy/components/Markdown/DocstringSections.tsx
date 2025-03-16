@@ -1,13 +1,14 @@
-import { DocstringSection } from "../SourceDocumentation/types";
-import Markdown, { renderMarkdown } from "./markdown";
 import { Card } from "fumadocs-ui/components/card";
 import { Code } from "../Code";
-import { Callout, CalloutProps } from "../callout";
+import { DocstringSection } from "../SourceDocumentation/types";
+import Markdown, { renderMarkdown } from "./markdown";
+import { CalloutProps } from "../callout";
+import { Callout } from "fumadocs-ui/components/callout";
 
 const resolveAdmonitionType = (type: string) => {
   switch (type) {
     case "note":
-      return "note";
+      return "info";
     case "info":
       return "info";
     case "warn":
