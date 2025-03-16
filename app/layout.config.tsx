@@ -55,14 +55,14 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
             url: "/apidocs",
             icon: <Library size={24} className="text-[var(--tc-green)]" />,
           },
-          {
-            title: "TUI",
-            description: "API reference for the terminal user interface",
-            url: "/api-tui",
-            icon: (
-              <Terminal size={24} className="text-[var(--tc-blue)]" />
-            ),
-          },
+          // {
+          //   title: "TUI",
+          //   description: "API reference for the terminal user interface",
+          //   url: "/api-tui",
+          //   icon: (
+          //     <Terminal size={24} className="text-[var(--tc-blue)]" />
+          //   ),
+          // },
         ]}
       />
     ),
