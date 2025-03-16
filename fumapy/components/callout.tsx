@@ -10,7 +10,7 @@ export type CalloutProps = Omit<
   /**
    * @defaultValue info
    */
-  type?: "info" | "warn" | "error" | "note";
+  type?: "info" | "warn" | "error";
 
   /**
    * Force an icon
