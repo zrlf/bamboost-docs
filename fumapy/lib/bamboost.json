@@ -17698,5 +17698,5 @@
       "source": "def set_log_level(\n    level: Literal[\"DEBUG\", \"INFO\", \"WARNING\", \"ERROR\", \"CRITICAL\"],\n) -> None:\n    BAMBOOST_LOGGER.setLevel(level)"
     }
   },
-  "version": "unknown"
+  "version": "0.8.2.post192+gc5852e4.d20250313"
 }

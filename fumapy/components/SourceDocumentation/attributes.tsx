@@ -24,7 +24,7 @@ export const Attributes = ({
             className="scroll-mt-28"
           >
             <div className="flex flex-wrap items-center">
-              <span className="font-bold">{property.name}</span>
+              <span className="font-semibold">{property.name}</span>
               {property.annotation && (
                 <span className="ml-2">
                   <span className="font-bold mr-2">:</span>

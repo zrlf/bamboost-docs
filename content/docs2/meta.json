@@ -2,8 +2,11 @@
   "title": "Documentation",
   "pages": [
     "---Getting started---",
-    "getting_started",
-    "migration",
+    "index",
+    "installation",
+    "goal",
+    "configuration",
+    "tui",
     "---In depth---",
     "..."
   ]

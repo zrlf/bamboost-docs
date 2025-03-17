@@ -38,7 +38,7 @@
 }
 
 @theme {
-  --margin-indent: 2rem;
+  --margin-indent: 1rem;
   --margin-indent2: 1rem;
 }
 
@@ -85,7 +85,6 @@
 
 /* Base Layer Adjustments */
 @layer base {
-
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
@@ -96,7 +95,7 @@
   }
 
   h5 {
-    @apply text-base px-2 font-bold text-muted-foreground mt-6;
+    @apply text-base pr-2 font-bold text-muted-foreground mt-6;
   }
 
   h6 {
@@ -104,7 +103,7 @@
   }
 
   .divider {
-    @apply flex gap-2 items-center relative pb-2 text-lg text-muted-foreground;
+    @apply flex gap-4 items-center relative pb-2 text-xl! text-muted-foreground!;
     @apply after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border;
   }
 }

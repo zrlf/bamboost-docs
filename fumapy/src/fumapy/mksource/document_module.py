@@ -1,4 +1,5 @@
 from __future__ import annotations
+from importlib.metadata import version
 
 import griffe
 
@@ -34,7 +35,7 @@ def parse_module(m: griffe.Module) -> Module:
     }
     if m.is_package:
         try:
-            res["version"] = m.attributes.get("__version__").value.strip("'")
+            res["version"] = version(m.name)
         except AttributeError:
             res["version"] = "unknown"
 

@@ -1,12 +1,7 @@
 import { RootToggle } from "fumadocs-ui/components/layout/root-toggle";
 import { DocsLayoutProps } from "fumadocs-ui/layouts/docs";
 import { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import {
-  BookOpenText,
-  Gitlab,
-  Library,
-  Terminal,
-} from "lucide-react";
+import { BookOpenText, Gitlab, Library, Terminal } from "lucide-react";
 
 /**
  * Shared layout configurations
@@ -41,12 +36,7 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
           {
             title: "Docs",
             description: "Guides and tutorials",
-            icon: (
-              <BookOpenText
-                size={24}
-                className="text-[var(--tc-rose)]"
-              />
-            ),
+            icon: <BookOpenText size={24} className="text-[var(--tc-rose)]" />,
             url: "/docs",
           },
           {
@@ -55,14 +45,6 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
             url: "/apidocs",
             icon: <Library size={24} className="text-[var(--tc-green)]" />,
           },
-          // {
-          //   title: "TUI",
-          //   description: "API reference for the terminal user interface",
-          //   url: "/api-tui",
-          //   icon: (
-          //     <Terminal size={24} className="text-[var(--tc-blue)]" />
-          //   ),
-          // },
         ]}
       />
     ),

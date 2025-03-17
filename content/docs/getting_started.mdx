@@ -1,0 +1,28 @@
+---
+title: Getting started
+icon: HandHelping
+---
+
+## Quick Example
+
+Once installed, you can create a simulation collection and store results:
+
+```python
+from bamboost.core import Collection
+import numpy as np
+
+# Create a new simulation collection
+collection = Collection("./simulations")
+
+# Create a simulation within the collection
+simulation = collection.create_simulation(
+    "test_run",
+    parameters={"temperature": 300, "seed": 42},
+)
+
+# Store some data
+simulation.root["temperature"] = np.array([300, 310, 320])
+```
+
+For more details, see the [Getting Started](getting_started.md) guide.
+

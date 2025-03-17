@@ -16,7 +16,6 @@ export default function Layout({
         ...baseOptions.links,
         ...[
           {
-            type: "button",
             text: (
               <span className="flex gap-2 items-center">
                 <BookOpenText />

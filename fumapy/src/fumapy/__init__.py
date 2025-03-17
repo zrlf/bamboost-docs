@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+from importlib.metadata import version
 
 import griffe
 

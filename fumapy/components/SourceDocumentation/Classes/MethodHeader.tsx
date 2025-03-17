@@ -17,7 +17,8 @@ export default function MethodHeader({ code, header }: MethodHeaderProps) {
         className={cn(
           "flex flex-col sm:flex-row sm:justify-between sm:items-center",
           "px-4 mb-4 pb-2 sm:pb-0",
-          "bg-secondary rounded-sm",
+          // "bg-secondary rounded-sm",
+          "bg-gradient-to-r from-secondary to-background rounded border",
         )}
       >
         {header}

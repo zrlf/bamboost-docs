@@ -26,9 +26,9 @@ export default function useApiPage() {
         <DocsPage
           toc={page.data.toc}
           tableOfContent={{ style: "clerk", single: false }}
-          breadcrumb={{ full: true, includeRoot: true }}
+          breadcrumb={{ full: true, includeRoot: true, includePage: true }}
         >
-          <DocsTitle className="w-full break-words">
+          <DocsTitle className="w-full break-words text-2xl">
             {page.data.data?.path || page.data.title}
           </DocsTitle>
 
@@ -37,7 +37,7 @@ export default function useApiPage() {
             <a
               href={sourceUrl}
               target="_blank"
-              className="underline text-primary/80 text-sm"
+              className="underline decoration-primary text-sm"
             >
               {sourceUrl}
             </a>
