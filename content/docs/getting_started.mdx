@@ -3,9 +3,54 @@ title: Getting started
 icon: HandHelping
 ---
 
-## Quick Example
+## Creating a `collection`
 
-Once installed, you can create a simulation collection and store results:
+Collections are implicitally created if they don't exist yet. To create your first collection in a directory named `data-foo`, use
+```python
+from bamboost import Collection
+
+coll = Collection("data-foo")
+```
+This will create the directory and assign the collection a unique ID (`uid`).
+
+Once created, it is often easier and safer to use the uid to reference the collection.
+```python
+coll = Collection(uid="xxxx")
+```
+
+If you are working in an ipython session (e.g. a jupyter notebook), use `Collection.fromUID["xxxx"]` which will give you autocompletion for all of your existing (cached) collections.
+
+
+### The CLI
+
+`bamboost` comes with a CLI. If you run
+```bash
+bamboost-cli list
+```
+you should now see an entry.
+
+<Callout>
+You can also create collections with the CLI.
+```bash
+bamboost-cli new data-foo
+```
+Or scan for collections that are not cached
+```bash
+bamboost-cli index scan
+```
+</Callout>
+
+## Creating a `simulation`
+Now that you have a collection ready, you can easily create a simulation inside it.
+```python
+sim = coll.create_simulation(parameters={
+    "param1": 73,
+    "bar": [2, 3, 4, 5],
+})
+```
+This will create a new simulation with a random name. Use the `name` argument to assign some specific name.
+
+## Quick Example
 
 ```python
 from bamboost.core import Collection

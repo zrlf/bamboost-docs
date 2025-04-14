@@ -1,8 +1,10 @@
 {
   "title": "Documentation",
   "pages": [
+    "index",
     "---Getting started---",
     "getting_started",
+    "notebooks",
     "migration",
     "---In depth---",
     "..."
