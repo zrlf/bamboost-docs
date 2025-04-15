@@ -5,6 +5,9 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
   webpack: (config) => {
     config.resolve.alias["@/"] = "./";
     return config;
