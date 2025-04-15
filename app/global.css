@@ -103,7 +103,7 @@
   }
 
   .divider {
-    @apply flex gap-4 items-center relative pb-2 text-xl! text-muted-foreground!;
+    @apply flex gap-4 items-center relative pb-2 !text-xl !text-muted-foreground;
     @apply after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border;
   }
 }
@@ -112,4 +112,33 @@
 html.dark .shiki,
 html.dark .shiki span {
   color: var(--shiki-dark) !important;
+}
+
+.nboutput {
+  @apply overflow-x-auto pl-4 mb-8;
+  position: relative;
+
+  &::before {
+    @apply content-[''] absolute left-0 h-full w-px bg-border;
+  }
+
+  div:first-child,
+  div:first-child > div > table,
+  p:first-child,
+  figure:first-child,
+  img:first-child {
+    @apply mt-0;
+  }
+
+  div:last-child,
+  div:last-child > div > table,
+  p:last-child,
+  figure:last-child,
+  img:last-child {
+    @apply mb-0;
+  }
+
+  &.nboutput-container {
+    @apply overflow-x-auto;
+  }
 }
