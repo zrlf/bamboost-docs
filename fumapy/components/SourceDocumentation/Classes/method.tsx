@@ -6,6 +6,7 @@ import { FunctionInterface } from "@/fumapy/components/SourceDocumentation/types
 import { cn } from "@/fumapy/lib/utils";
 import { Returns } from "../Function";
 import MethodHeader from "./MethodHeader";
+import { Bases } from "./inherited";
 
 export const Method = ({
   data,
@@ -14,9 +15,7 @@ export const Method = ({
   data: FunctionInterface;
   clsName: string;
 }) => {
-  const code = data.source ? (
-    <Code code={data.source} />
-  ) : null;
+  const code = data.source ? <Code code={data.source} /> : null;
   const signature = (
     <Code
       code={data.signature as string}
