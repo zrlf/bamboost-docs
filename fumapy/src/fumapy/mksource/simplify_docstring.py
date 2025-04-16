@@ -3,6 +3,8 @@ from dataclasses import asdict
 
 import griffe
 
+from fumapy.mksource.json_encoder import stringify_annotation
+
 SimplifiedDocstring = t.NamedTuple(
     "DocComponents",
     [
@@ -33,12 +35,13 @@ def simplify_docstring(
         return {
             "name": "",
             "annotation": (
-                parent.returns
-                if isinstance(parent.returns, (str, type(None)))
-                else "".join(
-                    elem if isinstance(elem, str) else elem.canonical_path
-                    for elem in parent.returns.iterate(flat=True)
-                )
+                stringify_annotation(parent.returns)
+                # parent.returns
+                # if isinstance(parent.returns, (str, type(None)))
+                # else "".join(
+                #     elem if isinstance(elem, str) else elem.canonical_path
+                #     for elem in parent.returns.iterate(flat=True)
+                # )
             ),
             "description": None,
         }
@@ -116,12 +119,10 @@ def simplify_docstring(
             continue
 
         if sec.kind == "returns":
-            returns: griffe.DocstringReturn = sec.value[0]
-            returns.annotation = (
-                returns.annotation.canonical_path
-                if isinstance(returns.annotation, griffe.Expr)
-                else returns.annotation
-            )
+            returns_doc: griffe.DocstringReturn = sec.value[0]
+            if returns and returns["annotation"]:
+                returns_doc.annotation = returns["annotation"]
+            returns = returns_doc
             continue
 
         if sec.kind == "attributes":
