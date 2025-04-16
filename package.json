@@ -2,7 +2,6 @@
   "name": "bamboost",
   "version": "0.3.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "node nb2mdx/convert_all.js && next build",
     "dev": "concurrently \"next dev --turbo\" \"node nb2mdx/watcher.js\"",
@@ -11,6 +10,7 @@
     "create-source": "tsx fumapy/create-source.ts"
   },
   "dependencies": {
+    "ansi-to-html": "^0.7.2",
     "chokidar": "^4.0.3",
     "concurrently": "^9.1.2",
     "fumadocs-core": "15.2.7",

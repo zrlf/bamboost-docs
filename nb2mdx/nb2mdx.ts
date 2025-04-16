@@ -1,10 +1,19 @@
 import fs from "fs";
 import crypto from "crypto";
 import path from "path";
+import AnsiToHtml from "ansi-to-html";
 
 function wrapHtml(html: string[]) {
     const escaped = html.join("").replace(/`/g, "\\`");
     return `<div className="nboutput-html" dangerouslySetInnerHTML={{ __html: \`${escaped}\` }} />`;
+}
+
+const ansi = new AnsiToHtml();
+
+function renderStreamAsHtml(textLines: string[]) {
+    const raw = textLines.join("");
+    const html = ansi.toHtml(raw);
+    return `<div className="nboutput-terminal" dangerouslySetInnerHTML={{ __html: \`${html.replace(/`/g, "\\`")}\` }} />`;
 }
 
 const FIGURE_DIR = path.resolve("content/docs/.nbfigures");
