@@ -23,6 +23,8 @@ class CustomEncoder(griffe.JSONEncoder):
         """
 
         try:
+            if isinstance(obj, griffe.ExprCall):
+                return str(obj)
             if isinstance(obj, griffe.Expr):
                 return stringify(obj)
             return obj.as_dict(full=self.full)
