@@ -1,0 +1,36 @@
+.nboutput {
+  @apply overflow-x-auto pl-4 mb-8 relative;
+
+  &::before {
+    @apply content-[''] absolute left-0 h-full w-[2px] bg-border;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+
+  div:first-child,
+  div:first-child>div>table,
+  p:first-child,
+  figure:first-child,
+  img:first-child {
+    @apply mt-0;
+  }
+
+  div:last-child,
+  div:last-child>div>table,
+  p:last-child,
+  figure:last-child,
+  img:last-child {
+    @apply mb-0;
+  }
+
+  .nboutput-container {
+    @apply overflow-x-auto;
+  }
+
+  .nboutput-html {
+    @apply overflow-x-auto;
+  }
+}

@@ -2,6 +2,7 @@
 @import "../node_modules/fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 @import "../fumapy/css/preset.css";
+@import "../nb2mdx/css/preset.css";
 
 @source '../node_modules/fumadocs-ui/dist/**/*.js';
 @source '../content/**/*.{md,mdx}';
@@ -114,31 +115,3 @@ html.dark .shiki span {
   color: var(--shiki-dark) !important;
 }
 
-.nboutput {
-  @apply overflow-x-auto pl-4 mb-8;
-  position: relative;
-
-  &::before {
-    @apply content-[''] absolute left-0 h-full w-px bg-border;
-  }
-
-  div:first-child,
-  div:first-child > div > table,
-  p:first-child,
-  figure:first-child,
-  img:first-child {
-    @apply mt-0;
-  }
-
-  div:last-child,
-  div:last-child > div > table,
-  p:last-child,
-  figure:last-child,
-  img:last-child {
-    @apply mb-0;
-  }
-
-  &.nboutput-container {
-    @apply overflow-x-auto;
-  }
-}

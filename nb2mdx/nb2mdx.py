@@ -64,7 +64,7 @@ def convert_ipynb_to_mdx(input_path, output_path):
             if cell.outputs:
                 output_lines.extend(
                     [
-                        '<div className="nboutput">\n',
+                        '<div className="nboutput prose">\n',
                         extract_outputs(cell.outputs, output_parent, output_path.stem),
                         "\n</div>",
                     ]

@@ -2,9 +2,10 @@
   "name": "bamboost",
   "version": "0.3.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "next build",
-    "dev": "concurrently \"next dev --turbo\" \"node lib/watch-notebooks.js\"",
+    "build": "node nb2mdx/convert_all.js && next build",
+    "dev": "concurrently \"next dev --turbo\" \"node nb2mdx/watcher.js\"",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
     "create-source": "tsx fumapy/create-source.ts"
