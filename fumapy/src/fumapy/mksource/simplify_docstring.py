@@ -32,17 +32,10 @@ def simplify_docstring(
         ]
 
     def get_returns_from_signature(parent: griffe.Function):
+        annotation = stringify_annotation(parent.returns) or ""
         return {
             "name": "",
-            "annotation": (
-                stringify_annotation(parent.returns)
-                # parent.returns
-                # if isinstance(parent.returns, (str, type(None)))
-                # else "".join(
-                #     elem if isinstance(elem, str) else elem.canonical_path
-                #     for elem in parent.returns.iterate(flat=True)
-                # )
-            ),
+            "annotation": annotation,
             "description": None,
         }
 

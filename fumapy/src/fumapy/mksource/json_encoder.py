@@ -11,7 +11,7 @@ def stringify_annotation(obj: griffe.Expr | None | str) -> t.Any:
     if isinstance(obj, (griffe.ExprTuple, griffe.ExprList)):
         return ", ".join(tuple(stringify_annotation(item) for item in obj.elements))
 
-    if isinstance(obj, (griffe.ExprName, griffe.ExprAttribute, griffe.ExprBinOp)):
+    if isinstance(obj, (griffe.ExprName, griffe.ExprAttribute, griffe.ExprBinOp, griffe.ExprCall)):
         return obj.canonical_path
 
     string_representation = obj.canonical_path
