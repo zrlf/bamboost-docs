@@ -3,8 +3,6 @@ from dataclasses import asdict
 
 import griffe
 
-from fumapy.mksource.json_encoder import stringify_annotation
-
 SimplifiedDocstring = t.NamedTuple(
     "DocComponents",
     [
@@ -32,10 +30,11 @@ def simplify_docstring(
         ]
 
     def get_returns_from_signature(parent: griffe.Function):
-        annotation = stringify_annotation(parent.returns) or ""
         return {
             "name": "",
-            "annotation": annotation,
+            "annotation": parent.returns.annotation
+            if hasattr(parent, "returns") and hasattr(parent.returns, "annotation")
+            else None,
             "description": None,
         }
 
@@ -113,8 +112,8 @@ def simplify_docstring(
 
         if sec.kind == "returns":
             returns_doc: griffe.DocstringReturn = sec.value[0]
-            if returns and returns["annotation"]:
-                returns_doc.annotation = returns["annotation"]
+            if returns and hasattr(returns, "annotation"):
+                returns_doc.annotation = returns.annotation
             returns = returns_doc
             continue
 
