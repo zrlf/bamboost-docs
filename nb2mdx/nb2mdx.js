@@ -3,14 +3,14 @@ import crypto from "crypto";
 import path from "path";
 import AnsiToHtml from "ansi-to-html";
 
-function wrapHtml(html: string[]) {
+function wrapHtml(html) {
     const escaped = html.join("").replace(/`/g, "\\`");
     return `<div className="nboutput-html" dangerouslySetInnerHTML={{ __html: \`${escaped}\` }} />`;
 }
 
 const ansi = new AnsiToHtml();
 
-function renderStreamAsHtml(textLines: string[]) {
+function renderStreamAsHtml(textLines) {
     const raw = textLines.join("");
     const html = ansi.toHtml(raw);
     return `<div className="nboutput-terminal" dangerouslySetInnerHTML={{ __html: \`${html.replace(/`/g, "\\`")}\` }} />`;
@@ -19,7 +19,7 @@ function renderStreamAsHtml(textLines: string[]) {
 const FIGURE_DIR = path.resolve("content/docs/.nbfigures");
 fs.mkdirSync(FIGURE_DIR, { recursive: true });
 
-function saveImageBase64(base64: any, altText: string): string {
+function saveImageBase64(base64, altText) {
     const hash = crypto.createHash("sha1").update(base64).digest("hex");
     const filename = `${hash}.png`;
     const filePath = path.join(FIGURE_DIR, filename);
@@ -33,7 +33,7 @@ function saveImageBase64(base64: any, altText: string): string {
     return `\n![${altTextClean}](content/docs/.nbfigures/` + filename + ")\n";
 }
 
-function extractOutputs(outputs: any[]) {
+function extractOutputs(outputs) {
     const parts = [];
 
     for (const output of outputs) {
@@ -60,7 +60,7 @@ function extractOutputs(outputs: any[]) {
     return parts.join("\n\n");
 }
 
-function convertNotebook(inputPath: string, outputPath: string) {
+function convertNotebook(inputPath, outputPath) {
     const nb = JSON.parse(fs.readFileSync(inputPath, "utf-8"));
     const lines = [];
 

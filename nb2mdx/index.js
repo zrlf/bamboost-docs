@@ -3,7 +3,7 @@ import { spawn } from "child_process";
 import fs from "fs";
 import path from "path";
 
-const CONVERTER = path.resolve("nb2mdx/nb2mdx.ts");
+const CONVERTER = path.resolve("nb2mdx/nb2mdx.js");
 
 export function getOutputPath(inputPath) {
   const { dir, name } = path.parse(inputPath);
