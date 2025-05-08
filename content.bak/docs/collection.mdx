@@ -1,0 +1,129 @@
+---
+title: Collection
+---
+
+A _collection_ is an entity that holds any number of self-similar simulations.
+Read through the [introduction](/docs) to learn about the concept of `bamboost`.
+
+The most important thing to remember is that every collection has a current path, and a unique identifier, which is an automatically assigned 10 digit hex number. This unique identifier is stored in a file inside the collection's path (`.bamboost-collection-<UID>`). The uid is embedded in the file name to speed up it's discovery.
+
+## The collection API
+
+We provide a single entry point to work with a collection, the [Collection](/apidocs/core/collection#Collection) class.
+
+
+```python 
+from bamboost import Collection
+
+coll = Collection(uid="315628DE80")
+```
+
+To make best use of `bamboost`, use the unique 10 digit identifier to reference any instance of `Collection`.
+The remaining (relevant) arguments of `Collection` are:
+
+- **path**: The path to the collection. This is useful to create a new collection → if non-existing, it will initialize a new one at the given path. Otherwise it will return the existing one. While for long-standing collections, using it's uid should be preferred, using a relative path can be benefitial in certain scenarios, e.g. for throw away data, or when you organize your data inside your project folder in a specific way.
+  <Callout type="warn">
+  Note that you can only specify **either** a path or an uid, and NOT both.
+  </Callout>
+- **create_if_not_exist**: By default, this is `False`. Use `True` to raise an error if the collection does not exist.
+- **sync_collection**: By default, this is `True`. The collection data, $i.e.$ the metadata and parameters of it's simulations is loaded from the sql database (caching system) for performance reasons, avoiding going through the individual files, reading the necessary information.
+  If this flag is `True`, the actuality of the cache is validated before returning the collection. Turning this off is only useful if you work on a slow filesystem ($e.g.$ the work drive of ETH's Euler) or you're collection is enormously large and you are certain that the cache is already up to date.
+
+
+## The dataframe
+
+`coll.df` returns a `pandas.DataFrame` of the collection.
+
+
+```python 
+coll.df
+```
+
+<div className="nboutput">
+<div className="nboutput-html" dangerouslySetInnerHTML={{ __html: `<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>created_at</th>
+      <th>description</th>
+      <th>status</th>
+      <th>submitted</th>
+      <th>bar</th>
+      <th>param1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>04d11573c0</td>
+      <td>2025-04-16 22:57:53.480708</td>
+      <td></td>
+      <td>initialized</td>
+      <td>False</td>
+      <td>[2, 3, 4, 5]</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>c46d84cbd5</td>
+      <td>2025-04-16 11:11:22.879891</td>
+      <td></td>
+      <td>initialized</td>
+      <td>False</td>
+      <td>[2, 3, 4, 5]</td>
+      <td>73</td>
+    </tr>
+  </tbody>
+</table>
+</div>` }} />
+</div>
+
+The first few columns are always reserved for the fixed (and always existing) metadata. It includes `name`, `created_at` (datetime when the simulation was created), `description` (an optional string with some information), `status` (the current status of the simulation, see [here](/apidocs/core/simulation/base#Status)), and `submitted` (a boolean flag).
+The remaining columns are the custom parameter space.
+
+
+If the parameter space has nested parameters, meaning parameters that are dictionaries themself, they are returned flattened in the returned dataframe. $E.g.$ if the simulations know a parameter `body: {"E": 1e6, "nu": 0.3}`, then the corresponding columns will be `body.E` and `body.nu`.
+
+With this in mind, it is best to avoid any dots in parameter names to avoid breaking the flattening logic.
+
+
+## Adding simulations
+
+New simulations are added to an existing collection using [coll.create_simulation(...)](/apidocs/core/collection#Collection.create_simulation).
+
+
+## Filtering
+
+If you are familiar with pandas, simply use the dataframe `coll.df` to find the wanted simulations.
+
+Alternatively, `bamboost` has a concept named **Filtered collection**. It is a new `Collection` instance with a filter applied. The advantage to pure pandas is that a filtered collection offers all the same methods a normal collection has, just acting on a subset of the data.
+It will also work correctly if the collection is altered (live), meaning new simulations are added since the creation of the instance.
+
+Use the `collection.filter(...)` method to get a filtered collection. The conditions must use the `Key` class. $E.g.$ use
+
+```python
+filtered_coll = coll.filter(coll.k['param1'] > 70)
+```
+
+to only consider simulations where `param1 > 70`. Now you can display the filtered collection.
+
+```python
+filtered_coll.df
+```
+
+To be continued...

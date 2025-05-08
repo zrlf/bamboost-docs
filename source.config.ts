@@ -8,7 +8,7 @@ import remarkJupyterAdmonitions from "./plugins/remark-jupyter-admonitions";
 import remarkAlerts from "./plugins/remark-alerts";
 
 export const { docs, meta } = defineDocs({
-  dir: "content/docs",
+  dir: ".docs/docs",
 });
 
 const config: GlobalConfig = {

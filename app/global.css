@@ -1,8 +1,8 @@
 @import "tailwindcss";
-@import "../node_modules/fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 @import "../fumapy/css/preset.css";
-@import "../nb2mdx/css/preset.css";
+@import "../node_modules/fumadocs-ui/css/neutral.css";
+/* @import "../nb2mdx/css/preset.css"; */
 
 @source '../node_modules/fumadocs-ui/dist/**/*.js';
 @source '../content/**/*.{md,mdx}';
@@ -86,6 +86,7 @@
 
 /* Base Layer Adjustments */
 @layer base {
+
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
@@ -115,3 +116,13 @@ html.dark .shiki span {
   color: var(--shiki-dark) !important;
 }
 
+.cell-output-stdout {
+  @apply overflow-scroll pt-2;
+  @apply text-sm;
+
+  table {
+    @apply table-auto mt-0;
+    @apply text-sm;
+    @apply whitespace-pre;
+  }
+}

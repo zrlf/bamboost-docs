@@ -31,3 +31,7 @@ venv
 lib/**/*.egg-info
 lib/**/build
 content/docs/.nbfigures
+.bamboost_cache
+
+/.quarto/
+.docs
