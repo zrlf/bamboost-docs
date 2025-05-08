@@ -30,10 +30,11 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
           leftBorderColor
             ? {
                 info: "border-l-blue-500/50 border-l-2!",
+                note: "border-l-blue-500/50 border-l-2!",
                 tip: "border-l-green-500/50 border-l-2!",
                 warn: "border-l-orange-500/50 border-l-2!",
+                warning: "border-l-orange-500/50 border-l-2!",
                 error: "border-l-red-500/50 border-l-2!",
-                note: "border-l-blue-500/50 border-l-2!",
               }[type]
             : "border",
           className,
@@ -43,12 +44,15 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
         {icon ??
           {
             info: <Info className="size-5 fill-blue-500 text-fd-card" />,
+            note: <Info className="size-5 fill-blue-500 text-fd-card" />,
             tip: <Lightbulb className="size-5 text-green-500" />,
             warn: (
               <AlertTriangle className="size-5 fill-orange-500 text-fd-card" />
             ),
+            warning: (
+              <AlertTriangle className="size-5 fill-orange-500 text-fd-card" />
+            ),
             error: <CircleX className="size-5 fill-red-500 text-fd-card" />,
-            note: <Info className="size-5 fill-blue-500 text-fd-card" />,
           }[type]}
         <div className="min-w-0 flex-1">
           {title ? <p className="not-prose mb-2 font-medium">{title}</p> : null}

@@ -4,8 +4,6 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import fumapyOptions from "./fumapy.config";
 import remarkGfm from "remark-gfm";
-import remarkJupyterAdmonitions from "./plugins/remark-jupyter-admonitions";
-import remarkAlerts from "./plugins/remark-alerts";
 
 export const { docs, meta } = defineDocs({
   dir: ".docs/docs",
@@ -18,7 +16,7 @@ const config: GlobalConfig = {
       // @ts-ignore
       [rehypeCode, { themes: fumapyOptions.shiki.themes }],
     ],
-    remarkPlugins: [remarkAlerts, remarkMath, remarkGfm],
+    remarkPlugins: [remarkMath, remarkGfm],
   },
 };
 

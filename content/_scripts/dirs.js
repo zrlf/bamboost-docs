@@ -1,1 +1,4 @@
-export default ["content/docs"];
+export const quartoDirs = {
+  inputDir: "content/docs",
+  outputDir: ".docs/docs",
+};

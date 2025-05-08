@@ -28,7 +28,7 @@ Content of second tab.
 
 ```{python}
 import numpy as np
-np.linspace(0, 1, 10)
+np.linspace(0, 1, 9)
 ```
 
 # Tab 2

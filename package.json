@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node content/_scripts/copyMdx.js && quarto render content && next build",
-    "dev": "concurrently \"node content/_scripts/watcher.js\" \"quarto preview content\"",
+    "build": "rm -r .docs && node content/_scripts/copyMdx.js && quarto render content && next build",
+    "dev": "concurrently \"node content/_scripts/watchMdx.js\" \"quarto preview content\"",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
     "create-source": "tsx fumapy/create-source.ts"
@@ -30,6 +30,7 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@types/rehype-react": "^6.0.0",
+    "fs-extra": "^11.3.0",
     "katex": "^0.16.22",
     "lucide-react": "^0.488.0",
     "postcss": "^8.5.3",

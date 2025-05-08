@@ -1,0 +1,138 @@
+---
+title: bamboost
+icon: HandHelping
+---
+
+import { File, Folder, Files } from "fumadocs-ui/components/files";
+
+## Introduction
+
+`bamboost` is a python data framework designed for managing scientific simulation data.
+It provides an organized model for storing, indexing, and retrieving
+simulation results, making it easier to work with large-scale computational
+studies. 
+In its core, it is a filesystem storage model, providing directories for
+**simulations**, bundled in **collections**. 
+However, we enrich the experience with local **sqlite** databases.
+
+<Callout>
+
+`bamboost` knows two entities; Collection and Simulation. Self-similar simulations are bundled in collections.
+
+</Callout>
+
+### Principles
+- **Independence:** Any dataset must be complete and understandable on it's own. You can copy or extract any of your data and distribute it without external dependencies.
+- **Path redundancy:** Data must be referencable without knowledge of it's path. This serves several purposes: You can share your data easily ($e.g.$ supplementary material for papers), and renaming directories, moving files, switching computer, etc. will not break your data referencing.
+
+This leads to the following requirements:
+- Simulation parameters must be stored locally, inside the simulation directory. Crucially, not _exclusively_ in a global database of any kind.
+- Collections must have unique identifiers that are independent of its path.
+- Simulations must have unique identifiers that are independent of its path.
+
+### Concept
+
+We organize **simulations** in **collections** within structured
+directories. 
+Let's consider the following directory:
+
+<Files>
+  <Folder name="test_data" defaultOpen>
+    <Folder name="simulation_1" defaultOpen>
+      <File name="data.h5" />
+      <File name="data.xdmf" />
+      <File name="additional_file_1.txt" />
+      <File name="additional_file_2.csv" />
+    </Folder>
+    <Folder name="simulation_2" defaultOpen>
+      <File name="data.h5" />
+      <File name="additional_file_3.txt" />
+    </Folder>
+    <File name=".bamboost-collection-ABCD1234" />
+  </Folder>
+</Files>
+
+This is a valid `bamboost` collection at the path `./test_data`. It contains an
+identifier file giving this collection a unique identifier. In this case, it is
+`ABCD1234`.
+This file defines the unique ID of the collection.
+
+It contains two entries; `simulation_1` and `simulation_2`.
+As you can see, each simulation owns a directory inside a collection. 
+The directory names are simultaneously used as their _name_ as well as their _ID_.
+The unique identifier for a single simulation becomes the combination of the collection _ID_ that it belongs to and the simulation _ID_.
+That means, the full identifier of `simulation_1` is `ABCD1234:simulation_1`.
+
+Each simulation contains a central _HDF5 file_ named `data.h5`. This file is used to store the _parameters_, as well as generated data.
+The simulation API of `bamboost` provides extensive functionality to store and retrieve data from this file. However, users are not limited to this file, or using `python` in general.
+The reason why simulations are directories instead of just a single HDF file is that you can dump any file that belongs to this simulation into its path. This can be output from 3rd party software (think LAMMPS), additional input files such as images, and also scripts to reproduce the generated data.
+
+
+### Indexing
+Given the above described model, querying data is feasible but expensive.
+If a user requires all simulations in collection `ABCD1234` where `param1 = 73` (just an example parameter), the following must happen:
+1. Search the file system for the identifier file `.bamboost-collection-ABCD1234`
+2. Iterate through all subdirectories of the collection and gather the simulation's parameters from `data.h5`
+3. Filter the simulations with `param1 = 73`
+
+To improve the experience, we cache collections, simulations, and their parameters in a global `sqlite` database.
+Crucially, this is an important but nonetheless only a convenience feature! Corruption, deletion or absence of the database has no consequences on the integrity of the data.
+In fact, the cache will be automatically rebuilt accordingly. I mean, yep it's a cache.
+
+
+## Features
+
+The `core` functionality of `bamboost` can be split into two parts: 
+- Structured file-based data model with a database-like experience
+- A python hdf5 interface to easily store and retrieve data of simulations
+
+Addtionally, we strive to offer the following:
+- Manage simulation workflow, i.e. the creation and submission of simulations on HPC clusters
+- A user interface (TUI) to view (and manage) all your data.
+- Extensibility, e.g. software specific writers (e.g. FEniCS)
+- ...
+
+
+## Installation
+
+> We recommended to use `uv` for python projects. Run `uv add bamboost` to add the dependency to your project.
+
+To install Bamboost, use `pip`:
+```bash
+pip install bamboost
+```
+
+To install the latest development version from GitHub:
+```bash
+pip install git+git@cmbm-ethz.gitlab.com/bamboost
+```
+
+To install the latest version of the <a href="https://github.com/zrlf/bamboost-tui">bamboost TUI</a>
+```bash
+pip install git+git@github.com/zrlf/bamboost-tui
+```
+
+### Dependencies
+
+#### System dependencies
+- HDF5 (optionally compiled with MPI)
+- (optional) an MPI implementation
+- SQLite (probably part of any os nowadays)
+
+#### Python environment
+> `python > 3.10`
+
+- `h5py`
+- `sqlalchemy`
+- `rich`
+- (optional) `mpi4py` and `h5py` compiled against an mpi capable version of libhdf5
+
+
+## Next Steps
+
+- Read the [Getting Started](getting_started.md) guide.
+- Learn about [Managing Collections](core/collections.md).
+- Explore [Simulation Data Handling](core/simulations.md).
+- Understand [HDF5 Data Storage](core/hdf5.md).
+- Use [Command Line Tools](cli.md).
+- Enable [MPI Parallel Computing](mpi.md).
