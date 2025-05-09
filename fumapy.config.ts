@@ -22,7 +22,7 @@ const config: Config = {
         lang: "python",
         themes: {
             dark: "vitesse-dark",
-            light: "github-light",
+            light: "vitesse-light",
         },
     },
     excludeModules: ["bamboost._version"],

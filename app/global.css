@@ -85,6 +85,7 @@
 
 /* Base Layer Adjustments */
 @layer base {
+
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
@@ -115,20 +116,30 @@ html.dark .shiki span {
 }
 
 .cell-output-stdout {
-  @apply relative text-sm border border-fd-foreground/20 rounded-md p-4;
-
-  .cell-output-html {
-    @apply overflow-auto;
-  }
+  @apply relative text-sm border border-fd-border rounded-lg p-4 my-6;
 
   &::before {
-    @apply text-muted-foreground backdrop-blur px-2;
+    @apply text-fd-muted-foreground backdrop-blur px-2;
     content: "output";
     position: absolute;
     top: 0;
     left: 1em;
     transform: translateY(-55%);
     z-index: 1;
+  }
+
+  .cell-output-html {
+    @apply overflow-auto;
+  }
+
+  table {
+    all: revert;
+    @apply border-collapse border-0 [&_*]:border-0 [&_*]:py-1 [&_*]:px-2;
+    @apply whitespace-pre;
+
+    & tr:nth-child(even) {
+      @apply bg-fd-foreground/5;
+    }
   }
 
   .manager .logo {
@@ -138,11 +149,6 @@ html.dark .shiki span {
   .manager .m_id h1 {
     @apply text-lg;
   }
-
-  table {
-    @apply table-auto my-0;
-    @apply whitespace-pre;
-  }
 }
 
 code {
@@ -150,7 +156,7 @@ code {
   counter-increment: step 0;
 }
 
-code .line::before {
+code:not(.inline-code) .line::before {
   content: counter(step);
   counter-increment: step;
   width: 1rem;

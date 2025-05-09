@@ -15,6 +15,7 @@ const config: GlobalConfig = {
       ...v,
     ],
     remarkPlugins: [remarkMath, remarkGfm],
+    // @ts-ignore
     rehypeCodeOptions: { themes: fumapyOptions.shiki.themes },
   },
 };

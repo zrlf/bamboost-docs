@@ -20,11 +20,13 @@ export const Classes = ({ data }: { data: ClassInterface[] }) => {
 export const Class = ({ data }: { data: ClassInterface }) => {
   return (
     <div className="space-y-14">
-      <div className="space-y-6">
+      <div className="space-y-12">
         <fuma.h2 id={data.name} className="class">
           {data.name}
         </fuma.h2>
-        <Constructor data={data.functions["__init__"]} clsName={data.name} />
+        {data.functions["__init__"] && (
+          <Constructor data={data.functions["__init__"]} clsName={data.name} />
+        )}
 
         {data.description && <Markdown input={data.description} />}
 
@@ -41,14 +43,14 @@ export const Class = ({ data }: { data: ClassInterface }) => {
         {Object.keys(data.inherited_members).length > 0 && (
           <Bases data={data.inherited_members} />
         )}
-      </div>
 
-      <div className="space-y-14">
-        {Object.values(data.functions).map((func) => {
-          if (!func) return null;
-          if (func.name === "__init__") return null;
-          return <Method data={func} clsName={data.name} key={func.name} />;
-        })}
+        <div className="space-y-20 sm:space-y-12">
+          {Object.values(data.functions).map((func) => {
+            if (!func) return null;
+            if (func.name === "__init__") return null;
+            return <Method data={func} clsName={data.name} key={func.name} />;
+          })}
+        </div>
       </div>
     </div>
   );

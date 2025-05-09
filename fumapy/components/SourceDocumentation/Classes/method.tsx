@@ -15,7 +15,7 @@ export const Method = ({
   data: FunctionInterface;
   clsName: string;
 }) => {
-  const code = data.source ? <Code code={data.source} /> : null;
+  const code = data.source ? <Code code={data.source} className="my-0" /> : null;
   const signature = (
     <Code
       code={data.signature as string}
@@ -47,22 +47,24 @@ export const Method = ({
   );
 
   return (
-    <div className="">
+    <div className="sm:border sm:rounded-xl sm:bg-fd-muted p-0">
       <MethodHeader header={header} code={code} />
+      {/**/}
+      <div className="sm:bg-fd-background sm:rounded-xl sm:border-t sm:p-2">
+        <div className="sm:ml-indent space-y-6 my-0">
+          {data.description && <Markdown input={data.description} />}
+          <Arguments data={data.parameters} />
+          {data.returns &&
+            (data.returns.annotation || data.returns.description) && (
+              <Returns data={data.returns} />
+            )}
 
-      <div className="sm:ml-indent space-y-6">
-        {data.description && <Markdown input={data.description} />}
-        <Arguments data={data.parameters} />
-        {data.returns &&
-          (data.returns.annotation || data.returns.description) && (
-            <Returns data={data.returns} />
+          {data.docstring.length > 0 && (
+            <>
+              <DocstringSections sections={data.docstring} />
+            </>
           )}
-
-        {data.docstring.length > 0 && (
-          <>
-            <DocstringSections sections={data.docstring} />
-          </>
-        )}
+        </div>
       </div>
     </div>
   );
@@ -76,7 +78,7 @@ export const Constructor = ({
   clsName: string;
 }) => {
   const code = data?.source ? (
-    <Code code={data.source} className="my-2" />
+    <Code code={data.source} className="my-0" />
   ) : null;
   const signature = (
     <Code
@@ -103,7 +105,7 @@ export const Constructor = ({
 
   return (
     <div>
-      <MethodHeader header={header} code={code} />
+      <MethodHeader header={header} code={code} standalone={true} />
     </div>
   );
 };
