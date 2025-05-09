@@ -86,7 +86,6 @@
 
 /* Base Layer Adjustments */
 @layer base {
-
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
@@ -117,12 +116,32 @@ html.dark .shiki span {
 }
 
 .cell-output-stdout {
-  @apply overflow-scroll pt-2;
-  @apply text-sm;
+  @apply relative text-sm border border-fd-foreground/20 rounded-md p-4;
+
+  .cell-output-html {
+    @apply overflow-auto;
+  }
+
+  &::before {
+    @apply text-muted-foreground backdrop-blur px-2;
+    content: "output";
+    position: absolute;
+    top: 0;
+    left: 1em;
+    transform: translateY(-55%);
+    z-index: 1;
+  }
+
+  .manager .logo {
+    @apply min-h-20 min-w-20;
+  }
+
+  .manager .m_id h1 {
+    @apply text-lg;
+  }
 
   table {
-    @apply table-auto mt-0;
-    @apply text-sm;
+    @apply table-auto my-0;
     @apply whitespace-pre;
   }
 }

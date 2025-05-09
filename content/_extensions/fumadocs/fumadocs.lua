@@ -70,7 +70,9 @@ local function RawBlock(el)
 		-- rawHtmlVars:insert(html)
 
 		-- generate a div container for the raw html and return it as the block
-		local html_div = ("<div className='cell-output-stdout' dangerouslySetInnerHTML={{ __html: `%s` }} />"):format(html) .. "\n"
+		local html_div = ("<div className='cell-output-stdout'><div className='cell-output-html' dangerouslySetInnerHTML={{ __html: `%s` }} /></div>"):format(
+			html
+		) .. "\n"
 		return pandoc.RawBlock("html", html_div)
 	end
 end
