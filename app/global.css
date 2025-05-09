@@ -61,27 +61,26 @@
   /* --color-fd-background: hsl(0, 0%, 11%); */
 
   /* & body { */
-  /*   --top-color: color-mix(in srgb, */
-  /*       var(--color-fd-background), */
-  /*       var(--color-fd-primary) 10%); */
-  /*   background-image: linear-gradient(var(--top-color) 0%, */
-  /*       transparent 30rem, */
-  /*       transparent); */
+  /*   --top-color: color-mix( */
+  /*     in srgb, */
+  /*     var(--color-fd-background), */
+  /*     var(--color-fd-primary) 10% */
+  /*   ); */
+  /*   background-image: linear-gradient( */
+  /*     var(--top-color) 0%, */
+  /*     transparent 30rem, */
+  /*     transparent */
+  /*   ); */
   /*   background-repeat: no-repeat; */
   /* } */
 }
 
-/* Theming for Routes */
-[data-route="docs"] {
+.route-docs {
   --color-fd-primary: var(--tc-rose);
 }
 
-[data-route="apidocs"] {
+.route-fumapy {
   --color-fd-primary: var(--tc-green);
-}
-
-[data-route="api-tui"] {
-  --color-fd-primary: var(--tc-blue);
 }
 
 /* Base Layer Adjustments */
@@ -144,4 +143,19 @@ html.dark .shiki span {
     @apply table-auto my-0;
     @apply whitespace-pre;
   }
+}
+
+code {
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+code .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1rem;
+  margin-right: 1.5rem;
+  display: inline-block;
+  text-align: right;
+  color: rgba(115, 138, 148, 0.4);
 }

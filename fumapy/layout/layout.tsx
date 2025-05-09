@@ -61,7 +61,10 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <DocsLayout
-      containerProps={source.options}
+      containerProps={{
+        ...source.options,
+        className: `route-fumapy ${source.options?.className || ""}`,
+      }}
       tree={newPageTree}
       {...baseOptions}
     >
