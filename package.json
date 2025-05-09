@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "rm -r .docs && node content/_scripts/copyMdx.js && quarto render content && next build",
+    "quarto-build": "mkdir -p .docs/ && rm -r .docs/** && bash content/_scripts/copyMdx.sh content/docs .docs/docs && quarto render content --execute",
+    "build": "next build",
     "dev": "concurrently \"node content/_scripts/watchMdx.js\" \"quarto preview content\"",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
@@ -37,6 +38,7 @@
     "rehype-katex": "^7.0.1",
     "rehype-parse": "^9.0.1",
     "rehype-react": "^8.0.0",
+    "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
     "tailwindcss": "^4.1.4",
     "tsx": "^4.19.3",
