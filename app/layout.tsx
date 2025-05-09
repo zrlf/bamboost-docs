@@ -4,6 +4,7 @@ import { RootProvider } from "fumadocs-ui/provider";
 import type { ReactNode } from "react";
 import { Body } from "./layout.client";
 import { GeistSans } from "geist/font/sans";
+import 'katex/dist/katex.css';
 import "./global.css";
 
 export default function Layout({ children }: { children: ReactNode }) {

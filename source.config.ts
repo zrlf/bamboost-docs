@@ -11,10 +11,11 @@ export const { docs, meta } = defineDocs({
 
 const config: GlobalConfig = {
   mdxOptions: {
-    rehypePlugins: [
+    rehypePlugins: (v) => [
       rehypeKatex,
       // @ts-ignore
       [rehypeCode, { themes: fumapyOptions.shiki.themes }],
+      ...v,
     ],
     remarkPlugins: [remarkMath, remarkGfm],
   },
