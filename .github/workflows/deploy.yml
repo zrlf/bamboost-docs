@@ -43,16 +43,12 @@ jobs:
           quarto render ./content --execute
 
       - name: Install Vercel CLI and dependencies
-        run: |
-          npm install --global vercel@latest pnpm
-          pnpm install
-      - name: Build source documentation
-        run: |
-          source .venv/bin/activate
-          pnpm create-source
+        run: npm install --global vercel@latest pnpm
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          source .venv/bin/activate
+          vercel build --token=${{ secrets.VERCEL_TOKEN }} --target=production
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
