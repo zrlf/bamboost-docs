@@ -40,7 +40,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <span>
             Version:{" "}
             <code className="bg-muted p-1 rounded-sm border">
-              {source.version?.replaceAll("'", "")}
+              {source.version?.replaceAll("'", "").split(".", 3).slice(0, 3).join(".")}
             </code>
           </span>
         ),

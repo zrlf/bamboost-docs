@@ -42,8 +42,10 @@ jobs:
           bash content/_scripts/copyMdx.sh content/docs .docs/docs 
           quarto render ./content --execute
 
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest pnpm
+      - name: Install Vercel CLI and dependencies
+        run: |
+          npm install --global vercel@latest pnpm
+          pnpm install
       - name: Build source documentation
         run: |
           source .venv/bin/activate

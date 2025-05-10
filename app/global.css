@@ -45,7 +45,8 @@
 
 :root {
   --tc-rose: hsl(359, 68%, 60%);
-  --tc-green: hsl(118, 32%, 35%);
+  /* --tc-green: hsl(118, 32%, 35%); */
+  --tc-green: hsl(154, 31%, 34%);
   --tc-blue: hsl(210, 70%, 30%);
 
   --color-fd-primary: var(--tc-green);
@@ -56,6 +57,7 @@
 
   --tc-rose: hsl(359, 78%, 77%);
   --tc-green: hsl(83, 34%, 63%);
+  --tc-green: hsl(154, 31%, 44%);
   --tc-blue: hsl(210, 70%, 70%);
 
   /* --color-fd-background: hsl(0, 0%, 11%); */

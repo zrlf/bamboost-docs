@@ -31,3 +31,9 @@
   content: "class";
   @apply bg-fdpy-class/10 text-fdpy-class/70 rounded-sm p-1 text-[0.7em];
 }
+
+.function-header {
+  figure.shiki:last-child  {
+    @apply rounded-xl border-0 shadow-inner;
+  }
+}

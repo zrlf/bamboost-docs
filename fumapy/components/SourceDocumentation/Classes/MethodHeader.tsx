@@ -20,8 +20,10 @@ export default function MethodHeader({
     <>
       <div
         className={cn(
-          "bg-fd-muted rounded-xl border border-fd-border",
-          !standalone && "sm:bg-transparent sm:rounded-none sm:border-0",
+          "function-header",
+          "rounded-xl border border-fd-border",
+          "bg-transparent rounded-none border-0",
+          standalone && "bg-fd-secondary rounded-xl border"
         )}
       >
         <div

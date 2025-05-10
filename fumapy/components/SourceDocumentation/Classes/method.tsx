@@ -47,7 +47,7 @@ export const Method = ({
   );
 
   return (
-    <div className="sm:border sm:rounded-xl sm:bg-fd-muted p-0">
+    <div className="sm:border sm:rounded-xl sm:bg-fd-secondary p-0">
       <MethodHeader header={header} code={code} />
       {/**/}
       <div className="sm:bg-fd-background sm:rounded-xl sm:border-t sm:p-2">
@@ -104,8 +104,8 @@ export const Constructor = ({
   );
 
   return (
-    <div>
-      <MethodHeader header={header} code={code} standalone={true} />
+    <div className="bg-fd-secondary border rounded-xl">
+      <MethodHeader header={header} code={code} />
     </div>
   );
 };
