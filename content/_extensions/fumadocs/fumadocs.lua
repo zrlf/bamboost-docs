@@ -52,7 +52,7 @@ end
 
 -- header attributes only support id
 local function Header(el)
-	el.attr = pandoc.Attr(el.identifier)
+	el.attr = pandoc.Attr()
 	return el
 end
 
