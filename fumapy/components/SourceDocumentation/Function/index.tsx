@@ -43,7 +43,7 @@ export const Function = ({ data }: { data: FunctionInterface }) => {
 
   return (
     <div>
-      <MethodHeader code={sourceCode} header={header} standalone={true} />
+      <MethodHeader code={sourceCode} header={header} className="fdpy-method-standalone" />
 
       <div className="sm:ml-indent space-y-6">
         {data.description && <Markdown input={data.description} />}

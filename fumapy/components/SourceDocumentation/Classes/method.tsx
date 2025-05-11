@@ -15,7 +15,9 @@ export const Method = ({
   data: FunctionInterface;
   clsName: string;
 }) => {
-  const code = data.source ? <Code code={data.source} className="my-0" /> : null;
+  const code = data.source ? (
+    <Code code={data.source} className="my-0" />
+  ) : null;
   const signature = (
     <Code
       code={data.signature as string}
@@ -48,7 +50,11 @@ export const Method = ({
 
   return (
     <div className="sm:border sm:rounded-xl sm:bg-fd-secondary p-0">
-      <MethodHeader header={header} code={code} />
+      <MethodHeader
+        header={header}
+        code={code}
+        className="max-sm:fdpy-method-standalone"
+      />
       {/**/}
       <div className="sm:bg-fd-background sm:rounded-xl sm:border-t sm:p-2">
         <div className="sm:ml-indent space-y-6 my-0">
@@ -104,8 +110,10 @@ export const Constructor = ({
   );
 
   return (
-    <div className="bg-fd-secondary border rounded-xl">
-      <MethodHeader header={header} code={code} />
-    </div>
+    <MethodHeader
+      header={header}
+      code={code}
+      className="fdpy-method-standalone"
+    />
   );
 };

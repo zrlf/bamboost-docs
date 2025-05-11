@@ -7,12 +7,13 @@ interface MethodHeaderProps {
   code: JSX.Element | null;
   header: ReactNode;
   standalone?: boolean;
+  className?: string;
 }
 
 export default function MethodHeader({
   code,
   header,
-  standalone = false,
+  className,
 }: MethodHeaderProps) {
   const [sourceCodeVisible, setSourceCodeVisible] = useState(false);
 
@@ -20,10 +21,9 @@ export default function MethodHeader({
     <>
       <div
         className={cn(
+          className,
           "function-header",
-          "rounded-xl border border-fd-border",
-          "bg-transparent rounded-none border-0",
-          standalone && "bg-fd-secondary rounded-xl border"
+          "rounded-xl",
         )}
       >
         <div

@@ -1,5 +1,20 @@
-import { ModuleInterface } from "@/fumapy/components/SourceDocumentation/types";
+import { DocstringSection, ModuleInterface } from "../components/SourceDocumentation/types";
 import { StructuredData } from "fumadocs-core/mdx-plugins";
+
+function stringifyDescription(
+  description: string | DocstringSection[] | null,
+): string {
+  function stringifyExpr(
+    expr: string | { annotation: string; description: string },
+  ): string {
+    if (typeof expr === "string") return expr;
+    return expr.description;
+  }
+
+  if (description === null) return "";
+  if (typeof description === "string") return description;
+  return description.map((section) => stringifyExpr(section.value)).join("\n");
+}
 
 export function getStructuredData(data: ModuleInterface): StructuredData {
   const headings: StructuredData["headings"] = [];
@@ -12,7 +27,7 @@ export function getStructuredData(data: ModuleInterface): StructuredData {
   for (const attr of data.attributes) {
     contents.push({
       heading: "attributes",
-      content: [attr.name, attr.description].join(": "),
+      content: [attr.name, stringifyDescription(attr.description)].join(": "),
     });
   }
 
@@ -25,7 +40,7 @@ export function getStructuredData(data: ModuleInterface): StructuredData {
       for (const param of func.parameters) {
         contents.push({
           heading: func.name,
-          content: [param.name, param.description].join(": "),
+          content: [param.name, stringifyDescription(param.description)].join(": "),
         });
       }
     }
@@ -50,10 +65,10 @@ export function getStructuredData(data: ModuleInterface): StructuredData {
         });
       }
     }
-    if (cls.functions['__init__'] && cls.functions['__init__'].docstring) {
+    if (cls.functions["__init__"] && cls.functions["__init__"].docstring) {
       contents.push({
         heading: cls.name,
-        content: cls.functions['__init__'].description || "",
+        content: cls.functions["__init__"].description || "",
       });
     }
 
@@ -72,7 +87,7 @@ export function getStructuredData(data: ModuleInterface): StructuredData {
 
           contents.push({
             heading: id,
-            content: [param.name, param.description].join(": "),
+            content: [param.name, stringifyDescription(param.description)].join(": "),
           });
         }
       }
@@ -87,4 +102,3 @@ export function getStructuredData(data: ModuleInterface): StructuredData {
 
   return { headings, contents };
 }
-

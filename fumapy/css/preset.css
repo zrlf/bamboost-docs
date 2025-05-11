@@ -4,6 +4,10 @@
   --color-fdpy-meth: blue;
 }
 
+@utility fdpy-method-standalone {
+  @apply bg-fd-secondary rounded-xl border border-fd-border;
+}
+
 /* Table of Contents Labels */
 .toc-func::before,
 .toc-class::before,
@@ -33,7 +37,7 @@
 }
 
 .function-header {
-  figure.shiki:last-child  {
+  figure.shiki:last-child {
     @apply rounded-xl border-0 shadow-inner;
   }
 }
