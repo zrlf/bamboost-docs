@@ -36,3 +36,4 @@ content/data/**
 
 /.quarto/
 .docs
+.env

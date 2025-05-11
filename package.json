@@ -9,6 +9,7 @@
     "dev": "concurrently \"node content/_scripts/watchMdx.js\" \"quarto preview content\"",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
+    "sync-oramacloud": "node --env-file=.env scripts/update-orama.mjs",
     "create-source": "tsx fumapy/create-source.ts"
   },
   "dependencies": {
@@ -25,6 +26,7 @@
     "rehype-raw": "^7.0.0"
   },
   "devDependencies": {
+    "@oramacloud/client": "^2.1.4",
     "@tailwindcss/postcss": "^4.1.6",
     "@types/mdx": "^2.0.13",
     "@types/node": "^22.15.17",
