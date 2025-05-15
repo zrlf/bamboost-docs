@@ -1,0 +1,160 @@
+---
+title: Collection
+html-table-processing: none
+jupyter: python3
+---
+
+
+A _collection_ is an entity that holds any number of self-similar simulations.
+It has the purpose to manage simulations that (optimally) live in the same parameter space.
+It is used to create new simulations, and to find and return [simulations](/docs/simulation).
+Read through the [introduction](/docs) to learn about the concept of `bamboost`.
+
+The most important thing to remember is that every collection has a current path, and a unique identifier, which is an automatically assigned 10 digit hex number. This unique identifier is stored in a file inside the collection's path (named `.bamboost-collection-<UID>`). The uid is embedded in the file name to speed up it's discovery.
+
+## The collection API
+
+We provide a single entry point to work with a collection, the [Collection](/apidocs/core/collection#Collection) class.
+
+```{python}
+from bamboost import Collection
+
+coll = Collection(uid="315628DE80")
+```
+
+To make best use of `bamboost`, use the unique 10 digit identifier to reference any instance of `Collection`.
+The remaining (relevant) arguments of `Collection` are:
+
+- **path**: The path to the collection. This is useful to create a new collection → if non-existing, it will initialize a new one at the given path. Otherwise it will return the existing one. While for long-standing collections, using it's uid should be preferred, using a relative path can be benefitial in certain scenarios, e.g. for throw away data, or when you organize your data inside your project folder in a specific way.
+
+  :::{.callout-warning}
+  Note that you can only specify **either** a path or an uid, and NOT both.
+  :::
+
+- **create_if_not_exist**: Default is `False`. Use `True` to raise an error if the collection does not exist.
+- **sync_collection**: Default is `True`. The collection data, $i.e.$ the metadata and parameters of it's simulations is loaded from the sql database (caching system) for performance reasons, avoiding going through the individual files, reading the necessary information.
+  If `True`, the actuality of the cache is validated before returning the collection. Turning this off is only useful if you work on a slow filesystem ($e.g.$ the work drive of ETH's Euler) or you're collection is enormously large and you are certain that the cache is already up to date.
+
+### The dataframe
+
+`coll.df` returns a `pandas.DataFrame` of the collection.
+
+```{python}
+coll.df
+```
+
+The first few columns are always reserved for the fixed (and always existing) metadata. These include `name`, `created_at` (datetime when the simulation was created), `description` (an optional string with some information), `status` (the current status of the simulation, see [here](/apidocs/core/simulation/base#Status)), and `submitted` (a boolean flag). See [Simulation](/guides/simulation) for more details.
+The remaining columns are the custom parameter space.
+
+If the parameter space has nested parameters, referring to parameters that are dictionaries themself, they are returned flattened in the returned dataframe. $E.g.$ if the simulations know a parameter `body: {"E": 1e6, "nu": 0.3}`, then the corresponding columns will be `body.E` and `body.nu`.
+
+With this in mind, it is best to **avoid any dots in parameter names** to avoid breaking the flattening logic.
+
+## Adding simulations
+
+New simulations are added to an existing collection using [coll.create_simulation(...)](/apidocs/core/collection#Collection.create_simulation). None of the methods arguments are required. The first argument `name` is an assigned name for the simulation. If `name=None`, it gets assigned a unique id instead. The second argument `parameters` is a `dict` with the parameters for this simulation.
+
+::: {.callout-note}
+The parameters of different simulations don't have to be consistent at all. However, for obvious reasons, it is strongly advised to maintain a consistent parameter space.
+:::
+
+```{python}
+params = {
+    "E": 20,
+    "nu": 0.3,
+    "disk": {
+        "radius": 2,
+        "center": (0.5, 0.5)
+    }
+}
+
+sim = coll.create_simulation(parameters=params)
+```
+
+The remaining arguments of `create_simulation` are:
+
+- **description**: A simple string. Any note that helps you remember the purpose of this specific simulation, if any.
+- **files**: A `Iterable[str]` of files or directories, which are copied to the simulation directory. You can also use [`sim.copy_files(...)`](/apidocs/core/simulation/base#SimulationWriter.copy_files) later.
+- **links**: A `Dict[str, str]`, specifying links to other simulations. You must use their id, $e.g$ `links={"mesh": COLL1234:mesh_abc}`. Links are useful to gather relevant data from other simulations (and collections). For example, let's say you have a collection of FE meshes and each simulation uses one of them. Later on you can get a dataset from the mesh like this:
+  ```python
+  coords = sim.links['mesh'].mesh.coordinates
+  ```
+- **override**: Default is `False`. If `True`, if a name is given and that name is already in use, then the existing simulation is removed and replaced with a fresh one.
+
+
+### Duplicates
+
+::: {.callout-warning}
+Implementation pending
+:::
+
+Before creating a new simulation, `bamboost` will check the parameter space for duplicates.
+To match as a duplicate, the two candidates must have the same number of parameters which all are equal. If all parameters existing in both simulations are equal, but one has an extra parameter, they are considered to be different.
+
+### Parameter study
+
+Often, we want to run the same simulation for different parameters.
+To do this, loop through your parameter space and create a simulation for each set of parameters. 
+
+```python
+base_params = {
+    "nu": 0.3,
+}
+
+for youngs_modulus in range(1, 10):  # [!code highlight]
+    coll.create_simulation(parameters=base_params | {"E": youngs_modulus})  # [!code highlight]
+
+    # optionally, submit the newly created simulations immediately
+    sim = coll.create_simulation(parameters=base_params | {"E": youngs_modulus})
+    sim.create_run_script(...)
+    sim.submit()
+```
+
+::: {.callout-warning}
+If you create a lot of simulations, the SQL transactions become a bottleneck. To speed up the operation (massively), wrap the entire loop with `with coll._index.sql_transaction():` which bundles the creation of all in a single SQL transaction.
+```python
+with coll._index.sql_transaction():  # [!code highlight]
+    for youngs_modulus in range(1, 10):
+        coll.create_simulation(parameters=base_params | {"E": youngs_modulus})
+```
+:::
+
+::: {.callout-tip}
+Simulations have a metadata flag `submitted`. This means, when you created a bunch of simulations, you can submit all of them later with:
+```python
+for sim in coll.sims("submitted" == False):
+    sim.submit()
+```
+:::
+
+
+## Filtering
+
+If you are familiar with pandas, you can use the dataframe `coll.df` to find the wanted simulations.
+
+Alternatively, `bamboost` has a concept named **Filtered collection**. It is a new `Collection` instance with a filter applied. The advantage to pure pandas is that a filtered collection offers all the same methods a normal collection has, just acting on a subset of the data.
+It will also work correctly if the content in a collection is altered (i.e. newly added simulations).
+
+Use the `collection.filter(...)` method to get a filtered collection. 
+It takes any number of conditions, which must be operations on instances of [_Key](/apidocs/index/_filtering#_Key). The collection has a convenience attribute `coll.k` which should be used for filtering (includes completion of the available keys).
+For example, to filter simulations by Young's modulus $E$ and Poisson's ratio $\nu$:
+```python
+filtered_coll = coll.filter(
+    coll.k['E'] > 10,
+    coll.k['nu'] <= 0.3,
+)
+```
+
+All that the custom filtering logic does is storing the operation as instructions. Eventually, the operations are applied to the columns of the pandas dataframe. $E.g.$, `coll.k['E']>10` will apply `coll.df['E'] > 10`.
+Currently, the following operators are included: 
+`<`, `>`, `<=`, `>=`, `==`, `~=`, `+`, `*`, `/`, `//`, `-`, `**`, `%`
+
+::: {.callout-note}
+You can combine operators, e.g. `coll.k['E'] * coll.k['disk.radius'] < coll.k['nu']` is valid.
+:::
+
+`coll.filter` returns a new (filtered) collection instance.
+
+```python
+filtered_coll.df
+```
