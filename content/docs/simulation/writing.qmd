@@ -1,0 +1,10 @@
+---
+title: Writing data
+html-table-processing: none
+jupyter: python3
+---
+
+::: {.callout-note}
+This document describes writing of data.
+This is likely used in the actual execution of simulations to store the results.
+:::

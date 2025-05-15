@@ -1,0 +1,108 @@
+---
+title: Setup
+html-table-processing: none
+---
+
+```{python}
+# | echo: false
+from bamboost import Collection
+
+coll = Collection(uid="315628DE80")
+```
+
+::: {.callout-note}
+This document describes the creation and setup of simulations.
+This can be done in notebooks, or in setup scripts.
+To actually write data during the simulation run, see [writing data with
+bamboost](/docs/simulation/writing)
+:::
+
+Every simulation is part of a collection.
+If you haven't done so, create a [collection](/docs/collection).
+For example, use one at `./data` with
+```python
+coll = Collection('./data')
+```
+
+## 1. Creation
+
+You have the intention of running a certain experiment with a specific set of input parameters, or input files, or anything. So we create the simulation with all the instructions it needs. Bundling all of this in a single place ensures reproducability. This most likely includes:
+
+- A dictionary of parameters
+- A script that produces the result for this simulation
+- A set of instructions on how to run the script
+
+To create a new simulation, use [create_simulation](/apidocs/core/collection#Collection.create_simulation):
+
+```{python}
+sim = coll.create_simulation(
+    name="my-simulation",
+    parameters={
+        "param1": 73,
+        "bar": [2, 3, 4, 5],
+    },
+    override=True,
+)
+```
+
+## 2. Relevant files
+
+Then, copy relevant files (or entire directories) into the simulation directory.
+
+::: callout-note
+`create_simulation` includes a `files` argument to directly copy a list of files or directories.
+:::
+
+```{python}
+sim.copy_files(["path/to/script.py", "img1.png", "path/to/some/directory"])
+```
+
+## 3. Run script
+
+As a next step we can create a run script for the simulation. This is an auto-generated bash script with the purpose of providing a single access point to produce the results for this simulation.
+
+[`create_run_script`](/apidocs/core/simulation/base#_Simulation.create_run_script) takes up to 3 arguments:
+
+- `commands`: an iterable of bash commands to run in sequence.
+- `euler`: a boolean flag. If set to true, then a slurm submission script is written instead of a pure bash script.
+- `sbatch_kwargs`: a dictionary of slurm job arguments.
+
+```{python}
+sim.create_run_script(
+    commands=["source .venv/bin/activate", "python3 script.py"], euler=False
+)
+```
+
+Which will create the following file...
+
+```{.bash filename="run.sh"}
+#!/bin/bash
+
+export SIMULATION_DIR=/absolute/path/to/collection/data/getting-started/my-simulation
+export SIMULATION_ID=315628DE80:my-simulation
+
+source .venv/bin/activate
+python3 script.py
+```
+
+Notice that the script exports two variables; `SIMULATION_DIR` and `SIMULATION_ID`. These should be used in your executable script `script.py` to infer the simulation on which to execute the script.
+
+### Execution
+
+After creation, a simulation is started by running it's run script. Of course, you could manually run it, however, you can also start it from within python or using the CLI (not implemented yet).
+
+::: callout-note
+If you use the bamboost methods to submit your job, and you have previously created a SLURM submission script instead of a pure bash script, your job is automatically submitted on the cluster.
+:::
+
+::: callout-note
+You can also submit the simulation like this directly after you create it.
+:::
+
+```{.python filename="Submit simulation from python"}
+sim.submit_simulation()
+```
+
+```{.bash filename="Submit simulation using CLI"}
+bamboost-cli Collection-ID Simulation-Name
+```
