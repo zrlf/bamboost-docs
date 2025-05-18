@@ -8,6 +8,14 @@
     "migration",
     "---Guides---",
     "collection",
-    "simulation"
+    "simulation",
+    "configuration",
+    "extensions",
+    "---HDF5---",
+    "hdf/file_handler",
+    "hdf/objects",
+    "hdf/series",
+    "hdf/meshes",
+    "hdf/other_data"
   ]
 }
