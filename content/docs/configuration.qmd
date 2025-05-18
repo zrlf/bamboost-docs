@@ -2,4 +2,48 @@
 title: Configuration
 ---
 
+::: {.callout-tip}
+For now, see [`bamboost._config`](/apidocs/_config) for available options (consult the attributes
+of the `options` and `index` classes).
+:::
+
+Some level of configuration is available. This includes:
+
+- Search paths for collections
+- Dir names to exclude when searching for collections (e.g. ".git")
+- Default sorting parameter or metadata key
+- ...more
+
+
+There is a global config file that is always considered
+```{.toml title="~/.config/bamboost/config.toml"}
+[options]
 ...
+
+[index]
+...
+```
+
+In addition, project specific configuration is supported too.
+You can either do this in the `pyproject.toml` file, or create a `bamboost.toml` file at
+the root of your project (where either `pyproject.toml` is, or a `.git` directory).
+
+```{.toml title="pyproject.toml"}
+# other content
+
+[tool.bamboost.options]
+...
+
+[tool.bamboost.index]
+...
+```
+
+```{.toml title="bamboost.toml"}
+# other content
+
+[options]
+...
+
+[index]
+...
+```

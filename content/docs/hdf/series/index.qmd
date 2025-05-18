@@ -1,5 +1,133 @@
 ---
 title: Series
+html-table-processing: none
 ---
+```{python}
+# | echo: false
+from bamboost import Collection
+import numpy as np
 
-yoo
+coll = Collection(uid="315628DE80")
+sim = coll.create_simulation("my_simulation", override=True)
+```
+
+When doing simulations, the most common data pattern is a series of some kind. Here, we
+describe the concept assuming a **Timeseries**, $i.e.$ we dump data for a series of time
+steps in our simulation.
+
+For this purpose, `bamboost` includes a concept named **Series**. Series are tightly
+coupled to meshes (if there are any).
+You can have as many series as you need. Each series will be contained within an assigned
+group in the HDF file.
+
+As there is a common usecase of only needing a single series, `bamboost` defines a default
+series -- the `data` group at the root level of the file.
+
+
+## Access or create a series
+
+The default series of a simulation is always available.
+
+```{python}
+sim.data
+```
+
+If you need another series, you can require it
+```{python}
+my_series = sim.require_series("my_series")
+my_series
+```
+
+
+## Dumping data
+
+To dump data into a series, first create a new (time)step. Then, append data to that step.
+```{python}
+step = sim.data.require_step()  # [!code highlight]
+
+# require_step takes two optional arguments
+step = sim.data.require_step(
+    value=0.32,  # A (time) value for this step
+    step=10,  # Explicitly reference a step
+)
+```
+
+The returned [`StepWriter`](/apidocs/core/simulation/series#StepWriter) can then be used
+to add **field** or **global** data.
+
+```{python}
+phi = np.random.rand(10, 10)
+
+step.add_field("phi", phi)
+step.add_scalar("energy", 20)
+```
+
+
+### A full minimal example
+
+Let's assume we loop through timesteps, and at each step we want to dump the values of
+`phi`.
+
+```{python}
+coll = Collection(uid="315628DE80")
+sim = coll.create_simulation('my_simulation', override=True)  # override replaces a previous simulation with the same name
+
+for i, t in enumerate(np.linspace(0, 1, 10)):
+    # ... some computation
+    step = sim.data.require_step(t)
+    step.add_field('phi', np.random.rand(10, 10))
+    step.add_scalar('energy', i**2)
+```
+
+See below for what has been created.
+
+
+## Reading the series
+
+Once the simulation has concluded (or also fine while it is still running), we want an
+easy interface to read the data in the series. Let's have a look on a few things.
+
+### General information
+
+- When we display the series, we see that it contains **10 steps**, one field named _phi_, 
+and a global dataset named _energy_.
+```{python}
+sim.data
+```
+
+- `series.values` returns an array of the values of all steps.
+```{python}
+sim.data.values
+```
+
+See [Series](/apidocs/core/simulation/series#Series) for further methods and attributes.
+
+### Global data
+
+- Display all global datasets in a dataframe with
+```{python}
+sim.data.globals.df
+```
+
+- Access a dataset using square brackets. Remember that the returned dataset does not
+  immediately read the underlying data. So, in order to read it, slice it.
+```{python}
+sim.data.globals['energy'][5:]
+```
+
+
+### Field data
+
+- To access a specific field, use brackets.
+```{python}
+phi = sim.data['phi']
+```
+
+- To read the data, you can slice the field as you would expect it. The first dimension is
+  the step number. $E.g.$ to read _phi_ for every third step, use
+```{python}
+phi[::3]
+
+# or simply
+sim.data['phi'][::3]
+```
