@@ -1,0 +1,43 @@
+@theme inline {
+  --color-fdpy-func: green;
+  --color-fdpy-class: red;
+  --color-fdpy-meth: blue;
+}
+
+@utility fdpy-method-standalone {
+  @apply bg-fd-secondary rounded-xl border border-fd-border;
+}
+
+/* Table of Contents Labels */
+.toc-func::before,
+.toc-class::before,
+.toc-meth::before {
+  @apply text-xs rounded-sm p-1 mr-1;
+}
+
+.toc-func::before {
+  content: "func";
+  @apply bg-fdpy-func/10 text-fdpy-func/70;
+}
+
+.toc-class::before {
+  content: "class";
+  @apply bg-fdpy-class/10 text-fdpy-class/70;
+}
+
+.toc-meth::before {
+  content: "meth";
+  @apply bg-fdpy-meth/10 text-fdpy-meth/70;
+}
+
+/* Class Label */
+.class::before {
+  content: "class";
+  @apply bg-fdpy-class/10 text-fdpy-class/70 rounded-sm p-1 text-[0.7em];
+}
+
+.function-header {
+  figure.shiki:last-child {
+    @apply rounded-xl border-0 shadow-inner;
+  }
+}

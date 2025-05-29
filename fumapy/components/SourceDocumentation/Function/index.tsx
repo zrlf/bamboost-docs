@@ -17,7 +17,7 @@ export const Functions = ({ data }: { data: FunctionInterface[] }) => {
 };
 
 export const Function = ({ data }: { data: FunctionInterface }) => {
-  const sourceCode = <Code code={data.source} className="my-2" />;
+  const sourceCode = <Code code={data.source} className="my-0" />;
   const signature = (
     <Code
       code={data.signature as string}
@@ -29,7 +29,11 @@ export const Function = ({ data }: { data: FunctionInterface }) => {
 
   const header = (
     <div className="my-2">
-      <a href={`#${data.name}`} className="not-prose scroll-mt-28" id={data.name}>
+      <a
+        href={`#${data.name}`}
+        className="not-prose scroll-mt-28"
+        id={data.name}
+      >
         <span className="font-bold">{data.name}</span>
       </a>
 
@@ -39,7 +43,7 @@ export const Function = ({ data }: { data: FunctionInterface }) => {
 
   return (
     <div>
-      <MethodHeader code={sourceCode} header={header}/>
+      <MethodHeader code={sourceCode} header={header} className="fdpy-method-standalone" />
 
       <div className="sm:ml-indent space-y-6">
         {data.description && <Markdown input={data.description} />}
@@ -64,7 +68,7 @@ export const Returns = ({ data }: { data: ReturnInterface }) => {
   return (
     <div>
       <h5>Returns</h5>
-      <div className="ml-indent2">
+      <div className="ml-indent2 mb-6">
         <LinkAnnotation children={data.annotation} />
         <span className="ml-2">{data.description}</span>
       </div>

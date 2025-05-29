@@ -1,38 +1,96 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "fumadocs-ui/css/preset.css";
+@import "../fumapy/css/preset.css";
+@import "../node_modules/fumadocs-ui/css/neutral.css";
+/* @import "../nb2mdx/css/preset.css"; */
 
-:root {
-  --rose: 359 68% 70%;
-  --green: 83 34% 63%;
+@source '../node_modules/fumadocs-ui/dist/**/*.js';
+@source '../content/**/*.{md,mdx}';
+@source '../fumapy/**/*.{ts,tsx}';
+
+/* Theme Variables */
+@theme inline {
+  /* Fumadocs colors mapping */
+  --color-primary: var(--color-fd-primary);
+  --color-primary-foreground: var(--color-fd-primary-foreground);
+  --color-secondary: var(--color-fd-secondary);
+  --color-secondary-foreground: var(--color-fd-secondary-foreground);
+  --color-accent: var(--color-fd-accent);
+  --color-accent-foreground: var(--color-fd-accent-foreground);
+  --color-muted: var(--color-fd-muted);
+  --color-muted-foreground: var(--color-fd-muted-foreground);
+  --color-border: var(--color-fd-border);
+  --color-background: var(--color-fd-background);
+  --color-card: var(--color-fd-card);
+  --color-card-foreground: var(--color-fd-card-foreground);
+  --color-popover: var(--color-fd-popover);
+  --color-popover-foreground: var(--color-fd-popover-foreground);
+  --color-ring: var(--color-fd-ring);
+
+  /* Own color utilities */
+  --color-route-api: var(--tc-green);
+  --color-route-docs: var(--tc-rose);
+  --color-route-tui: var(--tc-blue);
+
+  /* Fumadocs Python API package colors */
+  --color-fdpy-func: var(--tc-green);
+  --color-fdpy-class: var(--tc-rose);
+  --color-fdpy-meth: var(--tc-blue);
 }
 
+@theme {
+  --margin-indent: 1rem;
+  --margin-indent2: 1rem;
+}
+
+:root {
+  --tc-rose: hsl(359, 68%, 60%);
+  /* --tc-green: hsl(118, 32%, 35%); */
+  --tc-green: hsl(154, 31%, 34%);
+  --tc-blue: hsl(210, 70%, 30%);
+
+  --color-fd-primary: var(--tc-green);
+}
+
+.dark {
+  --color-fd-foreground: hsl(0, 0%, 86%);
+
+  --tc-rose: hsl(359, 78%, 77%);
+  --tc-green: hsl(83, 34%, 63%);
+  --tc-green: hsl(154, 31%, 44%);
+  --tc-blue: hsl(210, 70%, 70%);
+
+  /* --color-fd-background: hsl(0, 0%, 11%); */
+
+  /* & body { */
+  /*   --top-color: color-mix( */
+  /*     in srgb, */
+  /*     var(--color-fd-background), */
+  /*     var(--color-fd-primary) 10% */
+  /*   ); */
+  /*   background-image: linear-gradient( */
+  /*     var(--top-color) 0%, */
+  /*     transparent 30rem, */
+  /*     transparent */
+  /*   ); */
+  /*   background-repeat: no-repeat; */
+  /* } */
+}
+
+.route-docs {
+  --color-fd-primary: var(--tc-rose);
+}
+
+.route-fumapy {
+  --color-fd-primary: var(--tc-green);
+}
+
+/* Base Layer Adjustments */
 @layer base {
-  :root {
-    --primary: 118 32% 35%;
-    --primary-2: var(--rose);
-    --primary-tui: 210 70% 40%;
-    --func: 118 32% 35%;
-    --class: 359 68% 30%;
-    --meth: 210 70% 40%;
 
-    .route-docs {
-      --primary: var(--primary-2);
-    }
-
-    .route-tui {
-      --primary: var(--primary-tui);
-    }
-  }
-
-  .dark {
-    /* --accent-foreground: 217 92% 76%; */
-    --primary: var(--green);
-    --primary-2: var(--rose);
-    --primary-tui: 210 70% 70%;
-    --func: 83 34% 63%;
-    --class: 359 68% 70%;
-    --meth: 210 70% 70%;
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 
   :target {
@@ -40,8 +98,7 @@
   }
 
   h5 {
-    @apply text-base px-2 font-bold text-muted-foreground;
-    @apply mt-6;
+    @apply text-base pr-2 font-bold text-muted-foreground mt-6;
   }
 
   h6 {
@@ -49,36 +106,64 @@
   }
 
   .divider {
-    @apply flex gap-2 items-center;
-    @apply relative pb-2 text-lg !text-muted-foreground;
+    @apply flex gap-4 items-center relative pb-2 !text-xl !text-muted-foreground;
     @apply after:content-[''] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border;
-  }
-
-  .class {
-    &::before {
-      content: "class";
-      @apply bg-class/10 text-class/70 rounded p-1 text-[0.7em];
-    }
   }
 }
 
+/* Code Styling */
 html.dark .shiki,
 html.dark .shiki span {
-  /* @apply bg-secondary/50; */
   color: var(--shiki-dark) !important;
 }
 
-.toc-func::before {
-  content: "func";
-  @apply text-xs bg-func/10 text-func/70 rounded p-1 mr-1;
+.cell-output-stdout {
+  @apply relative text-sm border border-fd-border rounded-lg p-4 my-6;
+
+  &::before {
+    @apply text-fd-muted-foreground backdrop-blur px-2;
+    content: "output";
+    position: absolute;
+    top: 0;
+    left: 1em;
+    transform: translateY(-55%);
+    z-index: 1;
+  }
+
+  .cell-output-html {
+    @apply overflow-auto;
+  }
+
+  table {
+    all: revert;
+    @apply border-collapse border-0 [&_*]:border-0 [&_*]:py-1 [&_*]:px-2;
+    @apply whitespace-pre;
+
+    & tr:nth-child(even) {
+      @apply bg-fd-foreground/5;
+    }
+  }
+
+  .manager .logo {
+    @apply min-h-20 min-w-20;
+  }
+
+  .manager .m_id h1 {
+    @apply text-lg;
+  }
 }
 
-.toc-class::before {
-  content: "class";
-  @apply text-xs bg-class/10 text-class/70 rounded p-1 mr-1;
+code {
+  counter-reset: step;
+  counter-increment: step 0;
 }
 
-.toc-meth::before {
-  content: "meth";
-  @apply text-xs bg-meth/10 text-meth/70 rounded p-1 mr-1;
+code:not(.inline-code) .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1rem;
+  margin-right: 1.5rem;
+  display: inline-block;
+  text-align: right;
+  color: rgba(115, 138, 148, 0.4);
 }

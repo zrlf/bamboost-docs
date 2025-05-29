@@ -1,13 +1,21 @@
 {
   "title": "Documentation",
   "pages": [
-    "---Getting started---",
     "index",
-    "installation",
-    "goal",
+    "---Getting started---",
+    "getting_started",
+    "notebooks",
+    "migration",
+    "---Guides---",
+    "collection",
+    "simulation",
     "configuration",
-    "tui",
-    "---In depth---",
-    "..."
+    "extensions",
+    "---HDF5---",
+    "hdf/file_handler",
+    "hdf/objects",
+    "hdf/series",
+    "hdf/meshes",
+    "hdf/other_data"
   ]
 }

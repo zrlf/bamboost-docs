@@ -1,0 +1,13 @@
+project:
+  type: fumadocs
+  output-dir: ../.docs/
+  render:
+    - "index.md"
+    - "**/*.qmd"
+    - "**/*.ipynb"
+    - "**/*.md"
+
+format:
+  fumadocs-md:
+    extensions: [mdx]
+

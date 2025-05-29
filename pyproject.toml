@@ -1,0 +1,31 @@
+[project]
+name = "bamboost-docs"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bamboost",
+    "fumapy",
+    "ipykernel>=6.29.5",
+    "nbconvert>=7.16.6",
+    "cairosvg>=2.7.1",
+    "ipykernel>=6.29.5",
+    "jupyter-client>=8.6.3",
+    "nbconvert>=7.16.6",
+    "plotly>=6.0.1",
+    "pnglatex>=1.1",
+    "pynvim>=0.5.2",
+    "pyperclip>=1.9.0",
+    "pyyaml>=6.0.2",
+    "jupytext>=1.17.1",
+    "quarto>=0.1.0",
+    "nbformat>=5.10.4",
+]
+
+[tool.uv.sources]
+fumapy = { path = "fumapy", editable = true }
+bamboost = { git = "https://gitlab.com/cmbm-ethz/bamboost.git", branch = "next" }
+
+[tool.bamboost.index]
+isolated = true

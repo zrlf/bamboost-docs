@@ -1,13 +1,14 @@
-import { DocstringSection } from "../SourceDocumentation/types";
-import Markdown, { renderMarkdown } from "./markdown";
 import { Card } from "fumadocs-ui/components/card";
 import { Code } from "../Code";
-import { Callout, CalloutProps } from "../callout";
+import { DocstringSection } from "../SourceDocumentation/types";
+import Markdown, { renderMarkdown } from "./markdown";
+import { CalloutProps } from "../callout";
+import { Callout } from "fumadocs-ui/components/callout";
 
 const resolveAdmonitionType = (type: string) => {
   switch (type) {
     case "note":
-      return "note";
+      return "info";
     case "info":
       return "info";
     case "warn":
@@ -79,7 +80,7 @@ export const DocstringSections = ({
             <h5>Examples:</h5>
             <div className="ml-indent2">
               {examples.map(([_kind, value]: [any, any], i: any) => (
-                <Code key={i} code={value} className="my-2 py-2 [&_*]:py-0" />
+                <Code key={i} code={value} className="my-2 py-2 **:py-0" />
               ))}
             </div>
           </div>

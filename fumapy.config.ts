@@ -21,8 +21,8 @@ const config: Config = {
     shiki: {
         lang: "python",
         themes: {
-            dark: "everforest-dark",
-            light: "github-light",
+            dark: "vitesse-dark",
+            light: "vitesse-light",
         },
     },
     excludeModules: ["bamboost._version"],
@@ -35,16 +35,7 @@ const config: Config = {
                 className: "route-api",
             },
             sortClassMethods: true,
-            gitUrl: "https://gitlab.com/cmbm-ethz/bamboost/-/blob/main/bamboost",
-        },
-        bamboostcli: {
-            baseUrl: "api-tui",
-            title: "API TUI",
-            pkgName: "bamboostcli",
-            options: {
-                className: "route-tui",
-            },
-            gitUrl: "https://gitlab.com/zrlf/bamboost-tui/-/tree/main/bamboostcli",
+            gitUrl: "https://gitlab.com/cmbm-ethz/bamboost/-/blob/next/bamboost",
         },
     },
 };

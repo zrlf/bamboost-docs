@@ -21,7 +21,8 @@ export const components = (
               _className,
               className,
               noBackground &&
-                "!bg-transparent [&_span]:!bg-transparent !border-none",
+              "bg-transparent! [&_span]:bg-transparent! border-none!",
+              "inline-code",
             )}
             style={style}
             {...props}

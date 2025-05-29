@@ -16,7 +16,6 @@ export default function Layout({
         ...baseOptions.links,
         ...[
           {
-            type: "button",
             text: (
               <span className="flex gap-2 items-center">
                 <BookOpenText />
@@ -36,16 +35,16 @@ export default function Layout({
             url: "/apidocs",
             active: "nested-url",
           },
-          {
-            text: (
-              <span className="flex gap-2 rounded-lg items-center">
-                <Terminal />
-                API tui
-              </span>
-            ),
-            url: "/api-tui",
-            active: "nested-url",
-          },
+          // {
+          //   text: (
+          //     <span className="flex gap-2 rounded-lg items-center">
+          //       <Terminal />
+          //       API tui
+          //     </span>
+          //   ),
+          //   url: "/api-tui",
+          //   active: "nested-url",
+          // },
         ],
       ]}
     >

@@ -26,7 +26,7 @@ export const Module = ({ data }: { data: ModuleInterface }) => {
             <Card
               key={module.name}
               title={module.name}
-              description={module.description}
+              description={module.description?.split("\n\n")[0]}
               href={`/${baseUrl}/${sanitizedSlug.join("/")}`}
             />
           );

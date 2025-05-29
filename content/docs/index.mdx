@@ -1,249 +1,138 @@
 ---
-title: Getting started
+title: bamboost
 icon: HandHelping
 ---
 
-import { Callout } from "fumadocs-ui/components/callout";
+import { File, Folder, Files } from "fumadocs-ui/components/files";
 
-In bamboost, databases are created implicitly if they do not exist yet.
-To get started, create your first database by creating a [Manager](Manager) instance. The
-first argument is its path. Consider giving all your database paths a specific
-prefix ($e.g.$ out) to easily ignore them in version control like git.
+## Introduction
 
-```python title="Creating a database"
-from bamboost import Manager
-db = Manager('./out')
-```
+`bamboost` is a python data framework designed for managing scientific simulation data.
+It provides an organized model for storing, indexing, and retrieving
+simulation results, making it easier to work with large-scale computational
+studies. 
+In its core, it is a filesystem storage model, providing directories for
+**simulations**, bundled in **collections**. 
+However, we enrich the experience with local **sqlite** databases.
 
-This will create the directory and create and assign a unique ID to the new
-database, given that the database at `./out` does not already exists.
-With the manager available, you can now start adding entries to it.
+<Callout>
 
-## Indexing of databases
-
-All bamboost databases are assigned a unique ID with which its data can be
-accessed safely.
-
-Accessing existing databases can thus be done without knowledge of its path and
-from anywhere on your system. The easiest way is to use `Manager.fromUID[...]`
-which provides autocompletion for existing databases. Just start typing the path
-or ID if you know it.
-
-```python
-db = Manager.fromUID["<ID>"]
-```
-
-Alternatively, you can create a Manager directly from its UID:
-
-```python
-db = Manager(uid='<ID>')
-```
-
-Internally, a sqlite database is maintained to keep track of known bamboost
-databases and it's content. However, this serves more as a cache system to speed
-up operations. If a requested database is not in the sqlite database, the file
-system is searched. To tell bamboost where your data may be, edit the list of
-known paths in the config file at `~/.config/bamboost/config.toml`. As long as
-your data is in these directories, it will be found. Learn more about
-[Configuration](/docs/configuration).
-
-```toml
-[index]
-# the list of paths to search for databases
-paths = [
-    '/home/florez/work/',
-    '/home/florez/journal/',
-]
-```
-
-## Creating a simulation/entry
-
-Each entry to the database is a subdirectory of the database folder with a
-single `h5` file inside. To create a new entry, use the `create_simulation`
-function.
-
-The function takes the following arguments. All of these are optional.
-
-- uid (`str`): The name/uid for the simulation. If not specified, a random id will
-  be assigned.
-- parameters (`dict`): Parameter dictionary. If provided, the parameters will be
-  checked against the existing sims for duplication. Otherwise, they may be
-  specified later with `bamboost.simulation.SimulationWriter.add_parameters`.
-- skip_duplicate_check (`bool`): if True, the duplicate check is skipped.
-- prefix (`str`): Prefix for the uid. If not specified, no prefix is used.
-
-The function returns a new instance of type `SimulationWriter`, which we can use
-to alter the data stored in this simulation, or change its parameters or
-metadata.
-
-Parameters are a crucial part of any model. You can provide any number of
-parameters as a dictionary. The dictionary can be nested as well.
-
-```python title="Creating a new entry in a database"
-parameters = {
-    "boat": {
-        "E": 1,
-        "nu": 0.3,
-    },
-    "wall": {
-        "E": 20,
-        "nu": 0.2,
-    },
-    "penalty_constant": 100,
-    "material_model": "Linear elastic",
-}
-sim = db.create_simulation(parameters=parameters)
-```
-
-In general, the creation of this entry should be decoupled from the actual
-computation. As thus, the bamboost framework serves as input and output file
-at the same time! More on simulation management later.
-
-## Display the database
-
-Bamboost uses pandas under the hood for certain functionalities. Now that we
-have something in the database, let's display a pandas dataframe of it:
-
-```python
-db.df
-```
-
-|     | id       | notes | status    | time_stamp          | boat.E | boat.nu | material_model | penalty_constant | processors | wall.E | wall.nu |
-| --- | -------- | ----- | --------- | ------------------- | ------ | ------- | -------------- | ---------------- | ---------- | ------ | ------- |
-| 0   | e25559b8 |       | Initiated | 2024-07-21 17:52:43 | 1      | 0.3     | Linear elastic | 100              | 1          | 20     | 0.2     |
-
-<Callout type="info">
-This is a good point to introduce the bamboost TUI. It does not come bundled
-with the main package of bamboost but must be installed from
-[Gitlab](https://gitlab.com/zrlf/bamboost-tui).
-
-In the TUI, you can review all your databases in a single place. [Check out the page for the TUI](/docs/tui)
+`bamboost` knows two entities; Collection and Simulation. Self-similar simulations are bundled in collections.
 
 </Callout>
 
-## Writing data
+### Principles
+- **Independence:** Any dataset must be complete and understandable on it's own. You can copy or extract any of your data and distribute it without external dependencies.
+- **Path redundancy:** Data must be referencable without knowledge of it's path. This serves several purposes: You can share your data easily ($e.g.$ supplementary material for papers), and renaming directories, moving files, switching computer, etc. will not break your data referencing.
 
-The bamboost [SimulationWriter](/apidocs/simulation_writer#SimulationWriter) is used to write data during your simulation (or as part of a
-postprocessing step after). You can get a SimulationWriter object in one of the
-following ways:
+This leads to the following requirements:
+- Simulation parameters must be stored locally, inside the simulation directory. Crucially, not _exclusively_ in a global database of any kind.
+- Collections must have unique identifiers that are independent of its path.
+- Simulations must have unique identifiers that are independent of its path.
 
-- when creating a new entry:
-  ```python
-  writer = db.create_simulation()
-  ```
-- accessing an entry of a database with the optional flag `return_writer` set to
-  true:
-  ```python
-  writer = db.sim('<id>', return_writer=True)
-  ```
-- by using the class directly:
-  ```python
-  from bamboost import SimulationWriter
-  writer = SimulationWriter('<id>', 'path/to/database')
-  ```
-- by using its unique identifier (the full id is a combination of the database
-  ID and the simulation name/id → 'database-ID:sim-ID'):
-  ```python
-  writer = SimulationWriter.fromUID('<full-id>')
-  ```
+### Concept
 
-Bamboost is tailored towards numerical simulations. Hence it supports writing
-meshes, and corresponding data for any number of steps, out of the box.
-In addition, you can write global data such as the total energy or reaction
-forces.
+We organize **simulations** in **collections** within structured
+directories. 
+Let's consider the following directory:
 
-### Meshes
+<Files>
+  <Folder name="test_data" defaultOpen>
+    <Folder name="simulation_1" defaultOpen>
+      <File name="data.h5" />
+      <File name="data.xdmf" />
+      <File name="additional_file_1.txt" />
+      <File name="additional_file_2.csv" />
+    </Folder>
+    <Folder name="simulation_2" defaultOpen>
+      <File name="data.h5" />
+      <File name="additional_file_3.txt" />
+    </Folder>
+    <File name=".bamboost-collection-ABCD1234" />
+  </Folder>
+</Files>
 
-You can add one or multiple meshes. In the case you don't provide any mesh name
-argument, this refers to the default mesh named _mesh_.
+This is a valid `bamboost` collection at the path `./test_data`. It contains an
+identifier file giving this collection a unique identifier. In this case, it is
+`ABCD1234`.
+This file defines the unique ID of the collection.
 
-```python title="Add a mesh"
-coords = np.array([...])
-connectivity = np.array([...])
-sim.add_mesh(coords, connectivity)
+It contains two entries; `simulation_1` and `simulation_2`.
+As you can see, each simulation owns a directory inside a collection. 
+The directory names are simultaneously used as their _name_ as well as their _ID_.
+The unique identifier for a single simulation becomes the combination of the collection _ID_ that it belongs to and the simulation _ID_.
+That means, the full identifier of `simulation_1` is `ABCD1234:simulation_1`.
+
+Each simulation contains a central _HDF5 file_ named `data.h5`. This file is used to store the _parameters_, as well as generated data.
+The simulation API of `bamboost` provides extensive functionality to store and retrieve data from this file. However, users are not limited to this file, or using `python` in general.
+The reason why simulations are directories instead of just a single HDF file is that you can dump any file that belongs to this simulation into its path. This can be output from 3rd party software (think LAMMPS), additional input files such as images, and also scripts to reproduce the generated data.
+
+
+### Indexing
+Given the above described model, querying data is feasible but expensive.
+If a user requires all simulations in collection `ABCD1234` where `param1 = 73` (just an example parameter), the following must happen:
+1. Search the file system for the identifier file `.bamboost-collection-ABCD1234`
+2. Iterate through all subdirectories of the collection and gather the simulation's parameters from `data.h5`
+3. Filter the simulations with `param1 = 73`
+
+To improve the experience, we cache collections, simulations, and their parameters in a global `sqlite` database.
+Crucially, this is an important but nonetheless only a convenience feature! Corruption, deletion or absence of the database has no consequences on the integrity of the data.
+In fact, the cache will be automatically rebuilt accordingly. I mean, yep it's a cache.
+
+
+## Features
+
+The `core` functionality of `bamboost` can be split into two parts: 
+- Structured file-based data model with a database-like experience
+- A python hdf5 interface to easily store and retrieve data of simulations
+
+Addtionally, we strive to offer the following:
+- Manage simulation workflow, i.e. the creation and submission of simulations on HPC clusters
+- A user interface (TUI) to view (and manage) all your data.
+- Extensibility, e.g. software specific writers (e.g. FEniCS)
+- ...
+
+
+## Installation
+
+> We recommended to use `uv` for python projects. Run `uv add bamboost` to add the dependency to your project.
+
+To install Bamboost, use `pip`:
+```bash
+pip install bamboost
 ```
 
-### Field data
-
-Field data is written to `data/<name>/<step>`. Only the `name` and `vector`
-arguments are required. The default for `center` is "Node" which corresponds to
-nodal data. If you have cell data, use `center="Cell"`.
-
-```python title="Add field data"
-sim.add_field(
-    name='name_of_field',
-    vector=np.array([...]),
-    time=None,  # a timestamp for this field
-    mesh=None,  # mesh this belongs to (see above about meshes)
-    dtype=None,  # a data type (default is dtype of the vector)
-    center='Node',  # or 'Cell'
-)
+To install the latest development version from GitHub:
+```bash
+pip install git+git@cmbm-ethz.gitlab.com/bamboost
 ```
 
-<Callout type="warn">
-The current step is an internal counter. Calling `add_field` does not increase
-the step counter. This means that you can call `add_field` for all your fields
-consequentally. To finish the current step and go to the next one call
-
-```python
-sim.finish_step()
+To install the latest version of the <a href="https://github.com/zrlf/bamboost-tui">bamboost TUI</a>
+```bash
+pip install git+git@github.com/zrlf/bamboost-tui
 ```
 
-To go to a specific step, set the step variable explicitly:
+### Dependencies
 
-```python
-sim.step = 73
-```
+#### System dependencies
+- HDF5 (optionally compiled with MPI)
+- (optional) an MPI implementation
+- SQLite (probably part of any os nowadays)
 
-</Callout>
+#### Python environment
+> `python > 3.10`
 
-### Global data
+- `h5py`
+- `sqlalchemy`
+- `rich`
+- (optional) `mpi4py` and `h5py` compiled against an mpi capable version of libhdf5
 
-Global data is written to `globals/<name>`. You can provide either a scalar
-value or a numpy array. If you write an array, its shape must be consistent for
-all steps.
 
-```python title="Add global data"
-sim.add_global_field(
-    name='name_of_global_data',
-    value=np.array([...]) | float | int,
-    dtype=None, # optional
-)
-```
+## Next Steps
 
-### Userdata
-
-If the previous two options do not meet your need, bamboost provides a third
-_category_ of data. This part is stored at `/userdata/`. You can organize this
-part of the file yourself. `sim.userdata` is an object of type
-[MutableGroup](/apidocs/common/hdf_pointer#MutableGroup).
-
-```python title="Adding a subgroup"
-new_group = sim.userdata.require_group(name)
-```
-
-```python title="Adding an array or a single value"
-new_group['some_data'] = np.array([...])
-new_group['total_energy'] = 100.384
-new_gropu['model_type'] = "Dummy"
-```
-
-For a thourough guide on what you can do with userdata, have a look at
-[MutableGroup](/apidocs/common/hdf_pointer#MutableGroup).
-
-## Reading data
-
-The main reason for using bamboost is the easy access to your data. Here are a
-few ways to get a specific Simulation.
-
-- Load a database and select an entry by either its name or by a selection of
-  parameters.
-  ```python
-  db = Manager.fromUID[...]
-  sim = db['name1']
-  sims = db.sims(db.df['param1'] == 2)
-  ```
-- Load the simulation directly from its full ID:
-  ```python
-  sim = Simulation.fromUID('<full-id>')
-  ```
+- Read the [Getting Started](getting_started.md) guide.
+- Learn about [Managing Collections](core/collections.md).
+- Explore [Simulation Data Handling](core/simulations.md).
+- Understand [HDF5 Data Storage](core/hdf5.md).
+- Use [Command Line Tools](cli.md).
+- Enable [MPI Parallel Computing](mpi.md).

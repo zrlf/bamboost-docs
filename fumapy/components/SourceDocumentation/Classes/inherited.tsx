@@ -42,7 +42,7 @@ const Base = ({
   return (
     <div
       className={cn(
-        "relative border rounded",
+        "relative border rounded-sm",
         !isOpened && "cursor-pointer",
         className,
       )}
@@ -52,7 +52,7 @@ const Base = ({
       <div
         className={cn(
           "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-sm text-muted-foreground",
-          "transition-all pointer-events-none backdrop-blur-lg rounded py-2 px-4 border",
+          "transition-all pointer-events-none backdrop-blur-lg rounded-sm py-2 px-4 border",
           isOpened && "opacity-0",
         )}
       >
@@ -65,7 +65,7 @@ const Base = ({
         className={cn(
           "overflow-auto max-h-96 transition-all",
           !isOpened &&
-            "min-h-20 max-h-20 overflow-hidden after:absolute after:bottom-0 after:left-0 after:right-0 after:h-20 after:bg-gradient-to-t after:from-background after:to-transparent",
+            "min-h-20 max-h-20 overflow-hidden after:absolute after:bottom-0 after:left-0 after:right-0 after:h-20 after:bg-linear-to-t after:from-background after:to-transparent",
         )}
       >
         <ul className={cn("space-y-0 my-2 overflow-auto list-inside")}>

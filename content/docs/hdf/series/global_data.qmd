@@ -1,0 +1,7 @@
+---
+title: Global data
+---
+
+::: {.callout-note}
+See docs on [Series](./) for now
+:::

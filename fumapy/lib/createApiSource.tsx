@@ -18,10 +18,10 @@ export interface Page {
 const Separator = ({ title }: { title: string }) => {
   return (
     <div>
-      <div className="relative text-foreground font-semibold z-[1] lg:mt-4">
+      <div className="relative text-foreground font-semibold z-1 mt-0 xl:mt-4">
         {title}
       </div>
-      <div className="hidden lg:block absolute inset-0 bg-background"></div>
+      <div className="hidden xl:block absolute inset-0 bg-background"></div>
     </div>
   );
 };

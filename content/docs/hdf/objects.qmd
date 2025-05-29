@@ -1,0 +1,109 @@
+---
+title: Objects
+---
+
+An HDF file is a hierarchical file format. It has **groups**, which can contain other
+**groups** or **datasets**. These groups and datasets we call **objects**. Any object can
+further have **attributes**, which is used for metadata.
+
+In bamboost, HDF objects are references to an object in a HDF file. They are defined by a
+file (see [File](file_handler)) and a **path**, which is an in-file path to the
+object.
+
+All objects are derived from a base class
+[`H5Reference`](/apidocs/core/hdf5/ref#H5Reference). The generic object types are
+[`Group`](/apidocs/core/hdf5/ref#Group) and [`Dataset`](/apidocs/core/hdf5/ref#Dataset).
+
+Both, groups and datasets have the following attributes:
+
+- [`attrs`](/apidocs/core/hdf5/ref#H5Reference.attrs): returns the attributes of the
+  object. The returned object is of type
+  [`AttrsDict`](/apidocs/core/hdf5/attrsdict#AttrsDict)
+- `parent`: It's parent
+
+## Group
+
+A `Group` object references a group in a file.
+The top-level group in a file is called the **root**, which is obtained from a file with
+[`file.root`](/apidocs/core/hdf5/file#HDF5File.root).
+
+::: {.callout-note}
+You can access the root group of a `Simulation` directly by using
+[`sim.root`](/apidocs/core/simulation/base#_Simulation.root).
+:::
+
+### Get objects within groups
+
+To access objects within groups use brackets. This will return new objects of
+either a group or a dataset, depending on the type of object with that name.
+
+```python
+sub_object = grp['other_grp']  # sub_object will be another Group object
+ds = grp['some_dataset']  # ds will be a dataset object
+```
+
+::: {.callout-tip}
+If you know the type of the object you are getting, you can optionally use a second
+argument to `__getitem__` to indicate to type checkers that the returned object should
+have this type.
+
+```python
+also_a_grp = grp['name', Group]  # type checkers now know that `also_a_grp` is of type Group
+ds = grp['dataset', Dataset]  # same but a Dataset
+```
+:::
+
+
+### Add stuff to a group
+
+To add an **attribute** or **array** to a Group, use brackets. If the data is a numpy
+array, a dataset will be added. If data has any other type, it will be written as an
+attribute to the group.
+
+```python
+grp["some_ds"] = np.array([1, 2, 3])  # adds a new dataset
+grp["time"] = 20.348  # adds an attribute to the group
+```
+
+::: {.callout-warning}
+In the future, we should limit this to only add datasets.
+To add **attributes**, better use the more explicit version below, which will already do exactly
+the same.
+```python
+grp.attrs["time"] = 20.348
+```
+:::
+
+### API
+
+The API of `Group` closely follows the original `h5py.Group` interface. See the [API
+docs](/apidocs/core/hdf5/ref#Group) for details. It includes:
+
+- `keys`, `items`, `groups` & `datasets`: Returns the name of childrens
+- `require_self`: Require itself in the file. This exists because the `bamboost` Group
+  object is _only_ a reference to a group. It must not exist yet.
+- `require_group`: Require a subgroup
+- `require_dataset`: Require a dataset
+- `add_numerical_dataset`: Add a dataset. This works in paralell by writing data of each
+  process in sequential order. Meaning, the data from different processes is concatenated
+  along the first dimension.
+
+
+## Dataset
+
+A `Dataset` object references a dataset in a file.
+When working with a Dataset object, the underlying data is not read into memory
+immediately. The reason for this is that HDF allows reading only parts of datasets.
+
+To read the dataset and return it as a numpy array, use brackets (same as `h5py` interface)
+```python
+ds = sim.root['dummy']  # a dataset in the root of the file
+arr = ds[()]  # read entire array
+arr = ds[20:]  # read partially
+```
+
+Without reading the actual data, you can obtain it's shape and dtype.
+```python
+shape = ds.shape
+dtype = ds.dtype
+```

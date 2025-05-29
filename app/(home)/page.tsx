@@ -1,8 +1,8 @@
 "use client";
 import { cn } from "@/fumapy/lib/utils";
-import { Card } from "fumadocs-ui/components/card";
 import Link from "fumadocs-core/link";
-import { useState, useEffect } from "react";
+import { Card } from "fumadocs-ui/components/card";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const [showTagline, setShowTagline] = useState(false);
@@ -30,7 +30,7 @@ export default function HomePage() {
           You may click here{" "}
           <Link
             href="/docs"
-            className="text-[hsl(var(--primary-2))] font-semibold underline"
+            className="text-route-docs font-semibold underline"
           >
             /docs
           </Link>{" "}
@@ -40,7 +40,7 @@ export default function HomePage() {
           Or here{" "}
           <Link
             href="/apidocs"
-            className="text-[hsl(var(--primary))] font-semibold underline"
+            className="text-route-api font-semibold underline"
           >
             /apidocs
           </Link>{" "}
@@ -50,10 +50,10 @@ export default function HomePage() {
       <div className="mx-4">
         <div
           className={cn(
-            "container max-w-2xl p-px relative bg-gradient-to-br from-primary to-primary via-transparent rounded-[calc(0.5rem+1px)]",
+            "container max-w-2xl p-px relative bg-linear-to-br from-primary to-primary via-transparent rounded-[calc(0.5rem+1px)]",
             "transition-all duration-500 ease-in-out",
-            "before:content-[''] before:-z-10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-primary before:to-primary before:via-transparent before:blur-lg",
-            "brightness-90 hover:brightness-125 cursor-pointer",
+            "before:content-[''] before:-z-10 before:absolute before:inset-0 before:bg-linear-to-br before:from-primary before:to-primary before:via-transparent before:blur-lg",
+            "brightness-90 hover:brightness-100 cursor-pointer",
             showTagline ? "max-h-60 opacity-100" : "max-h-0 opacity-0",
           )}
         >
@@ -74,7 +74,7 @@ export default function HomePage() {
         Also, here is the link{" "}
         <Link
           href="/api-tui"
-          className="text-[hsl(var(--primary-tui))] font-semibold underline"
+          className="text-route-tui font-semibold underline"
         >
           /api-tui
         </Link>{" "}

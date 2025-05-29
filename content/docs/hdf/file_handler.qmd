@@ -1,0 +1,53 @@
+---
+title: File
+---
+
+`bamboost` includes a public interface for handling HDF files. It is an abstraction of
+`h5py` with the following goals:
+
+- Simplified usage for the user with automated file handling (opening, closing)
+- Python native in-memory-like experience for reading and writing of data
+- MPI compatible interface
+
+::: {.callout-note}
+It is usually not necessary to work with the file object directly.
+Nonetheless it is useful to know what is happening below the surface.
+:::
+
+## Lazy file
+
+The file object [HDF5File](/apidocs/core/hdf5/file#HDF5File) provides a lazy reference to
+an HDF file. Opposed to the lower level file object `h5py.File` which immediately opens
+the file and destroys any reference to it when closing it.
+
+When file access becomes necessary, the file is automatically opened using an underlying
+`h5py.File` instance. When the file is inaccessible, $e.g.$ because it is in use by
+another process, we retry until the file becomes available.
+
+::: {.callout-note}
+This behaviour could eventually lead to infinite blocking, therefore it should be made
+configurable in the future. 
+:::
+
+
+## Mutability
+
+The file instance is either `Mutable` or `Immutable`. When the file object is not flagged
+to be mutable, it will **never** be opened with writing rights.
+This bubbles down to all objects which rely on the file object, $i.e.$ simulations,
+groups, attributes, etc.
+
+
+## Single-process queue
+
+Working with MPI introduces some complexities with respect to file handling.
+The HDF library -- and `h5py` --  include a file mode `mpio` to access the file from many
+processes simultaneously.
+`bamboost` makes use of this to facilitate writing of datasets from multiple processes.
+However, some file operations are not working well with `mpio`. $E.g.$ writing attributes
+is very slow. 
+
+File operations which should be executed on only the root process are therefore added to a
+queue of instructions. These instructions are then applied once the file is available.
+This can happen immediately (if the file is not in use), or deferred when the file is
+currently used with `mpio`.

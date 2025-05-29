@@ -1,9 +1,9 @@
 "use client";
-import { ReactNode } from "react";
 import { baseOptions } from "@/app/layout.config";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
-import { sources } from "../lib/source.api";
 import { usePathname } from "next/navigation";
+import { ReactNode, useEffect } from "react";
+import { sources } from "../lib/source.api";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -12,6 +12,10 @@ export default function Layout({ children }: { children: ReactNode }) {
   const source = Object.values(sources).find((source) => {
     return source.baseUrl === firstSlug;
   });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-route", firstSlug);
+  }, [firstSlug]);
 
   if (!source) {
     return null;
@@ -35,8 +39,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         name: (
           <span>
             Version:{" "}
-            <code className="bg-muted p-1 rounded border">
-              {source.version?.replaceAll("'", "")}
+            <code className="bg-muted p-1 rounded-sm border">
+              {source.version?.replaceAll("'", "").split(".", 3).slice(0, 3).join(".")}
             </code>
           </span>
         ),
@@ -57,7 +61,10 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <DocsLayout
-      containerProps={source.options}
+      containerProps={{
+        ...source.options,
+        className: `route-fumapy ${source.options?.className || ""}`,
+      }}
       tree={newPageTree}
       {...baseOptions}
     >

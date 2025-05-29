@@ -1,0 +1,53 @@
+---
+title: Simulation
+---
+
+import { Cards, Card } from 'fumadocs-ui/components/card'
+
+
+Every [collection](/docs/collection) is made off many simulations.
+On the individual simulation level, `bamboost` offers an extensive API to make writing and
+reading of numeric data as easy as possible.
+
+
+A big part of `bamboost` is its data model for simulation data.
+Every simulation has:
+
+- A [**primary hdf5 file**](#primary-hdf-file) named `data.h5`
+  This is the core of each simulation.
+  It holds it's **metadata**, **parameters**, and **data**.
+- (optional, but likely) An executable that computes the result
+- (optional, but likely) A bash script that usable to start the executable (or to submit
+  it to a HPC task scheduler)
+- (optional) Any other files relevant to the user
+
+
+## Primary hdf file
+
+The bamboost interface for simulations is built around `h5py`.
+
+The file data structure is illustrated below.
+
+<div className='w-full h-60 bg-fd-secondary rounded-xl flex flex-col justify-center text-center'>
+Placeholder...
+</div>
+
+## Mutability
+
+By default, the hdf file is **immutable**. This means that no `bamboost` code will edit the file. However, the file itself is still mutable, so be careful when using pure `h5py`.
+
+To allow editing with `bamboost`, you must obtain a [SimulationWriter](/apidocs/simulation/base#SimulationWriter):
+```python
+sim_editable = sim.edit()
+```
+
+
+
+<Cards>
+<Card href="/docs/simulation/writing">
+Writing data
+</Card>
+<Card href="/docs/simulation/reading">
+Reading data
+</Card>
+</Cards>

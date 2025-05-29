@@ -1,0 +1,184 @@
+---
+title: Getting Started
+html-table-processing: none
+icon: HandHelping
+execute:
+  error: true
+jupyter: python3
+---
+
+## Collections
+
+A **collection** is the central unit here. It offers an object that allows you to create, access and query its entries, from now on denoted as a **Simulation**.
+
+Collections are implicitally created if they don’t exist yet. The first
+argument to [Collection](/apidocs/core/collection#Collection) is a path. Let's
+create our first collection at `../data/getting-started`. This will create the directory and
+assign a unique ID to the new collection.
+
+
+```{python}
+# Creating a new Collection
+from bamboost import Collection
+
+coll = Collection("../data/getting-started")  # [!code highlight]
+display(coll)
+```
+
+Once created, it is often easier and safer to use the uid to reference the collection.
+
+::: callout-note
+
+Although you can create and access collections with their path, it is good practice to explicitly create them using the [command line interface](cli.md) and then use their ID in your code.
+
+```bash
+bamboost-cli new ./data-foo
+bamboost-cli list
+```
+
+:::
+
+```{python}
+coll = Collection(uid="315628DE80")
+coll.df
+```
+
+If you are working in an ipython session (e.g. a jupyter notebook), use [Collection.fromUID](/apidocs/core/collection#Collection) which will give you autocompletion for all of your existing (cached) collections.
+
+```{python}
+coll = Collection.fromUID["315628DE80 - ost-docs/content/docs/data-foo"]
+```
+
+## Simulations
+
+Now that you have a collection, you can create simulations inside it. A simulation not only stores the output of your experiment, but simultaneously acts as its input file (assuming you run numerical experiments).
+
+This means, the same entity is used in multiple steps of your workflow; experimental design, execution, postprocessing/analysis.
+
+### Experimental design
+
+#### 1. Creation
+
+You have the intention of running a certain experiment with a specific set of input parameters, or input files, or anything. So we create the simulation with all the instructions it needs. Bundling all of this in a single place ensures reproducability. This most likely includes:
+
+- A dictionary of parameters
+- A script that produces the result for this simulation
+- A set of instructions on how to run the script
+
+To create a new simulation, use [create_simulation](/apidocs/core/collection#Collection.create_simulation):
+
+```{python}
+sim = coll.create_simulation(
+    name="my-simulation",
+    parameters={
+        "param1": 73,
+        "bar": [2, 3, 4, 5],
+    },
+)
+```
+
+#### 2. Relevant files
+
+Then, copy relevant files (or entire directories) into the simulation directory.
+
+::: callout-note
+`create_simulation` includes a `files` argument to directly copy a list of files or directories.
+:::
+
+```{python}
+sim.copy_files(["path/to/script.py", "img1.png", "path/to/some/directory"])
+```
+
+#### 3. Run script
+
+As a next step we can create a run script for the simulation. This is an auto-generated bash script with the purpose of providing a single access point to produce the results for this simulation.
+
+[`create_run_script`](/apidocs/core/simulation/base#_Simulation.create_run_script) takes up to 3 arguments:
+
+- `commands`: an iterable of bash commands to run in sequence.
+- `euler`: a boolean flag. If set to true, then a slurm submission script is written instead of a pure bash script.
+- `sbatch_kwargs`: a dictionary of slurm job arguments.
+
+```{python}
+sim.create_run_script(
+    commands=["source .venv/bin/activate", "python3 script.py"], euler=False
+)
+```
+
+Which will create the following file...
+
+```{.bash filename="run.sh"}
+#!/bin/bash
+
+export SIMULATION_DIR=/absolute/path/to/collection/data/getting-started/my-simulation
+export SIMULATION_ID=315628DE80:my-simulation
+
+source .venv/bin/activate
+python3 script.py
+```
+
+Notice that the script exports two variables; `SIMULATION_DIR` and `SIMULATION_ID`. These should be used in your executable script `script.py` to infer the simulation on which to execute the script.
+
+### Execution
+
+After creation, a simulation is started by running it's run script. Of course, you could manually run it, however, you can also start it from within python or using the CLI (not implemented yet).
+
+::: callout-note
+If you use the bamboost methods to submit your job, and you have previously created a SLURM submission script instead of a pure bash script, your job is automatically submitted on the cluster.
+:::
+
+::: callout-note
+You can also submit the simulation like this directly after you create it.
+:::
+
+```{.python filename="Submit simulation from python"}
+sim.submit_simulation()
+```
+
+```{.bash filename="Submit simulation using CLI"}
+bamboost-cli Collection-ID Simulation-Name
+```
+
+### Postprocessing
+
+After your job has finished, it's time to mine the diamonds. Besides the workflow management described in this document, `bamboost` also provides a data model using a HDF5 file (see the docs on how to [write data using bamboost](writing)). Much of the postprocessing capabilities depend on using the bamboost hdf5 module, but some is also general.
+
+::: callout-note
+`bamboost` is optimized for interactive use in jupyter notebooks. It offers autocompletion for most of its objects, such as collections and simulation, but also objects and data that is part of your simulations.
+:::
+
+#### 1. Collection
+
+Initialize the collection as seen above, preferably using it's ID. [coll.df](/apidocs/core/collection#Collection.df) returns a pandas dataframe of the collection.
+
+```{python}
+coll = Collection.fromUID["315628DE80"]
+coll.df
+```
+
+For now, you can use the dataframe to query simulations based on their parameters.
+
+:::{.callout-warning}
+The custom filtering interface is currently work in progress
+:::
+
+#### 2. Simulation
+
+To get a [Simulation](/apidocs/core/simulation/base/Simulation) object, use brackets (it will autocomplete in notebooks).
+
+```{python}
+sim = coll["my-simulation"]
+sim
+```
+
+A few things the simulation object offers are:
+
+- `sim.files`: A file picker that returns the absolute path of files stored in this simulation
+- `sim.parameters`: The parameters
+- `sim.metadata`: some metadata
+- `sim.root`: Access to the root group inside `data.h5` (more on the `h5py` wrapper of `bamboost` will be written elsewhere).
+- `sim.data`: The main (time)-series of the simulation
+- much more
+
+To be continued...
+

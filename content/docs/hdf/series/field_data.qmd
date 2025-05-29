@@ -1,0 +1,19 @@
+---
+title: Field data
+---
+
+Series contain two different type of data -- **Field** and **Global** data.
+
+- **Field data**: Large dataset usually tied to a mesh, or a structure of some kind.
+  For these, each step will create a new dataset named after the step number, $e.g$ "0",
+  "1", "2", ...
+- **Global data**: Smaller, usually global data. This could be a scalar (total energy,
+  ...), a small vector or tensor, ...
+  Other than field data, steps of global data share the dataset. I.e. only a single
+  dataset exists for each _global_.
+
+
+
+::: {.callout-note}
+See docs on [Series](./)
+:::
