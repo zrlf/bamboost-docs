@@ -36,7 +36,7 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
           {
             title: "Docs",
             description: "Guides and tutorials",
-            icon: <BookOpenText size={24} className="text-[var(--tc-rose)]" />,
+            icon: <BookOpenText size={24} className="text-[var(--tc-blue)]" />,
             url: "/docs",
           },
           {

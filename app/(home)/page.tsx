@@ -52,7 +52,7 @@ export default function HomePage() {
           className={cn(
             "container max-w-2xl p-px relative bg-linear-to-br from-primary to-primary via-transparent rounded-[calc(0.5rem+1px)]",
             "transition-all duration-500 ease-in-out",
-            "before:content-[''] before:-z-10 before:absolute before:inset-0 before:bg-linear-to-br before:from-primary before:to-primary before:via-transparent before:blur-lg",
+            "before:content-[''] before:-z-10 before:absolute before:inset-0 before:bg-linear-to-br before:from-route-docs before:to-route-docs before:via-transparent before:blur-lg",
             "brightness-90 hover:brightness-100 cursor-pointer",
             showTagline ? "max-h-60 opacity-100" : "max-h-0 opacity-0",
           )}
@@ -64,7 +64,7 @@ export default function HomePage() {
               "w-full border z-10 bg-opacity-100",
               "bg-background hover:bg-background", // Add this to ensure the card background doesn't spin
             )}
-            href="/docs/goal"
+            href="/docs"
           >
             {tagline}
           </Card>
