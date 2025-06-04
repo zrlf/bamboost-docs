@@ -33,7 +33,7 @@ jobs:
 
       - name: Install the project
         run: |
-          uv sync --locked --all-extras --dev
+          uv sync --all-extras --dev
           uv sync --upgrade-package bamboost
 
       - name: Render Quarto content
