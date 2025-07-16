@@ -10,7 +10,7 @@ async function Page(props: { params: Promise<{ slug?: string[] }> }) {
     return params.slug ? source.baseUrl === params.slug[0] : false;
   });
   if (!source) return notFound();
-  const page = source.getPage(params.slug?.slice(1));
+  const page = source.fdSource.getPage(params.slug?.slice(1));
   if (!page) return notFound();
 
   const sourceUrl =
@@ -48,11 +48,9 @@ async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   );
 }
 
-async function generateStaticParams(props: { params?: { slug?: string[] } }) {
-  const params = props.params || { slug: [] };
-  console.log("Slug generator:", params.slug, "depth: ", params.slug?.length);
+async function generateStaticParams() {
   const res = Object.values(sources).flatMap((source) =>
-    source
+    source.fdSource
       .generateParams()
       .map(({ slug }) => ({ slug: [source.baseUrl, ...slug] })),
   );
@@ -63,11 +61,10 @@ async function generateMetadata(props: {
   params: Promise<{ slug?: string[] }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  console.log("Slug generator:", params.slug, "depth: ", params.slug?.length);
   const source = Object.values(sources).find((source) => {
     return params.slug ? source.baseUrl === params.slug[0] : false;
   });
-  const page = source?.getPage(params.slug);
+  const page = source?.fdSource?.getPage(params.slug);
 
   return {
     title: page?.data.title,

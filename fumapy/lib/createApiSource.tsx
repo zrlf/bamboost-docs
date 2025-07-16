@@ -86,16 +86,7 @@ export function createAPISource(data: any): Source<{
   function traverse(currentData: ModuleInterface, path: string[]) {
     if (path.length > 0 && currentData.name) {
       function addPage(currentData: ModuleInterface, path: string[]) {
-        function handlePageNamedIndex(slugIn: string[]) {
-          if (slugIn[slugIn.length - 1] === "index") {
-            return [...slugIn.slice(0, -1), "index_"];
-          } else {
-            return Object.keys(currentData.modules).length > 0
-              ? [...slugIn, "index"]
-              : slugIn;
-          }
-        }
-        const slug = handlePageNamedIndex(path);
+        const slug = path;
         pages.push({
           slug,
           title: currentData.name,
