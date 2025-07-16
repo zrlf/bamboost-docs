@@ -24,7 +24,7 @@ async function Page(props: { params: Promise<{ slug?: string[] }> }) {
     <DocsPage
       toc={page.data.toc}
       tableOfContent={{ style: "clerk", single: false }}
-      breadcrumb={{ full: true, includeRoot: true, includePage: true }}
+      breadcrumb={{ includeRoot: true, includePage: true }}
     >
       <DocsTitle className="w-full break-words text-2xl">
         {page.data.data?.path || page.data.title}
