@@ -9,7 +9,6 @@ import { notFound } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { Step, Steps } from "fumadocs-ui/components/steps";
-import { Callout } from "@/fumapy/components/callout";
 import { Metadata } from "next";
 
 export default async function Page(props: {
@@ -37,7 +36,6 @@ export default async function Page(props: {
             Steps,
             Accordions,
             Accordion,
-            Callout,
           }}
         />
       </DocsBody>

@@ -20,7 +20,7 @@ export function GET() {
   }
 
   for (const [sourceKey, source] of Object.entries(sources)) {
-    for (const page of source.getPages()) {
+    for (const page of source.fdSource.getPages()) {
       results.push({
         id: page.url,
         structured: page.data.structuredData,
