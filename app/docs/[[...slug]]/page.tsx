@@ -10,6 +10,7 @@ import defaultMdxComponents from "fumadocs-ui/mdx";
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { Step, Steps } from "fumadocs-ui/components/steps";
 import { Callout } from "@/fumapy/components/callout";
+import { Metadata } from "next";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -50,7 +51,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: {
   params: Promise<{ slug?: string[] }>;
-}) {
+}): Promise<Metadata> {
   const params = await props.params;
   const page = docSource.getPage(params.slug);
   if (!page) notFound();

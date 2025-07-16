@@ -37,3 +37,4 @@ content/data/**
 /.quarto/
 .docs
 .env
+*.quarto_ipynb

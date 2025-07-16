@@ -1,7 +1,6 @@
-import { RootToggle } from "fumadocs-ui/components/layout/root-toggle";
 import { DocsLayoutProps } from "fumadocs-ui/layouts/docs";
 import { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { BookOpenText, Gitlab, Library, Terminal } from "lucide-react";
+import { BookOpenText, Gitlab, Library } from "lucide-react";
 
 /**
  * Shared layout configurations
@@ -30,23 +29,19 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
     },
   ],
   sidebar: {
-    banner: (
-      <RootToggle
-        options={[
-          {
-            title: "Docs",
-            description: "Guides and tutorials",
-            icon: <BookOpenText size={24} className="text-[var(--tc-blue)]" />,
-            url: "/docs",
-          },
-          {
-            title: "API",
-            description: "API reference",
-            url: "/apidocs",
-            icon: <Library size={24} className="text-[var(--tc-green)]" />,
-          },
-        ]}
-      />
-    ),
+    tabs: [
+      {
+        title: "Docs",
+        description: "Guides and tutorials",
+        icon: <BookOpenText size={24} className="text-[var(--tc-blue)]" />,
+        url: "/docs",
+      },
+      {
+        title: "API",
+        description: "API reference",
+        url: "/apidocs",
+        icon: <Library size={24} className="text-[var(--tc-green)]" />,
+      },
+    ],
   },
 };

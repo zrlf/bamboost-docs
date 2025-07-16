@@ -1,24 +1,24 @@
 import type { ReactNode } from "react";
-import { Body } from "./layout.client";
 import { GeistSans } from "geist/font/sans";
-import "katex/dist/katex.css";
-import "./global.css";
 import { RootProvider } from "fumadocs-ui/provider";
 import { CustomSearchDialog } from "@/components/searchOrama";
+import { Metadata } from "next";
+import "katex/dist/katex.css";
+import "./global.css";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-      <Body>
+      <body>
         <RootProvider search={{ SearchDialog: CustomSearchDialog }}>
           {children}
         </RootProvider>
-      </Body>
+      </body>
     </html>
   );
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "bamboost",
   icons: {
     icon: "/favicon.ico",
