@@ -27,7 +27,7 @@ A `Group` object references a group in a file.
 The top-level group in a file is called the **root**, which is obtained from a file with
 [`file.root`](/apidocs/core/hdf5/file#HDF5File.root).
 
-::: {.callout-note}
+::: {.callout-tip}
 You can access the root group of a `Simulation` directly by using
 [`sim.root`](/apidocs/core/simulation/base#_Simulation.root).
 :::

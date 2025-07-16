@@ -2,6 +2,6 @@
 title: Global data
 ---
 
-::: {.callout-note}
+::: {.callout-tip}
 See docs on [Series](./) for now
 :::

@@ -10,7 +10,7 @@ from bamboost import Collection
 coll = Collection(uid="315628DE80")
 ```
 
-::: {.callout-note}
+::: {.callout-tip}
 This document describes the creation and setup of simulations.
 This can be done in notebooks, or in setup scripts.
 To actually write data during the simulation run, see [writing data with
@@ -49,7 +49,7 @@ sim = coll.create_simulation(
 
 Then, copy relevant files (or entire directories) into the simulation directory.
 
-::: callout-note
+::: callout-tip
 `create_simulation` includes a `files` argument to directly copy a list of files or directories.
 :::
 
@@ -91,11 +91,11 @@ Notice that the script exports two variables; `SIMULATION_DIR` and `SIMULATION_I
 
 After creation, a simulation is started by running it's run script. Of course, you could manually run it, however, you can also start it from within python or using the CLI (not implemented yet).
 
-::: callout-note
+::: callout-tip
 If you use the bamboost methods to submit your job, and you have previously created a SLURM submission script instead of a pure bash script, your job is automatically submitted on the cluster.
 :::
 
-::: callout-note
+::: callout-tip
 You can also submit the simulation like this directly after you create it.
 :::
 

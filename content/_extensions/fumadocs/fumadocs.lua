@@ -149,7 +149,7 @@ quarto._quarto.ast.add_renderer("Callout", function()
 end, function(node)
 	local admonition = pandoc.Div({})
 	if node.title then
-		admonition.content:insert(jsx("<Callout type='" .. node.type .. "' title='" .. node.title .. "'>"))
+		admonition.content:insert(jsx("<Callout type='" .. node.type .. "' title='" .. pandoc.utils.stringify(node.title) .. "'>"))
 	else
 		admonition.content:insert(jsx("<Callout type='" .. node.type .. "'>"))
 	end

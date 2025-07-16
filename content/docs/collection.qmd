@@ -54,7 +54,7 @@ With this in mind, it is best to **avoid any dots in parameter names** to avoid 
 
 New simulations are added to an existing collection using [coll.create_simulation(...)](/apidocs/core/collection#Collection.create_simulation). None of the methods arguments are required. The first argument `name` is an assigned name for the simulation. If `name=None`, it gets assigned a unique id instead. The second argument `parameters` is a `dict` with the parameters for this simulation.
 
-::: {.callout-note}
+::: {.callout-tip}
 The parameters of different simulations don't have to be consistent at all. However, for obvious reasons, it is strongly advised to maintain a consistent parameter space.
 :::
 
@@ -149,7 +149,7 @@ All that the custom filtering logic does is storing the operation as instruction
 Currently, the following operators are included: 
 `<`, `>`, `<=`, `>=`, `==`, `~=`, `+`, `*`, `/`, `//`, `-`, `**`, `%`
 
-::: {.callout-note}
+::: {.callout-tip}
 You can combine operators, e.g. `coll.k['E'] * coll.k['disk.radius'] < coll.k['nu']` is valid.
 :::
 
