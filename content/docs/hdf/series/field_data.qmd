@@ -14,6 +14,6 @@ Series contain two different type of data -- **Field** and **Global** data.
 
 
 
-::: {.callout-note}
+::: {.callout-tip}
 See docs on [Series](./)
 :::

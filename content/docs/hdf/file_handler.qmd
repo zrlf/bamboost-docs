@@ -9,7 +9,7 @@ title: File
 - Python native in-memory-like experience for reading and writing of data
 - MPI compatible interface
 
-::: {.callout-note}
+::: {.callout-tip}
 It is usually not necessary to work with the file object directly.
 Nonetheless it is useful to know what is happening below the surface.
 :::
@@ -24,7 +24,7 @@ When file access becomes necessary, the file is automatically opened using an un
 `h5py.File` instance. When the file is inaccessible, $e.g.$ because it is in use by
 another process, we retry until the file becomes available.
 
-::: {.callout-note}
+::: {.callout-tip}
 This behaviour could eventually lead to infinite blocking, therefore it should be made
 configurable in the future. 
 :::

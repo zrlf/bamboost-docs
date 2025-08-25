@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 import { baseOptions } from "@/app/layout.config";
-import { BookOpenText, Library, Terminal } from "lucide-react";
+import { BookOpenText, Library } from "lucide-react";
 
 export default function Layout({
   children,
@@ -11,6 +11,7 @@ export default function Layout({
   return (
     <HomeLayout
       {...baseOptions}
+      className="flex flex-col min-h-screen"
       links={[
         // @ts-expect-error
         ...baseOptions.links,

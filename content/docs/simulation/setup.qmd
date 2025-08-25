@@ -10,7 +10,7 @@ from bamboost import Collection
 coll = Collection(uid="315628DE80")
 ```
 
-::: {.callout-note}
+::: {.callout-tip}
 This document describes the creation and setup of simulations.
 This can be done in notebooks, or in setup scripts.
 To actually write data during the simulation run, see [writing data with
@@ -32,10 +32,10 @@ You have the intention of running a certain experiment with a specific set of in
 - A script that produces the result for this simulation
 - A set of instructions on how to run the script
 
-To create a new simulation, use [create_simulation](/apidocs/core/collection#Collection.create_simulation):
+To create a new simulation, use [add](/apidocs/core/collection#Collection.add):
 
 ```{python}
-sim = coll.create_simulation(
+sim = coll.add(
     name="my-simulation",
     parameters={
         "param1": 73,
@@ -49,8 +49,8 @@ sim = coll.create_simulation(
 
 Then, copy relevant files (or entire directories) into the simulation directory.
 
-::: callout-note
-`create_simulation` includes a `files` argument to directly copy a list of files or directories.
+::: callout-tip
+`add` includes a `files` argument to directly copy a list of files or directories.
 :::
 
 ```{python}
@@ -91,11 +91,11 @@ Notice that the script exports two variables; `SIMULATION_DIR` and `SIMULATION_I
 
 After creation, a simulation is started by running it's run script. Of course, you could manually run it, however, you can also start it from within python or using the CLI (not implemented yet).
 
-::: callout-note
+::: callout-tip
 If you use the bamboost methods to submit your job, and you have previously created a SLURM submission script instead of a pure bash script, your job is automatically submitted on the cluster.
 :::
 
-::: callout-note
+::: callout-tip
 You can also submit the simulation like this directly after you create it.
 :::
 

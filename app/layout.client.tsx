@@ -1,11 +1,10 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 
 export function Body({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     const handleHashChange = () => {

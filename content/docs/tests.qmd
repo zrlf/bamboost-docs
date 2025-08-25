@@ -4,7 +4,7 @@ title: Sample Page
 
 # Callout Test
 
-::: {.callout-note}
+::: {.callout-tip}
 This is a note. More notes can be found in the [documentation](https://quarto.org/docs/).[^1]
 :::
 

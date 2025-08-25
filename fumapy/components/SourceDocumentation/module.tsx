@@ -21,7 +21,6 @@ export const Module = ({ data }: { data: ModuleInterface }) => {
           const sanitizedSlug = module.path
             .split(".")
             .slice(1)
-            .map((slug) => slug.replace("index", "index_"));
           return (
             <Card
               key={module.name}
