@@ -65,10 +65,10 @@ You have the intention of running a certain experiment with a specific set of in
 - A script that produces the result for this simulation
 - A set of instructions on how to run the script
 
-To create a new simulation, use [create_simulation](/apidocs/core/collection#Collection.create_simulation):
+To create a new simulation, use [add](/apidocs/core/collection#Collection.add):
 
 ```{python}
-sim = coll.create_simulation(
+sim = coll.add(
     name="my-simulation",
     parameters={
         "param1": 73,
@@ -82,7 +82,7 @@ sim = coll.create_simulation(
 Then, copy relevant files (or entire directories) into the simulation directory.
 
 ::: callout-tip
-`create_simulation` includes a `files` argument to directly copy a list of files or directories.
+`add` includes a `files` argument to directly copy a list of files or directories.
 :::
 
 ```{python}

@@ -52,7 +52,7 @@ With this in mind, it is best to **avoid any dots in parameter names** to avoid 
 
 ## Adding simulations
 
-New simulations are added to an existing collection using [coll.create_simulation(...)](/apidocs/core/collection#Collection.create_simulation). None of the methods arguments are required. The first argument `name` is an assigned name for the simulation. If `name=None`, it gets assigned a unique id instead. The second argument `parameters` is a `dict` with the parameters for this simulation.
+New simulations are added to an existing collection using [coll.add(...)](/apidocs/core/collection#Collection.add). None of the methods arguments are required. The first argument `name` is an assigned name for the simulation. If `name=None`, it gets assigned a unique id instead. The second argument `parameters` is a `dict` with the parameters for this simulation.
 
 ::: {.callout-tip}
 The parameters of different simulations don't have to be consistent at all. However, for obvious reasons, it is strongly advised to maintain a consistent parameter space.
@@ -68,10 +68,10 @@ params = {
     }
 }
 
-sim = coll.create_simulation(parameters=params)
+sim = coll.add(parameters=params)
 ```
 
-The remaining arguments of `create_simulation` are:
+The remaining arguments of `add` are:
 
 - **description**: A simple string. Any note that helps you remember the purpose of this specific simulation, if any.
 - **files**: A `Iterable[str]` of files or directories, which are copied to the simulation directory. You can also use [`sim.copy_files(...)`](/apidocs/core/simulation/base#SimulationWriter.copy_files) later.
@@ -102,10 +102,10 @@ base_params = {
 }
 
 for youngs_modulus in range(1, 10):  # [!code highlight]
-    coll.create_simulation(parameters=base_params | {"E": youngs_modulus})  # [!code highlight]
+    coll.add(parameters=base_params | {"E": youngs_modulus})  # [!code highlight]
 
     # optionally, submit the newly created simulations immediately
-    sim = coll.create_simulation(parameters=base_params | {"E": youngs_modulus})
+    sim = coll.add(parameters=base_params | {"E": youngs_modulus})
     sim.create_run_script(...)
     sim.submit()
 ```
@@ -115,7 +115,7 @@ If you create a lot of simulations, the SQL transactions become a bottleneck. To
 ```python
 with coll._index.sql_transaction():  # [!code highlight]
     for youngs_modulus in range(1, 10):
-        coll.create_simulation(parameters=base_params | {"E": youngs_modulus})
+        coll.add(parameters=base_params | {"E": youngs_modulus})
 ```
 :::
 

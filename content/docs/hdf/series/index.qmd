@@ -8,7 +8,7 @@ from bamboost import Collection
 import numpy as np
 
 coll = Collection(uid="315628DE80")
-sim = coll.create_simulation("my_simulation", override=True)
+sim = coll.add("my_simulation", override=True)
 ```
 
 When doing simulations, the most common data pattern is a series of some kind. Here, we
@@ -70,7 +70,7 @@ Let's assume we loop through timesteps, and at each step we want to dump the val
 
 ```{python}
 coll = Collection(uid="315628DE80")
-sim = coll.create_simulation('my_simulation', override=True)  # override replaces a previous simulation with the same name
+sim = coll.add('my_simulation', override=True)  # override replaces a previous simulation with the same name
 
 for i, t in enumerate(np.linspace(0, 1, 10)):
     # ... some computation
