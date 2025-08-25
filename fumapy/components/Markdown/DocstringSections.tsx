@@ -2,8 +2,8 @@ import { Card } from "fumadocs-ui/components/card";
 import { Code } from "../Code";
 import { DocstringSection } from "../SourceDocumentation/types";
 import Markdown, { renderMarkdown } from "./markdown";
-import { CalloutProps } from "../callout";
 import { Callout } from "fumadocs-ui/components/callout";
+import { HTMLAttributes, ReactNode } from "react";
 
 const resolveAdmonitionType = (type: string) => {
   switch (type) {
@@ -23,6 +23,22 @@ const resolveAdmonitionType = (type: string) => {
     default:
       return type;
   }
+};
+
+export type CalloutProps = Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "title" | "type" | "icon"
+> & {
+  title?: ReactNode;
+  /**
+   * @defaultValue info
+   */
+  type?: "info" | "warn" | "error";
+
+  /**
+   * Force an icon
+   */
+  icon?: ReactNode;
 };
 
 export const DocstringSections = ({
