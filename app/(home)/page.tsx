@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/fumapy/lib/utils";
+import { cn } from "@/components/utils";
 import Link from "fumadocs-core/link";
 import { Card } from "fumadocs-ui/components/card";
 import { useEffect, useState } from "react";

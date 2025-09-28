@@ -23,6 +23,9 @@ importers:
       fumadocs-mdx:
         specifier: 11.8.0
         version: 11.8.0(acorn@8.15.0)(fumadocs-core@15.7.2(@oramacloud/client@2.1.4)(@types/react@19.1.11)(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+      fumadocs-python-autodoc:
+        specifier: ^0.0.1
+        version: 0.0.1(fumadocs-core@15.7.2(@oramacloud/client@2.1.4)(@types/react@19.1.11)(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.7.2(@oramacloud/client@2.1.4)(@types/react-dom@19.1.7(@types/react@19.1.11))(@types/react@19.1.11)(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.12))(lucide-react@0.541.0(react@19.1.1))(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(rehype-react@8.0.0)(tailwindcss@4.1.12)
       fumadocs-ui:
         specifier: 15.7.2
         version: 15.7.2(@oramacloud/client@2.1.4)(@types/react-dom@19.1.7(@types/react@19.1.11))(@types/react@19.1.11)(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.12)
@@ -1317,6 +1320,17 @@ packages:
         optional: true
       vite:
         optional: true
+
+  fumadocs-python-autodoc@0.0.1:
+    resolution: {integrity: sha512-JACFwZT5MZ2RTK2hhvLzORdy0IDWr6aYedxTfUvtW3Iw/ATNxb2S7niLKiDX7lx20UHFIZJ5CMD52oAuFc4zsQ==}
+    peerDependencies:
+      fumadocs-core: 15.x.x
+      fumadocs-ui: 15.x.x
+      lucide-react: ^0.507.0
+      next: '>=14'
+      react: '>=16'
+      rehype-react: ^8.0.0
+      tailwindcss: '>=4'
 
   fumadocs-ui@15.7.2:
     resolution: {integrity: sha512-AfadaAVAMWutvfjRfAb9aOVg0DditUdzMiWR69I160H8TDYImIHJWdHsoydSYD7I+60YsCXpHEewe7Lgm7OZcQ==}
@@ -3216,6 +3230,28 @@ snapshots:
       react: 19.1.1
     transitivePeerDependencies:
       - acorn
+      - supports-color
+
+  fumadocs-python-autodoc@0.0.1(fumadocs-core@15.7.2(@oramacloud/client@2.1.4)(@types/react@19.1.11)(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.7.2(@oramacloud/client@2.1.4)(@types/react-dom@19.1.7(@types/react@19.1.11))(@types/react@19.1.11)(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.12))(lucide-react@0.541.0(react@19.1.1))(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(rehype-react@8.0.0)(tailwindcss@4.1.12):
+    dependencies:
+      clsx: 2.1.1
+      fumadocs-core: 15.7.2(@oramacloud/client@2.1.4)(@types/react@19.1.11)(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      fumadocs-ui: 15.7.2(@oramacloud/client@2.1.4)(@types/react-dom@19.1.7(@types/react@19.1.11))(@types/react@19.1.11)(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.12)
+      hast-util-to-jsx-runtime: 2.3.6
+      lucide-react: 0.541.0(react@19.1.1)
+      mdast-util-mdx-jsx: 3.2.0
+      mdast-util-to-string: 4.0.0
+      next: 15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react: 19.1.1
+      rehype-react: 8.0.0
+      remark-parse: 11.0.0
+      remark-rehype: 11.1.2
+      shiki: 3.11.0
+      tailwind-merge: 3.3.1
+      tailwindcss: 4.1.12
+      unified: 11.0.5
+      unist-util-visit: 5.0.0
+    transitivePeerDependencies:
       - supports-color
 
   fumadocs-ui@15.7.2(@oramacloud/client@2.1.4)(@types/react-dom@19.1.7(@types/react@19.1.11))(@types/react@19.1.11)(next@15.5.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.12):

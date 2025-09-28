@@ -1,11 +1,10 @@
 @import "tailwindcss";
-@import "../fumapy/css/preset.css";
+@import "fumadocs-python-autodoc/preset.css";
 @import "fumadocs-ui/css/preset.css";
 @import "fumadocs-ui/css/neutral.css";
 @import "./theme.css";
 
 @source '../content/**/*.{md,mdx}';
-@source '../fumapy/**/*.{ts,tsx}';
 
 /* Theme Variables */
 @theme inline {
