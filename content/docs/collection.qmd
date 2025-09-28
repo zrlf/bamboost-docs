@@ -136,7 +136,7 @@ Alternatively, `bamboost` has a concept named **Filtered collection**. It is a n
 It will also work correctly if the content in a collection is altered (i.e. newly added simulations).
 
 Use the `collection.filter(...)` method to get a filtered collection. 
-It takes any number of conditions, which must be operations on instances of [_Key](/apidocs/index/_filtering#_Key). The collection has a convenience attribute `coll.k` which should be used for filtering (includes completion of the available keys).
+It takes any number of conditions, which must be operations on instances of [_Key](/apidocs/index_/_filtering#_Key). The collection has a convenience attribute `coll.k` which should be used for filtering (includes completion of the available keys).
 For example, to filter simulations by Young's modulus $E$ and Poisson's ratio $\nu$:
 ```python
 filtered_coll = coll.filter(
