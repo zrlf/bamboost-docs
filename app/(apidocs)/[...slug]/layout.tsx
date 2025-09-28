@@ -1,7 +1,8 @@
-import { baseOptions } from "@/app/layout.config";
-import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { ReactNode } from "react";
-import { sources } from "@/fumapy/lib/source.api";
+import { AutoDocLayout } from "fumadocs-python-autodoc/components";
+import { baseOptions } from "@/app/layout.config";
+import { autodocSources } from "@/lib/autodocSource";
+import config from "@/fumapy.config";
 
 export default async function Layout({
   children,
@@ -11,26 +12,16 @@ export default async function Layout({
   params: Promise<{ slug?: string[] }>;
 }) {
   const { slug } = await params;
-  const firstSlug = slug ? slug[0] : undefined;
 
-  const source = Object.values(sources).find((source) => {
-    return source.baseUrl === firstSlug;
-  });
-
-  if (!source) {
-    return null;
-  }
-
-  return (
-    <DocsLayout
-      containerProps={{
-        ...source.options,
-        className: `route-fumapy ${source.options?.className || ""}`,
-      }}
-      tree={source.fdSource.pageTree}
+  const comp = (
+    <AutoDocLayout
+      sources={autodocSources}
+      shikiConfig={config.shiki}
+      slug={slug}
       {...baseOptions}
     >
       {children}
-    </DocsLayout>
+    </AutoDocLayout>
   );
+  return comp;
 }

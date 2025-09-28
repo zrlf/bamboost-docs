@@ -6,7 +6,6 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "bamboost",
-    "fumapy",
     "ipykernel>=6.29.5",
     "nbconvert>=7.16.6",
     "cairosvg>=2.7.1",
@@ -21,10 +20,10 @@ dependencies = [
     "jupytext>=1.17.1",
     "quarto>=0.1.0",
     "nbformat>=5.10.4",
+    "fumadocs-autodoc>=0.0.1",
 ]
 
 [tool.uv.sources]
-fumapy = { path = "fumapy", editable = true }
 bamboost = { git = "https://gitlab.com/cmbm-ethz/bamboost.git", branch = "main" }
 
 [tool.bamboost.index]
