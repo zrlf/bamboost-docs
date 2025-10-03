@@ -24,8 +24,8 @@ importers:
         specifier: 12.0.1
         version: 12.0.1(fumadocs-core@15.8.1(@oramacloud/client@2.1.4)(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       fumadocs-python-autodoc:
-        specifier: ^0.0.2
-        version: 0.0.2(fumadocs-core@15.8.1(@oramacloud/client@2.1.4)(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.8.1(@oramacloud/client@2.1.4)(@types/react-dom@19.1.9(@types/react@19.1.15))(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(lucide-react@0.544.0(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(rehype-react@8.0.0)(tailwindcss@4.1.13)
+        specifier: '>=0.0.3'
+        version: 0.0.3(fumadocs-core@15.8.1(@oramacloud/client@2.1.4)(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.8.1(@oramacloud/client@2.1.4)(@types/react-dom@19.1.9(@types/react@19.1.15))(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(lucide-react@0.544.0(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(rehype-react@8.0.0)(tailwindcss@4.1.13)
       fumadocs-ui:
         specifier: 15.8.1
         version: 15.8.1(@oramacloud/client@2.1.4)(@types/react-dom@19.1.9(@types/react@19.1.15))(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
@@ -1324,8 +1324,8 @@ packages:
       vite:
         optional: true
 
-  fumadocs-python-autodoc@0.0.2:
-    resolution: {integrity: sha512-OO/KKEysIvjwmGZGFX0Q69uAe8V5UUvRmctAPGOF0AePKV8ldwqxK5e7SgwVEsJFoPqcvjECAVmjjo5fMFvw7w==}
+  fumadocs-python-autodoc@0.0.3:
+    resolution: {integrity: sha512-4PWR1WvpoJTZjIlqoSAX81qQqvk52t1ZnKzz/tudGLuCK/Rm0zVgCNMPu2Ji3XOnfOoMKaqc79IW3vzijRgrYQ==}
     peerDependencies:
       fumadocs-core: 15.x.x
       fumadocs-ui: 15.x.x
@@ -3218,7 +3218,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-python-autodoc@0.0.2(fumadocs-core@15.8.1(@oramacloud/client@2.1.4)(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.8.1(@oramacloud/client@2.1.4)(@types/react-dom@19.1.9(@types/react@19.1.15))(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(lucide-react@0.544.0(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(rehype-react@8.0.0)(tailwindcss@4.1.13):
+  fumadocs-python-autodoc@0.0.3(fumadocs-core@15.8.1(@oramacloud/client@2.1.4)(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(fumadocs-ui@15.8.1(@oramacloud/client@2.1.4)(@types/react-dom@19.1.9(@types/react@19.1.15))(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13))(lucide-react@0.544.0(react@19.1.1))(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(rehype-react@8.0.0)(tailwindcss@4.1.13):
     dependencies:
       clsx: 2.1.1
       fumadocs-core: 15.8.1(@oramacloud/client@2.1.4)(@types/react@19.1.15)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
