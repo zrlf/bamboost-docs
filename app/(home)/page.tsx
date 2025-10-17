@@ -1,85 +1,46 @@
-"use client";
-import { cn } from "@/components/utils";
 import Link from "fumadocs-core/link";
-import { Card } from "fumadocs-ui/components/card";
-import { useEffect, useState } from "react";
+import { blog } from "@/lib/source";
+import { PathUtils } from "fumadocs-core/source";
+import { Headline } from "./headline";
+
+function getName(path: string) {
+  return PathUtils.basename(path, PathUtils.extname(path));
+}
 
 export default function HomePage() {
-  const [showTagline, setShowTagline] = useState(false);
-  const tagline =
-    "Bamboost is a Python library built for datamanagement using the HDF5 file format. bamboost stands for a lightweight shelf which will boost your efficiency and which will totally break if you load it heavily. Just kidding, bamboo can fully carry pandas.";
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowTagline(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
+  const posts = [...blog.getPages()].sort(
+    (a, b) =>
+      new Date(b.data.date ?? getName(b.path)).getTime() -
+      new Date(a.data.date ?? getName(a.path)).getTime(),
+  );
 
   return (
-    <main className="flex flex-1 gap-2 flex-col justify-center text-center transition-all duration-500 ease-in-out">
-      <div
-        className={cn(
-          "transition-all duration-500 ease-in-out",
-          showTagline ? "-translate-y-1/3" : "",
-        )}
-      >
-        <h1 className="mb-4 text-2xl font-bold">
-          Get a grip on your data
-          <br /> with bamboost
-        </h1>
-        <p className="text-muted-foreground">
-          You may click here{" "}
-          <Link
-            href="/docs"
-            className="text-route-docs font-semibold underline"
-          >
-            /docs
-          </Link>{" "}
-          for the documentation.
-        </p>
-        <p className="text-muted-foreground">
-          Or here{" "}
-          <Link
-            href="/apidocs"
-            className="text-route-api font-semibold underline"
-          >
-            /apidocs
-          </Link>{" "}
-          for the API reference.
-        </p>
-      </div>
-      <div className="mx-4">
-        <div
-          className={cn(
-            "container max-w-2xl p-px relative bg-linear-to-br from-primary to-primary via-transparent rounded-[calc(0.5rem+1px)]",
-            "transition-all duration-500 ease-in-out",
-            "before:content-[''] before:-z-10 before:absolute before:inset-0 before:bg-linear-to-br before:from-route-docs before:to-route-docs before:via-transparent before:blur-lg",
-            "brightness-90 hover:brightness-100 cursor-pointer",
-            showTagline ? "max-h-60 opacity-100" : "max-h-0 opacity-0",
-          )}
-        >
-          <Card
-            title="What is bamboost?"
-            className={cn(
-              "border-none",
-              "w-full border z-10 bg-opacity-100",
-              "bg-background hover:bg-background", // Add this to ensure the card background doesn't spin
-            )}
-            href="/docs"
-          >
-            {tagline}
-          </Card>
+    <main className="mx-auto w-full max-w-fd-container md:px-4 pb-12 pt-0 md:py-12 md:pt-24">
+      <Headline />
+
+      <div className="ml-4">
+        <h2 className="mt-12 mb-6 text-2xl font-bold">Latest Posts</h2>
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-3 xl:grid-cols-4">
+          {posts.map((post) => (
+            <Link
+              key={post.url}
+              href={post.url}
+              className="flex flex-col bg-fd-card rounded-2xl border shadow-sm p-4 transition-colors hover:bg-fd-accent hover:text-fd-accent-foreground"
+            >
+              <p className="font-medium">{post.data.title}</p>
+              <p className="text-sm pt-2 text-fd-muted-foreground">
+                {post.data.description}
+              </p>
+
+              <p className="mt-auto pt-4 text-xs text-brand gap-4 inline-flex">
+                <span>{new Date(post.data.date ?? getName(post.path)).toDateString()}</span>
+                <span>/</span>
+                <span>{post.data.author}</span>
+              </p>
+            </Link>
+          ))}
         </div>
       </div>
-      <p className="text-muted-foreground/50 mt-10 text-sm">
-        Also, here is the link{" "}
-        <Link
-          href="/api-tui"
-          className="text-route-tui font-semibold underline"
-        >
-          /api-tui
-        </Link>{" "}
-        to the source documentation of the terminal user interface.
-      </p>
     </main>
   );
 }

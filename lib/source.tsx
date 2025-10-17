@@ -1,4 +1,4 @@
-import { docs, meta } from "@/.source";
+import { docs, meta, blogPosts } from "@/.source";
 import { createMDXSource } from "fumadocs-mdx";
 import { loader } from "fumadocs-core/source";
 import { createElement } from "react";
@@ -15,4 +15,9 @@ const docSource = loader({
   source: createMDXSource(docs, meta),
 });
 
-export { docSource };
+const blog = loader({
+  baseUrl: "/blog",
+  source: createMDXSource(blogPosts),
+});
+
+export { docSource, blog };

@@ -5,6 +5,7 @@
 @import "./theme.css";
 
 @source '../content/**/*.{md,mdx}';
+@source './**/*.{tsx}';
 
 /* Theme Variables */
 @theme inline {
