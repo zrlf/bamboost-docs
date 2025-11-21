@@ -1,19 +1,17 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { blog } from "@/lib/source";
-import type { Metadata } from "next";
 import Image from "next/image";
 import path from "node:path";
-import { cn } from "@/components/utils";
 
 export default async function Page(props: PageProps<"/blog/[slug]">) {
   const params = await props.params;
   const page = blog.getPage([params.slug]);
 
   if (!page) notFound();
-  const { body: Mdx, toc } = page.data;
+  const Mdx = page.data.body;
+  const toc = page.data.toc;
 
   return (
     <article className="flex flex-col mx-auto w-full max-w-[800px] px-4 py-8">
