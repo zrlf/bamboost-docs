@@ -3,6 +3,7 @@ project:
   output-dir: ../.docs/
   render:
     - "index.md"
+    - "docs/simulation/writing.qmd"
     - "**/*.qmd"
     - "**/*.ipynb"
     - "**/*.md"

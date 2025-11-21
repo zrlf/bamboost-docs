@@ -1,5 +1,118 @@
 ---
 title: Reading data
+html-table-processing: none
+jupyter: python3
 ---
 
-hello
+Once simulation runs have produced their `data.h5` file, the default `Simulation`
+objects expose a read-only view of everything that was stored via the writing APIs
+described earlier. This page focuses on interactive exploration inside notebooks or
+post-processing scripts.
+
+## 1. Locate the simulation
+
+```{python}
+from bamboost import Collection, Simulation
+
+coll = Collection(uid="315628DE80")  # or Collection.fromUID[...]
+sim = coll["kelvin-helmholtz"]  # immutable Simulation
+
+# When you already know the full UID
+same_sim = Simulation.from_uid("315628DE80:kelvin-helmholtz")
+```
+
+The returned instance lazily opens `data.h5` as an immutable file. All objects derived
+from it are simple handles—no data is loaded until you slice or call `[...]`.
+
+## 2. Inspect metadata, parameters, and files
+
+```{python}
+#| eval: false
+sim.parameters
+sim.metadata["description"]
+sim.files["run.sh"]  # pick a file stored next to data.h5
+sim.links["mesh"]  # resolve linked simulations
+```
+
+Metadata and parameter dictionaries are the same structures that writers mutate, so they
+already contain everything that was registered during setup or the run itself.
+
+## 3. Explore the default series
+
+::: {.callout-tip}
+More guidance is available in the [Series User Guide](/docs/hdf/series/).
+:::
+
+
+The `sim.data` property returns the default [Series](/docs/hdf/series) stored at `/data`.
+Rendering the object in a notebook prints an HTML summary (number of steps, available
+fields, global diagnostics). You can also query it programmatically:
+
+```{python}
+sim.data.values  # numpy array with the stored step values (e.g. time)
+sim.data.get_field_names()  # list of field names
+```
+
+## 4. Read global datasets
+
+Global data stays in a single dataset per quantity (shape = `(n_steps, *value_shape)`).
+Use pandas to combine them quickly:
+
+```{python}
+diagnostics = sim.data.globals.df
+diagnostics.head()
+```
+
+To work with plain numpy arrays:
+
+```{python}
+energy = sim.data.globals["energy"][:]       # read every step
+subset, names = sim.data.globals.get("en*", "mass")  # wildcard selection
+subset, names
+```
+
+## 5. Read field data
+
+Field datasets are stored one per step (named `"0"`, `"1"`, ...). The `FieldData`
+wrapper behaves like a numpy array along the first dimension:
+
+```{python}
+pressure = sim.data["pressure"]
+pressure[-1]                 # most recent step
+pressure[::10, :, :]         # strided slicing
+pressure.at(0)               # dataset handle for step 0 (no read yet)
+```
+
+Slicing loads the requested steps into memory. If the per-step shapes differ, the return
+value falls back to an `object` array so that heterogeneous meshes can still be read.
+
+## 6. Work with other series
+
+Any additional series created via `require_series` is reachable from the reader as well:
+
+```{python}
+diagnostics = sim.require_series("dynamic_loading")
+diagnostics.values          # e.g. probe locations or custom coordinates
+drag = diagnostics.globals["energy"][:]
+```
+
+`require_series` on an immutable simulation simply returns an existing series (it will
+raise `NotASeriesError` if the path is not tagged as a series). Use the helper methods
+such as `series.get_fields("*pressure*")` when working with many fields at once.
+
+## 7. Access custom HDF5 content
+
+Whenever you need something outside of the series abstraction, fall back to the generic
+[HDF objects](/docs/hdf/objects):
+
+```{python}
+#| eval: false
+stats = sim.root["statistics"]
+stats.attrs
+residual_history = stats["residual_history"][:]
+mesh_coords = sim.root["/mesh/fluid"]["coordinates"][()]
+```
+
+These APIs mirror `h5py.Group`/`Dataset` but keep the benefits of the lazy file handler,
+auto-retry, and MPI-aware single-process queue. That means you can mix high-level series
+reads with low-level inspection without ever manually touching `h5py.File`.

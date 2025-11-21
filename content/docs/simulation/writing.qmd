@@ -4,7 +4,173 @@ html-table-processing: none
 jupyter: python3
 ---
 
+`bamboost` stores most simulation data inside a single `data.h5` file and exposes a
+high-level wrapper around `h5py`. This page shows how to obtain a writable simulation,
+update its metadata, and append actual results using [Series](/docs/hdf/series/).
+
 ::: {.callout-tip}
-This document describes writing of data.
-This is likely used in the actual execution of simulations to store the results.
+All objects returned from `bamboost` (files, groups, datasets, series) are lazy
+references. You never have to manually open or close an HDF5 file—the runtime will do
+it when data access is required and will serialize root-only operations through the
+single-process queue described in [HDF File](/docs/hdf/file_handler).
 :::
+
+## 1. Obtain a `SimulationWriter`
+
+Simulation objects ($e.g.$ `sim = coll["name"]`) are immutable by default. To write, you must work
+with a [`SimulationWriter`](/apidocs/core/simulation/base#SimulationWriter). There are
+three common entry points:
+
+```{python}
+from bamboost import Collection, SimulationWriter
+
+coll = Collection(uid="315628DE80")
+
+# 1) Creating a brand new simulation returns a SimulationWriter immediately
+new_sim = coll.add(
+    name="kelvin-helmholtz",
+    parameters={"Re": 1000, "dt": 5e-3},
+    override=True,
+)
+
+# 2) Convert an existing simulation to a writer
+sim = coll["kelvin-helmholtz"].edit()
+```
+
+```{python}
+#| eval: false
+# 3) Inside a run script use the exported SIMULATION_ID to reopen the simulation
+import os
+sim = SimulationWriter.from_uid(os.environ["SIMULATION_ID"])
+```
+
+`SimulationWriter` implements the context manager protocol. Entering the context marks
+the simulation status as `STARTED`, and leaving it without an exception switches the
+status to `FINISHED`. Use it to ensure the metadata reflects the execution outcome.
+
+```{python}
+with sim as run:
+    run.metadata["description"] = "2D benchmark"
+    ...
+```
+
+## 2. Update metadata, parameters, and links
+
+`sim.metadata`, `sim.parameters`, and `sim.links` behave like dictionaries but store
+their content inside the HDF5 file (see [Objects](/docs/hdf/objects)). Values that
+cannot be represented as HDF5 attributes (mainly numpy arrays) are
+automatically stored as datasets.
+
+```{python}
+with sim as run:
+    run.parameters["mesh_cells"] = 256
+    run.parameters.update({"dt": 5e-3, "nu": 1e-3})
+    run.metadata["git_hash"] = "9a58e4c"
+    run.links["baseline"] = "315628DE80:mesh_reference"
+```
+
+Because the parameters and metadata groups live in the same file as the numerical data,
+updates are MPI-safe (writes that must run on rank 0 are queued by the file handler).
+
+## 3. Append time-dependent data with series
+
+`sim.data` is the default [Series](/docs/hdf/series) stored at `/data`. 
+To append time-dependent results, you first create or get a step inside the series using
+`require_step`, then use the returned
+[`StepWriter`](/apidocs/core/simulation/series#StepWriter) to add field and scalar data
+for that step. Each step corresponds to a single time instant or iteration.
+
+::: {.callout-tip}
+More guidance is available in the [Series User Guide](/docs/hdf/series/).
+:::
+
+```{python}
+import numpy as np
+from bamboost.core.simulation.series import FieldType
+
+times = np.linspace(0, 1, 11)
+
+with sim as run:
+    for step_id, t in enumerate(times):
+        # Create/appends a step and stores the time value
+        step = run.data.require_step(value=float(t), step=step_id)
+
+        # Field data → one dataset per step (named after the step number)
+        velocity = np.random.rand(32, 32, 2)
+        pressure = np.random.rand(32, 32)
+        step.add_field("pressure", pressure)
+        step.add_field("velocity", velocity, field_type=FieldType.NODE)
+        # Use add_fields/add_scalars to batch multiple writes per MPI rank
+        step.add_scalars({"energy": float(np.square(velocity).sum()), "mass": pressure.sum()})
+```
+
+- `value` stores the time (or another monotonically increasing coordinate) in the hidden
+  `timesteps` dataset of the series. You can skip it if you only care about the step
+  index.
+- `mesh_name` and `field_type` (default: `DEFAULT_MESH_NAME`/`FieldType.NODE`) become
+  attributes on the datasets. They are read later when exporting to XDMF.
+- `StepWriter` methods accept numpy arrays, python scalars, or iterables. Scalar shapes
+  must remain consistent across steps.
+
+### Multiple series
+
+Besides the default `sim.data`, you can create additional series to organize your data.
+
+```{python}
+dynamic_loading = sim.require_series("dynamic_loading")
+
+with sim as run:
+    step = dynamic_loading.require_step(value=0.5)
+    step.add_scalar("energy", 1.37)
+    ...
+```
+
+## 4. Custom HDF5 content
+
+While series cover the most common workflows, you can write any additional structure
+by navigating the HDF5 hierarchy. All HDF objects described in
+[HDF Objects](/docs/hdf/objects) are available through `sim.root`.
+
+```{python}
+statistics = sim.root.require_group("statistics")
+
+# Attributes become scalar metadata on the group
+statistics.attrs["final_residual"] = 3.2e-6
+
+# Assigning a numpy array creates a dataset
+residuals = [1e-1, 5e-2, 1e-2, 5e-3, 1e-3]  # Example data
+statistics["residual_history"] = np.asarray(residuals)
+
+# Nest groups just like directories
+checkpoints = statistics.require_group("checkpoints")
+checkpoints["iteration"] = np.array([1, 2, 3], dtype=np.int64)
+```
+
+
+## 5. Typical simulation script
+
+Putting the pieces together, a run script usually looks like this:
+
+```{python}
+#| eval: false
+import os
+import numpy as np
+from bamboost import SimulationWriter
+
+with SimulationWriter.from_uid(os.environ["SIMULATION_ID"]) as sim:
+    # some dummy solver setup function; this is user code
+    solver = my_solver(sim.parameters)
+    state = solver.initial_state()
+
+    for n, t in enumerate(solver.times()):
+        state = solver.step(state)
+        step = sim.data.require_step(value=t, step=n)
+        step.add_field("phi", state.phi)
+        step.add_scalar("residual", state.residual)
+
+    stats = sim.root.require_group("statistics")
+    stats["runtime"] = np.array([solver.runtime_seconds])
+```
+
+Everything written through the writer automatically lands in `data.h5`, is indexed for
+post-processing, and can be accessed through the read-only APIs described next.
