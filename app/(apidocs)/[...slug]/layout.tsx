@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { AutoDocLayout } from "fumadocs-python-autodoc/components";
-import { baseOptions } from "@/app/layout.config";
+import { baseOptions } from "@/lib/layout.shared";
 import { autodocSources } from "@/lib/autodocSource";
 import config from "@/fumapy.config";
 

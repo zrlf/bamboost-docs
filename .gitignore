@@ -38,3 +38,5 @@ content/data/**
 .docs
 .env
 *.quarto_ipynb
+.bamboost
+.pnpm-store

@@ -1,19 +1,6 @@
-"use client";
 import Link from "fumadocs-core/link";
-import { redirect } from "next/navigation";
-import { useEffect } from "react";
 
 export default function NotFound() {
-  useEffect(() => {
-    const pathname =
-      typeof window !== "undefined" ? window.location.pathname : "";
-
-    if (pathname.endsWith("/") && pathname !== "/") {
-      const newPath = pathname.replace(/\/+$/, "");
-      redirect(newPath);
-    }
-  }, []);
-
   return (
     <main className="flex flex-1 gap-8 h-20 flex-col justify-center items-center text-center transition-all duration-500 ease-in-out text-muted-foreground min-h-screen">
       <div className="flex gap-8 items-center text-xl">
