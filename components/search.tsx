@@ -51,6 +51,7 @@ export default function CustomSearchDialog(props: SharedProps) {
   const [open, setOpen] = useState(false);
   const { search, setSearch, query } = useDocsSearch({
     type: "orama-cloud",
+    // @ts-expect-error
     client,
     tag,
   });
