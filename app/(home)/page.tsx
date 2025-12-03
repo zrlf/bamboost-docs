@@ -18,7 +18,7 @@ export default function HomePage() {
     <main className="mx-auto w-full max-w-fd-container md:px-4 pb-12 pt-0 md:py-12 md:pt-24">
       <Headline />
 
-      <div className="ml-4">
+      <div className="mx-4">
         <h2 className="mt-12 mb-6 text-2xl font-bold">Latest Posts</h2>
         <div className="grid grid-cols-1 gap-2 md:grid-cols-3 xl:grid-cols-4">
           {posts.map((post) => (

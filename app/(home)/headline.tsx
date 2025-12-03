@@ -132,7 +132,7 @@ export const Headline = () => {
           for the API reference.
         </p>
       </div>
-      <div className="mx-4">
+      <div className="mx-4 md:mx-auto">
         <div
           className={cn(
             "container max-w-2xl p-px relative bg-linear-to-br from-primary to-primary via-transparent",
