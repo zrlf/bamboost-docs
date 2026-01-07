@@ -21,8 +21,8 @@ import {
   PopoverTrigger,
 } from "fumadocs-ui/components/ui/popover";
 import { buttonVariants } from "fumadocs-ui/components/ui/button";
-import { ChevronDown } from "fumadocs-ui/internal/icons";
-import { cn } from "fumadocs-ui/utils/cn";
+import { ChevronDown } from "lucide-react";
+import { cn } from "./utils";
 
 const client = new OramaClient({
   endpoint: "https://cloud.orama.run/v1/indexes/bamboost-tqx8ce",

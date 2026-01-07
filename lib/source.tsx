@@ -1,4 +1,4 @@
-import { docs, blogPosts } from "@/.source/server";
+import { docs, blogPosts } from "fumadocs-mdx:collections/server";
 import { loader } from "fumadocs-core/source";
 import { createElement } from "react";
 import { icons } from "lucide-react";

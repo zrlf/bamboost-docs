@@ -15,7 +15,7 @@ export default function HomePage() {
   );
 
   return (
-    <main className="mx-auto w-full max-w-fd-container md:px-4 pb-12 pt-0 md:py-12 md:pt-24">
+    <main className="mx-auto w-full max-w-[1400px] md:px-4 pb-12 pt-0 md:py-12 md:pt-24">
       <Headline />
 
       <div className="mx-4">
