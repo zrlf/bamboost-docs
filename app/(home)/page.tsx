@@ -33,12 +33,46 @@ export default function HomePage() {
               </p>
 
               <p className="mt-auto pt-4 text-xs text-brand gap-4 inline-flex">
-                <span>{new Date(post.data.date ?? getName(post.path)).toDateString()}</span>
+                <span>
+                  {new Date(
+                    post.data.date ?? getName(post.path),
+                  ).toDateString()}
+                </span>
                 <span>/</span>
                 <span>{post.data.author}</span>
               </p>
             </Link>
           ))}
+        </div>
+        <div className="mt-12">
+          <h2 className="mt-12 mb-6 text-2xl font-bold">Other projects</h2>
+          <ul className="[&_a]:text-fdpy-meth list-disc list-outside pl-6">
+            <li>
+              <b>architile:</b> create lattices with all 11 regular or uniform
+              tilings:{" "}
+              <a href={"https://github.com/zrlf/architile/"}>
+                https://github.com/zrlf/architile
+              </a>
+            </li>
+            <li>
+              <b>Python API docs for Fumadocs: </b>
+              <a href={"https://github.com/zrlf/fumadocs-python-autodoc"}>
+                https://github.com/zrlf/fumadocs-python-autodoc
+              </a>
+            </li>
+            <li>
+              <b>A reveal.js pipeline with react and markdown: </b>{" "}
+              <a href="https://github.com/zrlf/reveal-react-deck">
+                https://github.com/zrlf/reveal-react-deck
+              </a>
+            </li>
+            <li>
+              <b>TUI for bamboost: </b>{" "}
+              <a href="https://github.com/zrlf/bamboost-tui">
+                https://github.com/zrlf/bamboost-tui
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </main>
