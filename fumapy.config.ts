@@ -18,7 +18,7 @@ const config: Config = {
         className: "route-api",
       },
       sortClassMethods: true,
-      gitUrl: "https://gitlab.com/cmbm-ethz/bamboost/-/blob/main/bamboost",
+      gitUrl: "https://github.com/smec-ethz/bamboost/tree/main/bamboost",
       excludeModules: [],
     },
   },

@@ -1,6 +1,6 @@
 import { DocsLayoutProps } from "fumadocs-ui/layouts/docs";
 import { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { BookOpenText, GitBranch, Library } from "lucide-react";
+import { BookOpenText, Github, Library } from "lucide-react";
 
 /**
  * Shared layout configurations
@@ -22,9 +22,9 @@ export const baseOptions: Partial<DocsLayoutProps> & BaseLayoutProps = {
   links: [
     {
       type: "icon",
-      url: "https://gitlab.com/cmbm-ethz/bamboost",
-      icon: <GitBranch />,
-      text: "GitLab",
+      url: "https://github.com/smec-ethz/bamboost",
+      icon: <Github />,
+      text: "Github",
       on: "all",
     },
   ],

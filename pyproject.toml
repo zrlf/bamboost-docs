@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-bamboost = { git = "https://gitlab.com/cmbm-ethz/bamboost.git", branch = "main" }
+bamboost = { git = "https://github.com/smec-ethz/bamboost.git", branch = "main" }
 
 [tool.bamboost.index]
 isolated = true
