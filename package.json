@@ -18,7 +18,7 @@
     "concurrently": "^9.2.1",
     "fumadocs-core": "16.6.5",
     "fumadocs-mdx": "14.2.8",
-    "fumadocs-python-autodoc": "^0.0.4",
+    "fumadocs-python-autodoc": "^0.0.5",
     "fumadocs-ui": "16.6.5",
     "geist": "^1.7.0",
     "next": "^16.1.6",

@@ -118,7 +118,7 @@ html.dark .shiki span {
 
   table {
     all: revert;
-    @apply border-collapse border-0 [&_*]:border-0 [&_*]:py-1 [&_*]:px-2;
+    @apply border-collapse border-0 **:border-0 **:py-1 **:px-2;
     @apply whitespace-pre;
 
     & tr:nth-child(even) {
