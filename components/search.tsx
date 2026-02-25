@@ -1,5 +1,5 @@
 "use client";
-
+import { useDocsSearch } from "fumadocs-core/search/client";
 import {
   SearchDialog,
   SearchDialogClose,
@@ -12,22 +12,15 @@ import {
   SearchDialogOverlay,
   type SharedProps,
 } from "fumadocs-ui/components/dialog/search";
-import { useDocsSearch } from "fumadocs-core/search/client";
-import { OramaClient } from "@oramacloud/client";
-import { useState } from "react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "fumadocs-ui/components/ui/popover";
+import { useState } from "react";
 import { buttonVariants } from "fumadocs-ui/components/ui/button";
 import { ChevronDown } from "lucide-react";
-import { cn } from "./utils";
-
-const client = new OramaClient({
-  endpoint: "https://cloud.orama.run/v1/indexes/bamboost-tqx8ce",
-  api_key: "4q8kdpIidr7wY0F9uJnaVYSTX2yPLHBZ",
-});
+import { cn } from "@/lib/utils";
 
 const items = [
   {
@@ -46,14 +39,12 @@ const items = [
   },
 ];
 
-export default function CustomSearchDialog(props: SharedProps) {
+export default function DefaultSearchDialog(props: SharedProps) {
   const [tag, setTag] = useState<string | undefined>();
   const [open, setOpen] = useState(false);
   const { search, setSearch, query } = useDocsSearch({
-    type: "orama-cloud",
-    // @ts-expect-error
-    client,
-    tag,
+    type: "fetch",
+    tag: tag,
   });
 
   return (
@@ -109,13 +100,6 @@ export default function CustomSearchDialog(props: SharedProps) {
               })}
             </PopoverContent>
           </Popover>
-          <a
-            href="https://orama.com"
-            rel="noreferrer noopener"
-            className="text-xs text-nowrap text-fd-muted-foreground"
-          >
-            Powered by Orama
-          </a>
         </SearchDialogFooter>
       </SearchDialogContent>
     </SearchDialog>

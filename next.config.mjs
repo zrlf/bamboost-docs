@@ -12,7 +12,7 @@ const config = {
     config.resolve.alias["@/"] = "./";
     return config;
   },
-  output: "export",
+  // output: "export",
 };
 
 export default withMDX(config);
