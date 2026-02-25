@@ -8,6 +8,9 @@ const config = {
   images: {
     unoptimized: true,
   },
+  outputFileTracingIncludes: {
+    "/*": ["./lib/**/*.json"],
+  },
   webpack: (config) => {
     config.resolve.alias["@/"] = "./";
     return config;
