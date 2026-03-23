@@ -62,11 +62,15 @@ cannot be represented as HDF5 attributes (mainly numpy arrays) are
 automatically stored as datasets.
 
 ```{python}
+# we create a simulation we can use to link to
+coll.add("mesh_reference", override=True)
+
 with sim as run:
     run.parameters["mesh_cells"] = 256
     run.parameters.update({"dt": 5e-3, "nu": 1e-3})
     run.metadata["git_hash"] = "9a58e4c"
     run.links["baseline"] = "315628DE80:mesh_reference"
+
 ```
 
 Because the parameters and metadata groups live in the same file as the numerical data,
