@@ -26,24 +26,34 @@ Every simulation has:
 
 The bamboost interface for simulations is built around `h5py`.
 
-The file data structure is illustrated below.
+The `data.h5` file is organised into well-known groups:
 
-<div className='w-full h-60 bg-fd-secondary rounded-xl flex flex-col justify-center text-center'>
-Placeholder...
-</div>
+| Group / path | Contents |
+|---|---|
+| `/` (root) | Metadata attributes (`status`, `created_at`, `description`, …) |
+| `/params` | Input parameters (attributes + datasets) |
+| `/links` | References to other simulations |
+| `/mesh/<name>` | Mesh geometry (coordinates and topology) |
+| `/data` | Default time-series (fields and scalars) |
+| `/<series>` | Any additional named series |
+| `/.git/<repo>` | Optional git snapshot for reproducibility |
 
 ## Mutability
 
 By default, the hdf file is **immutable**. This means that no `bamboost` code will edit the file. However, the file itself is still mutable, so be careful when using pure `h5py`.
 
-To allow editing with `bamboost`, you must obtain a [SimulationWriter](/apidocs/simulation/base#SimulationWriter):
+To allow editing with `bamboost`, you must obtain a [SimulationWriter](/apidocs/core/simulation/base#SimulationWriter):
 ```python
-sim_editable = sim.edit()
+sim = coll["my-simulation"].edit()
+sim.parameters["Re"] = 1000
 ```
 
 
 
 <Cards>
+<Card href="/docs/simulation/setup">
+Setting up a simulation
+</Card>
 <Card href="/docs/simulation/writing">
 Writing data
 </Card>
@@ -51,3 +61,4 @@ Writing data
 Reading data
 </Card>
 </Cards>
+

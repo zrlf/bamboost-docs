@@ -1,0 +1,174 @@
+---
+title: CLI Reference
+icon: Terminal
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+
+`bamboost` ships a command-line interface (CLI) that covers day-to-day collection and
+index management without having to open Python.
+
+After installing the package the entry point is available as:
+
+```bash
+bamboost --help
+# or
+python -m bamboost.cli --help
+```
+
+---
+
+## Collections
+
+### `bamboost new <path>`
+
+Create a new collection at the given path.
+A unique identifier is automatically assigned and stored in a hidden file inside
+the directory.
+
+```bash
+bamboost new ./data/my-study
+bamboost new ./data/my-study --alias "kh-study" --description "KH instability sweep"
+```
+
+| Option | Short | Description |
+|---|---|---|
+| `--alias` | `-a` | Human-readable alias for tab-completion |
+| `--description` | `-d` | Optional free-text description |
+| `--tags` | `-t` | Comma-separated tags |
+
+---
+
+### `bamboost yank <uid>`
+
+Copy a collection UID to the system clipboard.
+Requires `config.options.clipboardCommand` to be configured (e.g. `wl-copy` on
+Wayland, `xclip -sel clip` on X11, `pbcopy` on macOS).
+
+```bash
+bamboost yank 315628DE80
+```
+
+---
+
+## Index management
+
+The `index` subgroup contains commands for inspecting and maintaining the SQLite index
+that caches collection and simulation metadata.
+
+```bash
+bamboost index --help
+```
+
+### `bamboost list [uid [name]]`
+
+List all collections cached in the index, or list the simulations inside a specific
+collection.
+
+```bash
+# List all collections
+bamboost list
+
+# List all simulations in collection 315628DE80
+bamboost list 315628DE80
+
+# Show details of a single simulation
+bamboost list 315628DE80 my-simulation
+
+# Sync the collection with the filesystem before listing
+bamboost list 315628DE80 --sync
+
+# Limit the number of displayed entries
+bamboost list 315628DE80 --entries 20
+```
+
+`ls` is accepted as an alias for `list`.
+
+### `bamboost scan`
+
+Walk all configured search paths and add any new collections to the index.
+Useful after copying a collection from another machine or after a first install.
+
+```bash
+bamboost scan
+```
+
+### `bamboost clean`
+
+Remove stale index entries whose corresponding directories no longer exist on disk.
+
+```bash
+bamboost clean
+```
+
+### `bamboost index drop <uid>`
+
+Remove a collection entry from the index by UID (or alias).
+This does **not** delete any files on disk.
+
+```bash
+bamboost index drop 315628DE80
+```
+
+---
+
+## Database migration
+
+### `bamboost migrate`
+
+Migrate the index database from the `0.10.x` schema to the current `0.11.x` schema.
+Run this once after upgrading from `0.10.x`.
+
+<Callout type="warn">
+Back up your database file before migrating. The default location is
+`~/.local/share/bamboost/bamboost.0.11.sqlite`.
+</Callout>
+
+```bash
+bamboost migrate
+```
+
+---
+
+## Aliases
+
+### `bamboost alias`
+
+Manage human-readable aliases for collection UIDs. Aliases can be used anywhere a UID
+is expected (e.g. `bamboost list my-alias`).
+
+```bash
+bamboost alias --help
+```
+
+---
+
+## Configuration
+
+### `bamboost config`
+
+Inspect and edit the active configuration.
+
+```bash
+bamboost config --help
+```
+
+---
+
+## Shell completion
+
+`bamboost` supports tab-completion for UIDs and simulation names in Bash, Zsh, and Fish.
+
+```bash
+# Bash
+bamboost --install-completion bash
+
+# Zsh
+bamboost --install-completion zsh
+
+# Fish
+bamboost --install-completion fish
+```
+
+After installation, restart your shell (or source the completion script) and UIDs will
+be offered as completions for commands that accept a UID argument.

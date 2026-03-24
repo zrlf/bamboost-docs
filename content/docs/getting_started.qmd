@@ -141,44 +141,77 @@ bamboost-cli Collection-ID Simulation-Name
 
 ### Postprocessing
 
-After your job has finished, it's time to mine the diamonds. Besides the workflow management described in this document, `bamboost` also provides a data model using a HDF5 file (see the docs on how to [write data using bamboost](writing)). Much of the postprocessing capabilities depend on using the bamboost hdf5 module, but some is also general.
+After your job has finished, `bamboost` provides rich tools for reading and analysing results.
 
 ::: callout-tip
-`bamboost` is optimized for interactive use in jupyter notebooks. It offers autocompletion for most of its objects, such as collections and simulation, but also objects and data that is part of your simulations.
+`bamboost` is optimized for interactive use in jupyter notebooks. It offers autocompletion for most of its objects, such as collections and simulations, but also objects and data that is part of your simulations.
 :::
 
 #### 1. Collection
 
-Initialize the collection as seen above, preferably using it's ID. [coll.df](/apidocs/core/collection#Collection.df) returns a pandas dataframe of the collection.
+Initialize the collection as seen above, preferably using its ID. [coll.df](/apidocs/core/collection#Collection.df) returns a pandas DataFrame of the collection.
 
 ```{python}
 coll = Collection.fromUID["315628DE80"]
 coll.df
 ```
 
-For now, you can use the dataframe to query simulations based on their parameters.
+Filter simulations based on parameters using the built-in filtering interface:
 
-:::{.callout-warning}
-The custom filtering interface is currently work in progress
-:::
+```python
+filtered = coll.filter(
+    coll.k["param1"] > 50,
+    coll.k["bar"] <= 4,
+)
+filtered.df
+```
+
+See the [Collection guide](/docs/collection#filtering) for full filtering syntax.
 
 #### 2. Simulation
 
-To get a [Simulation](/apidocs/core/simulation/base/Simulation) object, use brackets (it will autocomplete in notebooks).
+To get a [Simulation](/apidocs/core/simulation/base#Simulation) object, use brackets (it will autocomplete in notebooks).
 
 ```{python}
 sim = coll["my-simulation"]
 sim
 ```
 
-A few things the simulation object offers are:
+Key properties of a `Simulation` object:
 
-- `sim.files`: A file picker that returns the absolute path of files stored in this simulation
-- `sim.parameters`: The parameters
-- `sim.metadata`: some metadata
-- `sim.root`: Access to the root group inside `data.h5` (more on the `h5py` wrapper of `bamboost` will be written elsewhere).
-- `sim.data`: The main (time)-series of the simulation
-- much more
+| Property | Description |
+|---|---|
+| `sim.parameters` | Dictionary of input parameters |
+| `sim.metadata` | Metadata (description, status, created_at, …) |
+| `sim.status` | Current lifecycle status |
+| `sim.files` | File picker for files in the simulation directory |
+| `sim.data` | Default time-series at `/data` in `data.h5` |
+| `sim.root` | Root HDF5 group (`/`) in `data.h5` |
+| `sim.links` | Links to other simulations |
 
-To be continued...
+#### 3. Reading results
+
+The `sim.data` property returns the default [Series](/docs/hdf/series):
+
+```python
+sim.data.values          # array of time values
+sim.data.get_field_names()   # list of stored fields
+
+# Read a field across all steps
+pressure = sim.data["pressure"][:]    # shape: (n_steps, *field_shape)
+
+# Read global/scalar data as a DataFrame
+sim.data.globals.df
+```
+
+See [Writing data](/docs/simulation/writing) and [Reading data](/docs/simulation/reading) for complete guides.
+
+## Next steps
+
+- [Collection guide](/docs/collection) — filtering, parameter studies, and more
+- [Simulation setup](/docs/simulation/setup) — run scripts and HPC submission
+- [Writing data](/docs/simulation/writing) — storing results in `data.h5`
+- [Reading data](/docs/simulation/reading) — post-processing your results
+- [CLI reference](/docs/cli) — command-line tools for index management
+- [Configuration](/docs/configuration) — search paths, logging, and other options
 

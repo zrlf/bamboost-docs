@@ -1,3 +1,77 @@
 ---
 title: Meshes
 ---
+
+When your simulation is built on a spatial mesh (e.g. a finite-element or finite-volume
+mesh), you can store the mesh geometry inside `data.h5` using the mesh API.
+Meshes are kept in the `/mesh` group of the file and are referenced by name.
+
+## Adding a mesh
+
+Meshes are written via a [`SimulationWriter`](/apidocs/core/simulation/base#SimulationWriter).
+You need to supply the node coordinates and cell connectivity.
+
+```python
+import numpy as np
+from bamboost import Collection
+from bamboost.core.simulation.types import CellType
+
+coll = Collection(uid="315628DE80")
+sim = coll["my-simulation"].edit()
+
+nodes = np.array([[0, 0], [1, 0], [1, 1], [0, 1]], dtype=float)
+cells = np.array([[0, 1, 2], [0, 2, 3]], dtype=np.int64)
+
+sim.meshes.add(
+    nodes=nodes,
+    cells=cells,
+    name="fluid",           # optional; default is "default"
+    cell_type=CellType.TRIANGLE,
+)
+```
+
+## Reading a mesh
+
+```python
+sim = coll["my-simulation"]
+
+mesh = sim.meshes["fluid"]
+coords = mesh.coordinates    # np.ndarray, shape (n_nodes, n_dim)
+topo   = mesh.cells          # np.ndarray, shape (n_cells, n_nodes_per_cell)
+ctype  = mesh.cell_type      # str, e.g. "triangle"
+```
+
+## Cell types
+
+Cell types are defined by the [`CellType`](/apidocs/core/simulation/types) enum and follow
+XDMF / ParaView conventions.
+Common values include `TRIANGLE`, `QUAD`, `TETRA`, `HEX`, `WEDGE`.
+
+The cell type is stored as an attribute on the topology dataset and is used when exporting
+to XDMF for visualisation in ParaView.
+
+## Multiple meshes
+
+You can store as many meshes as you need under different names.
+Series field data can reference a mesh by name (see [`add_field`](/docs/hdf/series)).
+
+```python
+sim = coll["my-simulation"].edit()
+sim.meshes.add(nodes=nodes_fluid, cells=cells_fluid, name="fluid")
+sim.meshes.add(nodes=nodes_solid, cells=cells_solid, name="solid",
+               cell_type=CellType.TETRA)
+```
+
+## XDMF export
+
+Once meshes and field data are stored, you can export a standard XDMF file for use in
+ParaView or other post-processors.
+
+```python
+sim = coll["my-simulation"].edit()
+sim.write_xdmf()
+```
+
+This creates a `data.xdmf` file next to `data.h5` that links the mesh topology with
+the series field data.
+

@@ -1,3 +1,75 @@
 ---
 title: Extensions
 ---
+
+`bamboost` has a lightweight **plugin** system that allows third-party packages to
+replace core components with specialised subclasses — without monkey-patching.
+
+::: {.callout-note}
+The plugin API is intentionally minimal and aimed at package authors who want to ship
+solver-specific writers (e.g. a FEniCS writer) that integrate seamlessly with the
+`bamboost` data model.
+:::
+
+## Concepts
+
+| Term | Description |
+|---|---|
+| `ElligibleForPlugin` | Base class for components that can be replaced by a plugin |
+| `PluginComponent` | Base class for a replacement component inside a plugin |
+| `Plugin` | Container that groups one or more `PluginComponent` subclasses |
+
+The main targets for replacement are `Collection` and `Simulation` / `SimulationWriter`.
+
+## Writing a plugin
+
+```python
+from bamboost.plugins import Plugin, PluginComponent
+from bamboost.core.collection import Collection
+from bamboost.core.simulation.base import SimulationWriter
+
+class MyPlugin(Plugin):
+    class MyCollection(Collection, PluginComponent, replace_base=True):
+        """A specialised Collection with extra methods."""
+
+        def my_extra_method(self):
+            ...
+
+    class MyWriter(SimulationWriter, PluginComponent, replace_base=True):
+        """A specialised writer, e.g. for a specific solver."""
+
+        def write_solver_output(self, output_file):
+            ...
+```
+
+Any class that inherits from `ElligibleForPlugin` and is constructed **after** the plugin
+is loaded will silently use the plugin's replacement class instead.
+
+## Loading a plugin
+
+```python
+import bamboost.plugins as plugins
+from my_package import MyPlugin
+
+plugins.load(MyPlugin(opts={}))
+```
+
+Call `plugins.load(...)` once at program start, before any `Collection` or `Simulation`
+objects are created.
+
+## Unloading plugins
+
+```python
+plugins.unload()   # removes all active plugins
+```
+
+## Available third-party plugins
+
+| Package | Description |
+|---|---|
+| *(none yet)* | — |
+
+If you have published a `bamboost` plugin, open an issue or pull request on the
+[bamboost repository](https://github.com/smec-ethz/bamboost) to be listed here.
+
+

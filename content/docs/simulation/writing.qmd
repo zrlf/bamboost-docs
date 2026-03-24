@@ -4,6 +4,21 @@ html-table-processing: none
 jupyter: python3
 ---
 
+```{python}
+# | echo: false
+from bamboost import Collection, SimulationWriter
+import numpy as np
+from bamboost.core.simulation.series import FieldType
+
+coll = Collection(uid="315628DE80")
+sim = coll.add(
+    name="kelvin-helmholtz",
+    parameters={"Re": 1000, "dt": 5e-3},
+    override=True,
+)
+coll.add("mesh_reference", override=True)
+```
+
 `bamboost` stores most simulation data inside a single `data.h5` file and exposes a
 high-level wrapper around `h5py`. This page shows how to obtain a writable simulation,
 update its metadata, and append actual results using [Series](/docs/hdf/series/).
@@ -22,37 +37,31 @@ with a [`SimulationWriter`](/apidocs/core/simulation/base#SimulationWriter). The
 three common entry points:
 
 ```{python}
+#| eval: false
 from bamboost import Collection, SimulationWriter
 
 coll = Collection(uid="315628DE80")
 
 # 1) Creating a brand new simulation returns a SimulationWriter immediately
-new_sim = coll.add(
+sim = coll.add(
     name="kelvin-helmholtz",
     parameters={"Re": 1000, "dt": 5e-3},
     override=True,
 )
 
-# 2) Convert an existing simulation to a writer
+# 2) Convert an existing read-only simulation to a writer
 sim = coll["kelvin-helmholtz"].edit()
-```
 
-```{python}
-#| eval: false
 # 3) Inside a run script use the exported SIMULATION_ID to reopen the simulation
 import os
 sim = SimulationWriter.from_uid(os.environ["SIMULATION_ID"])
 ```
 
-`SimulationWriter` implements the context manager protocol. Entering the context marks
-the simulation status as `STARTED`, and leaving it without an exception switches the
-status to `FINISHED`. Use it to ensure the metadata reflects the execution outcome.
-
-```{python}
-with sim as run:
-    run.metadata["description"] = "2D benchmark"
-    ...
-```
+::: {.callout-tip}
+`SimulationWriter` also supports Python's context manager protocol, which automatically
+sets the simulation status to `STARTED` on entry and `FINISHED` (or `FAILED`) on exit.
+This is especially useful in real execution scripts to ensure status is always up to date.
+:::
 
 ## 2. Update metadata, parameters, and links
 
@@ -62,15 +71,10 @@ cannot be represented as HDF5 attributes (mainly numpy arrays) are
 automatically stored as datasets.
 
 ```{python}
-# we create a simulation we can use to link to
-coll.add("mesh_reference", override=True)
-
-with sim as run:
-    run.parameters["mesh_cells"] = 256
-    run.parameters.update({"dt": 5e-3, "nu": 1e-3})
-    run.metadata["git_hash"] = "9a58e4c"
-    run.links["baseline"] = "315628DE80:mesh_reference"
-
+sim.parameters["mesh_cells"] = 256
+sim.parameters.update({"dt": 5e-3, "nu": 1e-3})
+sim.metadata["git_hash"] = "9a58e4c"
+sim.links["baseline"] = "315628DE80:mesh_reference"
 ```
 
 Because the parameters and metadata groups live in the same file as the numerical data,
@@ -89,23 +93,19 @@ More guidance is available in the [Series User Guide](/docs/hdf/series/).
 :::
 
 ```{python}
-import numpy as np
-from bamboost.core.simulation.series import FieldType
-
 times = np.linspace(0, 1, 11)
 
-with sim as run:
-    for step_id, t in enumerate(times):
-        # Create/appends a step and stores the time value
-        step = run.data.require_step(value=float(t), step=step_id)
+for step_id, t in enumerate(times):
+    # Create/appends a step and stores the time value
+    step = sim.data.require_step(value=float(t), step=step_id)
 
-        # Field data → one dataset per step (named after the step number)
-        velocity = np.random.rand(32, 32, 2)
-        pressure = np.random.rand(32, 32)
-        step.add_field("pressure", pressure)
-        step.add_field("velocity", velocity, field_type=FieldType.NODE)
-        # Use add_fields/add_scalars to batch multiple writes per MPI rank
-        step.add_scalars({"energy": float(np.square(velocity).sum()), "mass": pressure.sum()})
+    # Field data → one dataset per step (named after the step number)
+    velocity = np.random.rand(32, 32, 2)
+    pressure = np.random.rand(32, 32)
+    step.add_field("pressure", pressure)
+    step.add_field("velocity", velocity, field_type=FieldType.NODE)
+    # Use add_fields/add_scalars to batch multiple writes per MPI rank
+    step.add_scalars({"energy": float(np.square(velocity).sum()), "mass": pressure.sum()})
 ```
 
 - `value` stores the time (or another monotonically increasing coordinate) in the hidden
@@ -122,11 +122,8 @@ Besides the default `sim.data`, you can create additional series to organize you
 
 ```{python}
 dynamic_loading = sim.require_series("dynamic_loading")
-
-with sim as run:
-    step = dynamic_loading.require_step(value=0.5)
-    step.add_scalar("energy", 1.37)
-    ...
+step = dynamic_loading.require_step(value=0.5)
+step.add_scalar("energy", 1.37)
 ```
 
 ## 4. Custom HDF5 content

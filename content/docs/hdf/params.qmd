@@ -2,4 +2,73 @@
 title: Parameters
 ---
 
-...
+Every simulation stores its input parameters inside the `parameters` group of `data.h5`.
+The `Parameters` object behaves like a Python dictionary, but transparently reads from and
+writes to the HDF5 file.
+
+## Reading parameters
+
+Access `sim.parameters` on any `Simulation` object to get a dictionary-like view of all
+stored parameters.
+
+```python
+from bamboost import Collection
+
+coll = Collection(uid="315628DE80")
+sim = coll["my-simulation"]
+
+# Dictionary-style access
+Re = sim.parameters["Re"]
+dt = sim.parameters["dt"]
+
+# Nested access with dot notation
+radius = sim.parameters["body.radius"]
+
+# Iterate over all parameters
+for key, value in sim.parameters.items():
+    print(key, value)
+```
+
+## Writing parameters
+
+Parameters can only be written via a [`SimulationWriter`](/apidocs/core/simulation/base#SimulationWriter).
+
+```python
+sim = coll["my-simulation"].edit()
+sim.parameters["Re"] = 1000
+sim.parameters["dt"] = 5e-3
+
+# Update multiple at once
+sim.parameters.update({"nu": 1e-3, "body": {"E": 1e6, "radius": 0.5}})
+```
+
+`numpy` arrays are stored as HDF5 datasets inside the `parameters` group.
+All other types (scalars, strings, lists) are stored as HDF5 attributes.
+
+::: {.callout-tip}
+Nested dictionaries are supported and are **flattened with dots** when read back.
+For example, `{"body": {"E": 1e6}}` creates the key `"body.E"`.
+Avoid using dots in top-level parameter names to prevent ambiguity.
+:::
+
+## Parameters in the collection DataFrame
+
+When querying the collection with `coll.df`, every parameter key becomes a column.
+Nested parameters appear as flattened dot-separated column names (`body.E`, `body.radius`).
+
+```python
+coll.df[["name", "Re", "dt", "body.E"]]
+```
+
+## Parameters as collection filter keys
+
+Use `coll.k["param_name"]` to build filter expressions for `coll.filter(...)`.
+
+```python
+filtered = coll.filter(
+    coll.k["Re"] >= 500,
+    coll.k["body.radius"] < 1.0,
+)
+```
+
+See [Collection](/docs/collection#filtering) for more details on filtering.

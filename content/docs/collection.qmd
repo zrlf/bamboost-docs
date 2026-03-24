@@ -31,7 +31,7 @@ The remaining (relevant) arguments of `Collection` are:
   Note that you can only specify **either** a path or an uid, and NOT both.
   :::
 
-- **create_if_not_exist**: Default is `False`. Use `True` to raise an error if the collection does not exist.
+- **create_if_not_exist**: Default is `True`. When `True`, a new collection is created at the given path if it does not already exist. When `False`, an error is raised if the path does not correspond to an existing collection.
 - **sync_collection**: Default is `True`. The collection data, $i.e.$ the metadata and parameters of it's simulations is loaded from the sql database (caching system) for performance reasons, avoiding going through the individual files, reading the necessary information.
   If `True`, the actuality of the cache is validated before returning the collection. Turning this off is only useful if you work on a slow filesystem ($e.g.$ the work drive of ETH's Euler) or you're collection is enormously large and you are certain that the cache is already up to date.
 

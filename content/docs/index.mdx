@@ -87,11 +87,12 @@ The `core` functionality of `bamboost` can be split into two parts:
 - Structured file-based data model with a database-like experience
 - A python hdf5 interface to easily store and retrieve data of simulations
 
-Addtionally, we strive to offer the following:
+Additionally, `bamboost` offers the following:
 - Manage simulation workflow, i.e. the creation and submission of simulations on HPC clusters
-- A user interface (TUI) to view (and manage) all your data.
-- Extensibility, e.g. software specific writers (e.g. FEniCS)
-- ...
+- MPI-parallel writes for large-scale simulations
+- A [command-line interface](/docs/cli) for index and collection management
+- A [Terminal User Interface (TUI)](https://github.com/zrlf/bamboost-tui) to browse your data
+- Extensibility via the [plugin system](/docs/extensions), e.g. solver-specific writers
 
 
 ## Installation
@@ -110,7 +111,7 @@ pip install git+https://github.com/smec-ethz/bamboost.git
 
 To install the latest version of the <a href="https://github.com/zrlf/bamboost-tui">bamboost TUI</a>
 ```bash
-pip install git+git@github.com/zrlf/bamboost-tui
+pip install git+https://github.com/zrlf/bamboost-tui
 ```
 
 ### Dependencies
@@ -118,21 +119,24 @@ pip install git+git@github.com/zrlf/bamboost-tui
 #### System dependencies
 - HDF5 (optionally compiled with MPI)
 - (optional) an MPI implementation
-- SQLite (probably part of any os nowadays)
+- SQLite (bundled with Python on all major platforms)
 
 #### Python environment
-> `python > 3.10`
+> `python >= 3.10`
 
 - `h5py`
 - `sqlalchemy`
 - `rich`
-- (optional) `mpi4py` and `h5py` compiled against an mpi capable version of libhdf5
+- (optional) `mpi4py` and `h5py` compiled against a parallel-HDF5-enabled `libhdf5`
 
 
 ## Next Steps
 
 - Read the [Getting Started](/docs/getting_started) guide.
-- Learn about [Managing Collections](/docs/collections).
-- Explore [Simulation Handling](/docs/simulations).
+- Learn about [Managing Collections](/docs/collection).
+- Explore [Simulation Handling](/docs/simulation).
 - Understand the HDF5 data model: [File Handler](/docs/hdf/file_handler),
   [Objects](/docs/hdf/objects), and [Series](/docs/hdf/series).
+- Use the [CLI](/docs/cli) for index management from the terminal.
+- Set up [Configuration](/docs/configuration) for your project.
+

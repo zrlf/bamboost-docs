@@ -1,5 +1,72 @@
 ---
-title: Other data
+title: Other Data
 ---
 
+Beyond [parameters](/docs/hdf/params), [metadata](/docs/hdf/metadata),
+[series](/docs/hdf/series), and [meshes](/docs/hdf/meshes), you can store any arbitrary
+data directly in the HDF5 hierarchy using the generic [Group and Dataset](/docs/hdf/objects)
+API exposed through `sim.root`.
 
+## Storing custom groups and datasets
+
+`sim.root` is a [`Group`](/apidocs/core/hdf5/ref#Group) pointing at `/` inside `data.h5`.
+Navigate and create sub-groups exactly as you would with `h5py`, but through the
+`bamboost` wrappers that handle lazy file access and MPI safely.
+
+```python
+import numpy as np
+
+sim = coll["my-simulation"].edit()
+
+# Create a group (idempotent, like h5py.require_group)
+stats = sim.root.require_group("statistics")
+
+# Store an attribute on the group
+stats.attrs["final_residual"] = 3.2e-6
+
+# Store a numpy array as a dataset
+stats["residual_history"] = np.array([1e-1, 5e-2, 1e-2, 5e-3, 1e-3])
+
+# Nest groups as deeply as you need
+checkpoints = stats.require_group("checkpoints")
+checkpoints["iterations"] = np.array([10, 20, 30], dtype=np.int64)
+```
+
+## Reading custom data back
+
+```python
+sim = coll["my-simulation"]
+
+stats = sim.root["statistics"]
+
+# Read an attribute
+residual = stats.attrs["final_residual"]
+
+# Read a dataset (lazy reference—slice to load into memory)
+history = stats["residual_history"][:]
+
+# Read a nested dataset
+iters = sim.root["statistics/checkpoints/iterations"][:]
+```
+
+## Git snapshot
+
+`bamboost` includes a built-in helper to record the current state of a git repository
+alongside the simulation data. This is useful for full reproducibility.
+
+```python
+sim = coll["my-simulation"].edit()
+sim.git.add("my_solver", repo_path="/path/to/solver")
+```
+
+This stores the remote origin URL, the current commit hash, the active branch, and
+a `git diff HEAD` patch in the `.git` group inside `data.h5`.
+
+```python
+# Read back git information
+git_item = sim.git["my_solver"]
+print(git_item.commit)   # e.g. "a3b1f29..."
+print(git_item.branch)   # e.g. "main"
+print(git_item.origin)   # e.g. "https://github.com/..."
+print(git_item.patch)    # the diff as a string
+```
