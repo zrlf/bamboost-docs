@@ -1,0 +1,115 @@
+---
+title: MPI Support
+icon: Cpu
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+
+`bamboost` supports running simulation scripts in parallel using MPI via
+[`mpi4py`](https://mpi4py.readthedocs.io/).
+The MPI layer is fully transparent — the same Python code works both with and without MPI.
+
+## How MPI detection works
+
+`bamboost` uses automatic detection to decide whether to activate MPI support.
+On startup, it checks:
+
+1. Whether `config.options.mpi` is `True` (default: auto-detected based on `mpi4py` being installed).
+2. Whether the environment variable `BAMBOOST_MPI` is not set to `"0"`.
+3. Whether any of the standard MPI launcher environment variables are set
+   (`OMPI_COMM_WORLD_SIZE`, `PMI_SIZE`, `SLURM_PROCID`, etc.).
+
+If all three checks pass, the real `mpi4py.MPI` module is used.
+Otherwise, a lightweight mock MPI implementation is used, so that single-process code
+requires no changes.
+
+<Callout>
+The mock communicator has `rank == 0` and `size == 1`, which means
+all rank-checks and barriers are satisfied transparently when running without MPI.
+</Callout>
+
+## Prerequisites
+
+To use `bamboost` with MPI you need:
+
+- A working MPI installation (Open MPI, MPICH, Intel MPI, etc.)
+- `mpi4py` (`pip install mpi4py`)
+- `h5py` compiled with **Parallel HDF5** support
+
+Check whether your `h5py` supports MPI:
+
+```python
+import h5py
+print(h5py.get_config().mpi)  # True if compiled with MPI
+```
+
+Many Linux distributions provide a parallel HDF5 package.
+Alternatively, follow the [h5py MPI build guide](https://docs.h5py.org/en/stable/mpi.html).
+
+## Writing MPI-aware simulation scripts
+
+No special code is needed for read-only access.
+For writing, `bamboost` serialises operations that must run only on rank 0
+(attribute writes, metadata updates) through a **single-process queue**, while
+datasets can be written from all ranks using the `mpio` file driver.
+
+```python
+import os
+import numpy as np
+from bamboost import SimulationWriter
+
+with SimulationWriter.from_uid(os.environ["SIMULATION_ID"]) as sim:
+    # Metadata writes are queued and executed on rank 0 only
+    sim.metadata["description"] = "MPI run"
+
+    for n, t in enumerate(solver.times()):
+        state = solver.step(state)
+        step = sim.data.require_step(value=t, step=n)
+
+        # field data is written in parallel — each rank contributes its
+        # local portion; bamboost concatenates along the first axis
+        step.add_field("phi", state.local_phi)
+        step.add_scalar("energy", state.energy)   # only rank 0 writes
+```
+
+## Launching with MPI
+
+Use your MPI launcher to start the run script:
+
+```bash
+mpirun -n 4 python run_script.py
+# or via SLURM
+srun --ntasks=4 python run_script.py
+```
+
+The `create_run_script` / `SimulationWriter.submit` helpers automatically forward the
+correct `SIMULATION_ID` environment variable to the launched process.
+
+## Disabling MPI
+
+To force single-process mode even when `mpi4py` is installed:
+
+```toml title="bamboost.toml"
+[options]
+mpi = false
+```
+
+Or at runtime via an environment variable:
+
+```bash
+BAMBOOST_MPI=0 python script.py
+```
+
+## Communicator API
+
+All `bamboost` classes that perform I/O accept an optional `comm` argument.
+When omitted the global communicator (`MPI.COMM_WORLD`) is used.
+You can pass a sub-communicator to isolate parallel operations:
+
+```python
+from bamboost import Collection
+from mpi4py import MPI
+
+sub_comm = MPI.COMM_WORLD.Split(color=MPI.COMM_WORLD.rank % 2)
+coll = Collection(uid="315628DE80", comm=sub_comm)
+```

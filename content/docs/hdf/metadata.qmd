@@ -2,4 +2,92 @@
 title: Metadata
 ---
 
-...
+Every simulation carries a `metadata` dictionary stored as attributes on the **root group**
+of `data.h5` (i.e. `/`). Metadata holds information _about_ the simulation rather than
+the simulation results themselves.
+
+## Reserved metadata keys
+
+`bamboost` reads and writes a small set of well-known keys automatically.
+
+| Key | Type | Description |
+|---|---|---|
+| `status` | `str` | Lifecycle status (see [`Status`](/apidocs/core/simulation/base#Status)) |
+| `created_at` | `datetime` | Timestamp when the simulation was created |
+| `description` | `str` | Free-text description of the simulation |
+| `submitted` | `bool` | Whether the run script has been submitted |
+| `tags` | `list[str]` | Optional list of tags |
+
+## Reading metadata
+
+```python
+from bamboost import Collection
+
+coll = Collection(uid="315628DE80")
+sim = coll["my-simulation"]
+
+# Individual keys
+desc = sim.metadata["description"]
+status = sim.status        # returns StatusInfo object
+ts = sim.created_at        # datetime object
+
+# Iterate over everything stored
+for key, value in sim.metadata.items():
+    print(key, value)
+```
+
+## Writing metadata
+
+Metadata is only writable through a [`SimulationWriter`](/apidocs/core/simulation/base#SimulationWriter).
+Any key is valid; only the reserved keys listed above receive special treatment.
+
+```python
+with sim.edit() as writer:
+    writer.metadata["description"] = "2-D Kelvin–Helmholtz instability benchmark"
+    writer.metadata["git_hash"] = "9a58e4c"
+    writer.metadata["solver_version"] = "2.7.0"
+
+    # Batch update
+    writer.metadata.update({"author": "jdoe", "notes": "quick sanity check"})
+```
+
+::: {.callout-tip}
+When you use `SimulationWriter` as a context manager, the `status` field is automatically
+set to `"started"` on entry and to `"finished"` on clean exit (or `"failed"` if an
+exception propagates).
+:::
+
+## Simulation status
+
+The `status` field encodes the current lifecycle state of a simulation run.
+Use [`sim.status`](/apidocs/core/simulation/base#_Simulation.status) to retrieve a
+`StatusInfo` object.
+
+```python
+from bamboost.core.simulation.base import Status
+
+if sim.status.status == Status.FINISHED:
+    print("Results are ready.")
+elif sim.status.status == Status.FAILED:
+    print(f"Run failed: {sim.status.message}")
+```
+
+Possible status values: `initialized`, `started`, `finished`, `failed`, `unknown`.
+
+## Links
+
+Links are references from one simulation to another simulation (potentially in a different
+collection). They are stored alongside parameters and metadata in `data.h5`.
+
+```python
+# Reading a linked simulation
+mesh_sim = sim.links["mesh"]   # returns a Simulation object
+
+# Writing links (requires SimulationWriter)
+with sim.edit() as writer:
+    writer.links["mesh"] = "MESH1234:fine-mesh"
+    writer.links.update({"baseline": "BASE5678:reference"})
+```
+
+Links are validated against the index when `config.index.strictLinks` is `True`
+(the default). Set it to `False` to allow dangling link references.

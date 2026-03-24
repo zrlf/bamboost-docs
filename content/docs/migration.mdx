@@ -6,35 +6,117 @@ icon: GitBranch
 import { Callout } from "fumadocs-ui/components/callout";
 import { Steps, Step } from "fumadocs-ui/components/steps";
 
-This highlights the differences if you have used the alpha versions of
-`bamboost` and are now migrating to the new versions.
-
 <Callout type="warn">
 
-The new version of bamboost is incompatible with the alpha versions, and
-therefore decoupled. Data collected using the alpha versions will not be
-picked up and <span className="underline">you will have to use the old versions to manage your old data </span>
+Starting from version **0.10.0**, `bamboost` breaks compatibility with all previous
+(alpha) versions. Data collected with the alpha versions is **not** picked up by the new
+code and you will need to use the old versions to manage that data.
 
 </Callout>
 
 <Callout type="info">
-  The new and old versions do not interfere and can be used side by side.
+The new and old versions do not interfere and can be installed and used side by side.
 </Callout>
 
-## Changes
+---
+
+## Migrating from 0.10.x to 0.11.x
+
+Version **0.11** changes the index database schema and file name.
+The old database (`bamboost-next.sqlite`) is **not** read by `0.11.x`.
+A one-time migration copies your existing index into the new schema.
+
+<Steps>
+
+<Step>
+
+### Upgrade the package
+
+```bash
+pip install --upgrade bamboost
+# or
+uv add bamboost
+```
+
+</Step>
+
+<Step>
+
+### Run the migration command
+
+```bash
+bamboost migrate
+```
+
+This reads `~/.local/share/bamboost/bamboost-next.sqlite` (the `0.10.x` database) and
+copies all collections, simulations, and parameters into the new
+`~/.local/share/bamboost/bamboost.0.11.sqlite` file.
+
+If the old file is not found, the command exits with a clear message and nothing is
+changed.
+
+</Step>
+
+<Step>
+
+### Verify the result
+
+```bash
+bamboost list
+```
+
+All your previously indexed collections should appear. If any collections are missing,
+re-run the scanner:
+
+```bash
+bamboost scan
+```
+
+</Step>
+
+</Steps>
+
+---
+
+## Changes from alpha to 0.10.x
 
 ### 1. Notation
 
-### 2. Writing Data
+Simulation UIDs now use the format `<collection_uid>:<simulation_name>`.
 
-### 3. Accessing Data
+Previously the separator was `/`; update any hardcoded strings in your analysis code.
 
+### 2. Writing data
 
-<Steps>
-<Step>
-yoo
-</Step>
-<Step>
-oijjjoi
-</Step>
-</Steps>
+The writer pattern changed significantly. Use `SimulationWriter` (obtained via
+`coll.add(...)` or `sim.edit()`) to write data.
+
+```python
+# Old (alpha)
+sim.write("field", data)
+
+# New (0.10+)
+with sim.edit() as writer:
+    step = writer.data.require_step(value=t)
+    step.add_field("field", data)
+```
+
+### 3. Accessing data
+
+Series data is now accessed through `sim.data` (a `Series` object) instead of direct
+group traversal.
+
+```python
+# Old
+sim.root["data"]["field"][5][:]
+
+# New
+sim.data["field"][5]
+```
+
+### 4. Collection identifier files
+
+Collections are now identified by a YAML file named `.bamboost-collection-<UID>` instead
+of the old marker format. Existing collections will be picked up correctly as long as
+you run `bamboost scan` after upgrading.
+
