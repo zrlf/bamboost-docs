@@ -16,7 +16,7 @@ sim = coll.add(
     parameters={"Re": 1000, "dt": 5e-3},
     override=True,
 )
-coll.add("mesh_reference", override=True);
+Collection(uid="315628DE80").add("mesh_reference", override=True);
 ```
 
 `bamboost` stores most simulation data inside a single `data.h5` file and exposes a
