@@ -10,7 +10,7 @@ from bamboost import Collection, SimulationWriter
 import numpy as np
 from bamboost.core.simulation.series import FieldType
 
-coll = Collection("data")
+coll = Collection(uid="315628DE80")
 sim = coll.add(
     name="kelvin-helmholtz",
     parameters={"Re": 1000, "dt": 5e-3},
