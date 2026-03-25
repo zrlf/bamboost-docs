@@ -17,17 +17,17 @@ from bamboost import Collection
 from bamboost.core.simulation.types import CellType
 
 coll = Collection(uid="315628DE80")
+sim = coll["my-simulation"].edit()
 
-with coll["my-simulation"].edit() as sim:
-    nodes = np.array([[0, 0], [1, 0], [1, 1], [0, 1]], dtype=float)
-    cells = np.array([[0, 1, 2], [0, 2, 3]], dtype=np.int64)
+nodes = np.array([[0, 0], [1, 0], [1, 1], [0, 1]], dtype=float)
+cells = np.array([[0, 1, 2], [0, 2, 3]], dtype=np.int64)
 
-    sim.meshes.add(
-        nodes=nodes,
-        cells=cells,
-        name="fluid",           # optional; default is "default"
-        cell_type=CellType.TRIANGLE,
-    )
+sim.meshes.add(
+    nodes=nodes,
+    cells=cells,
+    name="fluid",           # optional; default is "default"
+    cell_type=CellType.TRIANGLE,
+)
 ```
 
 ## Reading a mesh
@@ -56,10 +56,10 @@ You can store as many meshes as you need under different names.
 Series field data can reference a mesh by name (see [`add_field`](/docs/hdf/series)).
 
 ```python
-with sim.edit() as writer:
-    writer.meshes.add(nodes=nodes_fluid, cells=cells_fluid, name="fluid")
-    writer.meshes.add(nodes=nodes_solid, cells=cells_solid, name="solid",
-                      cell_type=CellType.TETRA)
+sim = coll["my-simulation"].edit()
+sim.meshes.add(nodes=nodes_fluid, cells=cells_fluid, name="fluid")
+sim.meshes.add(nodes=nodes_solid, cells=cells_solid, name="solid",
+               cell_type=CellType.TETRA)
 ```
 
 ## XDMF export
@@ -68,8 +68,8 @@ Once meshes and field data are stored, you can export a standard XDMF file for u
 ParaView or other post-processors.
 
 ```python
-with sim.edit() as writer:
-    writer.write_xdmf()
+sim = coll["my-simulation"].edit()
+sim.write_xdmf()
 ```
 
 This creates a `data.xdmf` file next to `data.h5` that links the mesh topology with

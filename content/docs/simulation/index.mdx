@@ -44,14 +44,9 @@ By default, the hdf file is **immutable**. This means that no `bamboost` code wi
 
 To allow editing with `bamboost`, you must obtain a [SimulationWriter](/apidocs/core/simulation/base#SimulationWriter):
 ```python
-sim_editable = sim.edit()
-# or as a context manager (recommended):
-with sim.edit() as writer:
-    writer.parameters["Re"] = 1000
+sim = coll["my-simulation"].edit()
+sim.parameters["Re"] = 1000
 ```
-
-Using the context manager is recommended: on entry, the simulation status is set to
-`started`; on clean exit it is set to `finished`; on exception, it is set to `failed`.
 
 
 

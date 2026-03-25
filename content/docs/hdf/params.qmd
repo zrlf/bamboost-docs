@@ -34,12 +34,12 @@ for key, value in sim.parameters.items():
 Parameters can only be written via a [`SimulationWriter`](/apidocs/core/simulation/base#SimulationWriter).
 
 ```python
-with sim.edit() as writer:
-    writer.parameters["Re"] = 1000
-    writer.parameters["dt"] = 5e-3
+sim = coll["my-simulation"].edit()
+sim.parameters["Re"] = 1000
+sim.parameters["dt"] = 5e-3
 
-    # Update multiple at once
-    writer.parameters.update({"nu": 1e-3, "body": {"E": 1e6, "radius": 0.5}})
+# Update multiple at once
+sim.parameters.update({"nu": 1e-3, "body": {"E": 1e6, "radius": 0.5}})
 ```
 
 `numpy` arrays are stored as HDF5 datasets inside the `parameters` group.

@@ -96,9 +96,9 @@ The writer pattern changed significantly. Use `SimulationWriter` (obtained via
 sim.write("field", data)
 
 # New (0.10+)
-with sim.edit() as writer:
-    step = writer.data.require_step(value=t)
-    step.add_field("field", data)
+sim = coll.add(name="my-sim", parameters={"Re": 1000})
+step = sim.data.require_step(value=t)
+step.add_field("field", data)
 ```
 
 ### 3. Accessing data

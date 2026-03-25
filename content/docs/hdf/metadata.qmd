@@ -42,13 +42,13 @@ Metadata is only writable through a [`SimulationWriter`](/apidocs/core/simulatio
 Any key is valid; only the reserved keys listed above receive special treatment.
 
 ```python
-with sim.edit() as writer:
-    writer.metadata["description"] = "2-D Kelvin–Helmholtz instability benchmark"
-    writer.metadata["git_hash"] = "9a58e4c"
-    writer.metadata["solver_version"] = "2.7.0"
+sim = coll["my-simulation"].edit()
+sim.metadata["description"] = "2-D Kelvin–Helmholtz instability benchmark"
+sim.metadata["git_hash"] = "9a58e4c"
+sim.metadata["solver_version"] = "2.7.0"
 
-    # Batch update
-    writer.metadata.update({"author": "jdoe", "notes": "quick sanity check"})
+# Batch update
+sim.metadata.update({"author": "jdoe", "notes": "quick sanity check"})
 ```
 
 ::: {.callout-tip}
@@ -84,9 +84,9 @@ collection). They are stored alongside parameters and metadata in `data.h5`.
 mesh_sim = sim.links["mesh"]   # returns a Simulation object
 
 # Writing links (requires SimulationWriter)
-with sim.edit() as writer:
-    writer.links["mesh"] = "MESH1234:fine-mesh"
-    writer.links.update({"baseline": "BASE5678:reference"})
+sim = coll["my-simulation"].edit()
+sim.links["mesh"] = "MESH1234:fine-mesh"
+sim.links.update({"baseline": "BASE5678:reference"})
 ```
 
 Links are validated against the index when `config.index.strictLinks` is `True`
