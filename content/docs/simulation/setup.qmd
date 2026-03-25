@@ -3,13 +3,6 @@ title: Setup
 html-table-processing: none
 ---
 
-```{python}
-# | echo: false
-from bamboost import Collection
-
-coll = Collection(uid="315628DE80")
-```
-
 ::: {.callout-tip}
 This document describes the creation and setup of simulations.
 This can be done in notebooks, or in setup scripts.
@@ -34,7 +27,7 @@ You have the intention of running a certain experiment with a specific set of in
 
 To create a new simulation, use [add](/apidocs/core/collection#Collection.add):
 
-```{python}
+```python
 sim = coll.add(
     name="my-simulation",
     parameters={
@@ -53,7 +46,7 @@ Then, copy relevant files (or entire directories) into the simulation directory.
 `add` includes a `files` argument to directly copy a list of files or directories.
 :::
 
-```{python}
+```python
 sim.copy_files(["path/to/script.py", "img1.png", "path/to/some/directory"])
 ```
 
@@ -67,7 +60,7 @@ As a next step we can create a run script for the simulation. This is an auto-ge
 - `euler`: a boolean flag. If set to true, then a slurm submission script is written instead of a pure bash script.
 - `sbatch_kwargs`: a dictionary of slurm job arguments.
 
-```{python}
+```python
 sim.create_run_script(
     commands=["source .venv/bin/activate", "python3 script.py"], euler=False
 )
@@ -99,10 +92,10 @@ If you use the bamboost methods to submit your job, and you have previously crea
 You can also submit the simulation like this directly after you create it.
 :::
 
-```{.python filename="Submit simulation from python"}
-sim.submit_simulation()
-```
+```python {filename="Submit simulation from python"}
+# running the script directly
+sim.run_simulation()
 
-```{.bash filename="Submit simulation using CLI"}
-bamboost-cli Collection-ID Simulation-Name
+# submitting the simulation on SLURM (call with `sbatch`)
+sim.submit_simulation()
 ```

@@ -9,6 +9,10 @@ import { Callout } from "fumadocs-ui/components/callout";
 [`mpi4py`](https://mpi4py.readthedocs.io/).
 The MPI layer is fully transparent — the same Python code works both with and without MPI.
 
+<Callout type="warn">
+  The MPI layer is subject to change as we gain more experience with it.
+</Callout>
+
 ## How MPI detection works
 
 `bamboost` uses automatic detection to decide whether to activate MPI support.
@@ -98,18 +102,4 @@ Or at runtime via an environment variable:
 
 ```bash
 BAMBOOST_MPI=0 python script.py
-```
-
-## Communicator API
-
-All `bamboost` classes that perform I/O accept an optional `comm` argument.
-When omitted the global communicator (`MPI.COMM_WORLD`) is used.
-You can pass a sub-communicator to isolate parallel operations:
-
-```python
-from bamboost import Collection
-from mpi4py import MPI
-
-sub_comm = MPI.COMM_WORLD.Split(color=MPI.COMM_WORLD.rank % 2)
-coll = Collection(uid="315628DE80", comm=sub_comm)
 ```

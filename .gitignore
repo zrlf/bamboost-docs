@@ -40,3 +40,5 @@ content/data/**
 *.quarto_ipynb
 .bamboost
 .pnpm-store
+
+**/*.quarto_ipynb

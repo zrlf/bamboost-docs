@@ -31,9 +31,9 @@ The `data.h5` file is organised into well-known groups:
 | Group / path | Contents |
 |---|---|
 | `/` (root) | Metadata attributes (`status`, `created_at`, `description`, …) |
-| `/params` | Input parameters (attributes + datasets) |
-| `/links` | References to other simulations |
-| `/mesh/<name>` | Mesh geometry (coordinates and topology) |
+| `/.parameters` | Input parameters (attributes + datasets) |
+| `/.links` | References to other simulations |
+| `/.mesh/<name>` | Mesh geometry (coordinates and topology) |
 | `/data` | Default time-series (fields and scalars) |
 | `/<series>` | Any additional named series |
 | `/.git/<repo>` | Optional git snapshot for reproducibility |

@@ -12,7 +12,7 @@
     "cli",
     "mpi",
     "extensions",
-    "---HDF5---",
+    "---HDF Interface---",
     "hdf/file_handler",
     "hdf/objects",
     "hdf/params",

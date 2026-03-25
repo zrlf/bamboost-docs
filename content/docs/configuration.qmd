@@ -13,7 +13,7 @@ Project settings take precedence over global ones.
 
 Both files use [TOML](https://toml.io/) with two top-level tables: `[options]` and `[index]`.
 
-```toml title="~/.config/bamboost/config.toml"
+```toml {title="~/.config/bamboost/config.toml"}
 [options]
 logLevel = "WARNING"
 sortTableKey = "created_at"
@@ -23,7 +23,7 @@ searchPaths = ["~/simulations", "/data/scratch/myuser"]
 excludeDirs = [".git", ".venv", "__pycache__"]
 ```
 
-```toml title="pyproject.toml (project-specific)"
+```toml {title="pyproject.toml (project-specific)"}
 [tool.bamboost.options]
 logLevel = "DEBUG"
 
@@ -31,7 +31,7 @@ logLevel = "DEBUG"
 isolated = true
 ```
 
-```toml title="bamboost.toml (project-specific)"
+```toml {title="bamboost.toml (project-specific)"}
 [options]
 logLevel = "DEBUG"
 
@@ -97,7 +97,7 @@ the search paths are automatically narrowed to the project root only.
 This is useful when you want to keep project data completely self-contained, for example
 when using `bamboost` as part of a reproducible research repository.
 
-```toml title="bamboost.toml"
+```toml {title="bamboost.toml"}
 [index]
 isolated = true
 ```
