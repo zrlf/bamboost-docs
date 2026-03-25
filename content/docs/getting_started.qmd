@@ -22,7 +22,7 @@ assign a unique ID to the new collection.
 from bamboost import Collection
 
 coll = Collection("../data/getting-started")  # [!code highlight]
-display(coll)
+coll
 ```
 
 Once created, it is often easier and safer to use the uid to reference the collection.
@@ -66,6 +66,12 @@ You have the intention of running a certain experiment with a specific set of in
 - A set of instructions on how to run the script
 
 To create a new simulation, use [add](/apidocs/core/collection#Collection.add):
+
+```{python}
+#| echo: false
+if "my-simulation" in coll.all_simulation_names():
+    coll.delete("my-simulation")
+```
 
 ```{python}
 sim = coll.add(

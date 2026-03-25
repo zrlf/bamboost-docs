@@ -116,18 +116,12 @@ pip install git+https://github.com/zrlf/bamboost-tui
 
 ### Dependencies
 
-#### System dependencies
-- HDF5 (optionally compiled with MPI)
-- (optional) an MPI implementation
-- SQLite (bundled with Python on all major platforms)
-
-#### Python environment
-> `python >= 3.10`
-
-- `h5py`
-- `sqlalchemy`
-- `rich`
-- (optional) `mpi4py` and `h5py` compiled against a parallel-HDF5-enabled `libhdf5`
+| Dependency | Purpose |
+| --- | --- |
+| Python 3.10+ | Yes. |
+| HDF5 | Data storage format for simulation results and parameters. |
+| MPI (optional) | Enables parallel I/O capabilities for large-scale simulations. |
+| SQLite | Local database for caching collection and simulation metadata. |
 
 
 ## Next Steps

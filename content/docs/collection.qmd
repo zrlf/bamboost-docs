@@ -4,6 +4,31 @@ html-table-processing: none
 jupyter: python3
 ---
 
+```{python}
+#| echo: false
+from bamboost import Collection
+coll = Collection(uid="C8C4A62EB9")
+# remove all existing simulations for demonstration purposes
+coll.delete(coll.all_simulation_names())
+
+# fill the collection with some simulations
+for i in range(6):
+  params = {
+    "E": 20 + i,
+    "nu": 0.1 + i * 0.05,
+    "disk": {
+        "radius": 2 + i,
+        "center": (0.5, 0.5)
+    }
+  }
+  coll.add(parameters=params, tags=["demo"])
+
+tags = coll[0].tags
+tags.add("epic")
+coll[0].edit().tags = tags
+
+```
+
 
 A _collection_ is an entity that holds any number of self-similar simulations.
 It has the purpose to manage simulations that (optimally) live in the same parameter space.
@@ -19,7 +44,8 @@ We provide a single entry point to work with a collection, the [Collection](/api
 ```{python}
 from bamboost import Collection
 
-coll = Collection(uid="315628DE80")
+coll = Collection(uid="C8C4A62EB9")
+coll
 ```
 
 To make best use of `bamboost`, use the unique 10 digit identifier to reference any instance of `Collection`.
@@ -60,7 +86,7 @@ The parameters of different simulations don't have to be consistent at all. Howe
 
 ```{python}
 params = {
-    "E": 20,
+    "E": 73.0,
     "nu": 0.3,
     "disk": {
         "radius": 2,
@@ -68,11 +94,12 @@ params = {
     }
 }
 
-sim = coll.add(parameters=params)
+sim = coll.add("my_new_one", parameters=params)
 ```
 
 The remaining arguments of `add` are:
 
+- **duplicate_action**: Action to take if a simulation with the same parameters already exists. Options are: "ignore" (create anyway), "replace" (delete existing and create new), "skip" (return existing simulation), "raise" (default, raise DuplicateSimulationError).
 - **description**: A simple string. Any note that helps you remember the purpose of this specific simulation, if any.
 - **files**: A `Iterable[str]` of files or directories, which are copied to the simulation directory. You can also use [`sim.copy_files(...)`](/apidocs/core/simulation/base#SimulationWriter.copy_files) later.
 - **links**: A `Dict[str, str]`, specifying links to other simulations. You must use their id, $e.g$ `links={"mesh": COLL1234:mesh_abc}`. Links are useful to gather relevant data from other simulations (and collections). For example, let's say you have a collection of FE meshes and each simulation uses one of them. Later on you can get a dataset from the mesh like this:
@@ -82,14 +109,24 @@ The remaining arguments of `add` are:
 - **override**: Default is `False`. If `True`, if a name is given and that name is already in use, then the existing simulation is removed and replaced with a fresh one.
 
 
-### Duplicates
+Now, if we print the collection again, we see the new simulation:
+```{python}
+coll.df
+```
 
-::: {.callout-warning}
-Implementation pending
-:::
+### Duplicates
 
 Before creating a new simulation, `bamboost` will check the parameter space for duplicates.
 To match as a duplicate, the two candidates must have the same number of parameters which all are equal. If all parameters existing in both simulations are equal, but one has an extra parameter, they are considered to be different.
+
+Use the `duplicate_action` argument of `add` to specify how to handle duplicates. You have the following options:
+
+| Action | Description |
+| --- | --- |
+| `ignore` | Create the new simulation anyway, even if a duplicate exists. |
+| `replace` | Delete the existing simulations that match and create the new one. |
+| `skip` | Don't create the new simulation, return the existing one instead. |
+| `raise` (default) | Raise a `DuplicateSimulationError` if a duplicate is found. |
 
 ### Parameter study
 

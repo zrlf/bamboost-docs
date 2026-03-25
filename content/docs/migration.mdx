@@ -20,7 +20,7 @@ The new and old versions do not interfere and can be installed and used side by 
 
 ---
 
-## Migrating from 0.10.x to 0.11.x
+## Migrating from 0.10.x to 0.11.x (and later)
 
 Version **0.11** changes the index database schema and file name.
 The old database (`bamboost-next.sqlite`) is **not** read by `0.11.x`.
@@ -84,7 +84,7 @@ bamboost scan
 
 Simulation UIDs now use the format `<collection_uid>:<simulation_name>`.
 
-Previously the separator was `/`; update any hardcoded strings in your analysis code.
+The collection identifier file is now `.bamboost-collection-<UID>`.
 
 ### 2. Writing data
 
@@ -107,11 +107,11 @@ Series data is now accessed through `sim.data` (a `Series` object) instead of di
 group traversal.
 
 ```python
-# Old
-sim.root["data"]["field"][5][:]
-
-# New
+# default series
 sim.data["field"][5]
+
+# other series
+sim.require_series("other")["field"][5]
 ```
 
 ### 4. Collection identifier files
