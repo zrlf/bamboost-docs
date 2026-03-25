@@ -199,7 +199,7 @@ return {
 		RawBlock = RawBlock,
 		DecoratedCodeBlock = DecoratedCodeBlock,
 		CodeBlock = CodeBlock,
-		Table = Table,
+		-- Table = Table,
 	},
 	{
 		Pandoc = Pandoc,
