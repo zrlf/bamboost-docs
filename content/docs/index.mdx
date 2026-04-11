@@ -1,20 +1,45 @@
 ---
 title: bamboost
-description: A python data framework for managing scientific simulation data.
+description: A python data framework for managing scientific simulation data. All your simulation data is organized, indexed, and easily accessible.
 icon: HandHelping
 ---
 
+
 import { File, Folder, Files } from "fumadocs-ui/components/files";
+import CollectionTable from '@/components/collection-table.tsx';
+
+## Highlights
+
+- <span className="text-primary">Zero setup.</span> Use a **collection**; add
+  **simulations** with input parameters; store your data; retrieve it.
+- <span className="text-primary">Fits any existing workflow.</span> You don't need to set up everything around bamboost. You can use it your way.
+- Immediate access to your <span className="text-primary">experimental design</span>. All
+  **simulations**, with their input parameters and metadata.
+    <CollectionTable className="mt-0" />
+- <span className="text-primary">Everything indexed.</span> All your collections,
+  simulations, parameters, links are findable. Accessible through their unique ID, from
+  anywhere.
+    ```text
+       UID         Path                                                               Aliases  Tags
+    0  315628DE80  /home/florez/work/code/bamboost-docs/content/data/getting-started               
+    1  C8C4A62EB9  /home/florez/work/code/bamboost-docs/content/data/example                       
+    2  C818107BA4  /home/florez/work/code/bamboost-docs/content/docs/simulation/data  docs         
+    3  70393345C1  /home/florez/work/projects/25-fft-jax/data-sine    
+    ```
+- <span className="text-primary">Straightforward API to write and read.</span>
+  Automatic HDF5 file handling. Store your data in a structured way, and retrieve it with
+  ease.
+    
 
 ## Introduction
 
-`bamboost` is a python data framework designed for managing scientific simulation data.
+`bamboost` is a python framework for managing scientific simulation data.
 It provides an organized model for storing, indexing, and retrieving
 simulation results, making it easier to work with large-scale computational
 studies. 
 In its core, it is a filesystem storage model, providing directories for
 **simulations**, bundled in **collections**. 
-However, we enrich the experience with local **sqlite** databases.
+However, with the benefits of a database.
 
 <Callout>
 
