@@ -5,15 +5,17 @@ title: Configuration
 `bamboost` reads configuration from two sources that are merged together:
 
 1. A **global** config file at `~/.config/bamboost/config.toml`
-2. A **project** config file — either `bamboost.toml` or the `[tool.bamboost]` table in `pyproject.toml`, located at the project root (the nearest parent directory that contains `.git` or `pyproject.toml`)
+2. A **project** config file — either `bamboost.toml` or the `[tool.bamboost]` table in
+   `pyproject.toml`, located at the project root (the nearest parent directory that
+   contains `.git` or `pyproject.toml`)
 
 Project settings take precedence over global ones.
 
 ## Config file format
 
-Both files use [TOML](https://toml.io/) with two top-level tables: `[options]` and `[index]`.
+Both files use [TOML](https://toml.io/) with top-level tables `[options]` and `[index]`.
 
-```toml {title="~/.config/bamboost/config.toml"}
+```toml title="~/.config/bamboost/config.toml"
 [options]
 logLevel = "WARNING"
 sortTableKey = "created_at"
@@ -23,7 +25,7 @@ searchPaths = ["~/simulations", "/data/scratch/myuser"]
 excludeDirs = [".git", ".venv", "__pycache__"]
 ```
 
-```toml {title="pyproject.toml (project-specific)"}
+```toml title="pyproject.toml (project-specific)"
 [tool.bamboost.options]
 logLevel = "DEBUG"
 
@@ -31,7 +33,7 @@ logLevel = "DEBUG"
 isolated = true
 ```
 
-```toml {title="bamboost.toml (project-specific)"}
+```toml title="bamboost.toml (project-specific)"
 [options]
 logLevel = "DEBUG"
 
@@ -43,24 +45,25 @@ isolated = true
 
 | Key | Type | Default | Description |
 |---|---|---|---|
-| `mpi` | `bool` | auto | Enable MPI support. Defaults to `True` if `mpi4py` is installed. |
+| `mpi` | `bool` | `false` | Enable MPI detection. When set to `true`, bamboost checks for standard MPI launcher environment variables and initialises `mpi4py` if found. |
 | `sortTableKey` | `str` | `"created_at"` | Default column used to sort the collection DataFrame. |
-| `sortTableOrder` | `str` | `"desc"` | Sort order: `"asc"` or `"desc"`. |
+| `sortTableOrder` | `str` | `"desc"` | Sort order for the table: `"asc"` or `"desc"`. |
 | `logLevel` | `str` | `"WARNING"` | Log verbosity: `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL`. |
 | `log_root_only` | `bool` | `false` | If `true`, suppress log messages from non-root MPI ranks. |
-| `log_file_lock_severity` | `str` | `"WARNING"` | Log level for HDF5 file-lock retry messages. |
+| `log_file_lock_severity` | `str` | `"WARNING"` | Log level used when bamboost is waiting to acquire an HDF5 file lock. |
+| `file_lock_timeout` | `float\|null` | `60.0` | Seconds to wait for an HDF5 file lock before raising `TimeoutError`. Set to `0` to fail immediately; set to `null` (or a negative value) to wait indefinitely. |
 | `clipboardCommand` | `str\|null` | `null` | Shell command used to copy text to the clipboard (e.g. `"wl-copy"`, `"xclip -sel clip"`, `"pbcopy"`). Required for `bamboost yank`. |
 
 ## `[index]` — Index options
 
 | Key | Type | Default | Description |
 |---|---|---|---|
-| `searchPaths` (alias: `paths`) | `list[str]` | `["~"]` | Directories to scan when looking for `bamboost` collections. |
+| `searchPaths` (alias: `paths`) | `list[str]` | `["~"]` | Directories to scan when looking for bamboost collections. |
 | `excludeDirs` | `list[str]` | *many* | Directory names to skip during scanning (`.git`, `venv`, `node_modules`, …). |
-| `extendDefaultExcludeDirs` | `list[str]\|null` | `null` | Extra directory names to add to the default exclude list. |
+| `extendDefaultExcludeDirs` | `list[str]\|null` | `null` | Extra directory names to add to the default exclude list without replacing it. |
 | `syncTables` | `bool` | `true` | Keep the SQLite cache up to date after reads and writes. |
 | `convertArrays` | `bool` | `true` | Deserialise SQLite lists as `numpy` arrays. |
-| `databaseFileName` | `str` | `"bamboost.0.11.sqlite"` | Basename of the index database file. |
+| `databaseFileName` | `str` | `"bamboost.0.11.sqlite"` | Basename of the index database file (used when not in isolated mode). |
 | `isolated` | `bool` | `false` | Restrict the index to the current project directory and store the database under `.bamboost/`. |
 | `strictLinks` | `bool` | `true` | Raise an error when assigning a link whose target simulation is not found in the index. |
 | `strictLinksWhenSyncing` | `bool` | `false` | Apply `strictLinks` validation also during collection syncing. |
@@ -74,7 +77,7 @@ from bamboost import config
 
 print(config.options.logLevel)
 print(config.index.searchPaths)
-print(config.index.databaseFile)   # resolved path to the active database
+print(config.index.databaseFile)   # resolved Path to the active database file
 ```
 
 You can override individual options at runtime before creating any `Collection`
@@ -87,18 +90,20 @@ config.options.logLevel = "DEBUG"
 config.index.syncTables = False
 ```
 
+Setting `config.options.mpi = True` at runtime will also re-trigger MPI detection
+immediately (if `bamboost.mpi` has already been imported).
+
 ## Isolated mode
 
-Setting `isolated = true` in your project config makes `bamboost` manage a
+Setting `isolated = true` in your project config makes bamboost manage a
 **project-local** index database.
 The database is stored at `.bamboost/bamboost.0.11.sqlite` inside the project root, and
 the search paths are automatically narrowed to the project root only.
 
 This is useful when you want to keep project data completely self-contained, for example
-when using `bamboost` as part of a reproducible research repository.
+when using bamboost as part of a reproducible research repository.
 
-```toml {title="bamboost.toml"}
+```toml title="bamboost.toml"
 [index]
 isolated = true
 ```
-
