@@ -51,7 +51,9 @@ jobs:
       - name: Install Vercel CLI and dependencies
         run: npm install --global vercel@latest pnpm
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          rm -rf .vercel
+          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
         run: |
           source .venv/bin/activate
