@@ -12,7 +12,7 @@ contributes:
         - "**/*.ipynb"
       preview:
         serve:
-          cmd: "pnpm next dev --turbo"
+          cmd: "pnpm --dir .. exec next dev --turbo"
           ready: "compiled successfully"
     format: fumadocs-md
   formats:

@@ -42,3 +42,4 @@ content/data/**
 .pnpm-store
 
 **/*.quarto_ipynb
+**/*.quarto_ipynb_1
